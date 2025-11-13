@@ -8,50 +8,334 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #020617 100%);
       color: #e5e7eb;
       line-height: 1.5;
-      padding-bottom: 3rem;
     }
-    .page { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
-    h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 1rem;
-      color: #38bdf8;
+    a { text-decoration: none; color: inherit; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
     }
-    p { font-size: 1rem; max-width: 700px; margin-bottom: 1.2rem; color: #d1d5db; }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+    }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #38bdf8);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: .85rem;
+      color: #020617;
+    }
+    .brand-text small {
+      display: block;
+      font-size: .65rem;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      color: #9ca3af;
+    }
+    .brand-text span {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+    .header-pill {
+      font-size: .75rem;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: rgba(15,23,42,.75);
+      color: #9ca3af;
+    }
+
+    /* HERO / BANNER */
+    .hero {
+      margin-top: .25rem;
+      border-radius: 1.4rem;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.88)),
+        url("https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=1600");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(15,23,42,0.9);
+      box-shadow: 0 28px 80px -40px rgba(15,23,42,0.95);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 1.75rem;
+      padding: 2.1rem 2rem;
+    }
+    @media (max-width: 830px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 1.8rem 1.5rem 1.6rem;
+      }
+    }
+
+    .hero-main-eyebrow {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: #a5b4fc;
+      margin-bottom: .4rem;
+    }
+    .hero-title {
+      font-size: clamp(2.1rem, 4.3vw, 3.1rem);
+      font-weight: 800;
+      letter-spacing: .08em;
+      color: #f9fafb;
+      margin-bottom: .4rem;
+    }
+    .hero-sub {
+      font-size: .95rem;
+      max-width: 32rem;
+      color: #e5e7eb;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: 1.3rem;
+    }
+    .hero-badge {
+      font-size: .7rem;
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.4);
+      background: rgba(15,23,42,.7);
+      color: #cbd5f5;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: 1.2rem;
+    }
+
     .btn {
       display: inline-block;
-      font-size: 1rem;
-      padding: .75rem 1.4rem;
-      border-radius: .8rem;
+      font-size: .9rem;
+      padding: .7rem 1.4rem;
+      border-radius: .85rem;
       border: 1px solid #1e293b;
-      margin-right: .5rem;
-      margin-bottom: .5rem;
       cursor: pointer;
-      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
     }
-    .btn-primary { background: #38bdf8; color: #0f172a; font-weight: 600; }
-    .btn-ghost { background: transparent; color: #e5e7eb; }
+    .btn-primary {
+      background: #38bdf8;
+      color: #020617;
+      font-weight: 600;
+      border-color: #38bdf8;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #e5e7eb;
+      border-color: #334155;
+    }
+    .btn-ghost:hover {
+      background: rgba(15,23,42,.7);
+    }
+    .btn-outline {
+      background: transparent;
+      color: #38bdf8;
+      border-color: #38bdf8;
+    }
+
+    .hero-note {
+      font-size: .8rem;
+      color: #cbd5e1;
+      max-width: 30rem;
+    }
+    .hero-note strong { color: #e5e7eb; }
+
+    /* AUTH BOX */
+    .auth-card {
+      backdrop-filter: blur(16px);
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(15,23,42,0.97));
+      border-radius: 1.2rem;
+      border: 1px solid rgba(30,64,175,0.65);
+      padding: 1.4rem 1.5rem 1.5rem;
+      align-self: center;
+    }
+    .auth-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: .25rem;
+      color: #e5e7eb;
+    }
+    .auth-sub {
+      font-size: .8rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .auth-btn {
+      width: 100%;
+      font-size: .9rem;
+      padding: .65rem .9rem;
+      border-radius: .7rem;
+      border: 1px solid #1e293b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .45rem;
+      margin-bottom: .6rem;
+      background: #f9fafb;
+      color: #020617;
+      font-weight: 600;
+    }
+    .auth-btn span.icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 2px solid #020617;
+      display: inline-block;
+    }
+    .auth-btn-secondary {
+      background: transparent;
+      color: #e5e7eb;
+      border-color: #334155;
+      font-weight: 500;
+    }
+    .auth-divider {
+      font-size: .7rem;
+      text-align: center;
+      color: #64748b;
+      margin: .5rem 0 .9rem;
+      position: relative;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: #1f2937;
+    }
+    .auth-divider::before { left: 0; }
+    .auth-divider::after { right: 0; }
+
+    .auth-mini {
+      font-size: .75rem;
+      color: #6b7280;
+    }
+    .auth-mini a {
+      color: #38bdf8;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+    }
+
+    /* FOOTER TEXT */
+    .preview-note {
+      max-width: 750px;
+      margin: 1.8rem auto 0;
+      font-size: .8rem;
+      color: #9ca3af;
+      text-align: left;
+    }
   </style>
 </head>
 <body>
   <div class="page">
+    <!-- HEADER SIMPLE -->
+    <header>
+      <div class="brand">
+        <div class="brand-mark">7.0</div>
+        <div class="brand-text">
+          <small>Revolución inmobiliaria</small>
+          <span>PLATAFORMA 7.0</span>
+        </div>
+      </div>
+      <div class="header-pill">
+        Nadie cobra si la vivienda no se vende.
+      </div>
+    </header>
 
-    <h1>Plataforma 7.0</h1>
-    <p>Venta colaborativa inteligente donde propietarios, agencias, difusores y profesionales trabajan unidos con un modelo simple: nadie cobra si la vivienda no se vende.</p>
+    <!-- HERO / BANNER PRINCIPAL -->
+    <section class="hero">
+      <!-- LADO IZQUIERDO: MENSAJE, CTA -->
+      <div>
+        <div class="hero-main-eyebrow">Sistema colaborativo a éxito</div>
+        <h1 class="hero-title">PLATAFORMA 7.0</h1>
+        <p class="hero-sub">
+          Venta colaborativa inteligente donde propietarios, agencias, difusores y profesionales trabajan unidos
+          con un modelo simple y radicalmente honesto: <strong>nadie cobra si la vivienda no se vende.</strong>
+        </p>
 
-<!-- BOTONES DE NAVEGACIÓN (CORREGIDOS PARA GITHUB PAGES) -->
-<a class="btn btn-primary" href="propietarios.html">Soy propietario</a>
-<a class="btn btn-ghost" href="agencias.html">Soy agencia / profesional</a>
-<a class="btn btn-ghost" href="difusores.html">Soy creador / difusor</a>
-<a class="btn btn-ghost" href="dashboard.html" style="border-color:#38bdf8;color:#38bdf8;">
-  Ver panel 7.0 en acción
-</a>
+        <div class="hero-badges">
+          <span class="hero-badge">Propietario con control total</span>
+          <span class="hero-badge">Profesionales a éxito</span>
+          <span class="hero-badge">Difusión internacional real</span>
+          <span class="hero-badge">Transparencia hasta notaría</span>
+        </div>
 
-    <hr style="margin: 2rem 0; border-color: #1e293b;" />
+        <div class="cta-row">
+          <a class="btn btn-primary" href="propietarios.html">Soy propietario</a>
+          <a class="btn btn-ghost" href="agencias.html">Soy agencia / profesional</a>
+          <a class="btn btn-ghost" href="difusores.html">Soy creador / difusor</a>
+          <a class="btn btn-outline" href="dashboard.html">Ver panel 7.0 en acción</a>
+        </div>
 
-    <p>Esta es una previsualización. El siguiente paso será conectar este panel con base de datos y activar las acciones a éxito.</p>
+        <p class="hero-note">
+          <strong>Una sola plataforma.</strong> Tú decides qué servicios activar, cuándo y con quién.  
+          Todos los profesionales trabajan en red y solo cobran cuando tú firmas en notaría.
+        </p>
+      </div>
+
+      <!-- LADO DERECHO: CAJA DE REGISTRO / LOGIN -->
+      <aside class="auth-card">
+        <h2 class="auth-title">Empieza ahora</h2>
+        <p class="auth-sub">
+          Prueba el sistema con tu próxima vivienda en venta o integra tu servicio como profesional 7.0.
+        </p>
+
+        <!-- De momento, estos enlaces van a tus páginas estáticas -->
+        <a href="login.html" class="auth-btn">
+          <span class="icon"></span>
+          <span>Entrar con Google</span>
+        </a>
+
+        <a href="registro.html" class="auth-btn auth-btn-secondary">
+          Crear cuenta con email
+        </a>
+
+        <div class="auth-divider">o</div>
+
+        <p class="auth-mini">
+          Solo quieres verlo primero?  
+          <a href="dashboard.html">Abre el panel demostración 7.0</a> y explora cómo se reparten acciones y pagos a éxito.
+        </p>
+      </aside>
+    </section>
+
+    <!-- NOTA DE PREVISUALIZACIÓN -->
+    <p class="preview-note">
+      Esta es una previsualización visual. El siguiente paso será conectar este panel con una base de datos,
+      registro real de propietarios, agencias, difusores y activación de servicios a éxito con verificación en notaría.
+    </p>
   </div>
 </body>
 </html>
