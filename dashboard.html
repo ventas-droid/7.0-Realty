@@ -772,9 +772,8 @@
     showTab('propietario');
 
     // ------------------------------
-    // Estados de servicios: "off" | "on" | "done"
+    // Estados de servicios EN MEMORIA: "off" | "on" | "done"
     // ------------------------------
-    const STORAGE_KEY_SERVICIOS = 'p70_owner_services_v3';
     const serviceButtons = document.querySelectorAll('.service-btn');
     const profButtons = document.querySelectorAll('.agency-btn');
     const toggles = document.querySelectorAll('[data-toggle]');
@@ -782,6 +781,9 @@
     const originalLogHTML = auditLog ? auditLog.innerHTML : '';
     const kpiAcciones = document.getElementById('kpi-acciones');
     const kpiImporte = document.getElementById('kpi-importe');
+
+    // Estados en memoria (no se guarda al recargar)
+    const estadosServicios = {};
 
     const serviceConfig = {
       fotos: {
@@ -954,21 +956,8 @@
       }
     };
 
-    function loadServicios() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY_SERVICIOS);
-        return raw ? JSON.parse(raw) : {};
-      } catch(e) {
-        return {};
-      }
-    }
-
-    function saveServicios(map) {
-      localStorage.setItem(STORAGE_KEY_SERVICIOS, JSON.stringify(map));
-    }
-
     function renderServicios() {
-      const estados = loadServicios();
+      const estados = estadosServicios;
 
       // Botones propietario
       serviceButtons.forEach(btn => {
@@ -1066,20 +1055,18 @@
     serviceButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.service;
-        const estados = loadServicios();
-        const current = estados[id] || 'off';
+        const current = estadosServicios[id] || 'off';
 
         if (current === 'done') {
           return;
         }
 
         if (current === 'off') {
-          estados[id] = 'on';
+          estadosServicios[id] = 'on';
         } else if (current === 'on') {
-          estados[id] = 'off';
+          estadosServicios[id] = 'off';
         }
 
-        saveServicios(estados);
         renderServicios();
       });
     });
@@ -1088,12 +1075,10 @@
     profButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.profService;
-        const estados = loadServicios();
-        const current = estados[id] || 'off';
+        const current = estadosServicios[id] || 'off';
 
         if (current === 'on' || current === 'off') {
-          estados[id] = 'done';
-          saveServicios(estados);
+          estadosServicios[id] = 'done';
           renderServicios();
         }
       });
