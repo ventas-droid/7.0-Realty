@@ -1,0 +1,1 @@
+Proyecto Plataforma 7.0 listo para subir a GitHub.
