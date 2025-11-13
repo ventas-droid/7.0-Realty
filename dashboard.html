@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Plataforma 7.0 – Panel demostración</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 1.2rem 1.5rem 0.8rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #38bdf8);
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: .85rem;
+    }
+    .logo-text small {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #9ca3af;
+    }
+    .logo-text span {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .header-actions {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    .chip {
+      font-size: .7rem;
+      padding: .25rem .7rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      color: #9ca3af;
+    }
+    .btn-mini {
+      font-size: .75rem;
+      padding: .3rem .75rem;
+      border-radius: .75rem;
+      border: 1px solid #1f2937;
+      background: #0b1120;
+      cursor: default;
+    }
+    main {
+      flex: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 2rem;
+    }
+    .page-title {
+      margin-bottom: .8rem;
+    }
+    .page-title h1 {
+      font-size: 1.4rem;
+      margin-bottom: .2rem;
+    }
+    .page-title p {
+      font-size: .85rem;
+      color: #9ca3af;
+    }
+    .tabs {
+      display: flex;
+      gap: .4rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .tab {
+      font-size: .8rem;
+      padding: .45rem .9rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      cursor: pointer;
+      color: #cbd5f5;
+    }
+    .tab.active {
+      background: #22c55e;
+      color: #022c22;
+      border-color: #22c55e;
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    .card {
+      background: #020617;
+      border-radius: 1rem;
+      border: 1px solid #1f2937;
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 18px 40px -30px rgb(15 23 42 / 0.95);
+    }
+    .card h2 {
+      font-size: 1rem;
+      margin-bottom: .25rem;
+    }
+    .card p {
+      font-size: .85rem;
+      color: #9ca3af;
+      margin-bottom: .6rem;
+    }
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-bottom: .7rem;
+    }
+    .badge {
+      font-size: .7rem;
+      padding: .25rem .6rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #0b1120;
+      color: #cbd5f5;
+    }
+    .section-title {
+      font-size: .85rem;
+      font-weight: 600;
+      margin: .8rem 0 .4rem;
+    }
+    .list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .list li::before {
+      content: "• ";
+      color: #22c55e;
+    }
+    .list li {
+      font-size: .85rem;
+      color: #e5e7eb;
+      margin-bottom: .25rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: .6rem;
+      margin-top: .4rem;
+    }
+    .service-item {
+      font-size: .8rem;
+      border-radius: .8rem;
+      border: 1px solid #1f2937;
+      background: #020617;
+      padding: .55rem .6rem;
+      display: flex;
+      flex-direction: column;
+      gap: .1rem;
+    }
+    .service-item strong {
+      font-size: .82rem;
+    }
+    .service-meta {
+      font-size: .7rem;
+      color: #9ca3af;
+    }
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      margin-top: .4rem;
+      font-size: .78rem;
+    }
+    .toggle {
+      padding: .2rem .5rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #0b1120;
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      cursor: default;
+    }
+    .toggle-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: .6rem;
+      margin-top: .6rem;
+    }
+    .kpi {
+      border-radius: .8rem;
+      border: 1px solid #1f2937;
+      background: #020617;
+      padding: .55rem .6rem;
+    }
+    .kpi label {
+      display: block;
+      font-size: .7rem;
+      color: #9ca3af;
+      margin-bottom: .1rem;
+    }
+    .kpi span {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+    .log {
+      font-size: .78rem;
+      margin-top: .6rem;
+      max-height: 190px;
+      overflow-y: auto;
+      border-radius: .7rem;
+      border: 1px dashed #1f2937;
+      padding: .5rem .6rem;
+      background: #020617;
+    }
+    .log-entry {
+      margin-bottom: .25rem;
+      color: #9ca3af;
+    }
+    .log-entry strong { color: #e5e7eb; }
+    .hint {
+      font-size: .75rem;
+      color: #9ca3af;
+      margin-top: .4rem;
+    }
+    footer {
+      font-size: .7rem;
+      color: #6b7280;
+      padding: .75rem 1.5rem 1.3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">7.0</div>
+        <div class="logo-text">
+          <small>Panel demostración</small>
+          <span>Plataforma 7.0</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="/index.html" class="btn-mini">← Volver a la página principal</a>
+        <span class="chip">Prototipo visual · sin datos reales</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="page-title">
+        <h1>Panel central de Plataforma 7.0</h1>
+        <p>Vista simulada de cómo se organiza la información para propietarios, agencias, difusores y auditoría.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="propietario">Propietario</button>
+        <button class="tab" data-tab="agencia">Agencia / Profesional</button>
+        <button class="tab" data-tab="difusor">Difusores / Creadores</button>
+        <button class="tab" data-tab="auditor">Auditoría</button>
+      </div>
+
+      <div class="grid">
+        <!-- PANEL PROPIETARIO -->
+        <section id="panel-propietario" class="panel">
+          <div class="card">
+            <h2>Propietario – Ático Blue Sunset</h2>
+            <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
+
+            <div class="badge-row">
+              <span class="badge">2 dorm · 2 baños</span>
+              <span class="badge">Vistas al mar</span>
+              <span class="badge">La Duquesa · Manilva</span>
+              <span class="badge">Campaña activa</span>
+            </div>
+
+            <div class="section-title">Acciones activadas por el propietario</div>
+            <ul class="list">
+              <li>Ha subido documentación básica y descripción completa de la vivienda.</li>
+              <li>Ha activado fotos profesionales y vídeo con dron, a pago a éxito.</li>
+              <li>Ha solicitado una valoración profesional para ajustar el precio de salida.</li>
+              <li>Ha pedido revisión legal para llegar limpio a la notaría.</li>
+            </ul>
+
+            <div class="section-title">Servicios disponibles (tarifas ejemplo)</div>
+            <div class="services-grid">
+              <div class="service-item">
+                <strong>Fotos PRO</strong>
+                <div class="service-meta">450 € · pago a éxito</div>
+                <div class="service-meta">Fotógrafo especializado inmobiliario.</div>
+              </div>
+              <div class="service-item">
+                <strong>Vídeo + dron</strong>
+                <div class="service-meta">450 € · pago a éxito</div>
+                <div class="service-meta">Recorrido interior + vistas aéreas.</div>
+              </div>
+              <div class="service-item">
+                <strong>Home staging</strong>
+                <div class="service-meta">750–1200 €</div>
+                <div class="service-meta">Mejora estética sin reformas pesadas.</div>
+              </div>
+              <div class="service-item">
+                <strong>Blogger internacional</strong>
+                <div class="service-meta">3000 € · pago a éxito</div>
+                <div class="service-meta">Historia real en otro país.</div>
+              </div>
+              <div class="service-item">
+                <strong>Revisión legal</strong>
+                <div class="service-meta">250 € · pagado al cierre</div>
+                <div class="service-meta">Abogado inmobiliario especializado.</div>
+              </div>
+            </div>
+
+            <div class="toggle-row">
+              <span class="toggle"><span class="toggle-dot"></span> Fotos PRO activadas</span>
+              <span class="toggle"><span class="toggle-dot"></span> Vídeo + dron activo</span>
+              <span class="toggle"><span class="toggle-dot"></span> Blogger pendiente de contenido</span>
+            </div>
+
+            <p class="hint">
+              El propietario ve esto como “panel de mando”: qué está activo, qué falta por activar y quién está implicado.
+            </p>
+          </div>
+        </section>
+
+        <!-- PANEL AGENCIA -->
+        <section id="panel-agencia" class="panel" style="display:none;">
+          <div class="card">
+            <h2>Agencia 7.0 – Centro de producción</h2>
+            <p>Vista para agencias que dejan de vivir de exclusivas vacías y pasan a producir resultados.</p>
+
+            <div class="badge-row">
+              <span class="badge">Equipo 7.0 Activo</span>
+              <span class="badge">Comercial autónomo</span>
+              <span class="badge">Abogado interno</span>
+              <span class="badge">Valorador profesional</span>
+            </div>
+
+            <div class="section-title">Servicios que ofrece la agencia dentro de la plataforma</div>
+            <ul class="list">
+              <li>Acompañamiento a visitas: comercial autónomo cobra por visita cualificada.</li>
+              <li>Valoraciones profesionales con informe completo de mercado.</li>
+              <li>Gestión de reportajes y contenido audiovisual para varias viviendas a la vez.</li>
+              <li>Coordinación con bloggers, difusores y propietarios dentro del mismo sistema.</li>
+            </ul>
+
+            <div class="section-title">Ejemplo de tarifas internas</div>
+            <div class="services-grid">
+              <div class="service-item">
+                <strong>Comercial por visita</strong>
+                <div class="service-meta">50 € por visita</div>
+                <div class="service-meta">Autónomo, alta en la red 7.0.</div>
+              </div>
+              <div class="service-item">
+                <strong>Valoración profesional</strong>
+                <div class="service-meta">100–300 €</div>
+                <div class="service-meta">Gratis si se gestiona la venta.</div>
+              </div>
+              <div class="service-item">
+                <strong>Gestión total</strong>
+                <div class="service-meta">máx. 3 % sobre venta</div>
+                <div class="service-meta">Solo si se cierra la operación.</div>
+              </div>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">
+                <label>Propiedades activas</label>
+                <span>12</span>
+              </div>
+              <div class="kpi">
+                <label>Visitas esta semana</label>
+                <span>24</span>
+              </div>
+              <div class="kpi">
+                <label>Ventas cerradas mes</label>
+                <span>3</span>
+              </div>
+              <div class="kpi">
+                <label>Honorarios a cobrar</label>
+                <span>18.500 €</span>
+              </div>
+            </div>
+
+            <p class="hint">
+              La agencia ve el sistema como una fábrica de resultados: menos escaparate, más contenido, más foco en cierres reales.
+            </p>
+          </div>
+        </section>
+
+        <!-- PANEL DIFUSOR -->
+        <section id="panel-difusor" class="panel" style="display:none;">
+          <div class="card">
+            <h2>Difusores y creadores</h2>
+            <p>Personas que no son agentes, pero tienen audiencia y pueden ayudar a vender compartiendo historias reales.</p>
+
+            <div class="badge-row">
+              <span class="badge">Bloggers</span>
+              <span class="badge">YouTubers</span>
+              <span class="badge">Influencers</span>
+              <span class="badge">Gente normal con redes</span>
+            </div>
+
+            <div class="section-title">Cómo funciona para un difusor</div>
+            <ul class="list">
+              <li>Se registra como difusor en la plataforma.</li>
+              <li>Recibe un enlace o material de la vivienda para compartir en sus redes.</li>
+              <li>Su tráfico se registra: clics, interesados, visitas programadas.</li>
+              <li>Si la vivienda se vende y su difusión ha tenido impacto real, cobra una cantidad pactada.</li>
+            </ul>
+
+            <div class="section-title">Ejemplo de recompensa</div>
+            <div class="services-grid">
+              <div class="service-item">
+                <strong>Difusor local</strong>
+                <div class="service-meta">Publica en grupos y contactos</div>
+                <div class="service-meta">Ejemplo: hasta 500–1000 € al cierre según impacto.</div>
+              </div>
+              <div class="service-item">
+                <strong>Influencer nicho extranjero</strong>
+                <div class="service-meta">Público comprador de tu zona</div>
+                <div class="service-meta">Ejemplo: 2000–3000 € a éxito.</div>
+              </div>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">
+                <label>Difusores activos</label>
+                <span>14</span>
+              </div>
+              <div class="kpi">
+                <label>Alcance estimado</label>
+                <span>23.000</span>
+              </div>
+              <div class="kpi">
+                <label>Viviendas con difusión 7.0</label>
+                <span>8</span>
+              </div>
+            </div>
+
+            <p class="hint">
+              Todo el sistema está pensado para repartir valor: si tu difusión ayuda a vender, cobras. Si no, nadie te cobra ni cobra.
+            </p>
+          </div>
+        </section>
+
+        <!-- PANEL AUDITOR -->
+        <section id="panel-auditor" class="panel" style="display:none;">
+          <div class="card">
+            <h2>Auditoría 7.0</h2>
+            <p>Una visión simple de cómo se podría registrar quién participa, qué se activa y qué se paga al cierre.</p>
+
+            <div class="badge-row">
+              <span class="badge">Registro de acciones</span>
+              <span class="badge">Transparencia</span>
+              <span class="badge">Preparado para notaría</span>
+            </div>
+
+            <div class="kpis">
+              <div class="kpi">
+                <label>Acciones registradas</label>
+                <span>32</span>
+              </div>
+              <div class="kpi">
+                <label>Profesionales implicados</label>
+                <span>9</span>
+              </div>
+              <div class="kpi">
+                <label>Difusores con impacto</label>
+                <span>4</span>
+              </div>
+              <div class="kpi">
+                <label>Importe a repartir</label>
+                <span>12.300 €</span>
+              </div>
+            </div>
+
+            <div class="section-title">Ejemplo de “registro” de la vivienda</div>
+            <div class="log">
+              <div class="log-entry"><strong>Propietario</strong> activa Fotos PRO (450 € a éxito).</div>
+              <div class="log-entry"><strong>Propietario</strong> activa Vídeo + dron (450 € a éxito).</div>
+              <div class="log-entry"><strong>Agencia 7.0</strong> asigna comercial autónomo para visitas (50 €/visita).</div>
+              <div class="log-entry"><strong>Abogado</strong> registra revisión legal pendiente (250 € al cierre).</div>
+              <div class="log-entry"><strong>Blogger FR</strong> publica historia sobre “ático con vistas a África”.</div>
+              <div class="log-entry"><strong>Difusor local</strong> comparte la vivienda en grupos de la zona.</div>
+              <div class="log-entry"><strong>Venta</strong>: se cierra operación y se reparte el valor entre implicados.</div>
+            </div>
+
+            <p class="hint">
+              En la versión completa, este panel se conectaría a una base de datos y, si se quiere, a la notaría para verificar que los pagos a éxito quedan reflejados de forma justa.
+            </p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      Plataforma 7.0 – Panel demostración · Esta página es un prototipo visual estático pensado para explicar el sistema.
+    </footer>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab')
+    const panels = document.querySelectorAll('.panel')
+
+    function showTab(name){
+      panels.forEach(p => {
+        if(p.id === 'panel-' + name){ p.style.display = '' }
+        else { p.style.display = 'none' }
+      })
+      tabs.forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === name)
+      })
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => showTab(t.dataset.tab))
+    })
+
+    // por defecto, mostramos "propietario"
+    showTab('propietario')
+  </script>
+</body>
+</html>
