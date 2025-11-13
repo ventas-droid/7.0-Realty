@@ -527,38 +527,34 @@
       </div>
     </main>
 
-    <footer>
+       <footer>
       Plataforma 7.0 – Panel demostración · Esta página es un prototipo visual estático pensado para explicar el sistema.
     </footer>
   </div>
 
   <script>
-    const tabs = document.querySelectorAll('.tab')
-    const panels = document.querySelectorAll('.panel')
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
 
-    function showTab(name){
+    function showTab(name) {
       panels.forEach(p => {
-        if(p.id === 'panel-' + name){ p.style.display = '' }
-        else { p.style.display = 'none' }
-      })
+        if (p.id === 'panel-' + name) {
+          p.style.display = '';
+        } else {
+          p.style.display = 'none';
+        }
+      });
       tabs.forEach(t => {
-        t.classList.toggle('active', t.dataset.tab === name)
-      })
+        t.classList.toggle('active', t.dataset.tab === name);
+      });
     }
 
     tabs.forEach(t => {
-      t.addEventListener('click', () => showTab(t.dataset.tab))
-    })
+      t.addEventListener('click', () => showTab(t.dataset.tab));
+    });
 
     // por defecto, mostramos "propietario"
-    showTab('propietario')
+    showTab('propietario');
   </script>
-    
-  <script>
-
-      // si no hay usuario, lo mandamos a login
-      window.location.href = '/login.html';
-    } else {
-      console.log("Usuario conectado:", current);
-    }
-  </script>
+</body>
+</html>
