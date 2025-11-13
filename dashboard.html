@@ -206,6 +206,38 @@
       background:#450a0a;
       color:#fecaca;
     }
+    /* Botón dorado para servicios activados */
+    .service-btn-gold {
+      border-color:#facc15;
+      background: radial-gradient(circle at top, #facc15, #92400e);
+      color:#0f172a;
+      font-weight:600;
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+    }
+    .service-btn-gold span.crown {
+      font-size:.85rem;
+    }
+    /* Botón dorado especial de FULL ACCIONES */
+    .service-btn-full {
+      margin-top:.35rem;
+      padding:.35rem .9rem;
+      border-radius:.7rem;
+      border:1px solid #fbbf24;
+      background: radial-gradient(circle at top, #facc15, #b45309);
+      color:#022c22;
+      font-size:.78rem;
+      font-weight:700;
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      cursor:pointer;
+    }
+    .service-btn-full span.crown {
+      font-size:.9rem;
+    }
+
     .service-btn-done {
       border-color:#38bdf8;
       background:#0b1120;
@@ -312,6 +344,38 @@
     .agency-btn:disabled {
       opacity:.7;
       cursor:default;
+    }
+    /* Caja total coste */
+    .cost-box {
+      margin-top:1rem;
+      border-radius:.9rem;
+      border:1px solid #1f2937;
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.16), rgba(15,23,42,0.96));
+      padding:.75rem .8rem;
+      font-size:.8rem;
+    }
+    .cost-main {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.5rem;
+      margin-bottom:.4rem;
+    }
+    .cost-label {
+      color:#e5e7eb;
+      font-weight:500;
+    }
+    .cost-value {
+      font-size:.95rem;
+      font-weight:700;
+      color:#facc15;
+    }
+    .cost-note {
+      font-size:.75rem;
+      color:#9ca3af;
+    }
+    .cost-note strong {
+      color:#facc15;
     }
   </style>
 </head>
@@ -544,8 +608,12 @@
               <div class="service-item">
                 <strong>Gestión total 7.0</strong>
                 <div class="service-meta">Hasta 3 % a éxito</div>
-                <div class="service-meta">Coordinación integral hasta notaría.</div>
+                <div class="service-meta">Coordinación integral hasta Notaría – Full acciones.</div>
                 <button class="service-btn" data-service="gestion_total">Activar este servicio</button>
+                <button class="service-btn-full" id="btn-full-acciones">
+                  <span class="crown">👑</span>
+                  Full acciones 7.0
+                </button>
               </div>
             </div>
 
@@ -553,6 +621,17 @@
               <span class="toggle" data-toggle="fotos"><span class="toggle-dot"></span> Fotos PRO activadas</span>
               <span class="toggle" data-toggle="video"><span class="toggle-dot"></span> Vídeo + dron activo</span>
               <span class="toggle" data-toggle="blogger"><span class="toggle-dot"></span> Blogger pendiente de contenido</span>
+            </div>
+
+            <div class="cost-box">
+              <div class="cost-main">
+                <span class="cost-label">Total estimado de servicios activados ahora:</span>
+                <span class="cost-value" id="cost-total">0 €</span>
+              </div>
+              <p class="cost-note">
+                Este cálculo suma los importes orientativos de los servicios activados.
+                Si activas <strong>Gestión total 7.0</strong>, se añade hasta un <strong>3 %</strong> de honorarios sobre el precio final de venta.
+              </p>
             </div>
 
             <p class="hint">
@@ -774,15 +853,16 @@
     // ------------------------------
     // Estados de servicios EN MEMORIA: "off" | "on" | "done"
     // ------------------------------
-    const serviceButtons = document.querySelectorAll('.service-btn');
+    const serviceButtons = document.querySelectorAll('.service-btn[data-service]');
+    const fullActionsBtn = document.getElementById('btn-full-acciones');
     const profButtons = document.querySelectorAll('.agency-btn');
     const toggles = document.querySelectorAll('[data-toggle]');
     const auditLog = document.getElementById('audit-log');
     const originalLogHTML = auditLog ? auditLog.innerHTML : '';
     const kpiAcciones = document.getElementById('kpi-acciones');
     const kpiImporte = document.getElementById('kpi-importe');
+    const costTotalEl = document.getElementById('cost-total');
 
-    // Estados en memoria (no se guarda al recargar)
     const estadosServicios = {};
 
     const serviceConfig = {
@@ -950,9 +1030,9 @@
       },
       gestion_total: {
         label: 'Gestión total 7.0',
-        logOn: 'activa la gestión total 7.0 a éxito.',
+        logOn: 'activa gestión total 7.0 (hasta 3 % a éxito).',
         logDone: 'marca la gestión total como realizada hasta notaría.',
-        importe: 3000
+        importe: 0  // porcentaje sobre la venta, no lo sumamos en fijo
       }
     };
 
@@ -964,14 +1044,16 @@
         const id = btn.dataset.service;
         const state = estados[id] || 'off';
 
-        btn.classList.remove('service-btn-active','service-btn-done');
+        btn.classList.remove('service-btn-active','service-btn-done','service-btn-gold');
         btn.disabled = false;
+        btn.innerHTML = 'Activar este servicio';
 
         if (state === 'off') {
-          btn.textContent = 'Activar este servicio';
+          // estado base
         } else if (state === 'on') {
-          btn.textContent = 'Desactivar servicio';
-          btn.classList.add('service-btn-active');
+          // botón dorado con corona
+          btn.classList.add('service-btn-gold');
+          btn.innerHTML = '<span class="crown">👑</span><span>Servicio activado</span>';
         } else if (state === 'done') {
           btn.textContent = 'Acción realizada';
           btn.classList.add('service-btn-done');
@@ -1006,13 +1088,14 @@
         }
       });
 
-      // Auditoría
+      // Auditoría + Total coste
       if (!auditLog) return;
       const ids = Object.keys(estados).filter(id => estados[id] === 'on' || estados[id] === 'done');
       if (ids.length === 0) {
         auditLog.innerHTML = originalLogHTML;
         if (kpiAcciones) kpiAcciones.textContent = '32';
         if (kpiImporte) kpiImporte.textContent = '12.300 €';
+        if (costTotalEl) costTotalEl.textContent = '0 €';
         return;
       }
 
@@ -1034,7 +1117,10 @@
         }
 
         auditLog.appendChild(div);
-        totalImporte += cfg.importe;
+        // Sumamos solo importes fijos
+        if (typeof cfg.importe === 'number' && cfg.importe > 0) {
+          totalImporte += cfg.importe;
+        }
         countAcciones++;
       });
 
@@ -1048,6 +1134,9 @@
       }
       if (kpiImporte) {
         kpiImporte.textContent = totalImporte.toLocaleString('es-ES') + ' €';
+      }
+      if (costTotalEl) {
+        costTotalEl.textContent = totalImporte.toLocaleString('es-ES') + ' €';
       }
     }
 
@@ -1071,7 +1160,18 @@
       });
     });
 
-    // Click del profesional: marca como "done" (solo algunos servicios)
+    // Botón FULL ACCIONES 7.0: activa todos los servicios en dorado
+    if (fullActionsBtn) {
+      fullActionsBtn.addEventListener('click', () => {
+        // Activamos gestión_total y todos los demás servicios
+        Object.keys(serviceConfig).forEach(id => {
+          estadosServicios[id] = 'on';
+        });
+        renderServicios();
+      });
+    }
+
+    // Click del profesional: marca como "done"
     profButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.profService;
