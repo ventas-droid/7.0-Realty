@@ -248,6 +248,40 @@
       text-underline-offset: 2px;
     }
 
+    /* VIDEO SECTION */
+    .video-section {
+      margin-top: 2rem;
+    }
+    .video-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: .35rem;
+      color: #e5e7eb;
+    }
+    .video-sub {
+      font-size: .85rem;
+      color: #9ca3af;
+      margin-bottom: .9rem;
+      max-width: 650px;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 1rem;
+      overflow: hidden;
+      border: 1px solid #1f2937;
+      box-shadow: 0 20px 60px -40px rgba(15,23,42,0.9);
+      background: #020617;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* FOOTER TEXT */
     .preview-note {
       max-width: 750px;
@@ -312,7 +346,6 @@
           Prueba el sistema con tu próxima vivienda en venta o integra tu servicio como profesional 7.0.
         </p>
 
-        <!-- De momento, estos enlaces van a tus páginas estáticas -->
         <a href="login.html" class="auth-btn">
           <span class="icon"></span>
           <span>Entrar con Google</span>
@@ -325,10 +358,28 @@
         <div class="auth-divider">o</div>
 
         <p class="auth-mini">
-          Solo quieres verlo primero?  
+          ¿Solo quieres verlo primero?  
           <a href="dashboard.html">Abre el panel demostración 7.0</a> y explora cómo se reparten acciones y pagos a éxito.
         </p>
       </aside>
+    </section>
+
+    <!-- SECCIÓN DE VÍDEO -->
+    <section class="video-section">
+      <h2 class="video-title">Mira cómo funciona Plataforma 7.0 en un minuto</h2>
+      <p class="video-sub">
+        Este vídeo explica, con ejemplos reales, cómo un propietario activa servicios, cómo los profesionales trabajan a éxito
+        y cómo se registra todo hasta la firma en notaría.
+      </p>
+      <div class="video-wrapper">
+        <!-- Sustituye VIDEO_ID por el ID real de tu vídeo de YouTube -->
+        <iframe
+          src="https://www.youtube.com/embed/VIDEO_ID"
+          title="Vídeo presentación Plataforma 7.0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
+      </div>
     </section>
 
     <!-- NOTA DE PREVISUALIZACIÓN -->
