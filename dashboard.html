@@ -553,5 +553,17 @@
     // por defecto, mostramos "propietario"
     showTab('propietario')
   </script>
+    <script src="/auth.js"></script>
+  <script>
+    const current = getCurrentUser();
+    if (!current) {
+      // si no hay usuario, lo mandamos a login
+      window.location.href = '/login.html';
+    } else {
+      console.log("Usuario conectado:", current);
+    }
+  </script>
+</body>
+</html>
 </body>
 </html>
