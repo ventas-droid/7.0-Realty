@@ -70,7 +70,7 @@
       border-radius: .75rem;
       border: 1px solid #1f2937;
       background: #0b1120;
-      cursor: default;
+      cursor: pointer;
     }
     main {
       flex: 1;
@@ -190,6 +190,26 @@
       font-size: .7rem;
       color: #9ca3af;
     }
+    .service-btn {
+      margin-top:.4rem;
+      padding:.35rem .7rem;
+      border-radius:.6rem;
+      border:1px solid #1f2937;
+      background:#0b1120;
+      color:#e5e7eb;
+      font-size:.75rem;
+      cursor:pointer;
+      align-self:flex-start;
+    }
+    .service-btn-active {
+      border-color:#22c55e;
+      background:#022c22;
+      color:#bbf7d0;
+    }
+    .service-btn:disabled {
+      cursor:default;
+      opacity:.85;
+    }
     .toggle-row {
       display: flex;
       flex-wrap: wrap;
@@ -276,7 +296,7 @@
       </div>
       <div class="header-actions">
         <a href="/index.html" class="btn-mini">← Volver a la página principal</a>
-        <span class="chip">Prototipo visual · sin datos reales</span>
+        <span class="chip">Prototipo visual · sin datos reales de servidor</span>
       </div>
     </header>
 
@@ -308,7 +328,7 @@
             </div>
 
             <div class="section-title">Acciones activadas por el propietario</div>
-            <ul class="list">
+            <ul class="list" id="owner-actions-list">
               <li>Ha subido documentación básica y descripción completa de la vivienda.</li>
               <li>Ha activado fotos profesionales y vídeo con dron, a pago a éxito.</li>
               <li>Ha solicitado una valoración profesional para ajustar el precio de salida.</li>
@@ -321,33 +341,38 @@
                 <strong>Fotos PRO</strong>
                 <div class="service-meta">450 € · pago a éxito</div>
                 <div class="service-meta">Fotógrafo especializado inmobiliario.</div>
+                <button class="service-btn" data-service="fotos">Activar este servicio</button>
               </div>
               <div class="service-item">
                 <strong>Vídeo + dron</strong>
                 <div class="service-meta">450 € · pago a éxito</div>
                 <div class="service-meta">Recorrido interior + vistas aéreas.</div>
+                <button class="service-btn" data-service="video">Activar este servicio</button>
               </div>
               <div class="service-item">
                 <strong>Home staging</strong>
                 <div class="service-meta">750–1200 €</div>
                 <div class="service-meta">Mejora estética sin reformas pesadas.</div>
+                <button class="service-btn" data-service="staging">Activar este servicio</button>
               </div>
               <div class="service-item">
                 <strong>Blogger internacional</strong>
                 <div class="service-meta">3000 € · pago a éxito</div>
                 <div class="service-meta">Historia real en otro país.</div>
+                <button class="service-btn" data-service="blogger">Activar este servicio</button>
               </div>
               <div class="service-item">
                 <strong>Revisión legal</strong>
                 <div class="service-meta">250 € · pagado al cierre</div>
                 <div class="service-meta">Abogado inmobiliario especializado.</div>
+                <button class="service-btn" data-service="legal">Activar este servicio</button>
               </div>
             </div>
 
             <div class="toggle-row">
-              <span class="toggle"><span class="toggle-dot"></span> Fotos PRO activadas</span>
-              <span class="toggle"><span class="toggle-dot"></span> Vídeo + dron activo</span>
-              <span class="toggle"><span class="toggle-dot"></span> Blogger pendiente de contenido</span>
+              <span class="toggle" data-toggle="fotos"><span class="toggle-dot"></span> Fotos PRO activadas</span>
+              <span class="toggle" data-toggle="video"><span class="toggle-dot"></span> Vídeo + dron activo</span>
+              <span class="toggle" data-toggle="blogger"><span class="toggle-dot"></span> Blogger pendiente de contenido</span>
             </div>
 
             <p class="hint">
@@ -492,7 +517,7 @@
             <div class="kpis">
               <div class="kpi">
                 <label>Acciones registradas</label>
-                <span>32</span>
+                <span id="kpi-acciones">32</span>
               </div>
               <div class="kpi">
                 <label>Profesionales implicados</label>
@@ -504,12 +529,12 @@
               </div>
               <div class="kpi">
                 <label>Importe a repartir</label>
-                <span>12.300 €</span>
+                <span id="kpi-importe">12.300 €</span>
               </div>
             </div>
 
             <div class="section-title">Ejemplo de “registro” de la vivienda</div>
-            <div class="log">
+            <div class="log" id="audit-log">
               <div class="log-entry"><strong>Propietario</strong> activa Fotos PRO (450 € a éxito).</div>
               <div class="log-entry"><strong>Propietario</strong> activa Vídeo + dron (450 € a éxito).</div>
               <div class="log-entry"><strong>Agencia 7.0</strong> asigna comercial autónomo para visitas (50 €/visita).</div>
@@ -527,22 +552,20 @@
       </div>
     </main>
 
-       <footer>
+    <footer>
       Plataforma 7.0 – Panel demostración · Esta página es un prototipo visual estático pensado para explicar el sistema.
     </footer>
   </div>
 
   <script>
+    // Tabs
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.panel');
 
-    function showTab(name) {
+    function showTab(name){
       panels.forEach(p => {
-        if (p.id === 'panel-' + name) {
-          p.style.display = '';
-        } else {
-          p.style.display = 'none';
-        }
+        if(p.id === 'panel-' + name){ p.style.display = '' }
+        else { p.style.display = 'none' }
       });
       tabs.forEach(t => {
         t.classList.toggle('active', t.dataset.tab === name);
@@ -553,8 +576,137 @@
       t.addEventListener('click', () => showTab(t.dataset.tab));
     });
 
-    // por defecto, mostramos "propietario"
     showTab('propietario');
+
+    // ------------------------------
+    // Funcionalidad: activar servicios
+    // ------------------------------
+    const STORAGE_KEY_SERVICIOS = 'p70_owner_services';
+    const serviceButtons = document.querySelectorAll('.service-btn');
+    const toggles = document.querySelectorAll('[data-toggle]');
+    const auditLog = document.getElementById('audit-log');
+    const originalLogHTML = auditLog ? auditLog.innerHTML : '';
+    const kpiAcciones = document.getElementById('kpi-acciones');
+
+    const serviceConfig = {
+      fotos: {
+        label: 'Fotos PRO activadas',
+        log: 'activa Fotos PRO (450 € a éxito).',
+        importe: 450
+      },
+      video: {
+        label: 'Vídeo + dron activo',
+        log: 'activa Vídeo + dron (450 € a éxito).',
+        importe: 450
+      },
+      staging: {
+        label: 'Home staging solicitado',
+        log: 'solicita Home staging (750–1200 € a éxito).',
+        importe: 900
+      },
+      blogger: {
+        label: 'Blogger internacional activado',
+        log: 'activa Blogger internacional (3000 € a éxito).',
+        importe: 3000
+      },
+      legal: {
+        label: 'Revisión legal registrada',
+        log: 'solicita revisión legal (250 € al cierre).',
+        importe: 250
+      }
+    };
+
+    function loadServicios() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_SERVICIOS);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) {
+        return [];
+      }
+    }
+
+    function saveServicios(list) {
+      localStorage.setItem(STORAGE_KEY_SERVICIOS, JSON.stringify(list));
+    }
+
+    function renderServicios() {
+      const activos = loadServicios();
+
+      // Botones
+      serviceButtons.forEach(btn => {
+        const id = btn.dataset.service;
+        if (activos.includes(id)) {
+          btn.textContent = 'Servicio activado';
+          btn.disabled = true;
+          btn.classList.add('service-btn-active');
+        } else {
+          btn.textContent = 'Activar este servicio';
+          btn.disabled = false;
+          btn.classList.remove('service-btn-active');
+        }
+      });
+
+      // Toggles (solo fotos, video, blogger)
+      toggles.forEach(t => {
+        const id = t.dataset.toggle;
+        const dot = t.querySelector('.toggle-dot');
+        if (!dot) return;
+        if (activos.includes(id)) {
+          dot.style.background = '#22c55e';
+          t.style.opacity = '1';
+        } else {
+          dot.style.background = '#4b5563';
+          t.style.opacity = '.6';
+        }
+      });
+
+      // Auditoría
+      if (!auditLog) return;
+      if (activos.length === 0) {
+        auditLog.innerHTML = originalLogHTML;
+        if (kpiAcciones) kpiAcciones.textContent = '32';
+        return;
+      }
+
+      auditLog.innerHTML = '';
+      let totalImporte = 0;
+      activos.forEach(id => {
+        const cfg = serviceConfig[id];
+        if (!cfg) return;
+        const div = document.createElement('div');
+        div.className = 'log-entry';
+        div.innerHTML = `<strong>Propietario</strong> ${cfg.log}`;
+        auditLog.appendChild(div);
+        totalImporte += cfg.importe;
+      });
+
+      const extra = document.createElement('div');
+      extra.className = 'log-entry';
+      extra.innerHTML = '<strong>Nota</strong> · Este registro es un ejemplo local. En la versión completa, se firmaría en notaría y se conectaría a pagos a éxito.';
+      auditLog.appendChild(extra);
+
+      if (kpiAcciones) {
+        kpiAcciones.textContent = String(activos.length);
+      }
+      const kpiImporte = document.getElementById('kpi-importe');
+      if (kpiImporte) {
+        kpiImporte.textContent = totalImporte.toLocaleString('es-ES') + ' €';
+      }
+    }
+
+    serviceButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.service;
+        let activos = loadServicios();
+        if (!activos.includes(id)) {
+          activos.push(id);
+          saveServicios(activos);
+          renderServicios();
+        }
+      });
+    });
+
+    renderServicios();
   </script>
 </body>
 </html>
