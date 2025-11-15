@@ -626,312 +626,307 @@
 
       <div class="grid">
         <!-- PANEL PROPIETARIO -->
-        <section id="panel-propietario" class="panel">
-          <div class="card">
-            <h2>Propietario – Ático Blue Sunset</h2>
-            <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
+     <!-- PANEL PROPIETARIO -->
+<section id="panel-propietario" class="panel">
+  <div class="card">
+    <h2>Propietario – Ático Blue Sunset</h2>
+    <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
 
-            <div class="badge-row">
-              <span class="badge">2 dorm · 2 baños</span>
-              <span class="badge">Vistas al mar</span>
-              <span class="badge">La Duquesa · Manilva</span>
-              <span class="badge">Campaña activa</span>
-            </div>
+    <div class="badge-row">
+      <span class="badge">2 dorm · 2 baños</span>
+      <span class="badge">Vistas al mar</span>
+      <span class="badge">La Duquesa · Manilva</span>
+      <span class="badge">Campaña activa</span>
+    </div>
 
-            <!-- ACCIONES ACTIVADAS POR EL PROPIETARIO (DINÁMICO + FILTROS) -->
-            <div class="section-header-row">
-              <div class="section-title">Acciones activadas por el propietario</div>
-              <div class="range-filter-row">
-                <button class="range-chip owner-range-chip active" data-owner-range="1-4">1–4</button>
-                <button class="range-chip owner-range-chip" data-owner-range="5-8">5–8</button>
-                <button class="range-chip owner-range-chip" data-owner-range="9-12">9–12</button>
-                <button class="range-chip owner-range-chip" data-owner-range="13-16">13–16</button>
-                <button class="range-chip owner-range-chip" data-owner-range="all">Todos</button>
-              </div>
-            </div>
+    <!-- 🔼 CAJA SUBIR FOTOS / DOCUMENTACIÓN (MOVIDA ARRIBA) -->
+    <div class="section-title">Subir fotos y documentación</div>
 
-            <div id="owner-actions-dynamic" class="owner-actions-list">
-              <p class="owner-empty">Todavía no hay servicios activados. Activa alguno para ver aquí el resumen.</p>
-            </div>
+    <div class="upload-row">
+      <div class="upload-card">
+        <h3 class="upload-title">Subir fotos de la vivienda</h3>
+        <p class="upload-sub">
+          Arrastra aquí tus fotos o pulsa el botón para seleccionar archivos.
+        </p>
+        <div class="upload-drop" id="photos-drop">
+          <button class="upload-btn" type="button" id="photos-upload">
+            Subir / arrastrar fotos
+          </button>
+        </div>
+      </div>
 
-                       <!-- SUBIR FOTOS / DOCUMENTACIÓN (OPERATIVO) -->
-            <div class="upload-row">
-              <div class="upload-card" id="photo-dropzone">
-                <div class="upload-title">Subir fotos de la vivienda</div>
-                <div class="upload-sub">Arrastra aquí tus fotos o pulsa el botón para seleccionar archivos.</div>
-                <button class="upload-btn" type="button" id="photo-upload-btn">Subir / arrastrar fotos</button>
-                <input type="file" id="photo-input" multiple accept="image/*" style="display:none" />
-              </div>
-              <div class="upload-card" id="doc-dropzone">
-                <div class="upload-title">Subir documentación</div>
-                <div class="upload-sub">Escrituras, IBI, comunidad, certificado energético, etc.</div>
-                <button class="upload-btn" type="button" id="doc-upload-btn">Subir / arrastrar documentación</button>
-                <input type="file" id="doc-input" multiple style="display:none" />
-              </div>
-            </div>
+      <div class="upload-card">
+        <h3 class="upload-title">Subir documentación</h3>
+        <p class="upload-sub">
+          Escrituras, IBI, comunidad, certificado energético, etc.
+        </p>
+        <div class="upload-drop" id="docs-drop">
+          <button class="upload-btn" type="button" id="docs-upload">
+            Subir / arrastrar documentación
+          </button>
+        </div>
+      </div>
+    </div>
 
-            <div class="upload-actions-row">
-              <button class="upload-view-btn" type="button" id="btn-view-photos">Ver fotos subidas</button>
-              <button class="upload-view-btn" type="button" id="btn-view-docs">Ver documentación subida</button>
-            </div>
+    <div class="upload-actions-row">
+      <button class="view-uploads-btn" type="button" id="view-photos-btn">
+        Ver fotos subidas
+      </button>
+      <button class="view-uploads-btn" type="button" id="view-docs-btn">
+        Ver documentación subida
+      </button>
+    </div>
 
-            <!-- PREVIEW FOTOS -->
-            <div class="upload-preview" id="photos-preview" style="display:none;">
-              <div class="upload-preview-header">
-                <span class="upload-preview-title">Fotos subidas</span>
-                <button class="upload-preview-close" type="button" data-target="photos-preview">Cerrar</button>
-              </div>
-              <div class="upload-preview-grid" id="photos-preview-grid"></div>
-            </div>
+    <!-- ✅ LISTA DINÁMICA DE ACCIONES ACTIVADAS -->
+    <div class="section-title">Acciones activadas por el propietario</div>
+    <div id="owner-actions-badges" class="owner-actions-badges">
+      <!-- Aquí se irán añadiendo las acciones activadas (burbujas verdes) -->
+    </div>
 
-            <!-- PREVIEW DOCUMENTACIÓN -->
-            <div class="upload-preview" id="docs-preview" style="display:none;">
-              <div class="upload-preview-header">
-                <span class="upload-preview-title">Documentación subida</span>
-                <button class="upload-preview-close" type="button" data-target="docs-preview">Cerrar</button>
-              </div>
-              <div id="docs-preview-list"></div>
-            </div>
+    <!-- CABECERA SERVICIOS + PAGINACIÓN 4 EN 4 -->
+    <div class="services-header-row">
+      <div class="section-title" style="margin-bottom:0;">Servicios disponibles (tarifas ejemplo)</div>
+      <div class="services-page-chips">
+        <button class="page-chip active" data-page="all">Todos</button>
+        <button class="page-chip" data-page="1">1–4</button>
+        <button class="page-chip" data-page="2">5–8</button>
+        <button class="page-chip" data-page="3">9–12</button>
+        <button class="page-chip" data-page="4">13–16</button>
+        <button class="page-chip" data-page="5">17–20</button>
+        <button class="page-chip" data-page="6">21–24</button>
+        <button class="page-chip" data-page="7">25–28</button>
+      </div>
+    </div>
 
+    <!-- GRID DE SERVICIOS -->
+    <div class="services-grid" id="services-grid">
+      <!-- VISUAL / NARRATIVA BASE -->
+      <div class="service-item" data-index="1">
+        <strong>Fotos PRO</strong>
+        <div class="service-meta">450 € · pago a éxito</div>
+        <div class="service-meta">Fotógrafo especializado inmobiliario.</div>
+        <button class="service-btn" data-service="fotos">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="2">
+        <strong>Vídeo + dron</strong>
+        <div class="service-meta">450 € · pago a éxito</div>
+        <div class="service-meta">Recorrido interior + vistas aéreas.</div>
+        <button class="service-btn" data-service="video">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="3">
+        <strong>Home staging</strong>
+        <div class="service-meta">750–1200 €</div>
+        <div class="service-meta">Mejora estética sin reformas pesadas.</div>
+        <button class="service-btn" data-service="staging">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="4">
+        <strong>Blogger internacional</strong>
+        <div class="service-meta">3000 € · pago a éxito</div>
+        <div class="service-meta">Historia real en otro país.</div>
+        <button class="service-btn" data-service="blogger">Activar este servicio</button>
+      </div>
 
-            <!-- SERVICIOS DISPONIBLES + FILTRO 1–4 / 5–8 / ETC -->
-            <div class="section-header-row">
-              <div class="section-title">Servicios disponibles (tarifas ejemplo)</div>
-              <div class="range-filter-row">
-                <button class="range-chip service-range-chip active" data-service-range="1-4">1–4</button>
-                <button class="range-chip service-range-chip" data-service-range="5-8">5–8</button>
-                <button class="range-chip service-range-chip" data-service-range="9-12">9–12</button>
-                <button class="range-chip service-range-chip" data-service-range="13-16">13–16</button>
-                <button class="range-chip service-range-chip" data-service-range="all">Todos</button>
-              </div>
-            </div>
+      <!-- COMERCIAL / VISITAS -->
+      <div class="service-item" data-index="5">
+        <strong>Acompañamiento a visitas</strong>
+        <div class="service-meta">50 € por visita</div>
+        <div class="service-meta">Comercial 7.0 especializado, informe por visita.</div>
+        <button class="service-btn" data-service="acomp_visitas">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="6">
+        <strong>Atención de llamadas</strong>
+        <div class="service-meta">80–120 € / mes</div>
+        <div class="service-meta">Filtro de compradores y agenda gestionada.</div>
+        <button class="service-btn" data-service="atencion_llamadas">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="7">
+        <strong>Gestión de agenda</strong>
+        <div class="service-meta">100–150 € / mes</div>
+        <div class="service-meta">Coordinación de visitas y recordatorios.</div>
+        <button class="service-btn" data-service="gestion_agenda">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="8">
+        <strong>Informe semanal</strong>
+        <div class="service-meta">30–50 € / mes</div>
+        <div class="service-meta">Resumen de visitas, interés y próximos pasos.</div>
+        <button class="service-btn" data-service="informe_semanal">Activar este servicio</button>
+      </div>
 
-            <div class="services-grid" id="services-grid">
-              <!-- VISUAL / NARRATIVA BASE -->
-              <div class="service-item">
-                <strong>Fotos PRO</strong>
-                <div class="service-meta">450 € · pago a éxito</div>
-                <div class="service-meta">Fotógrafo especializado inmobiliario.</div>
-                <button class="service-btn" data-service="fotos">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Vídeo + dron</strong>
-                <div class="service-meta">450 € · pago a éxito</div>
-                <div class="service-meta">Recorrido interior + vistas aéreas.</div>
-                <button class="service-btn" data-service="video">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Home staging</strong>
-                <div class="service-meta">750–1200 €</div>
-                <div class="service-meta">Mejora estética sin reformas pesadas.</div>
-                <button class="service-btn" data-service="staging">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Blogger internacional</strong>
-                <div class="service-meta">3000 € · pago a éxito</div>
-                <div class="service-meta">Historia real en otro país.</div>
-                <button class="service-btn" data-service="blogger">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Revisión legal</strong>
-                <div class="service-meta">250 € · pagado al cierre</div>
-                <div class="service-meta">Abogado inmobiliario especializado.</div>
-                <button class="service-btn" data-service="legal">Activar este servicio</button>
-              </div>
+      <!-- MARKETING / DIFUSIÓN -->
+      <div class="service-item" data-index="9">
+        <strong>Campaña redes sociales</strong>
+        <div class="service-meta">150 € gestión</div>
+        <div class="service-meta">+ inversión desde 100 €. Segmentación internacional.</div>
+        <button class="service-btn" data-service="campanas_redes">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="10">
+        <strong>Red difusores locales</strong>
+        <div class="service-meta">Hasta 1000 € a éxito</div>
+        <div class="service-meta">Compartido en redes y grupos reales.</div>
+        <button class="service-btn" data-service="difusores_locales">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="11">
+        <strong>Influencers extranjeros</strong>
+        <div class="service-meta">2000–3000 € a éxito</div>
+        <div class="service-meta">Visibilidad en comunidades nicho internacionales.</div>
+        <button class="service-btn" data-service="influencers_extranjeros">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="12">
+        <strong>Tour virtual 3D</strong>
+        <div class="service-meta">250–400 €</div>
+        <div class="service-meta">Recorrido completo en 360º de la vivienda.</div>
+        <button class="service-btn" data-service="tour_3d">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="13">
+        <strong>Reportaje nocturno</strong>
+        <div class="service-meta">100–150 €</div>
+        <div class="service-meta">Fotos al atardecer para resaltar ambiente.</div>
+        <button class="service-btn" data-service="reportaje_nocturno">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="14">
+        <strong>Copywriting premium</strong>
+        <div class="service-meta">50–80 €</div>
+        <div class="service-meta">Anuncio redactado como historia real.</div>
+        <button class="service-btn" data-service="copywriting">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="15">
+        <strong>Carta de venta</strong>
+        <div class="service-meta">100–150 €</div>
+        <div class="service-meta">PDF profesional para compradores interesados.</div>
+        <button class="service-btn" data-service="carta_venta">Activar este servicio</button>
+      </div>
 
-              <!-- COMERCIAL / VISITAS -->
-              <div class="service-item">
-                <strong>Acompañamiento a visitas</strong>
-                <div class="service-meta">50 € por visita</div>
-                <div class="service-meta">Comercial 7.0 especializado, informe por visita.</div>
-                <button class="service-btn" data-service="acomp_visitas">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Atención de llamadas</strong>
-                <div class="service-meta">80–120 € / mes</div>
-                <div class="service-meta">Filtro de compradores y agenda gestionada.</div>
-                <button class="service-btn" data-service="atencion_llamadas">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Gestión de agenda</strong>
-                <div class="service-meta">100–150 € / mes</div>
-                <div class="service-meta">Coordinación de visitas y recordatorios.</div>
-                <button class="service-btn" data-service="gestion_agenda">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Informe semanal</strong>
-                <div class="service-meta">30–50 € / mes</div>
-                <div class="service-meta">Resumen de visitas, interés y próximos pasos.</div>
-                <button class="service-btn" data-service="informe_semanal">Activar este servicio</button>
-              </div>
+      <!-- TÉCNICO / LEGAL EXTRA -->
+      <div class="service-item" data-index="16">
+        <strong>Valoración profesional</strong>
+        <div class="service-meta">100–200 €</div>
+        <div class="service-meta">Informe de precio con comparables reales.</div>
+        <button class="service-btn" data-service="valoracion_basica">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="17">
+        <strong>Valoración ampliada</strong>
+        <div class="service-meta">150–300 €</div>
+        <div class="service-meta">Escenarios de precio, plazos y estrategia.</div>
+        <button class="service-btn" data-service="valoracion_ampliada">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="18">
+        <strong>Informe fiscal</strong>
+        <div class="service-meta">150–200 €</div>
+        <div class="service-meta">Cálculo de impuestos y neto final a cobrar.</div>
+        <button class="service-btn" data-service="informe_fiscal">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="19">
+        <strong>Certificado energético</strong>
+        <div class="service-meta">50–80 €</div>
+        <div class="service-meta">Certificado obligatorio gestionado por técnico.</div>
+        <button class="service-btn" data-service="cert_energetico">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="20">
+        <strong>Plano profesional</strong>
+        <div class="service-meta">100–150 €</div>
+        <div class="service-meta">Plano 2D/3D claro y presentable.</div>
+        <button class="service-btn" data-service="planos">Activar este servicio</button>
+      </div>
 
-              <!-- MARKETING / DIFUSIÓN -->
-              <div class="service-item">
-                <strong>Campaña redes sociales</strong>
-                <div class="service-meta">150 € gestión</div>
-                <div class="service-meta">+ inversión desde 100 €. Segmentación internacional.</div>
-                <button class="service-btn" data-service="campanas_redes">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Red difusores locales</strong>
-                <div class="service-meta">Hasta 1000 € a éxito</div>
-                <div class="service-meta">Compartido en redes y grupos reales.</div>
-                <button class="service-btn" data-service="difusores_locales">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Influencers extranjeros</strong>
-                <div class="service-meta">2000–3000 € a éxito</div>
-                <div class="service-meta">Visibilidad en comunidades nicho internacionales.</div>
-                <button class="service-btn" data-service="influencers_extranjeros">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Tour virtual 3D</strong>
-                <div class="service-meta">250–400 €</div>
-                <div class="service-meta">Recorrido completo en 360º de la vivienda.</div>
-                <button class="service-btn" data-service="tour_3d">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Reportaje nocturno</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Fotos al atardecer para resaltar ambiente.</div>
-                <button class="service-btn" data-service="reportaje_nocturno">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Copywriting premium</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Anuncio redactado como historia real.</div>
-                <button class="service-btn" data-service="copywriting">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Carta de venta</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">PDF profesional para compradores interesados.</div>
-                <button class="service-btn" data-service="carta_venta">Activar este servicio</button>
-              </div>
+      <!-- MEJORAS FÍSICAS / REFORMAS -->
+      <div class="service-item" data-index="21">
+        <strong>Limpieza profesional</strong>
+        <div class="service-meta">50–120 €</div>
+        <div class="service-meta">Puesta a punto antes de fotos y visitas.</div>
+        <button class="service-btn" data-service="limpieza">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="22">
+        <strong>Pequeños arreglos</strong>
+        <div class="service-meta">100–400 €</div>
+        <div class="service-meta">Manitas: grifos, enchufes, persianas, detalles.</div>
+        <button class="service-btn" data-service="pequenos_arreglos">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="23">
+        <strong>Lavado de cara exprés</strong>
+        <div class="service-meta">300–600 €</div>
+        <div class="service-meta">Pintura estratégica y modernización rápida.</div>
+        <button class="service-btn" data-service="lavado_cara">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="24">
+        <strong>Optimización de terraza</strong>
+        <div class="service-meta">200–600 €</div>
+        <div class="service-meta">Mobiliario básico, textiles y plantas.</div>
+        <button class="service-btn" data-service="optim_terraza">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="25">
+        <strong>Reformas ligeras</strong>
+        <div class="service-meta">Desde 500 €</div>
+        <div class="service-meta">Cambios con alto impacto visual.</div>
+        <button class="service-btn" data-service="reformas_ligeras">Activar este servicio</button>
+      </div>
 
-              <!-- TÉCNICO / LEGAL EXTRA -->
-              <div class="service-item">
-                <strong>Valoración profesional</strong>
-                <div class="service-meta">100–200 €</div>
-                <div class="service-meta">Informe de precio con comparables reales.</div>
-                <button class="service-btn" data-service="valoracion_basica">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Valoración ampliada</strong>
-                <div class="service-meta">150–300 €</div>
-                <div class="service-meta">Escenarios de precio, plazos y estrategia.</div>
-                <button class="service-btn" data-service="valoracion_ampliada">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Informe fiscal</strong>
-                <div class="service-meta">150–200 €</div>
-                <div class="service-meta">Cálculo de impuestos y neto final a cobrar.</div>
-                <button class="service-btn" data-service="informe_fiscal">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Certificado energético</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Certificado obligatorio gestionado por técnico.</div>
-                <button class="service-btn" data-service="cert_energetico">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Plano profesional</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Plano 2D/3D claro y presentable.</div>
-                <button class="service-btn" data-service="planos">Activar este servicio</button>
-              </div>
+      <!-- ACOMPAÑAMIENTO 7.0 -->
+      <div class="service-item" data-index="26">
+        <strong>Asistente personal 7.0</strong>
+        <div class="service-meta">60–90 € / sesión</div>
+        <div class="service-meta">Acompañamiento por videollamada o teléfono.</div>
+        <button class="service-btn" data-service="asistente_personal">Activar este servicio</button>
+      </div>
+      <div class="service-item" data-index="27">
+        <strong>Gestión total 7.0</strong>
+        <div class="service-meta">Hasta 3 % a éxito</div>
+        <div class="service-meta">Coordinación integral hasta Notaría – Full acciones.</div>
+        <button class="service-btn" data-service="gestion_total">Activar este servicio</button>
+        <button class="service-btn-full" id="btn-full-acciones">
+          <span class="crown">👑</span>
+          Full acciones 7.0
+        </button>
+      </div>
+    </div>
 
-              <!-- MEJORAS FÍSICAS / REFORMAS -->
-              <div class="service-item">
-                <strong>Limpieza profesional</strong>
-                <div class="service-meta">50–120 €</div>
-                <div class="service-meta">Puesta a punto antes de fotos y visitas.</div>
-                <button class="service-btn" data-service="limpieza">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Pequeños arreglos</strong>
-                <div class="service-meta">100–400 €</div>
-                <div class="service-meta">Manitas: grifos, enchufes, persianas, detalles.</div>
-                <button class="service-btn" data-service="pequenos_arreglos">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Lavado de cara exprés</strong>
-                <div class="service-meta">300–600 €</div>
-                <div class="service-meta">Pintura estratégica y modernización rápida.</div>
-                <button class="service-btn" data-service="lavado_cara">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Optimización de terraza</strong>
-                <div class="service-meta">200–600 €</div>
-                <div class="service-meta">Mobiliario básico, textiles y plantas.</div>
-                <button class="service-btn" data-service="optim_terraza">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Reformas ligeras</strong>
-                <div class="service-meta">Desde 500 €</div>
-                <div class="service-meta">Cambios con alto impacto visual.</div>
-                <button class="service-btn" data-service="reformas_ligeras">Activar este servicio</button>
-              </div>
-
-              <!-- ACOMPAÑAMIENTO 7.0 -->
-              <div class="service-item">
-                <strong>Asistente personal 7.0</strong>
-                <div class="service-meta">60–90 € / sesión</div>
-                <div class="service-meta">Acompañamiento por videollamada o teléfono.</div>
-                <button class="service-btn" data-service="asistente_personal">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Gestión total 7.0</strong>
-                <div class="service-meta">3 % a éxito</div>
-                <div class="service-meta">Full acciones hasta notaría.</div>
-                <button class="service-btn" data-service="gestion_total">Activar este servicio</button>
-                <button class="service-btn-full" id="btn-full-acciones">
-                  <span class="crown">👑</span>
-                  Full acciones 7.0
-                </button>
-              </div>
-            </div>
-
-            <!-- INDICADORES RÁPIDOS -->
-           
-            <!-- CAJA COSTES / NETO -->
-            <div class="cost-box">
-              <div class="cost-row">
-                <span class="cost-label">Precio de la propiedad</span>
-                <input id="property-price" class="price-input" type="text" inputmode="decimal" placeholder="0,00" />
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">Total servicios activados (sin IVA):</span>
-                <span class="cost-value" id="cost-services-base">0,00 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">IVA servicios 21 %:</span>
-                <span class="cost-value" id="cost-services-iva">0,00 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">Comisión 3 % gestión 7.0 (sin IVA):</span>
-                <span class="cost-value" id="cost-commission-base">0,00 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">IVA 21 % comisión:</span>
-                <span class="cost-value" id="cost-commission-iva">0,00 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">Neto para el propietario (antes de plusvalía):</span>
-                <span class="cost-value" id="cost-neto">0,00 €</span>
-              </div>
-              <p class="cost-note">
-                Cálculo orientativo en formato España (puntos de miles, coma decimal).
-                Se descuenta el coste de servicios activados, la comisión estándar del <strong>3 %</strong> sobre el precio
-                y el <strong>21 % de IVA</strong> correspondiente. No incluye plusvalía municipal, IRPF u otros impuestos.
-              </p>
-            </div>
-
-            <p class="hint">
-              El propietario ve esto como “panel de mando”: qué está activo, qué falta por activar y qué servicios ya han sido realizados.
-            </p>
+    <!-- CAJA IMPORTE PROPIETARIO (se mantiene igual debajo) -->
+    <div class="cost-box">
+      <div class="cost-main">
+        <div>
+          <div class="cost-label">Precio de la propiedad</div>
+          <input
+            type="number"
+            id="property-price"
+            class="price-input"
+            placeholder="Introduce el precio de venta (ej. 385000)"
+          />
+        </div>
+        <div class="cost-values-col">
+          <div class="cost-line">
+            <span>Total servicios activados (sin IVA):</span>
+            <span id="cost-servicios">0,00 €</span>
           </div>
-        </section>
+          <div class="cost-line">
+            <span>IVA servicios 21 %:</span>
+            <span id="cost-iva-servicios">0,00 €</span>
+          </div>
+          <div class="cost-line">
+            <span>Comisión 3 % gestión 7.0 (sin IVA):</span>
+            <span id="cost-comision">0,00 €</span>
+          </div>
+          <div class="cost-line">
+            <span>IVA 21 % comisión:</span>
+            <span id="cost-iva-comision">0,00 €</span>
+          </div>
+          <div class="cost-line cost-line-strong">
+            <span>Neto para el propietario (antes de plusvalía):</span>
+            <span id="cost-neto">0,00 €</span>
+          </div>
+        </div>
+      </div>
+      <p class="cost-note">
+        Cálculo orientativo en formato España (puntos de miles, coma decimal). Se descuenta el coste de
+        servicios activados, la comisión estándar del 3 % sobre el precio y el 21 % de IVA correspondiente.
+        No incluye plusvalía municipal, IRPF u otros impuestos.
+      </p>
+    </div>
+
+    <p class="hint">
+      El propietario ve esto como “panel de mando”: qué está activo, qué falta por activar y qué servicios ya han sido realizados.
+    </p>
+  </div>
+</section>
+
 
         <!-- PANEL AGENCIA -->
         <section id="panel-agencia" class="panel" style="display:none;">
