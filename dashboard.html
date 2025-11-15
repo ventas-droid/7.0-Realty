@@ -592,9 +592,31 @@
   <div class="logo">
     <div class="logo-icon"></div>
     <div class="logo-text">
-      <span>Panamove Plataforma Inmobiliaria 7.0</span>
+      .logo {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: row;
+  gap: .4rem;
+  align-items: center;
+}
+
+.logo-text .brand,
+.logo-text .brand-sub {
+  color: #e5e7eb;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+      <span class="brand">Panamove</span>
+      <span class="brand-sub">Plataforma Inmobiliaria 7.0</span>
     </div>
   </div>
+
   <div class="header-actions">
     <a href="index.html" class="btn-mini">← Volver a la página principal</a>
   </div>
