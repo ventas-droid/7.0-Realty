@@ -1306,6 +1306,10 @@
       const estados = estadosServicios;
 
       // botones propietario
+          function renderServicios(){
+      const estados = estadosServicios;
+
+      // --- Botones de servicios (propietario) ---
       serviceButtons.forEach(btn => {
         const id = btn.dataset.service;
         const state = estados[id] || 'off';
@@ -1313,9 +1317,7 @@
         btn.disabled = false;
         btn.innerHTML = 'Activar este servicio';
 
-        if (state === 'off') {
-          // nada
-        } else if (state === 'on') {
+        if (state === 'on') {
           btn.classList.add('service-btn-gold');
           btn.innerHTML = '<span class="crown">👑</span><span>Servicio activado</span>';
         } else if (state === 'done') {
@@ -1324,6 +1326,93 @@
           btn.disabled = true;
         }
       });
+
+      // --- Botones profesionales (agencia) ---
+      profButtons.forEach(btn => {
+        const id = btn.dataset.profService;
+        const state = estados[id] || 'off';
+        if (state === 'done') {
+          btn.disabled = true;
+          btn.textContent = 'Acción ya marcada como realizada';
+        } else {
+          btn.disabled = false;
+        }
+      });
+
+      // Si no hay panel de auditoría salimos, pero actualizando acciones del propietario
+      if (!auditLog){
+        renderOwnerActions();
+        return;
+      }
+
+      const ids = Object.keys(estados).filter(id => estados[id] === 'on' || estados[id] === 'done');
+      let totalImporte = 0;
+      let countAcciones = 0;
+
+      if (ids.length === 0){
+        // Sin servicios activos: dejamos el log de ejemplo
+        auditLog.innerHTML = originalLogHTML;
+      } else {
+        auditLog.innerHTML = '';
+        ids.forEach(id => {
+          const cfg = serviceConfig[id];
+          if (!cfg) return;
+          const state = estados[id];
+          const div = document.createElement('div');
+          div.className = 'log-entry';
+
+          if (state === 'on') {
+            div.innerHTML = `<strong>Propietario</strong> ${cfg.logOn}`;
+          } else if (state === 'done') {
+            div.innerHTML = `<strong>Profesional 7.0</strong> ${cfg.logDone}`;
+          }
+
+          auditLog.appendChild(div);
+
+          if (typeof cfg.importe === 'number' && cfg.importe > 0){
+            totalImporte += cfg.importe;
+          }
+          countAcciones++;
+        });
+
+        const extra = document.createElement('div');
+        extra.className = 'log-entry';
+        extra.innerHTML = '<strong>Nota</strong> · Este registro es un ejemplo local. En la versión completa, cada acción se firma y verifica antes de llegar a notaría.';
+        auditLog.appendChild(extra);
+      }
+
+      // --- Cálculo económico (SIEMPRE, aunque no haya servicios) ---
+      const precio = getPrecioPropiedad();
+      const baseServicios = totalImporte;
+      const ivaServicios = baseServicios * 0.21;
+
+      // 3 % SIEMPRE sobre el precio de la propiedad
+      const comisionBase = precio * 0.03;
+      const ivaComision = comisionBase * 0.21;
+
+      const neto = precio - baseServicios - ivaServicios - comisionBase - ivaComision;
+
+      // KPIs auditoría
+      if (kpiAcciones){
+        kpiAcciones.textContent = ids.length === 0 ? '32' : String(countAcciones);
+      }
+      if (kpiImporte){
+        kpiImporte.textContent = ids.length === 0
+          ? '12.300 €'
+          : formatEuro(baseServicios + comisionBase);
+      }
+
+      // Caja económica
+      if (costServiciosEl)     costServiciosEl.textContent     = formatEuro(baseServicios);
+      if (costIvaServiciosEl)  costIvaServiciosEl.textContent  = formatEuro(ivaServicios);
+      if (costComisionEl)      costComisionEl.textContent      = formatEuro(comisionBase);
+      if (costIvaComisionEl)   costIvaComisionEl.textContent   = formatEuro(ivaComision);
+      if (costNetoEl)          costNetoEl.textContent          = formatEuro(neto);
+
+      // Acciones activadas por el propietario (píldoras verdes)
+      renderOwnerActions();
+    }
+
 
       // botones profesionales
       profButtons.forEach(btn => {
