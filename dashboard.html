@@ -1133,10 +1133,11 @@
     </div>
   </div>
 
-  <script>
+   <script>
     // ------- TABS -------
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.panel');
+
     function showTab(name){
       panels.forEach(p => {
         if(p.id === 'panel-' + name){ p.style.display = '' }
@@ -1146,6 +1147,7 @@
         t.classList.toggle('active', t.dataset.tab === name);
       });
     }
+
     tabs.forEach(t => t.addEventListener('click', () => showTab(t.dataset.tab)));
     showTab('propietario');
 
@@ -1158,11 +1160,11 @@
     const kpiAcciones = document.getElementById('kpi-acciones');
     const kpiImporte = document.getElementById('kpi-importe');
 
-    const costServiciosEl = document.getElementById('cost-servicios');
+    const costServiciosEl    = document.getElementById('cost-servicios');
     const costIvaServiciosEl = document.getElementById('cost-iva-servicios');
-    const costComisionEl = document.getElementById('cost-comision');
-    const costIvaComisionEl = document.getElementById('cost-iva-comision');
-    const costNetoEl = document.getElementById('cost-neto');
+    const costComisionEl     = document.getElementById('cost-comision');
+    const costIvaComisionEl  = document.getElementById('cost-iva-comision');
+    const costNetoEl         = document.getElementById('cost-neto');
     const precioPropiedadInput = document.getElementById('precio-propiedad');
 
     const ownerActionsContainer = document.getElementById('owner-actions-dynamic');
@@ -1305,10 +1307,6 @@
     function renderServicios(){
       const estados = estadosServicios;
 
-      // botones propietario
-           function renderServicios(){
-      const estados = estadosServicios;
-
       // --- Botones de servicios (propietario) ---
       serviceButtons.forEach(btn => {
         const id = btn.dataset.service;
@@ -1339,7 +1337,7 @@
         }
       });
 
-      // Si no hay panel de auditoría salimos, pero actualizando acciones del propietario
+      // Si no hay panel de auditoría salimos, pero actualizamos acciones
       if (!auditLog){
         renderOwnerActions();
         return;
@@ -1350,7 +1348,7 @@
       let countAcciones = 0;
 
       if (ids.length === 0){
-        // Sin servicios activos: dejamos el log de ejemplo
+        // Sin servicios: dejamos el log de ejemplo
         auditLog.innerHTML = originalLogHTML;
       } else {
         auditLog.innerHTML = '';
@@ -1381,14 +1379,14 @@
         auditLog.appendChild(extra);
       }
 
-      // --- Cálculo económico (SIEMPRE, aunque no haya servicios) ---
-      const precio = getPrecioPropiedad();
+      // --- Cálculo económico SIEMPRE ---
+      const precio        = getPrecioPropiedad();
       const baseServicios = totalImporte;
-      const ivaServicios = baseServicios * 0.21;
+      const ivaServicios  = baseServicios * 0.21;
 
       // 3 % SIEMPRE sobre el precio de la propiedad
-      const comisionBase = precio * 0.03;
-      const ivaComision = comisionBase * 0.21;
+      const comisionBase  = precio * 0.03;
+      const ivaComision   = comisionBase * 0.21;
 
       const neto = precio - baseServicios - ivaServicios - comisionBase - ivaComision;
 
@@ -1403,96 +1401,13 @@
       }
 
       // Caja económica
-      if (costServiciosEl)     costServiciosEl.textContent     = formatEuro(baseServicios);
-      if (costIvaServiciosEl)  costIvaServiciosEl.textContent  = formatEuro(ivaServicios);
-      if (costComisionEl)      costComisionEl.textContent      = formatEuro(comisionBase);
-      if (costIvaComisionEl)   costIvaComisionEl.textContent   = formatEuro(ivaComision);
-      if (costNetoEl)          costNetoEl.textContent          = formatEuro(neto);
-
-      // Acciones activadas por el propietario (píldoras verdes)
-      renderOwnerActions();
-    }
-
-
-      // botones profesionales
-      profButtons.forEach(btn => {
-        const id = btn.dataset.profService;
-        const state = estados[id] || 'off';
-        if (state === 'done') {
-          btn.disabled = true;
-          btn.textContent = 'Acción ya marcada como realizada';
-        } else {
-          btn.disabled = false;
-        }
-      });
-
-      // Auditoría + costes
-      if (!auditLog) return;
-
-      const ids = Object.keys(estados).filter(id => estados[id] === 'on' || estados[id] === 'done');
-      if (ids.length === 0) {
-        auditLog.innerHTML = originalLogHTML;
-        if (kpiAcciones) kpiAcciones.textContent = '32';
-        if (kpiImporte) kpiImporte.textContent = '12.300 €';
-        if (costServiciosEl) costServiciosEl.textContent = '0,00 €';
-        if (costIvaServiciosEl) costIvaServiciosEl.textContent = '0,00 €';
-        if (costComisionEl) costComisionEl.textContent = '0,00 €';
-        if (costIvaComisionEl) costIvaComisionEl.textContent = '0,00 €';
-        if (costNetoEl) costNetoEl.textContent = '0,00 €';
-        renderOwnerActions();
-        return;
-      }
-
-      auditLog.innerHTML = '';
-      let totalImporte = 0;
-      let countAcciones = 0;
-
-      ids.forEach(id => {
-        const cfg = serviceConfig[id];
-        if (!cfg) return;
-        const state = estados[id];
-        const div = document.createElement('div');
-        div.className = 'log-entry';
-        if (state === 'on') {
-          div.innerHTML = `<strong>Propietario</strong> ${cfg.logOn}`;
-        } else if (state === 'done') {
-          div.innerHTML = `<strong>Profesional 7.0</strong> ${cfg.logDone}`;
-        }
-        auditLog.appendChild(div);
-
-        if (typeof cfg.importe === 'number' && cfg.importe > 0) {
-          totalImporte += cfg.importe;
-        }
-        countAcciones++;
-      });
-
-      const extra = document.createElement('div');
-      extra.className = 'log-entry';
-      extra.innerHTML = '<strong>Nota</strong> · Este registro es un ejemplo local. En la versión completa, cada acción se firma y verifica antes de llegar a notaría.';
-      auditLog.appendChild(extra);
-
-      // Comisiones y neto
-      const precio = getPrecioPropiedad();
-      const baseServicios = totalImporte;
-      const ivaServicios = baseServicios * 0.21;
-
-      let comisionBase = 0;
-      if (estados.gestion_total === 'on' || estados.gestion_total === 'done') {
-        comisionBase = precio * 0.03;
-      }
-      const ivaComision = comisionBase * 0.21;
-
-      const neto = precio - baseServicios - ivaServicios - comisionBase - ivaComision;
-
-      if (kpiAcciones) kpiAcciones.textContent = String(countAcciones);
-      if (kpiImporte) kpiImporte.textContent = formatEuro(baseServicios + comisionBase);
-
-      if (costServiciosEl) costServiciosEl.textContent = formatEuro(baseServicios);
+      if (costServiciosEl)    costServiciosEl.textContent    = formatEuro(baseServicios);
       if (costIvaServiciosEl) costIvaServiciosEl.textContent = formatEuro(ivaServicios);
-      if (costComisionEl) costComisionEl.textContent = formatEuro(comisionBase);
-      if (costIvaComisionEl) costIvaComisionEl.textContent = formatEuro(ivaComision);
-      if (costNetoEl) costNetoEl.textContent = formatEuro(neto);
+      if (costComisionEl)     costComisionEl.textContent     = formatEuro(comisionBase);
+      if (costIvaComisionEl)  costIvaComisionEl.textContent  = formatEuro(ivaComision);
+      if (costNetoEl)         costNetoEl.textContent         = formatEuro(neto);
 
+      // Píldoras verdes
       renderOwnerActions();
     }
 
@@ -1589,6 +1504,7 @@
       e.preventDefault();
       e.stopPropagation();
     }
+
     function addDropEvents(area, handler){
       ['dragenter','dragover','dragleave','drop'].forEach(ev => {
         area.addEventListener(ev, preventDefaults);
@@ -1612,6 +1528,7 @@
         }
       });
     }
+
     function handleDocs(files){
       files.forEach(f => {
         if (f) docFiles.push(f);
@@ -1625,6 +1542,7 @@
         handleFotos(files);
       });
     }
+
     if (btnDocsSelect && inputDocs) {
       btnDocsSelect.addEventListener('click', () => inputDocs.click());
       inputDocs.addEventListener('change', e => {
@@ -1632,6 +1550,7 @@
         handleDocs(files);
       });
     }
+
     if (dropFotos) addDropEvents(dropFotos, handleFotos);
     if (dropDocs) addDropEvents(dropDocs, handleDocs);
 
