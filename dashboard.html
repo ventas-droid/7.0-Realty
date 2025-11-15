@@ -12,1374 +12,505 @@
       color: #e5e7eb;
     }
     a { color: inherit; text-decoration: none; }
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    .page { min-height: 100vh; display:flex; flex-direction:column; }
+
     header {
-      padding: 1.2rem 1.5rem 0.8rem;
+      padding: 1.2rem 1.5rem .8rem;
       max-width: 1100px;
       margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: .6rem;
-    }
+
+    .logo { display:flex; align-items:center; gap:.6rem; }
     .logo-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #38bdf8);
-      display: grid;
-      place-items: center;
-      font-weight: 700;
-      color: #0f172a;
-      font-size: .85rem;
+      width:38px; height:38px; border-radius:999px;
+      background:linear-gradient(135deg,#22c55e,#38bdf8);
+      display:grid; place-items:center; font-weight:700;
+      color:#0f172a; font-size:.85rem;
     }
     .logo-text small {
-      font-size: .7rem;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: #9ca3af;
+      font-size:.7rem; text-transform:uppercase;
+      letter-spacing:.12em; color:#9ca3af;
     }
-    .logo-text span {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .header-actions {
-      display: flex;
-      gap: .5rem;
-      flex-wrap: wrap;
-    }
-    .chip {
-      font-size: .7rem;
-      padding: .25rem .7rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      color: #9ca3af;
-    }
+    .logo-text span { font-size:1rem; font-weight:600; }
+
+    .header-actions { display:flex; gap:.5rem; flex-wrap:wrap; }
     .btn-mini {
-      font-size: .75rem;
-      padding: .3rem .75rem;
-      border-radius: .75rem;
-      border: 1px solid #1f2937;
-      background: #0b1120;
-      cursor: pointer;
+      font-size:.75rem; padding:.3rem .75rem; border-radius:.75rem;
+      border:1px solid #1f2937; background:#0b1120; cursor:pointer;
     }
+    .chip { font-size:.7rem; padding:.25rem .7rem; border-radius:999px; border:1px solid #1f2937; color:#9ca3af; }
+
     main {
-      flex: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem 2rem;
+      flex:1; max-width:1100px; margin:0 auto; padding:0 1.5rem 2rem;
     }
-    .page-title {
-      margin-bottom: .8rem;
-    }
-    .page-title h1 {
-      font-size: 1.4rem;
-      margin-bottom: .2rem;
-    }
-    .page-title p {
-      font-size: .85rem;
-      color: #9ca3af;
-    }
-    .tabs {
-      display: flex;
-      gap: .4rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
+
+    .page-title h1 { font-size:1.45rem; margin-bottom:.2rem; }
+    .page-title p { font-size:.85rem; color:#9ca3af; }
+
+    .tabs { display:flex; gap:.4rem; margin:.8rem 0 1rem; flex-wrap:wrap; }
     .tab {
-      font-size: .8rem;
-      padding: .45rem .9rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      cursor: pointer;
-      color: #cbd5f5;
+      font-size:.8rem; padding:.45rem .9rem; border-radius:999px;
+      border:1px solid #1f2937; background:#020617; cursor:pointer;
+      color:#cbd5f5;
     }
-    .tab.active {
-      background: #22c55e;
-      color: #022c22;
-      border-color: #22c55e;
-      font-weight: 600;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2fr);
-      gap: 1.5rem;
-    }
-    @media (max-width: 860px) {
-      .grid { grid-template-columns: minmax(0, 1fr); }
-    }
+    .tab.active { background:#22c55e; color:#022c22; border-color:#22c55e; font-weight:600; }
+
+    .grid { display:grid; grid-template-columns:minmax(0,2.1fr) minmax(0,2fr); gap:1.5rem; }
+    @media(max-width:860px){ .grid{ grid-template-columns:1fr;} }
+
     .card {
-      background: #020617;
-      border-radius: 1rem;
-      border: 1px solid #1f2937;
-      padding: 1rem 1rem 1.1rem;
-      box-shadow: 0 18px 40px -30px rgb(15 23 42 / 0.95);
+      background:#020617; border-radius:1rem; border:1px solid #1f2937;
+      padding:1rem 1rem 1.2rem;
+      box-shadow:0 18px 40px -30px rgb(15 23 42 / .95);
     }
-    .card h2 {
-      font-size: 1rem;
-      margin-bottom: .25rem;
+
+    h2 { font-size:1.1rem; margin-bottom:.35rem; }
+    .section-title { margin-top:1rem; margin-bottom:.4rem; font-size:.88rem; font-weight:600; }
+
+    /* LISTAS */
+    ul.list { list-style:none; padding-left:0; margin:0 0 .9rem; }
+    ul.list li { font-size:.85rem; color:#e5e7eb; margin-bottom:.25rem; }
+    ul.list li::before {
+      content:"• "; color:#22c55e;
     }
-    .card p {
-      font-size: .85rem;
-      color: #9ca3af;
-      margin-bottom: .6rem;
-    }
-    .badge-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin-bottom: .7rem;
-    }
+
+    /* BADGES */
+    .badge-row { display:flex; flex-wrap:wrap; gap:.4rem; margin:.4rem 0 .9rem; }
     .badge {
-      font-size: .7rem;
-      padding: .25rem .6rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #0b1120;
-      color: #cbd5f5;
-    }
-    .section-title {
-      font-size: .85rem;
-      font-weight: 600;
-      margin: .8rem 0 .4rem;
-    }
-    /* Cabecera de sección + filtros */
-    .section-header {
-      margin-top: .8rem;
-      margin-bottom: .2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: .5rem;
-      flex-wrap: wrap;
-    }
-    .section-header .section-title {
-      margin: 0;
-    }
-    .service-filters {
-      display: inline-flex;
-      gap: .3rem;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      font-size: .7rem;
-      padding: .2rem .55rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #9ca3af;
-      cursor: pointer;
-    }
-    .filter-btn.active {
-      background: #1d4ed8;
-      border-color: #1d4ed8;
-      color: #e5e7eb;
-      font-weight: 600;
+      font-size:.75rem; padding:.25rem .6rem;
+      border-radius:999px; border:1px solid #1f2937;
+      background:#0b1120; color:#cbd5f5;
     }
 
-    .list {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-    }
-    .list li::before {
-      content: "• ";
-      color: #22c55e;
-    }
-    .list li {
-      font-size: .85rem;
-      color: #e5e7eb;
-      margin-bottom: .25rem;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: .6rem;
-      margin-top: .4rem;
-    }
-    .service-item {
-      font-size: .8rem;
-      border-radius: .8rem;
-      border: 1px solid #1f2937;
-      background: #020617;
-      padding: .55rem .6rem;
-      display: flex;
-      flex-direction: column;
-      gap: .1rem;
-    }
-    .service-item strong {
-      font-size: .82rem;
-    }
-    .service-meta {
-      font-size: .7rem;
-      color: #9ca3af;
-    }
-    .service-btn {
-      margin-top:.4rem;
-      padding:.35rem .7rem;
-      border-radius:.6rem;
-      border:1px solid #1f2937;
-      background:#0b1120;
-      color:#e5e7eb;
-      font-size:.75rem;
-      cursor:pointer;
-      align-self:flex-start;
-    }
-    .service-btn-active {
-      border-color:#ef4444;
-      background:#450a0a;
-      color:#fecaca;
-    }
-    /* Botón dorado para servicios activados individualmente */
-    .service-btn-gold {
-      border-color:#facc15;
-      background: radial-gradient(circle at top, #facc15, #92400e);
-      color:#0f172a;
-      font-weight:600;
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-    }
-    .service-btn-gold span.crown {
-      font-size:.85rem;
-    }
-    /* Botón dorado especial de FULL ACCIONES */
-    .service-btn-full {
-      margin-top:.35rem;
-      padding:.35rem .9rem;
-      border-radius:.7rem;
-      border:1px solid #fbbf24;
-      background: radial-gradient(circle at top, #facc15, #b45309);
-      color:#022c22;
-      font-size:.78rem;
-      font-weight:700;
-      display:inline-flex;
-      align-items:center;
-      gap:.35rem;
-      cursor:pointer;
-    }
-    .service-btn-full span.crown {
-      font-size:.9rem;
-    }
-
-    .service-btn-done {
-      border-color:#38bdf8;
-      background:#0b1120;
-      color:#bfdbfe;
-      cursor:default;
-    }
-    .toggle-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-      margin-top: .4rem;
-      font-size: .78rem;
-    }
-    .toggle {
-      padding: .2rem .5rem;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #0b1120;
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      cursor: default;
-    }
-    .toggle-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-    .kpis {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: .6rem;
-      margin-top: .6rem;
-    }
-    .kpi {
-      border-radius: .8rem;
-      border: 1px solid #1f2937;
-      background: #020617;
-      padding: .55rem .6rem;
-    }
-    .kpi label {
-      display: block;
-      font-size: .7rem;
-      color: #9ca3af;
-      margin-bottom: .1rem;
-    }
-    .kpi span {
-      font-size: .9rem;
-      font-weight: 600;
-    }
-    .log {
-      font-size: .78rem;
-      margin-top: .6rem;
-      max-height: 190px;
-      overflow-y: auto;
-      border-radius: .7rem;
-      border: 1px dashed #1f2937;
-      padding: .5rem .6rem;
-      background: #020617;
-    }
-    .log-entry {
-      margin-bottom: .25rem;
-      color: #9ca3af;
-    }
-    .log-entry strong { color: #e5e7eb; }
-    .hint {
-      font-size: .75rem;
-      color: #9ca3af;
-      margin-top: .4rem;
-    }
-    footer {
-      font-size: .7rem;
-      color: #6b7280;
-      padding: .75rem 1.5rem 1.3rem;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .agency-actions {
-      margin-top: .8rem;
-      border-top: 1px solid #1f2937;
-      padding-top: .6rem;
-    }
-    .agency-actions p {
-      margin-bottom: .4rem;
-      font-size:.8rem;
-      color:#9ca3af;
-    }
-    .agency-grid {
+    /* NUEVOS BLOQUES SUBIR ARCHIVOS */
+    .upload-boxes {
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
-      gap:.5rem;
+      grid-template-columns:1fr 1fr;
+      gap:1rem;
+      margin-bottom:1rem;
     }
-    .agency-btn {
-      margin-top:.35rem;
-      font-size:.72rem;
-      padding:.3rem .6rem;
+    @media(max-width:700px){ .upload-boxes{ grid-template-columns:1fr;} }
+
+    .upload-box {
+      border:2px dashed #334155;
+      border-radius:1rem;
+      padding:1.2rem;
+      text-align:center;
+      background:#0b1120;
+      cursor:pointer;
+      transition:.2s;
+    }
+    .upload-box:hover { border-color:#38bdf8; }
+
+    .upload-box-title { font-size:.9rem; font-weight:600; margin-bottom:.4rem; }
+    .upload-box small { font-size:.7rem; color:#94a3b8; }
+
+    .btn-view {
+      margin-top:.4rem;
+      padding:.4rem .8rem;
       border-radius:.6rem;
       border:1px solid #1d4ed8;
-      background:#020617;
+      background:#0b1120;
       color:#bfdbfe;
       cursor:pointer;
-    }
-    .agency-btn:disabled {
-      opacity:.7;
-      cursor:default;
+      font-size:.75rem;
     }
 
-    /* Caja financiera */
-    .cost-box {
-      margin-top:1rem;
-      border-radius:.9rem;
+    .file-list {
+      margin-top:.6rem;
+      padding:.5rem .7rem;
+      border-radius:.6rem;
       border:1px solid #1f2937;
-      background: radial-gradient(circle at top left, rgba(250,204,21,0.16), rgba(15,23,42,0.96));
-      padding:.75rem .8rem;
-      font-size:.8rem;
+      background:#0b1120;
+      font-size:.78rem;
+      color:#cbd5f5;
+      display:none;
     }
-    .cost-main {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:.75rem;
-      margin-bottom:.4rem;
-      flex-wrap:wrap;
+    .file-list-item { margin-bottom:.2rem; color:#fff; }
+    /* SERVICIOS */
+    .services-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1rem;
+      margin-top:.5rem;
     }
-    .cost-row {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:.75rem;
-      margin-bottom:.25rem;
-      flex-wrap:wrap;
+    .service-card {
+      border:1px solid #1f2937;
+      background:#0b1120;
+      border-radius:1rem;
+      padding:1rem;
     }
-    .cost-row-total {
-      border-top:1px dashed #4b5563;
-      padding-top:.4rem;
-      margin-top:.3rem;
-    }
-    .cost-label {
+    .service-card strong { font-size:1rem; }
+    .service-meta { font-size:.8rem; color:#9ca3af; margin-bottom:.4rem; }
+
+    .service-btn {
+      margin-top:.5rem;
+      padding:.5rem .9rem;
+      border-radius:.7rem;
+      border:1px solid #334155;
+      background:#0f172a;
       color:#e5e7eb;
-      font-weight:500;
+      cursor:pointer;
       font-size:.8rem;
     }
-    .cost-value {
-      font-size:.9rem;
+    .service-btn-gold {
+      background:linear-gradient(135deg,#facc15,#b45309);
+      border-color:#eab308;
+      color:#0f172a;
       font-weight:700;
-      color:#facc15;
-      white-space:nowrap;
+      display:flex;
+      align-items:center;
+      gap:.4rem;
     }
-    .cost-note {
-      font-size:.75rem;
-      color:#9ca3af;
-      margin-top:.25rem;
+
+    /* FULL ACCIONES */
+    .service-btn-full {
+      margin-top:.5rem;
+      padding:.6rem 1rem;
+      border-radius:.8rem;
+      background:linear-gradient(135deg,#facc15,#92400e);
+      border:1px solid #fbbf24;
+      color:#0f172a;
+      font-weight:700;
+      cursor:pointer;
+      font-size:.9rem;
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
     }
-    .cost-note strong {
-      color:#facc15;
-    }
-    .cost-input {
-      background:#020617;
-      border-radius:.5rem;
+
+    /* CAJA FINANCIERA */
+    .finance-box {
+      margin-top:1.4rem;
+      padding:1rem;
+      border-radius:1rem;
       border:1px solid #1f2937;
-      color:#e5e7eb;
-      padding:.25rem .5rem;
-      width:140px;
-      text-align:right;
-      font-size:.8rem;
+      background:radial-gradient(circle at top left,rgba(250,204,21,0.18),rgba(15,23,42,0.92));
     }
+    .finance-row {
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:.4rem;
+      font-size:.85rem;
+    }
+    .finance-label { color:#cbd5e1; }
+    .finance-value { color:#facc15; font-weight:700; }
+
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <header>
-      <div class="logo">
-        <div class="logo-icon">7.0</div>
-        <div class="logo-text">
-          <small>Panel demostración</small>
-          <span>Plataforma 7.0</span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <a href="index.html" class="btn-mini">← Volver a la página principal</a>
-        <span class="chip">Prototipo visual · sin datos reales de servidor</span>
-      </div>
-    </header>
+<div class="page">
 
-    <main>
-      <div class="page-title">
-        <h1>Panel central de Plataforma 7.0</h1>
-        <p>Vista simulada de cómo se organiza la información para propietarios, agencias, difusores y auditoría.</p>
-      </div>
-
-      <div class="tabs">
-        <button class="tab active" data-tab="propietario">Propietario</button>
-        <button class="tab" data-tab="agencia">Agencia / Profesional</button>
-        <button class="tab" data-tab="difusor">Difusores / Creadores</button>
-        <button class="tab" data-tab="auditor">Auditoría</button>
-      </div>
-
-      <div class="grid">
-        <!-- PANEL PROPIETARIO -->
-        <section id="panel-propietario" class="panel">
-          <div class="card">
-            <h2>Propietario – Ático Blue Sunset</h2>
-            <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
-
-            <div class="badge-row">
-              <span class="badge">2 dorm · 2 baños</span>
-              <span class="badge">Vistas al mar</span>
-              <span class="badge">La Duquesa · Manilva</span>
-              <span class="badge">Campaña activa</span>
-            </div>
-
-            <div class="section-title">Acciones activadas por el propietario</div>
-            <ul class="list" id="owner-actions-list">
-              <li>Ha subido documentación básica y descripción completa de la vivienda.</li>
-              <li>Ha activado fotos profesionales y vídeo con dron, a pago a éxito.</li>
-              <li>Ha solicitado una valoración profesional para ajustar el precio de salida.</li>
-              <li>Ha pedido revisión legal para llegar limpio a la notaría.</li>
-            </ul>
-
-            <!-- CABECERA + FILTROS DE SERVICIOS -->
-            <div class="section-header">
-              <span class="section-title">Servicios disponibles (tarifas ejemplo)</span>
-              <div class="service-filters">
-                <button class="filter-btn active" data-range="1-4">1–4</button>
-                <button class="filter-btn" data-range="5-8">5–8</button>
-                <button class="filter-btn" data-range="9-12">9–12</button>
-                <button class="filter-btn" data-range="13-16">13–16</button>
-                <button class="filter-btn" data-range="all">Todos</button>
-              </div>
-            </div>
-
-            <div class="services-grid" id="services-grid">
-              <!-- VISUAL / NARRATIVA BASE -->
-              <div class="service-item">
-                <strong>Fotos PRO</strong>
-                <div class="service-meta">450 € · pago a éxito</div>
-                <div class="service-meta">Fotógrafo especializado inmobiliario.</div>
-                <button class="service-btn" data-service="fotos">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Vídeo + dron</strong>
-                <div class="service-meta">450 € · pago a éxito</div>
-                <div class="service-meta">Recorrido interior + vistas aéreas.</div>
-                <button class="service-btn" data-service="video">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Home staging</strong>
-                <div class="service-meta">750–1200 €</div>
-                <div class="service-meta">Mejora estética sin reformas pesadas.</div>
-                <button class="service-btn" data-service="staging">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Blogger internacional</strong>
-                <div class="service-meta">3000 € · pago a éxito</div>
-                <div class="service-meta">Historia real en otro país.</div>
-                <button class="service-btn" data-service="blogger">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Revisión legal</strong>
-                <div class="service-meta">250 € · pagado al cierre</div>
-                <div class="service-meta">Abogado inmobiliario especializado.</div>
-                <button class="service-btn" data-service="legal">Activar este servicio</button>
-              </div>
-
-              <!-- COMERCIAL / VISITAS -->
-              <div class="service-item">
-                <strong>Acompañamiento a visitas</strong>
-                <div class="service-meta">50 € por visita</div>
-                <div class="service-meta">Comercial 7.0 especializado, informe por visita.</div>
-                <button class="service-btn" data-service="acomp_visitas">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Atención de llamadas</strong>
-                <div class="service-meta">80–120 € / mes</div>
-                <div class="service-meta">Filtro de compradores y agenda gestionada.</div>
-                <button class="service-btn" data-service="atencion_llamadas">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Gestión de agenda</strong>
-                <div class="service-meta">100–150 € / mes</div>
-                <div class="service-meta">Coordinación de visitas y recordatorios.</div>
-                <button class="service-btn" data-service="gestion_agenda">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Informe semanal</strong>
-                <div class="service-meta">30–50 € / mes</div>
-                <div class="service-meta">Resumen de visitas, interés y próximos pasos.</div>
-                <button class="service-btn" data-service="informe_semanal">Activar este servicio</button>
-              </div>
-
-              <!-- MARKETING / DIFUSIÓN -->
-              <div class="service-item">
-                <strong>Campaña redes sociales</strong>
-                <div class="service-meta">150 € gestión</div>
-                <div class="service-meta">+ inversión desde 100 €. Segmentación internacional.</div>
-                <button class="service-btn" data-service="campanas_redes">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Red difusores locales</strong>
-                <div class="service-meta">Hasta 1000 € a éxito</div>
-                <div class="service-meta">Compartido en redes y grupos reales.</div>
-                <button class="service-btn" data-service="difusores_locales">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Influencers extranjeros</strong>
-                <div class="service-meta">2000–3000 € a éxito</div>
-                <div class="service-meta">Visibilidad en comunidades nicho internacionales.</div>
-                <button class="service-btn" data-service="influencers_extranjeros">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Tour virtual 3D</strong>
-                <div class="service-meta">250–400 €</div>
-                <div class="service-meta">Recorrido completo en 360º de la vivienda.</div>
-                <button class="service-btn" data-service="tour_3d">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Reportaje nocturno</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Fotos al atardecer para resaltar ambiente.</div>
-                <button class="service-btn" data-service="reportaje_nocturno">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Copywriting premium</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Anuncio redactado como historia real.</div>
-                <button class="service-btn" data-service="copywriting">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Carta de venta</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">PDF profesional para compradores interesados.</div>
-                <button class="service-btn" data-service="carta_venta">Activar este servicio</button>
-              </div>
-
-              <!-- TÉCNICO / LEGAL EXTRA -->
-              <div class="service-item">
-                <strong>Valoración profesional</strong>
-                <div class="service-meta">100–200 €</div>
-                <div class="service-meta">Informe de precio con comparables reales.</div>
-                <button class="service-btn" data-service="valoracion_basica">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Valoración ampliada</strong>
-                <div class="service-meta">150–300 €</div>
-                <div class="service-meta">Escenarios de precio, plazos y estrategia.</div>
-                <button class="service-btn" data-service="valoracion_ampliada">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Informe fiscal</strong>
-                <div class="service-meta">150–200 €</div>
-                <div class="service-meta">Cálculo de impuestos y neto final a cobrar.</div>
-                <button class="service-btn" data-service="informe_fiscal">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Certificado energético</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Certificado obligatorio gestionado por técnico.</div>
-                <button class="service-btn" data-service="cert_energetico">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Plano profesional</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Plano 2D/3D claro y presentable.</div>
-                <button class="service-btn" data-service="planos">Activar este servicio</button>
-              </div>
-
-              <!-- MEJORAS FÍSICAS / REFORMAS -->
-              <div class="service-item">
-                <strong>Limpieza profesional</strong>
-                <div class="service-meta">50–120 €</div>
-                <div class="service-meta">Puesta a punto antes de fotos y visitas.</div>
-                <button class="service-btn" data-service="limpieza">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Pequeños arreglos</strong>
-                <div class="service-meta">100–400 €</div>
-                <div class="service-meta">Manitas: grifos, enchufes, persianas, detalles.</div>
-                <button class="service-btn" data-service="pequenos_arreglos">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Lavado de cara exprés</strong>
-                <div class="service-meta">300–600 €</div>
-                <div class="service-meta">Pintura estratégica y modernización rápida.</div>
-                <button class="service-btn" data-service="lavado_cara">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Optimización de terraza</strong>
-                <div class="service-meta">200–600 €</div>
-                <div class="service-meta">Mobiliario básico, textiles y plantas.</div>
-                <button class="service-btn" data-service="optim_terraza">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Reformas ligeras</strong>
-                <div class="service-meta">Desde 500 €</div>
-                <div class="service-meta">Cambios con alto impacto visual.</div>
-                <button class="service-btn" data-service="reformas_ligeras">Activar este servicio</button>
-              </div>
-
-              <!-- ACOMPAÑAMIENTO 7.0 -->
-              <div class="service-item">
-                <strong>Asistente personal 7.0</strong>
-                <div class="service-meta">60–90 € / sesión</div>
-                <div class="service-meta">Acompañamiento por videollamada o teléfono.</div>
-                <button class="service-btn" data-service="asistente_personal">Activar este servicio</button>
-              </div>
-              <div class="service-item">
-                <strong>Gestión total 7.0</strong>
-                <div class="service-meta">Hasta 3 % a éxito</div>
-                <div class="service-meta">Coordinación integral hasta Notaría – Full acciones.</div>
-                <button class="service-btn" data-service="gestion_total">Activar este servicio</button>
-                <button class="service-btn-full" id="btn-full-acciones">
-                  <span class="crown">👑</span>
-                  Full acciones 7.0
-                </button>
-              </div>
-            </div>
-
-            <div class="toggle-row">
-              <span class="toggle" data-toggle="fotos"><span class="toggle-dot"></span> Fotos PRO activadas</span>
-              <span class="toggle" data-toggle="video"><span class="toggle-dot"></span> Vídeo + dron activo</span>
-              <span class="toggle" data-toggle="blogger"><span class="toggle-dot"></span> Blogger pendiente de contenido</span>
-            </div>
-
-            <!-- CAJA FINANCIERA -->
-            <div class="cost-box">
-              <div class="cost-main">
-                <span class="cost-label">Precio de la propiedad</span>
-                <input
-                  id="property-price"
-                  class="cost-input"
-                  type="number"
-                  min="0"
-                  step="1000"
-                  value="0"
-                />
-              </div>
-
-              <div class="cost-row">
-                <span class="cost-label">Total servicios activados (sin IVA):</span>
-                <span class="cost-value" id="cost-servicios">0 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">IVA servicios 21 %:</span>
-                <span class="cost-value" id="cost-servicios-iva">0 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">Comisión 3 % gestión 7.0 (sin IVA):</span>
-                <span class="cost-value" id="cost-comision">0 €</span>
-              </div>
-              <div class="cost-row">
-                <span class="cost-label">IVA 21 % comisión:</span>
-                <span class="cost-value" id="cost-comision-iva">0 €</span>
-              </div>
-              <div class="cost-row cost-row-total">
-                <span class="cost-label">Neto para el propietario (antes de plusvalía):</span>
-                <span class="cost-value" id="cost-neto">0 €</span>
-              </div>
-
-              <p class="cost-note">
-                Cálculo orientativo en formato España (puntos de miles, coma decimal).  
-                Incluye servicios activados + comisión estándar del 3 % con su IVA.
-                No incluye plusvalía municipal, IRPF u otros impuestos.
-              </p>
-            </div>
-
-            <p class="hint">
-              El propietario ve esto como “panel de mando”: qué está activo, qué falta por activar
-              y qué servicios ya han sido realizados, junto con el neto aproximado que le quedaría.
-            </p>
-          </div>
-        </section>
-
-        <!-- PANEL AGENCIA -->
-        <section id="panel-agencia" class="panel" style="display:none;">
-          <div class="card">
-            <h2>Agencia 7.0 – Centro de producción</h2>
-            <p>Vista para agencias que dejan de vivir de exclusivas vacías y pasan a producir resultados.</p>
-
-            <div class="badge-row">
-              <span class="badge">Equipo 7.0 Activo</span>
-              <span class="badge">Comercial autónomo</span>
-              <span class="badge">Abogado interno</span>
-              <span class="badge">Valorador profesional</span>
-            </div>
-
-            <div class="section-title">Servicios que ofrece la agencia dentro de la plataforma</div>
-            <ul class="list">
-              <li>Acompañamiento a visitas: comercial autónomo cobra por visita cualificada.</li>
-              <li>Valoraciones profesionales con informe completo de mercado.</li>
-              <li>Gestión de reportajes y contenido audiovisual para varias viviendas a la vez.</li>
-              <li>Coordinación con bloggers, difusores y propietarios dentro del mismo sistema.</li>
-            </ul>
-
-            <div class="section-title">Acciones de profesionales sobre los servicios activos</div>
-            <div class="agency-actions">
-              <p>Ejemplo real de flujo 7.0: los profesionales marcan aquí cuándo han completado su trabajo.</p>
-              <div class="agency-grid">
-                <div>
-                  <strong>Fotógrafo</strong>
-                  <div class="service-meta">Fotos PRO</div>
-                  <button class="agency-btn" data-prof-service="fotos">Marcar fotos como entregadas</button>
-                </div>
-                <div>
-                  <strong>Videógrafo / dron</strong>
-                  <div class="service-meta">Vídeo + dron</div>
-                  <button class="agency-btn" data-prof-service="video">Marcar vídeo como entregado</button>
-                </div>
-                <div>
-                  <strong>Interiorista</strong>
-                  <div class="service-meta">Home staging</div>
-                  <button class="agency-btn" data-prof-service="staging">Marcar staging realizado</button>
-                </div>
-                <div>
-                  <strong>Blogger internacional</strong>
-                  <div class="service-meta">Publicación historia</div>
-                  <button class="agency-btn" data-prof-service="blogger">Marcar post publicado</button>
-                </div>
-                <div>
-                  <strong>Abogado</strong>
-                  <div class="service-meta">Revisión legal</div>
-                  <button class="agency-btn" data-prof-service="legal">Marcar informe entregado</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="kpis">
-              <div class="kpi">
-                <label>Propiedades activas</label>
-                <span>12</span>
-              </div>
-              <div class="kpi">
-                <label>Visitas esta semana</label>
-                <span>24</span>
-              </div>
-              <div class="kpi">
-                <label>Ventas cerradas mes</label>
-                <span>3</span>
-              </div>
-              <div class="kpi">
-                <label>Honorarios a cobrar</label>
-                <span>18.500 €</span>
-              </div>
-            </div>
-
-            <p class="hint">
-              La agencia ve el sistema como una fábrica de resultados: menos escaparate, más contenido, más foco en servicios realizados y cierres reales.
-            </p>
-          </div>
-        </section>
-
-        <!-- PANEL DIFUSOR -->
-        <section id="panel-difusor" class="panel" style="display:none;">
-          <div class="card">
-            <h2>Difusores y creadores</h2>
-            <p>Personas que no son agentes, pero tienen audiencia y pueden ayudar a vender compartiendo historias reales.</p>
-
-            <div class="badge-row">
-              <span class="badge">Bloggers</span>
-              <span class="badge">YouTubers</span>
-              <span class="badge">Influencers</span>
-              <span class="badge">Gente normal con redes</span>
-            </div>
-
-            <div class="section-title">Cómo funciona para un difusor</div>
-            <ul class="list">
-              <li>Se registra como difusor en la plataforma.</li>
-              <li>Recibe un enlace o material de la vivienda para compartir en sus redes.</li>
-              <li>Su tráfico se registra: clics, interesados, visitas programadas.</li>
-              <li>Si la vivienda se vende y su difusión ha tenido impacto real, cobra una cantidad pactada.</li>
-            </ul>
-
-            <div class="section-title">Ejemplo de recompensa</div>
-            <div class="services-grid">
-              <div class="service-item">
-                <strong>Difusor local</strong>
-                <div class="service-meta">Publica en grupos y contactos</div>
-                <div class="service-meta">Ejemplo: hasta 500–1000 € al cierre según impacto.</div>
-              </div>
-              <div class="service-item">
-                <strong>Influencer nicho extranjero</strong>
-                <div class="service-meta">Público comprador de tu zona</div>
-                <div class="service-meta">Ejemplo: 2000–3000 € a éxito.</div>
-              </div>
-            </div>
-
-            <div class="kpis">
-              <div class="kpi">
-                <label>Difusores activos</label>
-                <span>14</span>
-              </div>
-              <div class="kpi">
-                <label>Alcance estimado</label>
-                <span>23.000</span>
-              </div>
-              <div class="kpi">
-                <label>Viviendas con difusión 7.0</label>
-                <span>8</span>
-              </div>
-            </div>
-
-            <p class="hint">
-              Todo el sistema está pensado para repartir valor: si tu difusión ayuda a vender, cobras. Si no, nadie te cobra ni cobra.
-            </p>
-          </div>
-        </section>
-
-        <!-- PANEL AUDITOR -->
-        <section id="panel-auditor" class="panel" style="display:none;">
-          <div class="card">
-            <h2>Auditoría 7.0</h2>
-            <p>Una visión simple de cómo se podría registrar quién participa, qué se activa y qué se paga al cierre.</p>
-
-            <div class="badge-row">
-              <span class="badge">Registro de acciones</span>
-              <span class="badge">Transparencia</span>
-              <span class="badge">Preparado para notaría</span>
-            </div>
-
-            <div class="kpis">
-              <div class="kpi">
-                <label>Acciones registradas</label>
-                <span id="kpi-acciones">32</span>
-              </div>
-              <div class="kpi">
-                <label>Profesionales implicados</label>
-                <span>9</span>
-              </div>
-              <div class="kpi">
-                <label>Difusores con impacto</label>
-                <span>4</span>
-              </div>
-              <div class="kpi">
-                <label>Importe a repartir</label>
-                <span id="kpi-importe">12.300 €</span>
-              </div>
-            </div>
-
-            <div class="section-title">Ejemplo de “registro” de la vivienda</div>
-            <div class="log" id="audit-log">
-              <div class="log-entry"><strong>Propietario</strong> activa Fotos PRO (450 € a éxito).</div>
-              <div class="log-entry"><strong>Propietario</strong> activa Vídeo + dron (450 € a éxito).</div>
-              <div class="log-entry"><strong>Agencia 7.0</strong> asigna comercial autónomo para visitas (50 €/visita).</div>
-              <div class="log-entry"><strong>Abogado</strong> registra revisión legal pendiente (250 € al cierre).</div>
-              <div class="log-entry"><strong>Blogger FR</strong> publica historia sobre “ático con vistas a África”.</div>
-              <div class="log-entry"><strong>Difusor local</strong> comparte la vivienda en grupos de la zona.</div>
-              <div class="log-entry"><strong>Venta</strong>: se cierra operación y se reparte el valor entre implicados.</div>
-            </div>
-
-            <p class="hint">
-              En la versión completa, este panel se conectaría a una base de datos y, si se quiere, a la notaría para verificar que los pagos a éxito quedan reflejados de forma justa.
-            </p>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer>
-      Plataforma 7.0 – Panel demostración · Esta página es un prototipo visual estático pensado para explicar el sistema.
-    </footer>
+<header>
+  <div class="logo">
+    <div class="logo-icon">7.0</div>
+    <div class="logo-text">
+      <small>Panel demostración</small>
+      <span>Plataforma 7.0</span>
+    </div>
   </div>
-  <script>
-    // Tabs
-    const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.panel');
+  <div class="header-actions">
+    <a href="index.html" class="btn-mini">← Volver</a>
+    <span class="chip">Prototipo visual</span>
+  </div>
+</header>
 
-    function showTab(name){
-      panels.forEach(p => {
-        if(p.id === 'panel-' + name){ p.style.display = '' }
-        else { p.style.display = 'none' }
-      });
-      tabs.forEach(t => {
-        t.classList.toggle('active', t.dataset.tab === name);
-      });
-    }
+<main>
+  <div class="page-title">
+    <h1>Panel central de Plataforma 7.0</h1>
+    <p>Gestión completa para propietarios, agencias y difusores.</p>
+  </div>
 
-    tabs.forEach(t => {
-      t.addEventListener('click', () => showTab(t.dataset.tab));
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-tab="propietario">Propietario</button>
+    <button class="tab" data-tab="agencia">Agencia</button>
+    <button class="tab" data-tab="difusor">Difusor</button>
+    <button class="tab" data-tab="auditor">Auditoría</button>
+  </div>
+
+  <div class="grid">
+
+    <!-- PANEL PROPIETARIO -->
+    <section id="panel-propietario" class="panel">
+
+      <div class="card">
+        <h2>Propietario – Ático Blue Sunset</h2>
+        <p>Gestión completa de la campaña de venta.</p>
+
+        <!-- BADGES -->
+        <div class="badge-row">
+          <span class="badge">2 dorm · 2 baños</span>
+          <span class="badge">Vistas al mar</span>
+          <span class="badge">La Duquesa · Manilva</span>
+          <span class="badge">Campaña activa</span>
+        </div>
+
+        <!-- SUBIDA ARCHIVOS -->
+        <div class="section-title">Acciones iniciales</div>
+
+        <div class="upload-boxes">
+
+          <!-- SUBIR FOTOS -->
+          <div class="upload-box" id="upload-fotos">
+            <div class="upload-box-title">📷 Subir fotos</div>
+            <small>Arrastra o haz clic aquí</small>
+            <input type="file" id="input-fotos" accept="image/*" multiple hidden />
+          </div>
+
+          <!-- SUBIR DOCUMENTOS -->
+          <div class="upload-box" id="upload-docs">
+            <div class="upload-box-title">📄 Subir documentación</div>
+            <small>PDF, Word, contratos, etc.</small>
+            <input type="file" id="input-docs" accept=".pdf,.doc,.docx,.jpg,.png" multiple hidden />
+          </div>
+        </div>
+
+        <!-- BOTONES VER ARCHIVOS -->
+        <button class="btn-view" id="btn-ver-fotos">Ver fotos subidas</button>
+        <div class="file-list" id="list-fotos"></div>
+
+        <button class="btn-view" id="btn-ver-docs">Ver documentación subida</button>
+        <div class="file-list" id="list-docs"></div>
+
+        <!-- LISTA DINÁMICA DE SERVICIOS ACTIVADOS -->
+        <div class="section-title">Acciones activadas por el propietario</div>
+        <ul class="list" id="lista-activados">
+          <!-- Se llenará automáticamente -->
+        </ul>
+
+        <!-- SERVICIOS -->
+        <div class="section-title">Servicios disponibles (tarifas ejemplo)</div>
+
+        <div class="services-grid" id="services-container">
+          <!-- Aquí se insertarán TODOS los servicios con JS -->
+        </div>
+
+        <!-- BOTÓN FULL ACCIONES -->
+        <button class="service-btn-full" id="btn-full">
+          👑 Full acciones 7.0
+        </button>
+
+        <!-- CAJA FINANCIERA -->
+        <div class="finance-box">
+          <div class="finance-row">
+            <span class="finance-label">Precio de la propiedad:</span>
+            <span class="finance-value" id="precio-prop">385.000 €</span>
+          </div>
+
+          <div class="finance-row">
+            <span class="finance-label">Servicios activados (sin IVA):</span>
+            <span class="finance-value" id="serv-sin-iva">0 €</span>
+          </div>
+
+          <div class="finance-row">
+            <span class="finance-label">IVA servicios (21 %):</span>
+            <span class="finance-value" id="iva-serv">0 €</span>
+          </div>
+
+          <div class="finance-row">
+            <span class="finance-label">Comisión 3% gestión total:</span>
+            <span class="finance-value" id="comision">0 €</span>
+          </div>
+
+          <div class="finance-row">
+            <span class="finance-label">IVA comisión (21 %):</span>
+            <span class="finance-value" id="iva-comision">0 €</span>
+          </div>
+
+          <div class="finance-row" style="margin-top:10px;">
+            <span class="finance-label"><strong>Neto para propietario:</strong></span>
+            <span class="finance-value" id="neto"><strong>0 €</strong></span>
+          </div>
+
+          <small style="color:#94a3b8; font-size:.75rem; margin-top:.4rem; display:block;">
+            Neto real (España). Incluye servicios + IVA + comisión 3% + IVA comisión. No incluye plusvalía municipal.
+          </small>
+        </div>
+
+      </div>
+    </section>
+<script>
+/* ------------------------------
+   TABS
+------------------------------ */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+
+tabs.forEach(t => {
+  t.addEventListener('click', () => {
+    tabs.forEach(a => a.classList.remove('active'));
+    t.classList.add('active');
+
+    panels.forEach(p => {
+      p.style.display = p.id === "panel-" + t.dataset.tab ? "" : "none";
     });
+  });
+});
 
-    showTab('propietario');
 
-    // ------------------------------
-    // Estados de servicios EN MEMORIA: "off" | "on" | "done"
-    // ------------------------------
-    const serviceButtons = document.querySelectorAll('.service-btn[data-service]');
-    const fullActionsBtn = document.getElementById('btn-full-acciones');
-    const profButtons = document.querySelectorAll('.agency-btn');
-    const toggles = document.querySelectorAll('[data-toggle]');
-    const auditLog = document.getElementById('audit-log');
-    const originalLogHTML = auditLog ? auditLog.innerHTML : '';
-    const kpiAcciones = document.getElementById('kpi-acciones');
-    const kpiImporte = document.getElementById('kpi-importe');
+/* ------------------------------
+   SISTEMA DE ARCHIVOS
+------------------------------ */
+const fotosInput = document.getElementById("input-fotos");
+const docsInput  = document.getElementById("input-docs");
 
-    // Caja financiera
-    const propertyPriceInput = document.getElementById('property-price');
-    const costServiciosEl = document.getElementById('cost-servicios');
-    const costServiciosIVAEl = document.getElementById('cost-servicios-iva');
-    const costComisionEl = document.getElementById('cost-comision');
-    const costComisionIVAEl = document.getElementById('cost-comision-iva');
-    const costNetoEl = document.getElementById('cost-neto');
+const listaFotos = document.getElementById("list-fotos");
+const listaDocs  = document.getElementById("list-docs");
 
-    // Filtros de servicios
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const serviceItems = document.querySelectorAll('#services-grid .service-item');
+document.getElementById("upload-fotos").addEventListener("click", () => fotosInput.click());
+document.getElementById("upload-docs").addEventListener("click", () => docsInput.click());
 
-    const estadosServicios = {};
+function renderFiles(input, list) {
+  list.innerHTML = "";
+  [...input.files].forEach(file => {
+    const div = document.createElement("div");
+    div.textContent = "• " + file.name;
+    list.appendChild(div);
+  });
+}
 
-    const serviceConfig = {
-      fotos: {
-        label: 'Fotos PRO',
-        logOn: 'activa Fotos PRO (450 € a éxito).',
-        logDone: 'marca Fotos PRO como realizadas y entregadas.',
-        importe: 450
-      },
-      video: {
-        label: 'Vídeo + dron',
-        logOn: 'activa Vídeo + dron (450 € a éxito).',
-        logDone: 'marca el vídeo + dron como entregado.',
-        importe: 450
-      },
-      staging: {
-        label: 'Home staging',
-        logOn: 'solicita Home staging (750–1200 € a éxito).',
-        logDone: 'marca el Home staging como realizado en la vivienda.',
-        importe: 900
-      },
-      blogger: {
-        label: 'Blogger internacional',
-        logOn: 'activa Blogger internacional (3000 € a éxito).',
-        logDone: 'confirma que el post del blogger internacional ha sido publicado.',
-        importe: 3000
-      },
-      legal: {
-        label: 'Revisión legal',
-        logOn: 'solicita revisión legal (250 € al cierre).',
-        logDone: 'marca la revisión legal como completada y lista para notaría.',
-        importe: 250
-      },
-      acomp_visitas: {
-        label: 'Acompañamiento a visitas',
-        logOn: 'activa acompañamiento profesional a visitas (50 € por visita).',
-        logDone: 'marca que las visitas han sido acompañadas y reportadas.',
-        importe: 200
-      },
-      atencion_llamadas: {
-        label: 'Atención de llamadas',
-        logOn: 'activa servicio de atención de llamadas y filtro de compradores.',
-        logDone: 'marca que el servicio de llamadas ha sido prestado correctamente.',
-        importe: 120
-      },
-      gestion_agenda: {
-        label: 'Gestión de agenda',
-        logOn: 'activa la gestión de agenda de visitas y recordatorios.',
-        logDone: 'marca la gestión de agenda como realizada durante el periodo pactado.',
-        importe: 150
-      },
-      informe_semanal: {
-        label: 'Informe semanal',
-        logOn: 'activa el informe semanal de estado de la venta.',
-        logDone: 'marca que los informes semanales han sido entregados.',
-        importe: 90
-      },
-      campanas_redes: {
-        label: 'Campaña redes sociales',
-        logOn: 'activa una campaña segmentada en redes sociales.',
-        logDone: 'marca que la campaña en redes ha sido ejecutada.',
-        importe: 150
-      },
-      difusores_locales: {
-        label: 'Red difusores locales',
-        logOn: 'activa la difusión en redes y grupos locales.',
-        logDone: 'marca que la campaña con difusores locales se ha realizado.',
-        importe: 500
-      },
-      influencers_extranjeros: {
-        label: 'Influencers extranjeros',
-        logOn: 'activa colaboración con influencers extranjeros a éxito.',
-        logDone: 'marca que la campaña con influencers se ha publicado.',
-        importe: 2500
-      },
-      tour_3d: {
-        label: 'Tour virtual 3D',
-        logOn: 'solicita la creación de un tour virtual 3D.',
-        logDone: 'marca el tour virtual 3D como entregado.',
-        importe: 300
-      },
-      reportaje_nocturno: {
-        label: 'Reportaje nocturno',
-        logOn: 'activa reportaje fotográfico al atardecer o nocturno.',
-        logDone: 'marca el reportaje nocturno como realizado.',
-        importe: 120
-      },
-      copywriting: {
-        label: 'Copywriting premium',
-        logOn: 'solicita redacción premium del anuncio.',
-        logDone: 'marca el copywriting como entregado.',
-        importe: 70
-      },
-      carta_venta: {
-        label: 'Carta de venta',
-        logOn: 'activa la creación de una carta de venta en PDF.',
-        logDone: 'marca la carta de venta como entregada.',
-        importe: 130
-      },
-      valoracion_basica: {
-        label: 'Valoración profesional',
-        logOn: 'activa una valoración profesional básica.',
-        logDone: 'marca la valoración profesional como entregada.',
-        importe: 180
-      },
-      valoracion_ampliada: {
-        label: 'Valoración ampliada',
-        logOn: 'activa una valoración ampliada con estrategia.',
-        logDone: 'marca la valoración ampliada como entregada.',
-        importe: 250
-      },
-      informe_fiscal: {
-        label: 'Informe fiscal',
-        logOn: 'solicita informe fiscal de la operación.',
-        logDone: 'marca el informe fiscal como entregado.',
-        importe: 180
-      },
-      cert_energetico: {
-        label: 'Certificado energético',
-        logOn: 'activa la gestión del certificado energético.',
-        logDone: 'marca el certificado energético como emitido.',
-        importe: 80
-      },
-      planos: {
-        label: 'Plano profesional',
-        logOn: 'solicita plano profesional 2D/3D.',
-        logDone: 'marca el plano profesional como entregado.',
-        importe: 130
-      },
-      limpieza: {
-        label: 'Limpieza profesional',
-        logOn: 'activa limpieza profesional de la vivienda.',
-        logDone: 'marca la limpieza profesional como realizada.',
-        importe: 100
-      },
-      pequenos_arreglos: {
-        label: 'Pequeños arreglos',
-        logOn: 'activa el servicio de pequeños arreglos.',
-        logDone: 'marca los arreglos como finalizados.',
-        importe: 250
-      },
-      lavado_cara: {
-        label: 'Lavado de cara exprés',
-        logOn: 'activa el lavado de cara exprés.',
-        logDone: 'marca la mejora exprés como realizada.',
-        importe: 450
-      },
-      optim_terraza: {
-        label: 'Optimización de terraza',
-        logOn: 'activa la optimización estética de la terraza.',
-        logDone: 'marca la optimización de terraza como completada.',
-        importe: 400
-      },
-      reformas_ligeras: {
-        label: 'Reformas ligeras',
-        logOn: 'activa un paquete de reformas ligeras.',
-        logDone: 'marca las reformas ligeras como finalizadas.',
-        importe: 800
-      },
-      asistente_personal: {
-        label: 'Asistente personal 7.0',
-        logOn: 'activa el servicio de asistente personal 7.0.',
-        logDone: 'marca el acompañamiento 7.0 como realizado.',
-        importe: 150
-      },
-      gestion_total: {
-        label: 'Gestión total 7.0',
-        logOn: 'activa gestión total 7.0 (hasta 3 % a éxito).',
-        logDone: 'marca la gestión total como realizada hasta notaría.',
-        importe: 0 // porcentaje aparte
-      }
-    };
+fotosInput.addEventListener("change", () => renderFiles(fotosInput, listaFotos));
+docsInput.addEventListener("change",  () => renderFiles(docsInput, listaDocs));
 
-    function formateaEUR(valor) {
-      return valor.toLocaleString('es-ES', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 2
-      }) + ' €';
-    }
+document.getElementById("btn-ver-fotos").addEventListener("click", () => {
+  listaFotos.style.display = listaFotos.style.display === "block" ? "none" : "block";
+});
+document.getElementById("btn-ver-docs").addEventListener("click", () => {
+  listaDocs.style.display = listaDocs.style.display === "block" ? "none" : "block";
+});
 
-    function actualizarCajaFinanciera(totalServiciosSinIVA) {
-      const bruto = parseFloat(propertyPriceInput.value || '0');
-      const precio = isNaN(bruto) ? 0 : bruto;
 
-      const ivaServicios = totalServiciosSinIVA * 0.21;
-      const comision = precio * 0.03;
-      const ivaComision = comision * 0.21;
+/* ------------------------------
+   SERVICIOS DISPONIBLES
+------------------------------ */
+const servicios = [
+  { id: "fotos", name: "Fotos PRO", price: 450, desc: "Fotógrafo especializado inmobiliario.", exito:true },
+  { id: "video", name: "Vídeo + dron", price: 450, desc: "Recorrido interior + vistas aéreas.", exito:true },
+  { id: "home", name: "Home staging", price: 900, desc: "Mejora estética sin reformas.", exito:false },
+  { id: "blogger", name: "Blogger internacional", price: 3000, desc: "Historia real publicada en otro país.", exito:true },
+  { id: "legal", name: "Revisión legal", price: 250, desc: "Abogado inmobiliario.", exito:false },
+  { id: "visitas", name: "Acompañamiento a visitas", price: 50, desc:"Comercial 7.0 con informe.", exito:false },
+  { id: "llamadas", name:"Atención de llamadas", price:100, desc:"Filtro de compradores.", exito:false },
+  { id: "agenda", name:"Gestión de agenda", price:120, desc:"Coordinación visitas.", exito:false },
+  { id: "informe", name:"Informe semanal", price:40, desc:"Resumen y estrategia.", exito:false },
+  { id: "ads", name:"Campaña redes sociales", price:150, desc:"Segmentación internacional.", exito:false },
+  { id: "red", name:"Red difusores locales", price:1000, desc:"Comunidades reales.", exito:true },
+  { id: "infl", name:"Influencers extranjeros", price:2500, desc:"Audiencias nicho.", exito:true },
+  { id: "tour", name:"Tour virtual 3D", price:300, desc:"Recorrido 360º.", exito:false },
+  { id: "nocturnas", name:"Reportaje nocturno", price:120, desc:"Fotos tarde-noche.", exito:false },
+  { id: "copy", name:"Copywriting premium", price:60, desc:"Texto profesional.", exito:false },
+  { id: "carta", name:"Carta de venta", price:150, desc:"PDF profesional.", exito:false },
+  { id: "valor", name:"Valoración profesional", price:180, desc:"Informe precio.", exito:false },
+  { id: "valor2", name:"Valoración ampliada", price:240, desc:"Escenarios precio.", exito:false },
+  { id: "fiscal", name:"Informe fiscal", price:150, desc:"Cálculo impuestos.", exito:false },
+  { id: "ener", name:"Certificado energético", price:70, desc:"Certificado obligatorio.", exito:false },
+  { id: "plano", name:"Plano profesional", price:120, desc:"Plano 2D/3D.", exito:false },
+  { id: "limpieza", name:"Limpieza profesional", price:90, desc:"Antes de fotos y visitas.", exito:false },
+  { id: "arreglos", name:"Pequeños arreglos", price:200, desc:"Manitas.", exito:false },
+  { id: "lavado", name:"Lavado de cara exprés", price:450, desc:"Pintura / mejora rápida.", exito:false },
+  { id: "terraza", name:"Optimización terraza", price:300, desc:"Textiles y plantas.", exito:false },
+  { id: "reforma", name:"Reformas ligeras", price:800, desc:"Cambios visuales.", exito:false },
+];
 
-      const totalCostes = totalServiciosSinIVA + ivaServicios + comision + ivaComision;
-      const neto = precio - totalCostes;
+let activados = [];
+const listaActivados = document.getElementById("lista-activados");
+const container = document.getElementById("services-container");
 
-      if (costServiciosEl) costServiciosEl.textContent = formateaEUR(totalServiciosSinIVA);
-      if (costServiciosIVAEl) costServiciosIVAEl.textContent = formateaEUR(ivaServicios);
-      if (costComisionEl) costComisionEl.textContent = formateaEUR(comision);
-      if (costComisionIVAEl) costComisionIVAEl.textContent = formateaEUR(ivaComision);
-      if (costNetoEl) costNetoEl.textContent = formateaEUR(neto < 0 ? 0 : neto);
-    }
 
-    function renderServicios() {
-      const estados = estadosServicios;
+/* Render servicios */
+function renderServicios() {
+  container.innerHTML = "";
+  servicios.forEach(s => {
+    const div = document.createElement("div");
+    div.className = "service-card";
+    div.innerHTML = `
+      <strong>${s.name}</strong>
+      <div class="service-meta">${s.price} € · ${s.exito ? "pago a éxito" : "servicio puntual"}</div>
+      <p>${s.desc}</p>
+      <button class="service-btn" data-id="${s.id}">Activar este servicio</button>
+    `;
+    container.appendChild(div);
+  });
+}
+renderServicios();
 
-      // Botones propietario
-      serviceButtons.forEach(btn => {
-        const id = btn.dataset.service;
-        const state = estados[id] || 'off';
 
-        btn.classList.remove('service-btn-active','service-btn-done','service-btn-gold');
-        btn.disabled = false;
-        btn.innerHTML = 'Activar este servicio';
+/* Activar servicios individuales */
+container.addEventListener("click", e => {
+  if (!e.target.matches(".service-btn")) return;
 
-        if (state === 'off') {
-          // estado base
-        } else if (state === 'on') {
-          // botón dorado con corona
-          btn.classList.add('service-btn-gold');
-          btn.innerHTML = '<span class="crown">👑</span><span>Servicio activado</span>';
-        } else if (state === 'done') {
-          btn.textContent = 'Acción realizada';
-          btn.classList.add('service-btn-done');
-          btn.disabled = true;
-        }
-      });
+  const id = e.target.dataset.id;
+  const servicio = servicios.find(s => s.id === id);
 
-      // Botones profesionales (agencia)
-      profButtons.forEach(btn => {
-        const id = btn.dataset.profService;
-        const state = estados[id] || 'off';
-        if (state === 'done') {
-          btn.disabled = true;
-          btn.textContent = 'Acción ya marcada como realizada';
-        } else {
-          btn.disabled = false;
-        }
-      });
+  if (!activados.includes(id)) activados.push(id);
 
-      // Toggles (solo para algunos servicios clave)
-      toggles.forEach(t => {
-        const id = t.dataset.toggle;
-        const dot = t.querySelector('.toggle-dot');
-        if (!dot) return;
-        const state = estados[id] || 'off';
-        if (state === 'on' || state === 'done') {
-          dot.style.background = '#22c55e';
-          t.style.opacity = '1';
-        } else {
-          dot.style.background = '#4b5563';
-          t.style.opacity = '.6';
-        }
-      });
+  actualizarListaActivados();
+  calcularFinanzas();
+});
 
-      // Auditoría + total servicios
-      if (!auditLog) return;
-      const ids = Object.keys(estados).filter(id => estados[id] === 'on' || estados[id] === 'done');
-      if (ids.length === 0) {
-        auditLog.innerHTML = originalLogHTML;
-        if (kpiAcciones) kpiAcciones.textContent = '32';
-        if (kpiImporte) kpiImporte.textContent = '12.300 €';
-        actualizarCajaFinanciera(0);
-        return;
-      }
 
-      auditLog.innerHTML = '';
-      let totalServiciosSinIVA = 0;
-      let countAcciones = 0;
+/* ------------------------------
+   FULL ACCIONES (ACTIVA TODO)
+------------------------------ */
+document.getElementById("btn-full").addEventListener("click", () => {
+  activados = servicios.map(s => s.id);
+  actualizarListaActivados();
+  calcularFinanzas();
+});
 
-      ids.forEach(id => {
-        const cfg = serviceConfig[id];
-        if (!cfg) return;
-        const state = estados[id];
-        const div = document.createElement('div');
-        div.className = 'log-entry';
 
-        if (state === 'on') {
-          div.innerHTML = `<strong>Propietario</strong> ${cfg.logOn}`;
-        } else if (state === 'done') {
-          div.innerHTML = `<strong>Profesional 7.0</strong> ${cfg.logDone}`;
-        }
+/* ------------------------------
+   LISTA DINÁMICA ACTIVADOS
+------------------------------ */
+function actualizarListaActivados() {
+  listaActivados.innerHTML = "";
 
-        auditLog.appendChild(div);
+  activados.forEach(id => {
+    const s = servicios.find(x => x.id === id);
+    const li = document.createElement("li");
 
-        if (typeof cfg.importe === 'number' && cfg.importe > 0) {
-          totalServiciosSinIVA += cfg.importe;
-        }
-        countAcciones++;
-      });
+    li.innerHTML = `
+      <span style="color:#22c55e;">●</span>
+      ${s.name} activado
+    `;
+    listaActivados.appendChild(li);
+  });
+}
 
-      const extra = document.createElement('div');
-      extra.className = 'log-entry';
-      extra.innerHTML = '<strong>Nota</strong> · Este registro es un ejemplo local. En la versión completa, cada acción se firma y verifica antes de llegar a notaría.';
-      auditLog.appendChild(extra);
 
-      if (kpiAcciones) {
-        kpiAcciones.textContent = String(countAcciones);
-      }
-      if (kpiImporte) {
-        kpiImporte.textContent = formateaEUR(totalServiciosSinIVA);
-      }
+/* ------------------------------
+   CÁLCULO FINANCIERO REAL
+------------------------------ */
+const precioProp = 385000; // valor fijo por ahora
 
-      actualizarCajaFinanciera(totalServiciosSinIVA);
-    }
+function formatear(num) {
+  return num.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+}
 
-    // Click del propietario: alterna entre off / on (no puede poner done)
-    serviceButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.service;
-        const current = estadosServicios[id] || 'off';
+function calcularFinanzas() {
+  const subtotalServicios = activados
+    .map(id => servicios.find(s => s.id === id).price)
+    .reduce((a, b) => a + b, 0);
 
-        if (current === 'done') {
-          return;
-        }
+  const ivaServicios = subtotalServicios * 0.21;
 
-        if (current === 'off') {
-          estadosServicios[id] = 'on';
-        } else if (current === 'on') {
-          estadosServicios[id] = 'off';
-        }
+  const comision = precioProp * 0.03;
+  const ivaComision = comision * 0.21;
 
-        renderServicios();
-      });
-    });
+  const neto = precioProp - subtotalServicios - ivaServicios - comision - ivaComision;
 
-    // Botón FULL ACCIONES 7.0: activa / desactiva todos los servicios
-    if (fullActionsBtn) {
-      fullActionsBtn.addEventListener('click', () => {
-        // Comprobamos si ya están todos "on"
-        const allIds = Object.keys(serviceConfig);
-        const allOn = allIds.every(id => estadosServicios[id] === 'on');
+  document.getElementById("precio-prop").textContent = formatear(precioProp);
+  document.getElementById("serv-sin-iva").textContent = formatear(subtotalServicios);
+  document.getElementById("iva-serv").textContent = formatear(ivaServicios);
+  document.getElementById("comision").textContent = formatear(comision);
+  document.getElementById("iva-comision").textContent = formatear(ivaComision);
+  document.getElementById("neto").textContent = formatear(neto);
+}
 
-        if (allOn) {
-          // Si todos están activados, los apagamos
-          allIds.forEach(id => { estadosServicios[id] = 'off'; });
-        } else {
-          // Si no, los activamos todos
-          allIds.forEach(id => { estadosServicios[id] = 'on'; });
-        }
+</script>
 
-        renderServicios();
-      });
-    }
-
-    // Click del profesional: marca como "done"
-    profButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.dataset.profService;
-        const current = estadosServicios[id] || 'off';
-
-        if (current === 'on' || current === 'off') {
-          estadosServicios[id] = 'done';
-          renderServicios();
-        }
-      });
-    });
-
-    // Cambio de precio de propiedad -> recalcular caja
-    if (propertyPriceInput) {
-      propertyPriceInput.addEventListener('input', () => {
-        // Re-render usa los estados actuales, solo recalcula totales
-        renderServicios();
-      });
-    }
-
-    // Filtros de servicios: 1–4, 5–8, etc.
-    function aplicarFiltro(rangeStr) {
-      if (rangeStr === 'all') {
-        serviceItems.forEach(item => {
-          item.style.display = '';
-        });
-        return;
-      }
-
-      const partes = rangeStr.split('-');
-      const inicio = parseInt(partes[0], 10);
-      const fin = parseInt(partes[1], 10);
-      if (isNaN(inicio) || isNaN(fin)) {
-        serviceItems.forEach(item => { item.style.display = ''; });
-        return;
-      }
-
-      serviceItems.forEach((item, index) => {
-        const pos = index + 1; // 1-based
-        if (pos >= inicio && pos <= fin) {
-          item.style.display = '';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    }
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const range = btn.dataset.range;
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        aplicarFiltro(range);
-      });
-    });
-
-    // Filtro inicial: 1–4
-    aplicarFiltro('1-4');
-
-    // Render inicial
-    renderServicios();
-  </script>
 </body>
 </html>
