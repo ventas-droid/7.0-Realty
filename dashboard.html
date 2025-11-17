@@ -1573,6 +1573,67 @@ header {
   font-size: 0.8rem !important;
   border-radius: 0.75rem !important;
 }
+/* ============================================
+   ARREGLO CAJA DE PRECIO (ANCHO + DESBORDES)
+   ============================================ */
+
+/* El panel no deja que nada se salga hacia la derecha */
+.panel .card {
+  overflow: hidden;                      /* corta cualquier cosa que se desborde */
+}
+
+/* Repartimos mejor el espacio entre columnas */
+.prop-top-grid {
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.9fr);  /* más ancho para la caja de precio */
+  column-gap: 1.6rem;
+}
+
+.prop-cost {
+  min-width: 0;
+}
+
+/* Caja de precio más ancha y contenida */
+.cost-box {
+  max-width: 430px;      /* antes era más estrecha */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Cada línea de coste puede romper en varias líneas sin salirse */
+.cost-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  column-gap: 0.75rem;
+  flex-wrap: wrap;       /* permite salto de línea en textos largos */
+}
+
+.cost-line-label,
+.cost-line-value {
+  white-space: normal;   /* SIN nowrap: que el texto pueda bajar a la siguiente línea */
+  font-size: 0.80rem;
+  line-height: 1.35;
+}
+
+/* El input "Introduce el precio" puede bajar debajo del título si no cabe */
+.cost-main-row {
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+}
+
+.cost-input {
+  width: 190px;
+}
+
+/* En pantallas medianas/pequeñas, todo a una columna y sin problemas de ancho */
+@media (max-width: 1024px) {
+  .prop-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cost-box {
+    max-width: none;
+  }
+}
 </style>
 </head>
 <body>
