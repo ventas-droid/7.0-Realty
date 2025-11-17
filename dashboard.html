@@ -579,20 +579,34 @@ header {
       color:#9ca3af;
     }
     .modal-item {
-      border-radius:.7rem;
-      border:1px solid #1f2937;
-      padding:.45rem .5rem .5rem;
-      background:#020617;
-      display:flex;
-      flex-direction:column;
-      gap:.3rem;
-    }
-    .modal-item img {
-      width:100%;
-      height:110px;
-      object-fit:cover;
-      border-radius:.55rem;
-    }
+  border-radius:.7rem;
+  border:1px solid #1f2937;
+  padding:.6rem .7rem .7rem;
+  background:#020617;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.4rem;
+  text-align:center;
+}
+
+/* Mini tarjeta seleccionable */
+.modal-item.selected {
+  border-color:#38bdf8;
+  box-shadow:0 0 0 1px rgba(56,189,248,0.4);
+}
+
+/* La preview se ve más grande y limpia */
+.modal-item img {
+  width:100%;
+  max-width:260px;
+  height:160px;
+  object-fit:contain;
+  background:#020617;
+  border-radius:.55rem;
+  cursor:pointer;
+}
+
     .modal-item-name {
       font-size:.75rem;
       color:#e5e7eb;
