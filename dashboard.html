@@ -1817,6 +1817,83 @@ header {
     text-align: left;
   }
 }
+/* ============================================
+   FIX DEFINITIVO CAJA DE COSTES + BOTÓN DORADO
+   (sobrescribe todo lo anterior)
+   ============================================ */
+
+/* El panel nunca deja que nada se salga hacia la derecha */
+.panel .card {
+  overflow: hidden;
+}
+
+/* Rejilla superior: texto + caja de costes */
+.prop-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.5fr);
+  gap: 1.4rem;
+  align-items: flex-start;
+  margin-bottom: 1.3rem;
+}
+
+/* Que ambas columnas puedan encoger sin romper nada */
+.prop-main,
+.prop-cost {
+  min-width: 0;
+}
+
+/* Caja de costes: siempre dentro de su columna */
+.cost-box {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Fila "Precio de la propiedad" + input */
+.cost-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Input: tamaño contenido, pero sin empujar la caja */
+.cost-input {
+  flex: 0 0 auto;
+  min-width: 210px;
+  max-width: 45%;
+  font-size: 0.84rem;
+  padding: 0.28rem 0.65rem;
+  text-align: right;
+}
+
+/* En pantallas medianas/pequeñas, todo en una columna
+   (la caja baja y JAMÁS se sale del cuerpo) */
+@media (max-width: 1024px) {
+  .prop-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cost-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cost-input {
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+}
+
+/* Botón dorado "Servicio activado" más pequeño y discreto */
+.service-btn-gold {
+  padding: 0.38rem 0.95rem !important;
+  font-size: 0.8rem !important;
+  border-radius: 0.7rem !important;
+}
 </style>
 </head>
 <body>
