@@ -1673,6 +1673,81 @@ header {
     max-width: none;
   }
 }
+/* ============================================
+   FIX CAJA DE COSTES (que no se salga)
+   ============================================ */
+
+/* Rejilla superior: un poco más de ancho para la caja de costes */
+.prop-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.7fr);
+  gap: 1.8rem;
+  align-items: flex-start;
+  margin-bottom: 1.4rem;
+}
+
+/* La columna de costes puede encoger */
+.prop-cost {
+  min-width: 0;
+}
+
+/* La caja de costes ocupa SOLO su columna, sin desbordar */
+.prop-cost .cost-box {
+  width: 100%;
+  max-width: 100%;     /* anula el max-width anterior */
+  margin: 0;           /* fuera el margin-left:auto que la empuja rara */
+  box-sizing: border-box;
+}
+
+/* Fila "Precio de la propiedad" + input: que pueda romper línea */
+.cost-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.6rem;
+  flex-wrap: wrap;     /* 🔥 CLAVE: permite que baje el input si no cabe */
+}
+
+/* El texto puede ocupar varias líneas */
+.cost-label {
+  flex: 1 1 auto;
+}
+
+/* El input ya no fuerza la caja a crecer */
+.cost-input {
+  flex: 0 0 auto;
+  min-width: 210px;
+  max-width: 100%;
+  font-size: 0.84rem;
+  padding: 0.28rem 0.65rem;
+}
+
+/* En pantallas medianas/pequeñas la caja baja y el input se pone debajo */
+@media (max-width: 1024px) {
+  .prop-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cost-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cost-input {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* ============================================
+   BOTÓN "SERVICIO ACTIVADO" MÁS DISCRETO
+   ============================================ */
+
+.service-btn-gold {
+  padding: 0.45rem 1.1rem;
+  border-radius: 0.7rem;
+  font-size: 0.82rem;
+}
 </style>
 </head>
 <body>
