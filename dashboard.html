@@ -836,32 +836,52 @@ header {
     font-size: 0.7rem;
   }
 }
-
-    /* Móviles muy pequeños: KPIs en 1 columna */
-    @media (max-width: 480px) {
-      .kpis {
-        grid-template-columns: minmax(0, 1fr);
-      }
+      /* Móviles muy pequeños: KPIs en 1 columna */
+  @media (max-width: 480px) {
+    .kpis {
+      grid-template-columns: minmax(0, 1fr);
     }
-  /* …tus estilos anteriores… */
+  }
 
   /* ============================================
-     COLORES AZULES PARA LOS TÍTULOS PRINCIPALES
+     TITULARES AZULES + MEJORAS VISUALES
      ============================================ */
 
-.section-title,
-.card h2,
-.owner-actions-header h3,
-.servicios-title {
-  color: #67b8f7 !important;   /* Azul igual al botón Soy Propietario */
+  /* Clase común para los títulos principales grandes */
+  .titulo-principal {
+    color: #67b8f7;           /* azul tipo "Soy propietario" */
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  /* Mantener sección en negrita */
+  .section-title {
+    font-weight: 700;
+  }
+
+  /* Espacio extra antes de "Subir fotos y documentación" */
+  .upload-section {
+    margin-top: 1.2rem;
+  }
+
+  /* Más aire antes de "Servicios disponibles" */
+  .servicios-title {
+    margin-top: 1.6rem !important;
+  }
+
+  /* Caja profesional para el bloque de rangos del propietario */
+  .owner-actions-header {
+    padding: 0.8rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #1f2937;
+    margin-bottom: 0.6rem;
+  }
 }
+</style>
+</head>
+<body>
 
-.section-title { font-weight: 700; }
-.card h2 { font-size: 1.15rem; font-weight: 700; }
-.owner-actions-header h3 { font-size: 1rem; font-weight: 700; }
-.servicios-title { font-size: 0.95rem; font-weight: 700; }
-
-/* (Aquí termina tu CSS personalizado) */
 </style>
 </head>
 <body>
