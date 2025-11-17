@@ -1473,7 +1473,40 @@ header {
   font-size: 0.85rem !important;
   margin-right: 0.25rem;
 }
-    
+/* ============================================
+   AJUSTE ANCHO CAJA DE PRECIO
+   ============================================ */
+
+/* Más ancho para la columna derecha (precio) */
+.prop-top-grid {
+  grid-template-columns: minmax(0, 1.6fr) minmax(380px, 1.7fr);
+}
+
+/* La caja de precio nunca será más estrecha de 380px */
+.prop-cost .cost-box {
+  min-width: 380px;
+}
+
+/* Botón / input de "Introduce el precio" más contenido */
+.cost-main-row input,
+.cost-main-row button {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.7rem;
+}
+
+/* ============================================
+   BOTONES DORADOS MÁS PEQUEÑOS
+   ============================================ */
+
+.service-btn-gold {
+  padding: 0.35rem 0.9rem;      /* menos alto y menos ancho */
+  font-size: 0.82rem;           /* texto un poco más pequeño */
+  border-radius: 0.8rem;
+}
+
+.service-btn-gold span.crown {
+  font-size: 0.8rem;            /* corona más discreta */
+}
 </style>
 </head>
 <body>
