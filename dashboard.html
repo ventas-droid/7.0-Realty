@@ -872,7 +872,46 @@ header {
       grid-template-columns: minmax(0, 1fr);
     }
   }
+/* ============================================
+   CAJA DE COSTES – CORRECCIÓN DE ANCHO
+   ============================================ */
 
+.prop-cost {
+  min-width: 0;                   /* Permite que el contenido se reduzca sin romper layout */
+}
+
+.cost-box {
+  width: 100%;                    /* Que ocupe toda su columna */
+  max-width: 440px;               /* 🔥 Ancho ideal sin salirse del panel */
+  box-sizing: border-box;
+  margin-left: auto;              /* La empuja a la derecha dentro de su celda */
+  margin-top: 0;
+  border-radius: 18px;
+}
+
+/* El input no debe empujar el resto del contenido */
+.cost-input {
+  min-width: 220px;
+  max-width: 100%;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.65rem;
+}
+
+/* Tipografía interna optimizada */
+.cost-box .cost-main-row,
+.cost-box .cost-line,
+.cost-box .cost-note {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+/* 🔥 En pantallas medianas/mobiles la caja baja y ocupa todo el ancho */
+@media (max-width: 1024px) {
+  .cost-box {
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
   /* ============================================
      BLOQUE ACCIONES + SERVICIOS – DISEÑO EN CAJA
      ============================================ */
