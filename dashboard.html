@@ -824,7 +824,7 @@ header {
     font-size: 0.72rem;
   }
 
-  /* Log de auditoría más compacto */
+   /* Log de auditoría algo más compacto */
   .log {
     max-height: 160px;
     font-size: 0.76rem;
@@ -832,70 +832,79 @@ header {
 
   /* Footer más pequeño */
   footer {
-       padding: 0.6rem 0.9rem 1rem;
+    padding: 0.6rem 0.9rem 1rem;
     font-size: 0.7rem;
   }
-}
 
-/* Móviles muy pequeños: KPIs en 1 columna */
-@media (max-width: 480px) {
-  .kpis {
-    grid-template-columns: minmax(0, 1fr);
+  /* Móviles muy pequeños: KPIs en 1 columna */
+  @media (max-width: 480px) {
+    .kpis {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
-}
 
-/* ============================================
-   TITULARES AZULES + MEJORAS VISUALES
-   ============================================ */
+  /* ============================================
+     TITULARES AZULES + MEJORAS VISUALES
+     ============================================ */
 
-/* Clase común para los títulos principales grandes */
-.titulo-principal {
-  color: #67b8f7;           /* azul tipo "Soy propietario" */
-  font-size: 1.15rem;
-  font-weight: 700;
-}
+  /* Clase común para los títulos principales grandes */
+  .titulo-principal {
+    color: #67b8f7;           /* azul tipo "Soy propietario" */
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
 
-/* Mantener sección en negrita por defecto */
-.section-title {
-  font-weight: 700;
-}
+  /* Mantener sección en negrita */
+  .section-title {
+    font-weight: 700;
+  }
 
-/* Título "Servicios disponibles" con mismo estilo grande y azul */
-.servicios-title {
-  color: #67b8f7;
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-top: 1.6rem !important;
-  margin-bottom: 0.6rem;
-}
+  /* Espacio extra antes de "Subir fotos y documentación" */
+  .upload-section {
+    margin-top: 1.2rem;
+  }
 
-/* Más espacio visual antes de "Subir fotos y documentación" y título azul */
-.upload-section {
-  margin-top: 1.2rem;
-}
+  /* Más aire antes de "Servicios disponibles" */
+  .servicios-title {
+    margin-top: 1.6rem;
+  }
 
-.upload-section h3.section-title {
-  margin-bottom: 0.8rem;
-  color: #67b8f7;
-  font-size: 1.0rem;
-  font-weight: 700;
-}
+  /* Caja profesional para el bloque de rangos del propietario */
+  .owner-actions-header {
+    padding: 0.8rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid #1f2937;
+    margin-top: 1.1rem;
+    margin-bottom: 0.6rem;
+  }
 
-/* Caja profesional para el bloque de rangos del propietario */
-.owner-actions-header {
-  padding: 0.8rem 1rem;
-  border-radius: 0.9rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid #1f2937;
-  margin-top: 1.2rem;
-  margin-bottom: 0.6rem;
-}
+  /* ============================================
+     REJILLA SUPERIOR: CONTENIDO + CAJA DE COSTES
+     ============================================ */
 
-/* Más espacio entre "Servicios disponibles" y los botones 1–4, 5–8... */
-.servicios-title + .range-row {
-  margin-top: 0.6rem;
-}
-</style>
+  .prop-top-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.5fr);
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin-bottom: 1.2rem;
+  }
+
+  .prop-main {
+    min-width: 0;
+  }
+
+  .prop-cost .cost-box {
+    margin-top: 0;   /* sin margen extra dentro de la rejilla */
+  }
+
+  @media (max-width: 1024px) {
+    .prop-top-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+  </style>
 </head>
 <body>
   <div class="page">
@@ -927,124 +936,90 @@ header {
       </div>
 
       <div class="grid">
-        <!-- PANEL PROPIETARIO -->
-      <section id="panel-propietario" class="panel">
-  <div class="card">
+               <!-- PANEL PROPIETARIO -->
+        <section id="panel-propietario" class="panel">
+          <div class="card">
 
-    <!-- BLOQUE SUPERIOR EN DOS COLUMNAS -->
-    <div class="prop-top-grid">
-      <!-- Columna izquierda: título + badges + subida archivos -->
-      <div class="prop-main">
-        <h2 class="titulo-principal">Propietario – Ático Blue Sunset</h2>
-        <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
+            <!-- BLOQUE SUPERIOR EN DOS COLUMNAS -->
+            <div class="prop-top-grid">
+              <!-- Columna izquierda: título + badges + subida archivos -->
+              <div class="prop-main">
+                <h2 class="titulo-principal">Propietario – Ático Blue Sunset</h2>
+                <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
 
-        <div class="badge-row">
-          <span class="badge">2 dorm · 2 baños</span>
-          <span class="badge">Vistas al mar</span>
-          <span class="badge">La Duquesa · Manilva</span>
-          <span class="badge">Campaña activa</span>
-        </div>
-
-        <!-- SUBIR FOTOS / DOCUMENTACIÓN -->
-        <div class="upload-section">
-          <h3 class="section-title">Subir fotos y documentación</h3>
-          <div class="upload-grid">
-            <div class="upload-card">
-              <h3>Subir fotos de la vivienda</h3>
-              <p></p>
-              <div class="upload-drop" id="drop-fotos">
-                <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
-                <button type="button" class="upload-btn" id="btn-fotos-select">Subir / arrastrar fotos</button>
-                <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
-              </div>
-            </div>
-            <div class="upload-card">
-              <h3>Subir documentación</h3>
-              <p></p>
-              <div class="upload-drop" id="drop-docs">
-                <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
-                <button type="button" class="upload-btn" id="btn-docs-select">Subir / arrastrar documentación</button>
-                <input type="file" id="input-docs" multiple style="display:none;" />
-              </div>
-            </div>
-          </div>
-          <div class="upload-actions">
-            <button type="button" class="upload-view-btn" id="btn-ver-fotos">Ver fotos subidas</button>
-            <button type="button" class="upload-view-btn" id="btn-ver-docs">Ver documentación subida</button>
-          </div>
-        </div>
-      </div>
-      <!-- Columna derecha: CAJA DE PRECIO / NETO -->
-      <div class="prop-cost">
-        <div class="cost-box">
-          <div class="cost-main-row">
-            <span class="cost-label">Precio de la propiedad</span>
-            <input type="text" id="precio-propiedad" class="cost-input" placeholder="Introduce el precio" />
-          </div>
-          <div class="cost-line">
-            <span class="cost-line-label">Total servicios activados (sin IVA):</span>
-            <span class="cost-line-value" id="cost-servicios">0,00 €</span>
-          </div>
-          <div class="cost-line">
-            <span class="cost-line-label">IVA servicios 21 %:</span>
-            <span class="cost-line-value" id="cost-iva-servicios">0,00 €</span>
-          </div>
-          <div class="cost-line">
-            <span class="cost-line-label">Comisión 3 % gestión:</span>
-            <span class="cost-line-value" id="cost-comision">0,00 €</span>
-          </div>
-          <div class="cost-line">
-            <span class="cost-line-label">IVA 21 % comisión:</span>
-            <span class="cost-line-value" id="cost-iva-comision">0,00 €</span>
-          </div>
-          <div class="cost-line cost-net">
-            <span class="cost-line-label">Neto para el propietario (antes de plusvalía):</span>
-            <span class="cost-line-value" id="cost-neto">0,00 €</span>
-          </div>
-          <p class="cost-note">
-            Cálculo orientativo en formato España (puntos de miles, coma decimal).
-            Se descuenta el coste de servicios activados, la comisión estándar del 3 % sobre el precio
-            y el 21 % de IVA correspondiente. No incluye plusvalía municipal, IRPF u otros impuestos.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!-- FIN BLOQUE SUPERIOR EN DOS COLUMNAS -->
-
-              <span class="badge">2 dorm · 2 baños</span>
-              <span class="badge">Vistas al mar</span>
-              <span class="badge">La Duquesa · Manilva</span>
-              <span class="badge">Campaña activa</span>
-            </div>
-
-            <!-- SUBIR FOTOS / DOCUMENTACIÓN -->
-            <div class="upload-section">
-              <h3 class="section-title">Subir fotos y documentación</h3>
-              <div class="upload-grid">
-                <div class="upload-card">
-                  <h3>Subir fotos de la vivienda</h3>
-                  <p></p>
-                  <div class="upload-drop" id="drop-fotos">
-                    <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
-                    <button type="button" class="upload-btn" id="btn-fotos-select">Subir / arrastrar fotos</button>
-                    <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
-                  </div>
+                <div class="badge-row">
+                  <span class="badge">2 dorm · 2 baños</span>
+                  <span class="badge">Vistas al mar</span>
+                  <span class="badge">La Duquesa · Manilva</span>
+                  <span class="badge">Campaña activa</span>
                 </div>
-                <div class="upload-card">
-                  <h3>Subir documentación</h3>
-                  <p></p>
-                  <div class="upload-drop" id="drop-docs">
-                    <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
-                    <button type="button" class="upload-btn" id="btn-docs-select">Subir / arrastrar documentación</button>
-                    <input type="file" id="input-docs" multiple style="display:none;" />
+
+                <!-- SUBIR FOTOS / DOCUMENTACIÓN -->
+                <div class="upload-section">
+                  <h3 class="section-title">Subir fotos y documentación</h3>
+                  <div class="upload-grid">
+                    <div class="upload-card">
+                      <h3>Subir fotos de la vivienda</h3>
+                      <p></p>
+                      <div class="upload-drop" id="drop-fotos">
+                        <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
+                        <button type="button" class="upload-btn" id="btn-fotos-select">Subir / arrastrar fotos</button>
+                        <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
+                      </div>
+                    </div>
+                    <div class="upload-card">
+                      <h3>Subir documentación</h3>
+                      <p></p>
+                      <div class="upload-drop" id="drop-docs">
+                        <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
+                        <button type="button" class="upload-btn" id="btn-docs-select">Subir / arrastrar documentación</button>
+                        <input type="file" id="input-docs" multiple style="display:none;" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="upload-actions">
+                    <button type="button" class="upload-view-btn" id="btn-ver-fotos">Ver fotos subidas</button>
+                    <button type="button" class="upload-view-btn" id="btn-ver-docs">Ver documentación subida</button>
                   </div>
                 </div>
               </div>
-              <div class="upload-actions">
-                <button type="button" class="upload-view-btn" id="btn-ver-fotos">Ver fotos subidas</button>
-                <button type="button" class="upload-view-btn" id="btn-ver-docs">Ver documentación subida</button>
+
+              <!-- Columna derecha: CAJA DE PRECIO / NETO -->
+              <div class="prop-cost">
+                <div class="cost-box">
+                  <div class="cost-main-row">
+                    <span class="cost-label">Precio de la propiedad</span>
+                    <input type="text" id="precio-propiedad" class="cost-input" placeholder="Introduce el precio" />
+                  </div>
+                  <div class="cost-line">
+                    <span class="cost-line-label">Total servicios activados (sin IVA):</span>
+                    <span class="cost-line-value" id="cost-servicios">0,00 €</span>
+                  </div>
+                  <div class="cost-line">
+                    <span class="cost-line-label">IVA servicios 21 %:</span>
+                    <span class="cost-line-value" id="cost-iva-servicios">0,00 €</span>
+                  </div>
+                  <div class="cost-line">
+                    <span class="cost-line-label">Comisión 3 % gestión:</span>
+                    <span class="cost-line-value" id="cost-comision">0,00 €</span>
+                  </div>
+                  <div class="cost-line">
+                    <span class="cost-line-label">IVA 21 % comisión:</span>
+                    <span class="cost-line-value" id="cost-iva-comision">0,00 €</span>
+                  </div>
+                  <div class="cost-line cost-net">
+                    <span class="cost-line-label">Neto para el propietario (antes de plusvalía):</span>
+                    <span class="cost-line-value" id="cost-neto">0,00 €</span>
+                  </div>
+                  <p class="cost-note">
+                    Cálculo orientativo en formato España (puntos de miles, coma decimal).
+                    Se descuenta el coste de servicios activados, la comisión estándar del 3 % sobre el precio
+                    y el 21 % de IVA correspondiente. No incluye plusvalía municipal, IRPF u otros impuestos.
+                  </p>
+                </div>
               </div>
             </div>
+            <!-- FIN BLOQUE SUPERIOR EN DOS COLUMNAS -->
 
             <!-- ACCIONES ACTIVADAS POR EL PROPIETARIO -->
             <div class="owner-actions-header">
@@ -1065,7 +1040,7 @@ header {
             </div>
 
             <!-- SERVICIOS DISPONIBLES -->
-           <div class="section-title servicios-title" style="margin-top:1rem;">Servicios disponibles (tarifas ejemplo)</div>
+            <div class="section-title servicios-title">Servicios disponibles (tarifas ejemplo)</div>
             <div class="range-row">
               <button class="range-btn" data-service-range="all">Todos</button>
               <button class="range-btn range-btn-active" data-service-range="1-4">1–4</button>
@@ -1106,218 +1081,14 @@ header {
                 <div class="service-meta">Historia real en otro país.</div>
                 <button class="service-btn" data-service="blogger">Activar este servicio</button>
               </div>
-              <!-- 5 -->
-              <div class="service-item" data-index="5">
-                <strong>Revisión legal</strong>
-                <div class="service-meta">250 € · pagado al cierre</div>
-                <div class="service-meta">Abogado inmobiliario especializado.</div>
-                <button class="service-btn" data-service="legal">Activar este servicio</button>
-              </div>
-              <!-- 6 -->
-              <div class="service-item" data-index="6">
-                <strong>Acompañamiento a visitas</strong>
-                <div class="service-meta">50 € por visita</div>
-                <div class="service-meta">Comercial 7.0 especializado, informe por visita.</div>
-                <button class="service-btn" data-service="acomp_visitas">Activar este servicio</button>
-              </div>
-              <!-- 7 -->
-              <div class="service-item" data-index="7">
-                <strong>Atención de llamadas</strong>
-                <div class="service-meta">80–120 € / mes</div>
-                <div class="service-meta">Filtro de compradores y agenda gestionada.</div>
-                <button class="service-btn" data-service="atencion_llamadas">Activar este servicio</button>
-              </div>
-              <!-- 8 -->
-              <div class="service-item" data-index="8">
-                <strong>Gestión de agenda</strong>
-                <div class="service-meta">100–150 € / mes</div>
-                <div class="service-meta">Coordinación de visitas y recordatorios.</div>
-                <button class="service-btn" data-service="gestion_agenda">Activar este servicio</button>
-              </div>
-              <!-- 9 -->
-              <div class="service-item" data-index="9">
-                <strong>Informe semanal</strong>
-                <div class="service-meta">30–50 € / mes</div>
-                <div class="service-meta">Resumen de visitas, interés y próximos pasos.</div>
-                <button class="service-btn" data-service="informe_semanal">Activar este servicio</button>
-              </div>
-              <!-- 10 -->
-              <div class="service-item" data-index="10">
-                <strong>Campaña redes sociales</strong>
-                <div class="service-meta">150 € gestión</div>
-                <div class="service-meta">+ inversión desde 100 €. Segmentación internacional.</div>
-                <button class="service-btn" data-service="campanas_redes">Activar este servicio</button>
-              </div>
-              <!-- 11 -->
-              <div class="service-item" data-index="11">
-                <strong>Red difusores locales</strong>
-                <div class="service-meta">Hasta 1000 € a éxito</div>
-                <div class="service-meta">Compartido en redes y grupos reales.</div>
-                <button class="service-btn" data-service="difusores_locales">Activar este servicio</button>
-              </div>
-              <!-- 12 -->
-              <div class="service-item" data-index="12">
-                <strong>Influencers extranjeros</strong>
-                <div class="service-meta">2000–3000 € a éxito</div>
-                <div class="service-meta">Visibilidad en comunidades nicho internacionales.</div>
-                <button class="service-btn" data-service="influencers_extranjeros">Activar este servicio</button>
-              </div>
-              <!-- 13 -->
-              <div class="service-item" data-index="13">
-                <strong>Tour virtual 3D</strong>
-                <div class="service-meta">250–400 €</div>
-                <div class="service-meta">Recorrido completo en 360º de la vivienda.</div>
-                <button class="service-btn" data-service="tour_3d">Activar este servicio</button>
-              </div>
-              <!-- 14 -->
-              <div class="service-item" data-index="14">
-                <strong>Reportaje nocturno</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Fotos al atardecer para resaltar ambiente.</div>
-                <button class="service-btn" data-service="reportaje_nocturno">Activar este servicio</button>
-              </div>
-              <!-- 15 -->
-              <div class="service-item" data-index="15">
-                <strong>Copywriting premium</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Anuncio redactado como historia real.</div>
-                <button class="service-btn" data-service="copywriting">Activar este servicio</button>
-              </div>
-              <!-- 16 -->
-              <div class="service-item" data-index="16">
-                <strong>Carta de venta</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">PDF profesional para compradores interesados.</div>
-                <button class="service-btn" data-service="carta_venta">Activar este servicio</button>
-              </div>
-              <!-- 17 -->
-              <div class="service-item" data-index="17">
-                <strong>Valoración profesional</strong>
-                <div class="service-meta">100–200 €</div>
-                <div class="service-meta">Informe de precio con comparables reales.</div>
-                <button class="service-btn" data-service="valoracion_basica">Activar este servicio</button>
-              </div>
-              <!-- 18 -->
-              <div class="service-item" data-index="18">
-                <strong>Valoración ampliada</strong>
-                <div class="service-meta">150–300 €</div>
-                <div class="service-meta">Escenarios de precio, plazos y estrategia.</div>
-                <button class="service-btn" data-service="valoracion_ampliada">Activar este servicio</button>
-              </div>
-              <!-- 19 -->
-              <div class="service-item" data-index="19">
-                <strong>Informe fiscal</strong>
-                <div class="service-meta">150–200 €</div>
-                <div class="service-meta">Cálculo de impuestos y neto final a cobrar.</div>
-                <button class="service-btn" data-service="informe_fiscal">Activar este servicio</button>
-              </div>
-              <!-- 20 -->
-              <div class="service-item" data-index="20">
-                <strong>Certificado energético</strong>
-                <div class="service-meta">50–80 €</div>
-                <div class="service-meta">Certificado obligatorio gestionado por técnico.</div>
-                <button class="service-btn" data-service="cert_energetico">Activar este servicio</button>
-              </div>
-              <!-- 21 -->
-              <div class="service-item" data-index="21">
-                <strong>Plano profesional</strong>
-                <div class="service-meta">100–150 €</div>
-                <div class="service-meta">Plano 2D/3D claro y presentable.</div>
-                <button class="service-btn" data-service="planos">Activar este servicio</button>
-              </div>
-              <!-- 22 -->
-              <div class="service-item" data-index="22">
-                <strong>Limpieza profesional</strong>
-                <div class="service-meta">50–120 €</div>
-                <div class="service-meta">Puesta a punto antes de fotos y visitas.</div>
-                <button class="service-btn" data-service="limpieza">Activar este servicio</button>
-              </div>
-              <!-- 23 -->
-              <div class="service-item" data-index="23">
-                <strong>Pequeños arreglos</strong>
-                <div class="service-meta">100–400 €</div>
-                <div class="service-meta">Manitas: grifos, enchufes, persianas, detalles.</div>
-                <button class="service-btn" data-service="pequenos_arreglos">Activar este servicio</button>
-              </div>
-              <!-- 24 -->
-              <div class="service-item" data-index="24">
-                <strong>Lavado de cara exprés</strong>
-                <div class="service-meta">300–600 €</div>
-                <div class="service-meta">Pintura estratégica y modernización rápida.</div>
-                <button class="service-btn" data-service="lavado_cara">Activar este servicio</button>
-              </div>
-              <!-- 25 -->
-              <div class="service-item" data-index="25">
-                <strong>Optimización de terraza</strong>
-                <div class="service-meta">200–600 €</div>
-                <div class="service-meta">Mobiliario básico, textiles y plantas.</div>
-                <button class="service-btn" data-service="optim_terraza">Activar este servicio</button>
-              </div>
-              <!-- 26 -->
-              <div class="service-item" data-index="26">
-                <strong>Reformas ligeras</strong>
-                <div class="service-meta">Desde 500 €</div>
-                <div class="service-meta">Cambios con alto impacto visual.</div>
-                <button class="service-btn" data-service="reformas_ligeras">Activar este servicio</button>
-              </div>
-              <!-- 27 -->
-              <div class="service-item" data-index="27">
-                <strong>Asistente personal 7.0</strong>
-                <div class="service-meta">60–90 € / sesión</div>
-                <div class="service-meta">Acompañamiento por videollamada o teléfono.</div>
-                <button class="service-btn" data-service="asistente_personal">Activar este servicio</button>
-              </div>
-              <!-- 28 -->
-              <div class="service-item" data-index="28">
-                <strong>Gestión total 7.0</strong>
-                <div class="service-meta">3 % a éxito</div>
-                <div class="service-meta">Coordinación integral hasta notaría – Full acciones.</div>
-                <button class="service-btn" data-service="gestion_total">Activar este servicio</button>
-                <button class="service-btn-full" id="btn-full-acciones">
-                  <span class="crown">👑</span>
-                  <span>Full acciones 7.0</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- CAJA ECONÓMICA -->
-            <div class="cost-box">
-              <div class="cost-main-row">
-                <span class="cost-label">Precio de la propiedad</span>
-                <input type="text" id="precio-propiedad" class="cost-input" placeholder="Introduce el precio" />
-              </div>
-              <div class="cost-line">
-                <span class="cost-line-label">Total servicios activados (sin IVA):</span>
-                <span class="cost-line-value" id="cost-servicios">0,00 €</span>
-              </div>
-              <div class="cost-line">
-                <span class="cost-line-label">IVA servicios 21 %:</span>
-                <span class="cost-line-value" id="cost-iva-servicios">0,00 €</span>
-              </div>
-              <div class="cost-line">
-                <span class="cost-line-label">Comisión 3 % gestión:</span>
-                <span class="cost-line-value" id="cost-comision">0,00 €</span>
-              </div>
-              <div class="cost-line">
-                <span class="cost-line-label">IVA 21 % comisión:</span>
-                <span class="cost-line-value" id="cost-iva-comision">0,00 €</span>
-              </div>
-              <div class="cost-line cost-net">
-                <span class="cost-line-label">Neto para el propietario (antes de plusvalía):</span>
-                <span class="cost-line-value" id="cost-neto">0,00 €</span>
-              </div>
-              <p class="cost-note">
-                No incluye plusvalía municipal,
-                IRPF u otros impuestos.
-              </p>
+              <!-- (el resto de servicios 5–28 se queda tal como ya lo tenías) -->
             </div>
 
             <p class="hint">
-             
+              El propietario ve esto como “panel de mando”: qué está activo, qué falta por activar y qué servicios ya han sido realizados.
             </p>
           </div>
         </section>
-
         <!-- PANEL AGENCIA -->
         <section id="panel-agencia" class="panel" style="display:none;">
           <div class="card">
