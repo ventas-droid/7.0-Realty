@@ -1748,6 +1748,75 @@ header {
   border-radius: 0.7rem;
   font-size: 0.82rem;
 }
+/* ============================================
+   ARREGLO DEFINITIVO CAJA DE COSTES
+   ============================================ */
+
+/* La rejilla superior: columna izquierda flexible + columna derecha fija */
+.prop-top-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 360px); /* 360px para que quepa todo el texto */
+  column-gap: 1.8rem;
+  align-items: flex-start;
+}
+
+/* Columna de la derecha limitada y contenida */
+.prop-cost {
+  max-width: 360px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* La caja de costes ocupa el 100% de su columna, sin salirse */
+.prop-cost .cost-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+/* Fila del título + input: puede partir en dos líneas si hace falta */
+.cost-main-row {
+  display: flex;
+  flex-wrap: wrap;              /* 🔥 permite romper línea */
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.cost-label {
+  flex: 1 1 auto;
+}
+
+/* El input no fuerza a crecer la caja */
+.cost-input {
+  flex: 0 0 auto;
+  min-width: 210px;
+  max-width: 100%;
+  font-size: 0.84rem;
+  padding: 0.28rem 0.65rem;
+}
+
+/* En pantallas medianas/pequeñas, todo en columna */
+@media (max-width: 1024px) {
+  .prop-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .prop-cost {
+    max-width: 100%;
+  }
+
+  .cost-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cost-input {
+    width: 100%;
+    text-align: left;
+  }
+}
 </style>
 </head>
 <body>
