@@ -1894,10 +1894,68 @@ header {
   font-size: 0.8rem !important;
   border-radius: 0.7rem !important;
 }
-/* Ajuste fino solo para pantallas grandes: 
-   un poco más de ancho para la caja de costes */
-@media (min-width: 1200px) {
+/* ============================================
+   LAYOUT SIMPLE: CAJA DE PRECIO ARRIBA, CENTRADA
+   (solo escritorio / pantallas grandes)
+   ============================================ */
+@media (min-width: 1024px) {
+  /* El bloque superior deja de ser grid y pasa a columna */
+  .prop-top-grid {
+    display: flex !important;
+    flex-direction: column-reverse !important;  /* primero caja de precio, luego texto+subidas */
+    gap: 1.8rem !important;
+    align-items: stretch !important;
+  }
+
+  /* Bloque de texto + subida ocupa todo el ancho */
+  .prop-main {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Columna de costes: fila centrada */
+  .prop-cost {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* Caja dorada: centrada y con ancho controlado */
+  .prop-cost .cost-box {
+    width: 100% !important;
+    max-width: 420px !important;   /* si la quieres más grande, sube este valor */
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* La fila “Precio de la propiedad” + input, ordenada y sin empujar */
+  .cost-main-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+  }
+
+  .cost-label {
+    flex: 1 1 auto !important;
+  }
+
+  .cost-input {
+    flex: 0 0 auto !important;
+    min-width: 210px !important;
+    max-width: 45% !important;
+    text-align: right !important;
+  }
+
+  /* El panel sigue cortando cualquier cosa que intente salirse */
+  .panel .card {
+    overflow: hidden !important;
+  }
 }
+
 </style>
 </head>
 <body>
