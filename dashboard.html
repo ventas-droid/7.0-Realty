@@ -578,7 +578,7 @@ header {
       color:#e5e7eb;
       word-break:break-word;
     }
-    .modal-delete {
+       .modal-delete {
       align-self:flex-end;
       font-size:.7rem;
       padding:.2rem .55rem;
@@ -587,209 +587,212 @@ header {
       background:#450a0a;
       color:#fecaca;
       cursor:pointer;
-      /* =========================
-   RESPONSIVE – MODO APP MÓVIL
-   ========================== */
-
-/* Tablets y pantallas medianas */
-@media (max-width: 1024px) {
-  header {
-    padding: 0.8rem 1rem 0.6rem;
-  }
-
-  main {
-    padding: 0 1rem 1.5rem;
-  }
-}
-
-/* Móviles (modo app) */
-@media (max-width: 768px) {
-
-  body {
-    font-size: 15px;
-  }
-
-  /* Header: logo a la izquierda, botón debajo a la derecha */
-  header {
-    max-width: 100%;
-    padding: 0.8rem 1rem 0.4rem;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  .logo {
-    margin-right: auto;
-  }
-
-  .header-actions {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .btn-mini {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.85rem;
-  }
-
-  /* Título página más compacto */
-  .page-title {
-    margin: 0.4rem 0 0.6rem;
-  }
-  .page-title h1 {
-    font-size: 1.15rem;
-    line-height: 1.3;
-  }
-  .page-title p {
-    font-size: 0.8rem;
-  }
-
-  /* Tabs tipo app: scroll horizontal */
-  .tabs {
-    margin-bottom: 0.8rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 0.2rem;
-  }
-  .tab {
-    flex: 0 0 auto;
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  /* Layout en una columna */
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1rem;
-  }
-
-  .card {
-    padding: 0.9rem 0.85rem 1rem;
-    border-radius: 0.9rem;
-  }
-
-  /* Chips y badges */
-  .badge-row {
-    gap: 0.35rem;
-  }
-  .badge {
-    font-size: 0.7rem;
-    padding: 0.25rem 0.55rem;
-  }
-
-  /* Sección de subida de archivos: columnas -> una columna */
-  .upload-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.9rem;
-  }
-
-  .upload-card {
-    padding: 0.75rem 0.8rem 0.9rem;
-  }
-
-  .upload-drop {
-    padding: 0.5rem 0.6rem;
-  }
-
-  .upload-actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .upload-view-btn {
-    width: 100%;
-    text-align: center;
-  }
-
-  /* Rangos de servicios y acciones: alineados a la izquierda */
-  .range-row {
-    justify-content: flex-start;
-    gap: 0.3rem;
-  }
-
-  .range-btn {
-    font-size: 0.72rem;
-    padding: 0.22rem 0.6rem;
-  }
-
-  /* Servicios en una columna tipo app */
-  .services-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.8rem;
-  }
-
-  .service-item {
-    padding: 0.75rem 0.85rem 0.9rem;
-  }
-
-  .service-btn,
-  .service-btn-full {
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-  }
-
-  /* Píldoras de acciones del propietario */
-  .owner-actions-dynamic {
-    gap: 0.25rem;
-  }
-
-  .owner-pill {
-    font-size: 0.78rem;
-  }
-
-  /* KPIs en columnas de 2 o 1 según ancho */
-  .kpis {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.5rem;
-  }
-  @media (max-width: 480px) {
-    .kpis {
-      grid-template-columns: minmax(0, 1fr);
     }
-  }
 
-  .kpi {
-    padding: 0.5rem 0.55rem;
-  }
+    /* =========================
+       RESPONSIVE – MODO APP MÓVIL
+       ========================== */
 
-  /* Caja económica: formato vertical, input a ancho completo */
-  .cost-box {
-    margin-top: 0.8rem;
-  }
+    /* Tablets y pantallas medianas */
+    @media (max-width: 1024px) {
+      header {
+        padding: 0.8rem 1rem 0.6rem;
+      }
 
-  .cost-main-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.4rem;
-  }
+      main {
+        padding: 0 1rem 1.5rem;
+      }
+    }
 
-  .cost-input {
-    width: 100%;
-    text-align: left;
-    font-size: 0.85rem;
-  }
+    /* Móviles (modo app) */
+    @media (max-width: 768px) {
 
-  .cost-line {
-    font-size: 0.8rem;
-  }
+      body {
+        font-size: 15px;
+      }
 
-  .cost-note {
-    font-size: 0.72rem;
-  }
+      /* Header: logo a la izquierda, botón debajo a la derecha */
+      header {
+        max-width: 100%;
+        padding: 0.8rem 1rem 0.4rem;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
 
-  /* Log de auditoría algo más compacto */
-  .log {
-    max-height: 160px;
-    font-size: 0.76rem;
-  }
+      .logo {
+        margin-right: auto;
+      }
 
-  /* Footer más pequeño */
-  footer {
-    padding: 0.6rem 1rem 1rem;
-    font-size: 0.7rem;
-  }
-}
+      .header-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .btn-mini {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.85rem;
+      }
+
+      /* Título página más compacto */
+      .page-title {
+        margin: 0.4rem 0 0.6rem;
+      }
+      .page-title h1 {
+        font-size: 1.15rem;
+        line-height: 1.3;
+      }
+      .page-title p {
+        font-size: 0.8rem;
+      }
+
+      /* Tabs tipo app: scroll horizontal */
+      .tabs {
+        margin-bottom: 0.8rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 0.2rem;
+      }
+      .tab {
+        flex: 0 0 auto;
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      /* Layout en una columna */
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1rem;
+      }
+
+      .card {
+        padding: 0.9rem 0.85rem 1rem;
+        border-radius: 0.9rem;
+      }
+
+      /* Chips y badges */
+      .badge-row {
+        gap: 0.35rem;
+      }
+      .badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.55rem;
+      }
+
+      /* Sección de subida de archivos: una columna */
+      .upload-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.9rem;
+      }
+
+      .upload-card {
+        padding: 0.75rem 0.8rem 0.9rem;
+      }
+
+      .upload-drop {
+        padding: 0.5rem 0.6rem;
+      }
+
+      .upload-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .upload-view-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Rangos alineados a la izquierda */
+      .range-row {
+        justify-content: flex-start;
+        gap: 0.3rem;
+      }
+
+      .range-btn {
+        font-size: 0.72rem;
+        padding: 0.22rem 0.6rem;
+      }
+
+      /* Servicios en una columna tipo app */
+      .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.8rem;
+      }
+
+      .service-item {
+        padding: 0.75rem 0.85rem 0.9rem;
+      }
+
+      .service-btn,
+      .service-btn-full {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* Píldoras de acciones del propietario */
+      .owner-actions-dynamic {
+        gap: 0.25rem;
+      }
+
+      .owner-pill {
+        font-size: 0.78rem;
+      }
+
+      /* KPIs en 2 columnas en móvil */
+      .kpis {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+      }
+
+      .kpi {
+        padding: 0.5rem 0.55rem;
+      }
+
+      /* Caja económica: vertical, input a ancho completo */
+      .cost-box {
+        margin-top: 0.8rem;
+      }
+
+      .cost-main-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .cost-input {
+        width: 100%;
+        text-align: left;
+        font-size: 0.85rem;
+      }
+
+      .cost-line {
+        font-size: 0.8rem;
+      }
+
+      .cost-note {
+        font-size: 0.72rem;
+      }
+
+      /* Log de auditoría algo más compacto */
+      .log {
+        max-height: 160px;
+        font-size: 0.76rem;
+      }
+
+      /* Footer más pequeño */
+      footer {
+        padding: 0.6rem 1rem 1rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    /* Móviles muy pequeños: KPIs en 1 columna */
+    @media (max-width: 480px) {
+      .kpis {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
   </style>
 </head>
