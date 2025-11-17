@@ -1520,6 +1520,59 @@ header {
   white-space: normal !important; 
   line-height: 1.35 !important;
 }
+/* ============================================
+   AJUSTE CAJA PRECIO + ANCHOS
+   ============================================ */
+
+/* La rejilla superior: más espacio para la columna del precio */
+.prop-top-grid {
+  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.7fr);
+  column-gap: 1.5rem;
+}
+
+/* Evitar que la columna derecha “empuje” fuera del panel */
+.prop-cost {
+  min-width: 0;
+}
+
+/* La caja dorada de precio: ancho controlado y dentro del panel */
+.cost-box {
+  max-width: 380px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Etiquetas de las líneas un pelín más compactas y con buen salto de línea */
+.cost-line {
+  align-items: flex-start;
+}
+
+.cost-line-label,
+.cost-line-value {
+  white-space: normal;
+  line-height: 1.35;
+  font-size: 0.80rem;
+}
+
+/* En pantallas medias/pequeñas todo en una columna sin desbordarse */
+@media (max-width: 1024px) {
+  .prop-top-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cost-box {
+    max-width: none;
+  }
+}
+
+/* ============================================
+   BOTÓN DORADO "SERVICIO ACTIVADO" MÁS DISCRETO
+   ============================================ */
+
+.service-btn-gold {
+  padding: 0.4rem 1.0rem !important;
+  font-size: 0.8rem !important;
+  border-radius: 0.75rem !important;
+}
 </style>
 </head>
 <body>
