@@ -904,6 +904,32 @@ header {
       grid-template-columns: minmax(0, 1fr);
     }
   }
+  /* Tarjeta limpia para rangos */
+.range-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid #1f2937;
+  border-radius: 1rem;
+  padding: 1rem 1.2rem;
+  margin: 1.3rem 0;
+  box-shadow: 0 8px 25px -10px rgba(0,0,0,0.35);
+}
+
+/* Título dentro de la tarjeta */
+.range-card .titulo-principal {
+  margin-bottom: 0.9rem;
+  color: #67b8f7;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Botones alineados con más aire */
+.range-card .range-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  justify-content: flex-start;
+}
   </style>
 </head>
 <body>
@@ -1020,8 +1046,8 @@ header {
             <!-- FIN BLOQUE SUPERIOR EN DOS COLUMNAS -->
 
             <!-- ACCIONES ACTIVADAS POR EL PROPIETARIO -->
-            <div class="owner-actions-header">
-              <h3 class="section-title titulo-principal">Acciones activadas por el propietario</h3>
+            <div class="range-card">
+              <h3 class="titulo-principal">Acciones activadas por el propietario</h3>
               <div class="range-row">
                 <button class="range-btn range-btn-active" data-owner-range="1-4">1–4</button>
                 <button class="range-btn" data-owner-range="5-8">5–8</button>
@@ -1038,8 +1064,10 @@ header {
             </div>
 
             <!-- SERVICIOS DISPONIBLES -->
-            <div class="section-title servicios-title">Servicios disponibles (tarifas ejemplo)</div>
-            <div class="range-row">
+            <div class="range-card">
+             <h3 class="titulo-principal">Servicios disponibles (tarifas ejemplo)</h3>
+             <div class="range-row">
+
               <button class="range-btn" data-service-range="all">Todos</button>
               <button class="range-btn range-btn-active" data-service-range="1-4">1–4</button>
               <button class="range-btn" data-service-range="5-8">5–8</button>
