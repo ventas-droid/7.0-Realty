@@ -1162,6 +1162,90 @@ header {
 .prop-services h3 {
   margin-bottom: 0.6rem !important;
 }
+
+/* ============================================
+   PANEL PRINCIPAL MÁS ANCHO
+   ============================================ */
+
+.panel .card {
+  max-width: 1150px !important;
+  padding: 2rem 2.3rem !important;
+  margin-top: 2.5rem !important;
+}
+
+/* Más separación entre bloques Acciones / Servicios */
+.prop-actions,
+.prop-services {
+  margin-top: 2.5rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+/* ============================================
+   CAJAS DE SERVICIOS: ESTILO PREMIUM
+   ============================================ */
+
+.services-grid {
+  margin-top: 2rem !important;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 2.5rem !important;
+  row-gap: 2.5rem !important;
+}
+
+/* Cada servicio como caja amplia */
+.services-grid .service-item {
+  padding: 1.9rem 2.2rem !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(148, 163, 184, 0.35) !important;
+  background: rgba(20, 27, 45, 0.96) !important;
+  box-shadow: 0 12px 36px -12px rgba(0, 0, 0, 0.45);
+  transition: 0.3s;
+}
+
+.services-grid .service-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 42px -10px rgba(0, 0, 0, 0.55);
+}
+
+/* Título de cada servicio (el <strong>) */
+.services-grid .service-item strong {
+  display: block;
+  font-size: 0.98rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* Líneas de detalle (class="service-meta") */
+.services-grid .service-meta {
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important;
+  color: #d1d5db !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Botón de servicio */
+.services-grid .service-btn {
+  margin-top: 1rem !important;
+  padding: 0.55rem 0.9rem !important;
+  border-radius: 10px !important;
+  font-size: 0.85rem !important;
+}
+
+/* Más aire en las píldoras de rangos 1–4, 5–8… */
+.range-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.range-btn {
+  padding: 0.35rem 0.9rem !important;
+  font-size: 0.78rem !important;
+  border-radius: 0.9rem !important;
+  line-height: 1;
+}
+
 </style>
 </head>
 <body>
