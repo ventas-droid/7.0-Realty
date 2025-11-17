@@ -1284,6 +1284,50 @@ header {
   border-radius: 999px !important;
   border-width: 1px !important;
 }
+/* ============================================
+   ESPACIADO PRO ENTRE ACCIONES / SERVICIOS
+   ============================================ */
+
+/* Caja "Acciones activadas por el propietario" */
+.panel .card > .range-card:first-of-type {
+  margin-top: 2.2rem !important;      /* baja un poco el bloque entero */
+  margin-bottom: 0.8rem !important;
+}
+
+/* Lista dinámica de acciones (texto que aparece debajo) */
+.panel .card > #owner-actions-dynamic {
+  margin-top: 0.6rem !important;
+  margin-bottom: 2.0rem !important;   /* separa bien de "Servicios disponibles" */
+}
+
+/* Caja "Servicios disponibles (tarifas ejemplo)" */
+.panel .card > .range-card:nth-of-type(2) {
+  margin-top: 0 !important;           /* ya la bajamos con el bloque anterior */
+  margin-bottom: 1.4rem !important;
+}
+
+/* Último texto bajo los servicios: "El propietario ve esto como panel de mando..." */
+.panel .card > p:last-of-type {
+  margin-top: 1.8rem !important;
+  margin-bottom: 0.4rem !important;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Píldoras de rangos un poco más suaves y limpias dentro del panel */
+.panel .card .range-row {
+  justify-content: flex-start !important;
+  gap: 0.7rem !important;
+  margin-top: 0.45rem !important;
+  margin-bottom: 0.7rem !important;
+}
+
+.panel .card .range-btn {
+  padding: 0.3rem 0.95rem !important;
+  font-size: 0.78rem !important;
+  border-radius: 999px !important;
+  border-width: 1px !important;
+}
 </style>
 </head>
 <body>
