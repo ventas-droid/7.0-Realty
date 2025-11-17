@@ -928,12 +928,89 @@ header {
 
       <div class="grid">
         <!-- PANEL PROPIETARIO -->
-        <section id="panel-propietario" class="panel">
-          <div class="card">
-            <h2 class="titulo-principal">Propietario – Ático Blue Sunset</h2>
-            <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
+      <section id="panel-propietario" class="panel">
+  <div class="card">
 
-            <div class="badge-row">
+    <!-- BLOQUE SUPERIOR EN DOS COLUMNAS -->
+    <div class="prop-top-grid">
+      <!-- Columna izquierda: título + badges + subida archivos -->
+      <div class="prop-main">
+        <h2 class="titulo-principal">Propietario – Ático Blue Sunset</h2>
+        <p>Resumen de la campaña de venta de una vivienda real dentro del sistema 7.0.</p>
+
+        <div class="badge-row">
+          <span class="badge">2 dorm · 2 baños</span>
+          <span class="badge">Vistas al mar</span>
+          <span class="badge">La Duquesa · Manilva</span>
+          <span class="badge">Campaña activa</span>
+        </div>
+
+        <!-- SUBIR FOTOS / DOCUMENTACIÓN -->
+        <div class="upload-section">
+          <h3 class="section-title">Subir fotos y documentación</h3>
+          <div class="upload-grid">
+            <div class="upload-card">
+              <h3>Subir fotos de la vivienda</h3>
+              <p></p>
+              <div class="upload-drop" id="drop-fotos">
+                <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
+                <button type="button" class="upload-btn" id="btn-fotos-select">Subir / arrastrar fotos</button>
+                <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
+              </div>
+            </div>
+            <div class="upload-card">
+              <h3>Subir documentación</h3>
+              <p></p>
+              <div class="upload-drop" id="drop-docs">
+                <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
+                <button type="button" class="upload-btn" id="btn-docs-select">Subir / arrastrar documentación</button>
+                <input type="file" id="input-docs" multiple style="display:none;" />
+              </div>
+            </div>
+          </div>
+          <div class="upload-actions">
+            <button type="button" class="upload-view-btn" id="btn-ver-fotos">Ver fotos subidas</button>
+            <button type="button" class="upload-view-btn" id="btn-ver-docs">Ver documentación subida</button>
+          </div>
+        </div>
+      </div>
+      <!-- Columna derecha: CAJA DE PRECIO / NETO -->
+      <div class="prop-cost">
+        <div class="cost-box">
+          <div class="cost-main-row">
+            <span class="cost-label">Precio de la propiedad</span>
+            <input type="text" id="precio-propiedad" class="cost-input" placeholder="Introduce el precio" />
+          </div>
+          <div class="cost-line">
+            <span class="cost-line-label">Total servicios activados (sin IVA):</span>
+            <span class="cost-line-value" id="cost-servicios">0,00 €</span>
+          </div>
+          <div class="cost-line">
+            <span class="cost-line-label">IVA servicios 21 %:</span>
+            <span class="cost-line-value" id="cost-iva-servicios">0,00 €</span>
+          </div>
+          <div class="cost-line">
+            <span class="cost-line-label">Comisión 3 % gestión:</span>
+            <span class="cost-line-value" id="cost-comision">0,00 €</span>
+          </div>
+          <div class="cost-line">
+            <span class="cost-line-label">IVA 21 % comisión:</span>
+            <span class="cost-line-value" id="cost-iva-comision">0,00 €</span>
+          </div>
+          <div class="cost-line cost-net">
+            <span class="cost-line-label">Neto para el propietario (antes de plusvalía):</span>
+            <span class="cost-line-value" id="cost-neto">0,00 €</span>
+          </div>
+          <p class="cost-note">
+            Cálculo orientativo en formato España (puntos de miles, coma decimal).
+            Se descuenta el coste de servicios activados, la comisión estándar del 3 % sobre el precio
+            y el 21 % de IVA correspondiente. No incluye plusvalía municipal, IRPF u otros impuestos.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- FIN BLOQUE SUPERIOR EN DOS COLUMNAS -->
+
               <span class="badge">2 dorm · 2 baños</span>
               <span class="badge">Vistas al mar</span>
               <span class="badge">La Duquesa · Manilva</span>
