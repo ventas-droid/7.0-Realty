@@ -1128,6 +1128,41 @@ header {
 body {
   background: red !important;
 }
+/* ============================================
+   MÁS AIRE EN LAS PÍLDORAS DE RANGOS (1–4, 5–8…)
+   ============================================ */
+
+.prop-actions,
+.prop-services {
+  margin-top: 1.6rem;
+  margin-bottom: 2rem;
+}
+
+.range-row,
+.filters-row,
+.range-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem !important;      /* más aire entre píldoras */
+  margin-top: 0.75rem !important; 
+  margin-bottom: 0.75rem !important;
+}
+
+/* Las píldoras en sí mismas más pequeñas y estilizadas */
+.range-pill,
+.filter-pill,
+.range-selector button {
+  padding: 0.35rem 0.9rem !important;
+  font-size: 0.78rem !important;
+  border-radius: 0.9rem !important;
+  line-height: 1;
+}
+
+/* Un poco más de espacio entre el título y las píldoras */
+.prop-actions h3,
+.prop-services h3 {
+  margin-bottom: 0.6rem !important;
+}
 </style>
 </head>
 <body>
