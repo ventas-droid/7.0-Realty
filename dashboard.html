@@ -1384,7 +1384,54 @@ header {
   font-size: 0.79rem !important;
   border-radius: 999px !important;
 }
+/* ============================================
+   FIX 1 · Caja de precio más ancha y ordenada
+   ============================================ */
 
+/* Darle más columna a la caja de precio */
+.prop-top-grid {
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.9fr);
+  align-items: flex-start;
+}
+
+/* Caja de precio con algo menos de padding y texto un poco más pequeño */
+.cost-box {
+  padding: 1rem 1.1rem;
+}
+
+.cost-label {
+  font-size: 0.82rem;
+}
+
+.cost-input {
+  font-size: 0.8rem;
+}
+
+.cost-line {
+  font-size: 0.78rem;
+}
+
+.cost-note {
+  font-size: 0.74rem;
+}
+
+
+
+/* ============================================
+   FIX 2 · Botones "Servicio activado" más finos
+   ============================================ */
+
+/* Reducir tamaño del botón dorado */
+.service-btn-gold {
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 0.8rem;
+}
+
+/* Las cajas de servicio un poco menos “tochas” */
+.services-grid .service-item {
+  padding: 1.4rem 1.6rem !important;
+}
 </style>
 </head>
 <body>
