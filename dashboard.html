@@ -836,7 +836,7 @@ header {
     font-size: 0.7rem;
   }
 
-  /* Móviles muy pequeños: KPIs en 1 columna */
+    /* Móviles muy pequeños: KPIs en 1 columna */
   @media (max-width: 480px) {
     .kpis {
       grid-template-columns: minmax(0, 1fr);
@@ -864,19 +864,9 @@ header {
     margin-top: 1.2rem;
   }
 
-  /* Más aire antes de "Servicios disponibles" */
+  /* Más aire antes de "Servicios disponibles" (si la usas en otros sitios) */
   .servicios-title {
     margin-top: 1.6rem;
-  }
-
-  /* Caja profesional para el bloque de rangos del propietario */
-  .owner-actions-header {
-    padding: 0.8rem 1rem;
-    border-radius: 0.9rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid #1f2937;
-    margin-top: 1.1rem;
-    margin-bottom: 0.6rem;
   }
 
   /* ============================================
@@ -904,90 +894,66 @@ header {
       grid-template-columns: minmax(0, 1fr);
     }
   }
-  /* Tarjeta limpia para rangos */
-.range-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid #1f2937;
-  border-radius: 1rem;
-  padding: 1rem 1.2rem;
-  margin: 1.3rem 0;
-  box-shadow: 0 8px 25px -10px rgba(0,0,0,0.35);
-}
 
-/* Título dentro de la tarjeta */
-.range-card .titulo-principal {
-  margin-bottom: 0.9rem;
-  color: #67b8f7;
-  font-size: 1.15rem;
-  font-weight: 700;
-}
-
-/* Botones alineados con más aire */
-.range-card .range-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin: 0;
-  justify-content: flex-start;
-}
   /* ============================================
-   BLOQUE ACCIONES + SERVICIOS – DISEÑO EN CAJA
-   ============================================ */
+     BLOQUE ACCIONES + SERVICIOS – DISEÑO EN CAJA
+     ============================================ */
 
-/* Caja genérica para los rangos */
-.range-card {
-  background: rgba(15, 23, 42, 0.98);
-  border: 1px solid #1f2937;
-  border-radius: 1rem;
-  padding: 1rem 1.3rem 1.1rem;
-  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
-}
+  /* Caja genérica para los rangos */
+  .range-card {
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid #1f2937;
+    border-radius: 1rem;
+    padding: 1rem 1.3rem 1.1rem;
+    box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.6);
+  }
 
-/* Caja superior: "Acciones activadas por el propietario" */
-.range-card-owner {
-  margin-top: 2rem;
-  margin-bottom: 1.6rem;
-}
+  /* Caja superior: "Acciones activadas por el propietario" */
+  .range-card-owner {
+    margin-top: 2rem;
+    margin-bottom: 1.6rem;
+  }
 
-/* Caja inferior: "Servicios disponibles" */
-.range-card-services {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
+  /* Caja inferior: "Servicios disponibles" */
+  .range-card-services {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 
-/* Título dentro de las cajas */
-.range-card .titulo-principal {
-  margin: 0 0 0.8rem;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #67b8f7;  /* mismo azul que el botón "Soy propietario" */
-}
+  /* Título dentro de las cajas */
+  .range-card .titulo-principal {
+    margin: 0 0 0.8rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #67b8f7;  /* mismo azul que el botón "Soy propietario" */
+  }
 
-/* Fila de rangos dentro de las cajas: alineado a la izquierda y con más aire */
-.range-card .range-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin: 0;
-  justify-content: flex-start;
-}
+  /* Fila de rangos dentro de las cajas: alineado a la izquierda y con más aire */
+  .range-card .range-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin: 0;
+    justify-content: flex-start;
+  }
 
-/* Un poco más de aire entre el título y las píldoras verdes */
-.owner-actions-dynamic {
-  margin-top: 0.8rem;
-}
+  /* Un poco más de aire entre el título y las píldoras verdes */
+  .owner-actions-dynamic {
+    margin-top: 0.8rem;
+  }
 
-/* Píldoras verdes algo más “caja” */
-.owner-pill {
-  border-radius: 0.9rem;
-  padding: 0.35rem 0.9rem;
-}
+  /* Píldoras verdes algo más “caja” */
+  .owner-pill {
+    border-radius: 0.9rem;
+    padding: 0.35rem 0.9rem;
+  }
 
-/* Más espacio vertical entre las tarjetas de servicios */
-.services-grid {
-  margin-top: 1.1rem;
-  row-gap: 1.4rem;
-}
+  /* Más espacio vertical entre las tarjetas de servicios */
+  .services-grid {
+    margin-top: 1.1rem;
+    row-gap: 1.4rem;
+  }
+
     /* ============================================
      BLOQUE ACCIONES + SERVICIOS – DISEÑO EN CAJA
      ============================================ */
