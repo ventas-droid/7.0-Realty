@@ -855,28 +855,45 @@ header {
   font-weight: 700;
 }
 
-/* Mantener sección en negrita */
+/* Mantener sección en negrita por defecto */
 .section-title {
   font-weight: 700;
 }
 
-/* Espacio extra antes de "Subir fotos y documentación" */
+/* Título "Servicios disponibles" con mismo estilo grande y azul */
+.servicios-title {
+  color: #67b8f7;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-top: 1.6rem !important;
+  margin-bottom: 0.6rem;
+}
+
+/* Más espacio visual antes de "Subir fotos y documentación" y título azul */
 .upload-section {
   margin-top: 1.2rem;
 }
 
-/* Más aire antes de "Servicios disponibles" */
-.servicios-title {
-  margin-top: 1.6rem !important;
+.upload-section h3.section-title {
+  margin-bottom: 0.8rem;
+  color: #67b8f7;
+  font-size: 1.0rem;
+  font-weight: 700;
 }
 
 /* Caja profesional para el bloque de rangos del propietario */
 .owner-actions-header {
   padding: 0.8rem 1rem;
   border-radius: 0.9rem;
-  background: rgba(255,255,255,0.03);
+  background: rgba(255,255,255,0.04);
   border: 1px solid #1f2937;
+  margin-top: 1.2rem;
   margin-bottom: 0.6rem;
+}
+
+/* Más espacio entre "Servicios disponibles" y los botones 1–4, 5–8... */
+.servicios-title + .range-row {
+  margin-top: 0.6rem;
 }
 </style>
 </head>
