@@ -605,188 +605,210 @@ header {
     }
 
     /* Móviles (modo app) */
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
 
-      body {
-        font-size: 15px;
-      }
+  body {
+    font-size: 15px;
+  }
 
-      /* Header: logo a la izquierda, botón debajo a la derecha */
-      header {
-        max-width: 100%;
-        padding: 0.8rem 1rem 0.4rem;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
+  /* HEADER: logo claro + botón a la derecha */
+  header {
+    max-width: 100%;
+    padding: 0.7rem 0.9rem 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.6rem;
+    flex-wrap: nowrap;
+  }
 
-      .logo {
-        margin-right: auto;
-      }
+  .logo-icon {
+    width: 30px;
+    height: 30px;
+  }
 
-      .header-actions {
-        width: 100%;
-        justify-content: flex-end;
-      }
+  /* Logo en dos líneas para que no se monte */
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+  .logo-text span:first-child {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .logo-text span:last-child {
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
 
-      .btn-mini {
-        font-size: 0.75rem;
-        padding: 0.35rem 0.85rem;
-      }
+  .header-actions {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
 
-      /* Título página más compacto */
-      .page-title {
-        margin: 0.4rem 0 0.6rem;
-      }
-      .page-title h1 {
-        font-size: 1.15rem;
-        line-height: 1.3;
-      }
-      .page-title p {
-        font-size: 0.8rem;
-      }
+  .btn-mini {
+    font-size: 0.72rem;
+    padding: 0.3rem 0.7rem;
+  }
 
-      /* Tabs tipo app: scroll horizontal */
-      .tabs {
-        margin-bottom: 0.8rem;
-        overflow-x: auto;
-        white-space: nowrap;
-        padding-bottom: 0.2rem;
-      }
-      .tab {
-        flex: 0 0 auto;
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
+  /* Título y subtítulo */
+  .page-title {
+    margin: 0.4rem 0 0.6rem;
+  }
+  .page-title h1 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  .page-title p {
+    font-size: 0.8rem;
+  }
 
-      /* Layout en una columna */
-      .grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 1rem;
-      }
+  main {
+    padding: 0 0.9rem 1.2rem;
+  }
 
-      .card {
-        padding: 0.9rem 0.85rem 1rem;
-        border-radius: 0.9rem;
-      }
+  /* Tabs tipo app: scroll horizontal */
+  .tabs {
+    margin-bottom: 0.8rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.2rem;
+  }
+  .tab {
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
 
-      /* Chips y badges */
-      .badge-row {
-        gap: 0.35rem;
-      }
-      .badge {
-        font-size: 0.7rem;
-        padding: 0.25rem 0.55rem;
-      }
+  /* Layout en una columna */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
 
-      /* Sección de subida de archivos: una columna */
-      .upload-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0.9rem;
-      }
+  .card {
+    padding: 0.9rem 0.85rem 1rem;
+    border-radius: 0.9rem;
+  }
 
-      .upload-card {
-        padding: 0.75rem 0.8rem 0.9rem;
-      }
+  /* Chips y badges */
+  .badge-row {
+    gap: 0.35rem;
+  }
+  .badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.55rem;
+  }
 
-      .upload-drop {
-        padding: 0.5rem 0.6rem;
-      }
+  /* Subida de archivos: una sola columna */
+  .upload-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+  }
 
-      .upload-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
+  .upload-card {
+    padding: 0.75rem 0.8rem 0.9rem;
+  }
 
-      .upload-view-btn {
-        width: 100%;
-        text-align: center;
-      }
+  .upload-drop {
+    padding: 0.5rem 0.6rem;
+  }
 
-      /* Rangos alineados a la izquierda */
-      .range-row {
-        justify-content: flex-start;
-        gap: 0.3rem;
-      }
+  .upload-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-      .range-btn {
-        font-size: 0.72rem;
-        padding: 0.22rem 0.6rem;
-      }
+  .upload-view-btn {
+    width: 100%;
+    text-align: center;
+  }
 
-      /* Servicios en una columna tipo app */
-      .services-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0.8rem;
-      }
+  /* Rangos alineados a la izquierda */
+  .range-row {
+    justify-content: flex-start;
+    gap: 0.3rem;
+  }
 
-      .service-item {
-        padding: 0.75rem 0.85rem 0.9rem;
-      }
+  .range-btn {
+    font-size: 0.72rem;
+    padding: 0.22rem 0.6rem;
+  }
 
-      .service-btn,
-      .service-btn-full {
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-      }
+  /* Servicios en una columna tipo app */
+  .services-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.8rem;
+  }
 
-      /* Píldoras de acciones del propietario */
-      .owner-actions-dynamic {
-        gap: 0.25rem;
-      }
+  .service-item {
+    padding: 0.75rem 0.85rem 0.9rem;
+  }
 
-      .owner-pill {
-        font-size: 0.78rem;
-      }
+  .service-btn,
+  .service-btn-full {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 
-      /* KPIs en 2 columnas en móvil */
-      .kpis {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.5rem;
-      }
+  /* Acciones propietario */
+  .owner-actions-dynamic {
+    gap: 0.25rem;
+  }
 
-      .kpi {
-        padding: 0.5rem 0.55rem;
-      }
+  .owner-pill {
+    font-size: 0.78rem;
+  }
 
-      /* Caja económica: vertical, input a ancho completo */
-      .cost-box {
-        margin-top: 0.8rem;
-      }
+  /* KPIs en 2 columnas */
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
 
-      .cost-main-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.4rem;
-      }
+  .kpi {
+    padding: 0.5rem 0.55rem;
+  }
 
-      .cost-input {
-        width: 100%;
-        text-align: left;
-        font-size: 0.85rem;
-      }
+  /* Caja económica: vertical */
+  .cost-box {
+    margin-top: 0.8rem;
+  }
 
-      .cost-line {
-        font-size: 0.8rem;
-      }
+  .cost-main-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
 
-      .cost-note {
-        font-size: 0.72rem;
-      }
+  .cost-input {
+    width: 100%;
+    text-align: left;
+    font-size: 0.85rem;
+  }
 
-      /* Log de auditoría algo más compacto */
-      .log {
-        max-height: 160px;
-        font-size: 0.76rem;
-      }
+  .cost-line {
+    font-size: 0.8rem;
+  }
 
-      /* Footer más pequeño */
-      footer {
-        padding: 0.6rem 1rem 1rem;
-        font-size: 0.7rem;
-      }
-    }
+  .cost-note {
+    font-size: 0.72rem;
+  }
+
+  /* Log de auditoría más compacto */
+  .log {
+    max-height: 160px;
+    font-size: 0.76rem;
+  }
+
+  /* Footer más pequeño */
+  footer {
+    padding: 0.6rem 0.9rem 1rem;
+    font-size: 0.7rem;
+  }
+}
 
     /* Móviles muy pequeños: KPIs en 1 columna */
     @media (max-width: 480px) {
