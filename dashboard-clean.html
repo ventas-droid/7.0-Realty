@@ -2,12 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Panamove 7.0 – Dashboard propietario</title>
+  <title>Panamove 7.0 – Dashboard campaña</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg-main: #020617;
       --bg-card: #020817;
+      --bg-card-alt: #020617;
       --accent: #38bdf8;
       --accent-soft: rgba(56, 189, 248, 0.15);
       --accent-strong: #0ea5e9;
@@ -44,7 +45,7 @@
       text-decoration: none;
     }
 
-    /* LAYOUT ---------------------------------------------------------------- */
+    /* LAYOUT -------------------------------------------------------------- */
 
     .page {
       display: flex;
@@ -111,7 +112,7 @@
       align-items: center;
       gap: 0.55rem;
       padding: 0.55rem 0.7rem;
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       font-size: 0.8rem;
       color: var(--text-soft);
       cursor: pointer;
@@ -143,7 +144,6 @@
       margin-top: auto;
       font-size: 0.7rem;
       color: #6b7280;
-      opacity: 0.9;
     }
 
     .main {
@@ -159,6 +159,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
     }
 
     .top-left {
@@ -181,11 +182,12 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      flex-wrap: wrap;
     }
 
     .pill {
       border-radius: var(--radius-full);
-      padding: 0.32rem 0.8rem;
+      padding: 0.32rem 0.9rem;
       font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
@@ -207,9 +209,31 @@
       background: transparent;
       border-color: rgba(148, 163, 184, 0.4);
       color: var(--text-soft);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
     }
 
-    /* GRID ------------------------------------------------------------------ */
+    .pill-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .badge-sistema {
+      border-radius: var(--radius-full);
+      padding: 0.15rem 0.75rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(15, 23, 42, 0.92);
+    }
+
+    /* GRID ---------------------------------------------------------------- */
 
     .grid {
       display: grid;
@@ -260,10 +284,10 @@
       }
     }
 
-    /* CARDS ----------------------------------------------------------------- */
+    /* CARDS --------------------------------------------------------------- */
 
     .card {
-      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      background: radial-gradient(circle at top left, #020817, #020617 55%);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
       padding: 1.1rem 1.2rem;
@@ -278,6 +302,7 @@
       align-items: center;
       gap: 0.6rem;
       margin-bottom: 0.55rem;
+      flex-wrap: wrap;
     }
 
     .card-title {
@@ -292,23 +317,13 @@
 
     .badge {
       border-radius: 999px;
-      padding: 0.2rem 0.8rem;
+      padding: 0.2rem 0.6rem;
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       background: var(--accent-soft);
       color: var(--accent);
       border: 1px solid rgba(56, 189, 248, 0.3);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
     }
 
     .big-number {
@@ -322,7 +337,13 @@
       font-size: 0.8rem;
     }
 
-    /* PRECIOS / CÁLCULOS ---------------------------------------------------- */
+    .footer-hint {
+      margin-top: 0.6rem;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    /* PRECIOS / CÁLCULOS -------------------------------------------------- */
 
     .price-input-row {
       display: flex;
@@ -393,7 +414,7 @@
       line-height: 1.4;
     }
 
-    /* PROPERTY SUMMARY ------------------------------------------------------ */
+    /* PROPERTY SUMMARY ---------------------------------------------------- */
 
     .chips-row {
       margin-top: 0.6rem;
@@ -417,29 +438,7 @@
       margin-top: 0.6rem;
     }
 
-    /* HISTÓRICO ------------------------------------------------------------- */
-
-    .history-log {
-      margin-top: 0.4rem;
-      font-size: 0.74rem;
-      color: var(--text-soft);
-      max-height: 180px;
-      overflow-y: auto;
-      padding-right: 0.4rem;
-    }
-
-    .history-item {
-      padding: 0.12rem 0;
-      border-bottom: 1px dashed rgba(31, 41, 55, 0.8);
-    }
-
-    .history-item time {
-      color: #6b7280;
-      margin-right: 0.4rem;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* UPLOAD AREA ----------------------------------------------------------- */
+    /* UPLOAD AREA --------------------------------------------------------- */
 
     .upload-section {
       display: flex;
@@ -569,7 +568,7 @@
       transform: translateY(-1px);
     }
 
-    /* MODAL ----------------------------------------------------------------- */
+    /* MODAL --------------------------------------------------------------- */
 
     .modal-backdrop {
       position: fixed;
@@ -664,7 +663,7 @@
       grid-column: 1 / -1;
     }
 
-    /* SERVICIOS ------------------------------------------------------------- */
+    /* SERVICIOS DASHBOARD ------------------------------------------------- */
 
     .status-pills-row {
       display: flex;
@@ -713,7 +712,7 @@
 
     .service-card {
       border-radius: 16px;
-      background: linear-gradient(145deg, #020617, #020617);
+      background: #020617;
       border: 1px solid #111827;
       padding: 0.8rem 0.85rem 0.85rem;
       display: flex;
@@ -724,7 +723,8 @@
 
     .service-card.active {
       border-color: rgba(250, 204, 21, 0.7);
-      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4);
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35),
+        0 18px 45px rgba(15, 23, 42, 0.9);
     }
 
     .service-card h3 {
@@ -747,6 +747,22 @@
       align-items: center;
       margin-top: 0.55rem;
       gap: 0.5rem;
+    }
+
+    .service-state-pill {
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      color: #facc15;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .service-state-pill span.icon {
+      font-size: 0.75rem;
     }
 
     .service-btn {
@@ -774,96 +790,168 @@
       color: #facc15;
     }
 
-    .service-state-pill {
-      border-radius: 999px;
-      padding: 0.2rem 0.55rem;
-      font-size: 0.7rem;
-      background: rgba(250, 204, 21, 0.1);
-      border: 1px solid rgba(250, 204, 21, 0.5);
-      color: #facc15;
+    .services-link {
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
     }
 
-    .service-state-pill span.icon {
-      font-size: 0.75rem;
+    .services-link:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.7);
+      transform: translateY(-1px);
     }
 
-    .services-link {
-      cursor: pointer;
-    }
+    /* ACCIONES RECIENTES (HISTÓRICO) ------------------------------------- */
 
-    /* AGENCIAS -------------------------------------------------------------- */
-
-    .agency-wrapper {
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(55, 65, 81, 0.8);
-      padding: 0.9rem 1rem;
-    }
-
-    .agency-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
+    .history-card-body {
       margin-top: 0.6rem;
-      max-height: 210px;
+    }
+
+    .history-list {
+      margin-top: 0.4rem;
+      padding-top: 0.2rem;
+      border-top: 1px dashed rgba(55, 65, 81, 0.8);
+      font-size: 0.78rem;
+      color: var(--text-main);
+      max-height: 170px;
       overflow-y: auto;
       padding-right: 0.4rem;
     }
 
-    .agency-card {
-      border-radius: 16px;
-      background: radial-gradient(circle at top left, #020617, #020617 55%);
-      border: 1px solid #111827;
-      padding: 0.75rem 0.85rem;
-      display: flex;
+    .history-item {
+      padding: 0.18rem 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-meta {
+      color: var(--text-soft);
+    }
+
+    .btn-notifications {
+      border-radius: var(--radius-full);
+      padding: 0.28rem 0.9rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--accent);
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
+      gap: 0.35rem;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn-notifications::before {
+      content: "🔔";
+      font-size: 0.85rem;
+    }
+
+    .btn-notifications:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.85);
+    }
+
+    /* AGENCIAS ------------------------------------------------------------ */
+
+    .agencies-wrapper {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(75, 85, 99, 0.9);
+      padding: 0.9rem 1rem 1rem;
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+    }
+
+    .agencies-header {
+      display: flex;
       justify-content: space-between;
-      gap: 0.8rem;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .agencies-count {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      border-radius: var(--radius-full);
+      padding: 0.15rem 0.7rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .agencies-list {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-height: 210px;
+      overflow-y: auto;
+    }
+
+    .agency-card {
+      border-radius: 18px;
+      padding: 0.7rem 0.9rem;
+      background: #020617;
+      border: 1px solid #111827;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
     .agency-main {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.6rem;
+    }
+
+    .agency-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
     }
 
     .agency-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top, #22c55e, #16a34a);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: radial-gradient(circle at top, #22c55e, #15803d);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #022c22;
+      font-size: 0.9rem;
       font-weight: 700;
-      font-size: 0.8rem;
-      box-shadow: 0 10px 25px rgba(22, 163, 74, 0.55);
-    }
-
-    .agency-texts {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      font-size: 0.8rem;
+      color: #ecfdf5;
     }
 
     .agency-name {
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
-    .agency-phone-label {
+    .agency-phone {
+      font-size: 0.8rem;
       color: var(--text-soft);
-      margin-right: 0.25rem;
     }
 
-    .agency-phone-value {
-      font-variant-numeric: tabular-nums;
-    }
-
-    .agency-note {
+    .agency-desc {
       font-size: 0.78rem;
       color: var(--text-soft);
     }
@@ -872,7 +960,6 @@
       border-radius: 999px;
       border: none;
       padding: 0.24rem 0.9rem;
-      margin-top: 0.08rem;
       font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
@@ -885,7 +972,6 @@
       white-space: nowrap;
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast), opacity var(--transition-fast);
-      align-self: center;
     }
 
     .agency-btn:hover {
@@ -904,43 +990,11 @@
       font-size: 0.74rem;
       color: var(--text-soft);
     }
-
-    .agency-count-pill {
-      border-radius: 999px;
-      padding: 0.22rem 0.8rem;
-      font-size: 0.72rem;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      color: var(--text-soft);
-    }
-
-    /* ACCIONES TEXTO -------------------------------------------------------- */
-
-    .actions-list {
-      margin-top: 0.4rem;
-      padding-left: 1rem;
-      font-size: 0.78rem;
-      color: var(--text-main);
-    }
-
-    .actions-list li {
-      margin-bottom: 0.16rem;
-    }
-
-    .actions-list span.price {
-      color: var(--text-soft);
-    }
-
-    .footer-hint {
-      margin-top: 0.6rem;
-      font-size: 0.7rem;
-      color: var(--text-soft);
-    }
   </style>
 </head>
 <body>
   <div class="page">
-    <!-- SIDEBAR ------------------------------------------------------------>
+    <!-- SIDEBAR -------------------------------------------------------------->
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-logo"></div>
@@ -953,9 +1007,9 @@
       </div>
 
       <nav class="nav">
-        <a href="dashboard-clean.html" class="nav-item nav-item-active">
+        <div class="nav-item nav-item-active">
           <span class="icon">📊</span>Dashboard
-        </a>
+        </div>
         <a href="servicios.html" class="nav-item">
           <span class="icon">🧩</span>Servicios campaña
         </a>
@@ -963,16 +1017,10 @@
           <span class="icon">🏠</span>Propiedades
         </div>
         <div class="nav-item">
-          <span class="icon">👤</span>Clientes
-        </div>
-        <div class="nav-item">
           <span class="icon">📣</span>Difusores
         </div>
         <div class="nav-item">
           <span class="icon">🕵️</span>Auditoría
-        </div>
-        <div class="nav-item">
-          <span class="icon">⚙️</span>Configuración
         </div>
       </nav>
 
@@ -996,7 +1044,9 @@
             <div class="pill-dot"></div>
             Campaña activa – Ático Blue Sunset
           </div>
-          <div class="pill pill-ghost">Ver panel detallado</div>
+          <button type="button" class="pill pill-ghost" id="btnVerServicios">
+            Ver todos los servicios
+          </button>
         </div>
       </header>
 
@@ -1011,10 +1061,7 @@
                 Simulación de costes con servicios activados e IVA.
               </div>
             </div>
-            <span class="badge">
-              <span class="badge-dot"></span>
-              Simulación rápida 7.0
-            </span>
+            <span class="badge">Simulación rápida 7.0</span>
           </div>
 
           <div class="price-input-row">
@@ -1101,7 +1148,7 @@
         </article>
       </section>
 
-      <!-- Fila 2: resumen propiedad + acciones recientes -------------------->
+      <!-- Fila 2: resumen propiedad + ACCIONES RECIENTES ------------------->
       <section class="grid grid-2">
         <!-- Última propiedad -->
         <article class="card">
@@ -1112,10 +1159,7 @@
                 Pieza clave dentro del método 7.0.
               </div>
             </div>
-            <span class="badge">
-              <span class="badge-dot"></span>
-              Sistema 7.0
-            </span>
+            <span class="badge-sistema">Sistema 7.0</span>
           </div>
 
           <p class="muted">
@@ -1137,7 +1181,7 @@
           </p>
         </article>
 
-        <!-- Acciones recientes / histórico --------------------------------->
+        <!-- ACCIONES RECIENTES / HISTÓRICO --------------------------------->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1146,22 +1190,27 @@
                 Histórico de lo que se ha activado, subido y autorizado.
               </div>
             </div>
+            <button type="button" class="btn-notifications">
+              Notificaciones
+            </button>
           </div>
 
-          <div id="historyLog" class="history-log">
-            <!-- JS: líneas de histórico -->
+          <div class="history-card-body">
+            <div class="history-list" id="historyList">
+              <!-- JS: entradas del histórico -->
+            </div>
+            <p class="footer-hint">
+              Este histórico es el “cerebro” de la campaña: siempre podrás revisar
+              qué se hizo, quién lo activó y cuándo.
+            </p>
           </div>
-
-          <p class="footer-hint">
-            Este histórico es el “cerebro” de la campaña: siempre podrás
-            revisar qué se hizo, quién lo activó y cuándo.
-          </p>
         </article>
       </section>
 
-      <!-- Fila 3: subida de fotos y documentación + servicios ---------------->
+      <!-- Fila 3: subida de fotos y documentación + servicios -------------->
+
       <section class="grid grid-2-equal">
-        <!-- Subir fotos / docs -->
+        <!-- Subida de fotos / docs -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1250,7 +1299,7 @@
           </div>
         </article>
 
-        <!-- Servicios disponibles -------------------------------------------->
+        <!-- Servicios disponibles resumen ---------------------------------->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1261,11 +1310,8 @@
                 Activa solo lo que tenga sentido para tu campaña.
               </div>
             </div>
-
-            <!-- Botón azul estilo SISTEMA 7.0 -->
-            <button type="button" class="badge services-link" id="btnVerServicios">
-              <span class="badge-dot"></span>
-              Todos los servicios
+            <button type="button" class="services-link" id="btnVerServicios2">
+              Ver servicios
             </button>
           </div>
 
@@ -1275,7 +1321,7 @@
           </div>
 
           <div class="services-grid" id="servicesGrid">
-            <!-- JS: solo 4 servicios visibles -->
+            <!-- JS: 4 servicios visibles -->
           </div>
 
           <p class="footer-hint">
@@ -1285,7 +1331,7 @@
         </article>
       </section>
 
-      <!-- Fila 4: Agencias interesadas --------------------------------------->
+      <!-- Fila 4: Agencias interesadas ------------------------------------->
       <section class="grid grid-1">
         <article class="card">
           <div class="card-header">
@@ -1297,12 +1343,20 @@
                 Cuando autorices, la agencia recibirá tus datos de contacto.
               </div>
             </div>
-            <div id="agencyCount" class="agency-count-pill">0 agencias</div>
           </div>
 
-          <div class="agency-wrapper">
-            <div id="agencyList" class="agency-list">
-              <!-- JS: tarjetas de agencias -->
+          <div class="agencies-wrapper">
+            <div class="agencies-header">
+              <div class="muted">
+                Agencias dispuestas a asumir los gastos clave para acelerar la venta.
+              </div>
+              <div class="agencies-count">
+                <span id="agenciasCount">0</span> agencias
+              </div>
+            </div>
+
+            <div class="agencies-list" id="agenciasList">
+              <!-- JS: tarjetas agencia -->
             </div>
 
             <p class="agency-hint">
@@ -1315,7 +1369,7 @@
     </main>
   </div>
 
-  <!-- MODAL ----------------------------------------------------------------->
+  <!-- MODAL FOTOS / DOCS --------------------------------------------------->
   <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
@@ -1326,85 +1380,174 @@
     </div>
   </div>
 
-  <!-- SCRIPT ---------------------------------------------------------------->
+  <!-- SCRIPT --------------------------------------------------------------->
   <script>
-    // --------------------------- SERVICIOS / COSTES ----------------------- //
-    const servicios = [
+    // ==================== SERVICIOS (COMPARTIDOS CON servicios.html) ======
+    const STORAGE_KEY_SERVICIOS = "panamoveServicios";
+    const STORAGE_KEY_AGENCIAS = "panamoveAgencias";
+    const HISTORY_KEY = "panamoveHistory";
+
+    const serviciosBase = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
-        precio: 450,
+        categoria: "Imagen",
+        precio: "450 € · pago a éxito",
         descripcion: "Fotógrafo especializado inmobiliario.",
-        activo: true,
+        meta: "Sesión interior + exterior en alta resolución.",
+        activoPorDefecto: true,
       },
       {
-        id: "video",
+        id: "video-dron",
         nombre: "Vídeo + dron",
-        precio: 450,
+        categoria: "Vídeo",
+        precio: "450 € · pago a éxito",
         descripcion: "Recorrido interior + vistas aéreas.",
-        activo: false,
+        meta: "Ideal para campañas potentes y redes sociales.",
+        activoPorDefecto: true,
       },
       {
-        id: "home",
+        id: "home-staging",
         nombre: "Home staging",
-        precioMin: 750,
-        precioMax: 1200,
-        precio: 900, // valor medio para la simulación
+        categoria: "Estética",
+        precio: "750–1200 € · pago a éxito",
         descripcion: "Mejora estética sin reformas pesadas.",
-        activo: true,
+        meta: "Incluye propuesta de estilo y reordenación.",
+        activoPorDefecto: true,
       },
       {
-        id: "blogger",
+        id: "blogger-internacional",
         nombre: "Blogger internacional",
-        precio: 3000,
-        descripcion: "Historia real en otro país.",
-        activo: false,
+        categoria: "Difusión",
+        precio: "3000 € · pago a éxito",
+        descripcion: "Historia real de la vivienda en otro país.",
+        meta: "Enlace directo con público extranjero.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "tour-360",
+        nombre: "Tour virtual 360º",
+        categoria: "Tecnología",
+        precio: "350 € · pago único",
+        descripcion: "Recorrido virtual interactivo de la vivienda.",
+        meta: "Perfecto para compradores internacionales.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "copy-luxury",
+        nombre: "Copywriting de lujo",
+        categoria: "Narrativa",
+        precio: "280 € · pago único",
+        descripcion:
+          "Texto editorial estilo revista para portales y dossieres.",
+        meta: "Orientado a públicos premium e inversores.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "plan-medios",
+        nombre: "Plan de medios 7.0",
+        categoria: "Difusión",
+        precio: "900 € · pago a éxito",
+        descripcion:
+          "Estrategia coordinada en portales, redes y base de datos.",
+        meta: "Control centralizado de todos los impactos.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "open-house",
+        nombre: "Open House privado",
+        categoria: "Eventos",
+        precio: "600 € · pago a éxito",
+        descripcion:
+          "Jornada de puertas abiertas para compradores filtrados.",
+        meta: "Se prepara guion, timings y feedback de visitas.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "arquitecto",
+        nombre: "Informe arquitecto 7.0",
+        categoria: "Técnico",
+        precio: "450 € · pago único",
+        descripcion:
+          "Informe visual sobre estado, mejoras y potencial de la vivienda.",
+        meta: "Aporta confianza al comprador indeciso.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "notion-dossier",
+        nombre: "Dossier interactivo",
+        categoria: "Documento",
+        precio: "220 € · pago único",
+        descripcion:
+          "Dossier online con fotos, planos, cálculos y storytelling.",
+        meta: "Se comparte con compradores serios por enlace privado.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "whatsapp-camp",
+        nombre: "Campaña WhatsApp PRO",
+        categoria: "Difusión",
+        precio: "350 € · pago a éxito",
+        descripcion:
+          "Mensajes guiados y seguimiento con compradores de tu base.",
+        meta: "Controlamos aperturas, respuestas y tiempos.",
+        activoPorDefecto: false,
+      },
+      {
+        id: "embudo-7",
+        nombre: "Embudo 7 pasos",
+        categoria: "Sistema 7.0",
+        precio: "Incluido según pack",
+        descripcion:
+          "Seguimiento paso a paso desde lead frío hasta oferta firme.",
+        meta: "Visión completa para la parte educativa del método.",
+        activoPorDefecto: true,
       },
     ];
 
+    function loadServicios() {
+      let stored = [];
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_SERVICIOS);
+        if (raw) stored = JSON.parse(raw);
+      } catch (e) {}
+
+      const mapStored = new Map(stored.map((s) => [s.id, s]));
+      return serviciosBase.map((svc) => {
+        const saved = mapStored.get(svc.id);
+        return {
+          ...svc,
+          activo:
+            saved && typeof saved.activo === "boolean"
+              ? saved.activo
+              : !!svc.activoPorDefecto,
+        };
+      });
+    }
+
+    function saveServicios(servicios) {
+      try {
+        const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
+        localStorage.setItem(STORAGE_KEY_SERVICIOS, JSON.stringify(minimal));
+      } catch (e) {}
+    }
+
+    let servicios = loadServicios();
+
     const servicesGrid = document.getElementById("servicesGrid");
     const statusPillsRow = document.getElementById("statusPillsRow");
-    const accionesList = document.getElementById("accionesList");
-    const historyLog = document.getElementById("historyLog");
 
-    function formatEuro(value) {
-      return (
-        value.toLocaleString("es-ES", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }) + " €"
-      );
-    }
-
-    function addHistoryLine(text) {
-      const now = new Date();
-      const hh = String(now.getHours()).padStart(2, "0");
-      const mm = String(now.getMinutes()).padStart(2, "0");
-      const ss = String(now.getSeconds()).padStart(2, "0");
-
-      const div = document.createElement("div");
-      div.className = "history-item";
-      div.innerHTML = `<time>[${hh}:${mm}:${ss}]</time>${text}`;
-      historyLog.prepend(div);
-    }
-
-    function renderServicios() {
+    function renderServiciosDashboard() {
+      if (!servicesGrid) return;
       servicesGrid.innerHTML = "";
+      const subset = servicios.slice(0, 4); // solo 4 servicios clave
 
-      servicios.forEach((svc, index) => {
-        if (index >= 4) return; // en el dashboard solo mostramos 4
-
+      subset.forEach((svc) => {
         const card = document.createElement("div");
         card.className = "service-card" + (svc.activo ? " active" : "");
-
-        const precioText =
-          svc.id === "home"
-            ? `${svc.precioMin}–${svc.precioMax} € · pago a éxito`
-            : `${svc.precio} € · pago a éxito`;
-
         card.innerHTML = `
           <h3>${svc.nombre}</h3>
-          <div class="service-price">${precioText}</div>
+          <div class="service-price">${svc.precio}</div>
           <p class="service-desc">${svc.descripcion}</p>
           <div class="service-footer">
             <span class="service-state-pill" style="opacity:${
@@ -1416,34 +1559,25 @@
             <button class="service-btn ${
               svc.activo ? "active" : ""
             }" data-id="${svc.id}">
-              ${svc.activo ? "Desactivar" : "Activar este servicio"}
+              ${svc.activo ? "Desactivar" : "Activar servicio"}
             </button>
           </div>
         `;
-
         servicesGrid.appendChild(card);
       });
 
-      document.querySelectorAll(".service-btn").forEach((btn) => {
+      servicesGrid.querySelectorAll(".service-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.getAttribute("data-id");
-          const svc = servicios.find((s) => s.id === id);
-          if (!svc) return;
-          svc.activo = !svc.activo;
-
-          addHistoryLine(
-            `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
-              svc.nombre
-            }.`
-          );
-          updateEverything();
+          toggleServicio(id);
         });
       });
     }
 
     function renderStatusPills() {
+      if (!statusPillsRow) return;
       statusPillsRow.innerHTML = "";
-      const activos = servicios.filter((s) => s.activo);
+      const activos = servicios.filter((s) => s.activo).slice(0, 10);
 
       if (!activos.length) {
         const span = document.createElement("span");
@@ -1464,6 +1598,93 @@
       });
     }
 
+    function toggleServicio(id) {
+      servicios = servicios.map((svc) =>
+        svc.id === id ? { ...svc, activo: !svc.activo } : svc
+      );
+      saveServicios(servicios);
+      const svc = servicios.find((s) => s.id === id);
+      if (svc) {
+        addHistoryEntry(
+          `Servicio ${svc.activo ? "activado" : "desactivado"}: ${svc.nombre}.`
+        );
+      }
+      calcularTotales();
+      renderServiciosDashboard();
+      renderStatusPills();
+    }
+
+    // ==================== HISTÓRICO / ACCIONES RECIENTES ==================
+    const historyListEl = document.getElementById("historyList");
+
+    function addHistoryEntry(text) {
+      const now = new Date();
+      const time = now.toTimeString().slice(0, 8);
+      const date = now.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+
+      let stored = [];
+      try {
+        const raw = localStorage.getItem(HISTORY_KEY);
+        if (raw) stored = JSON.parse(raw);
+      } catch (e) {}
+
+      stored.unshift({
+        ts: now.getTime(),
+        date,
+        time,
+        text,
+      });
+
+      stored = stored.slice(0, 100);
+
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(stored));
+      } catch (e) {}
+
+      renderHistoryFromStored(stored);
+    }
+
+    function renderHistoryFromStored(list) {
+      if (!historyListEl) return;
+      historyListEl.innerHTML = "";
+
+      list.forEach((item) => {
+        const row = document.createElement("div");
+        row.className = "history-item";
+        row.innerHTML = `
+          <span class="history-meta">[${item.date} ${item.time}]</span>
+          <span> ${item.text}</span>
+        `;
+        historyListEl.appendChild(row);
+      });
+    }
+
+    (function initHistory() {
+      try {
+        const raw = localStorage.getItem(HISTORY_KEY);
+        if (raw) {
+          renderHistoryFromStored(JSON.parse(raw));
+        } else {
+          addHistoryEntry("Histórico iniciado.");
+        }
+      } catch (e) {}
+    })();
+
+    // ==================== CALCULADORA PRECIOS =============================
+
+    function formatEuro(value) {
+      return (
+        value.toLocaleString("es-ES", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }) + " €"
+      );
+    }
+
     function calcularTotales() {
       const precioPropiedad =
         parseFloat(document.getElementById("precioPropiedad").value) || 0;
@@ -1471,22 +1692,20 @@
       const activos = servicios.filter((s) => s.activo);
       let totalServicios = 0;
       activos.forEach((svc) => {
-        if (svc.id === "home") {
-          totalServicios += svc.precio; // valor medio
-        } else {
-          totalServicios += svc.precio;
+        // valor muy aproximado: si tiene "Incluido" cuenta 0
+        if (svc.precio.includes("Incluido")) return;
+        const numeros = svc.precio.match(/\d+/g);
+        if (numeros && numeros.length) {
+          totalServicios += parseInt(numeros[0], 10);
         }
       });
 
       const ivaServicios = totalServicios * 0.21;
       const comision = precioPropiedad * 0.03;
       const ivaComision = comision * 0.21;
-      const totalGeneral =
-        totalServicios + ivaServicios + comision + ivaComision;
+      const totalGeneral = totalServicios + ivaServicios + comision + ivaComision;
       const netoParaTi =
-        precioPropiedad -
-        (comision + ivaComision) -
-        (totalServicios + ivaServicios);
+        precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
 
       document.getElementById("totalServiciosSinIVA").textContent =
         formatEuro(totalServicios);
@@ -1502,26 +1721,11 @@
         formatEuro(netoParaTi);
     }
 
-    function updateEverything() {
-      renderServicios();
-      renderStatusPills();
-      calcularTotales();
-      renderAgencies();
-    }
-
     document
       .getElementById("precioPropiedad")
       .addEventListener("input", calcularTotales);
 
-    // Botón "Todos los servicios" -> servicios.html
-    const btnVerServicios = document.getElementById("btnVerServicios");
-    if (btnVerServicios) {
-      btnVerServicios.addEventListener("click", () => {
-        window.location.href = "servicios.html";
-      });
-    }
-
-    // --------------------------- UPLOAD / MODAL --------------------------- //
+    // ==================== UPLOAD / MODAL ==================================
     const fotoFiles = [];
     const docFiles = [];
 
@@ -1572,7 +1776,6 @@
     function simulateUploadProgress(type, count) {
       const span = type === "fotos" ? progressFotos : progressDocs;
       if (!span) return;
-
       let pct = 0;
       span.textContent = "Cargando 0%";
 
@@ -1598,9 +1801,9 @@
       });
       if (valid.length) {
         simulateUploadProgress("fotos", valid.length);
-        addHistoryLine(`Subidas ${valid.length} fotos nuevas.`);
+        updateUploadCounters();
+        addHistoryEntry(`Fotos subidas: ${valid.length} archivo(s).`);
       }
-      updateUploadCounters();
     }
 
     function handleDocs(files) {
@@ -1613,9 +1816,9 @@
       });
       if (valid.length) {
         simulateUploadProgress("docs", valid.length);
-        addHistoryLine(`Subida documentación (${valid.length} archivos).`);
+        updateUploadCounters();
+        addHistoryEntry(`Documentación subida: ${valid.length} archivo(s).`);
       }
-      updateUploadCounters();
     }
 
     if (btnFotosSelect && inputFotos) {
@@ -1623,6 +1826,7 @@
       inputFotos.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleFotos(files);
+        e.target.value = ""; // permite varias tandas
       });
     }
 
@@ -1631,6 +1835,7 @@
       inputDocs.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleDocs(files);
+        e.target.value = ""; // permite varias tandas
       });
     }
 
@@ -1700,114 +1905,134 @@
       });
     }
 
-    // --------------------------- AGENCIAS --------------------------------- //
-    const agencies = [
+    // ==================== AGENCIAS ========================================
+    const agenciasBase = [
       {
         id: "bernabeu",
         nombre: "Bernabeu Realty",
         telefono: "654 34 32 32",
-        nota: "Dispuesta a asumir los gastos clave para acelerar la venta.",
         iniciales: "BR",
-        autorizada: false,
+        mensaje:
+          "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        autorizadaPorDefecto: false,
       },
       {
         id: "rothchild",
         nombre: "RT Rothchild Inmo",
         telefono: "654 34 32 32",
-        nota: "Dispuesta a asumir los gastos clave para acelerar la venta.",
         iniciales: "RT",
-        autorizada: false,
+        mensaje:
+          "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        autorizadaPorDefecto: false,
       },
     ];
 
-    const agencyList = document.getElementById("agencyList");
-    const agencyCount = document.getElementById("agencyCount");
+    function loadAgencias() {
+      let stored = [];
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_AGENCIAS);
+        if (raw) stored = JSON.parse(raw);
+      } catch (e) {}
+      const mapStored = new Map(stored.map((a) => [a.id, a]));
+      return agenciasBase.map((ag) => {
+        const saved = mapStored.get(ag.id);
+        return {
+          ...ag,
+          autorizada:
+            saved && typeof saved.autorizada === "boolean"
+              ? saved.autorizada
+              : !!ag.autorizadaPorDefecto,
+        };
+      });
+    }
 
-    function renderAgencies() {
-      if (!agencyList) return;
-      agencyList.innerHTML = "";
+    function saveAgencias(agencias) {
+      try {
+        const minimal = agencias.map((a) => ({
+          id: a.id,
+          autorizada: a.autorizada,
+        }));
+        localStorage.setItem(STORAGE_KEY_AGENCIAS, JSON.stringify(minimal));
+      } catch (e) {}
+    }
 
-      let count = 0;
+    let agencias = loadAgencias();
+    const agenciasListEl = document.getElementById("agenciasList");
+    const agenciasCountEl = document.getElementById("agenciasCount");
 
-      agencies.forEach((ag) => {
+    function renderAgencias() {
+      if (!agenciasListEl) return;
+      agenciasListEl.innerHTML = "";
+      agenciasCountEl.textContent = agencias.length;
+
+      agencias.forEach((ag) => {
         const card = document.createElement("div");
         card.className = "agency-card";
 
-        if (ag.autorizada) {
-          card.style.borderColor = "rgba(34,197,94,0.6)";
-          card.style.boxShadow = "0 0 0 1px rgba(34,197,94,0.4)";
-        }
-
-        const main = document.createElement("div");
-        main.className = "agency-main";
-
-        const avatar = document.createElement("div");
-        avatar.className = "agency-avatar";
-        avatar.textContent = ag.iniciales;
-
-        const texts = document.createElement("div");
-        texts.className = "agency-texts";
-        texts.innerHTML = `
-          <div class="agency-name">${ag.nombre}</div>
-          <div>
-            <span class="agency-phone-label">Teléfono:</span>
-            <span class="agency-phone-value">${ag.telefono}</span>
+        card.innerHTML = `
+          <div class="agency-main">
+            <div class="agency-left">
+              <div class="agency-avatar">${ag.iniciales}</div>
+              <div>
+                <div class="agency-name">${ag.nombre}</div>
+                <div class="agency-phone">
+                  <strong>Teléfono:</strong> ${ag.telefono}
+                </div>
+              </div>
+            </div>
+            <button class="agency-btn ${
+              ag.autorizada ? "agency-btn-confirmed" : ""
+            }" data-id="${ag.id}">
+              ${ag.autorizada ? "Datos enviados" : "Autorizar"}
+            </button>
           </div>
-          <div class="agency-note">${ag.nota}</div>
+          <div class="agency-desc">
+            ${ag.mensaje}
+          </div>
         `;
 
-        main.appendChild(avatar);
-        main.appendChild(texts);
-
-        const btn = document.createElement("button");
-        btn.className =
-          "agency-btn" + (ag.autorizada ? " agency-btn-confirmed" : "");
-        btn.innerHTML = ag.autorizada
-          ? "✅ Datos enviados"
-          : "✅ Autorizar a esta agencia";
-
-        btn.addEventListener("click", () => {
-          ag.autorizada = !ag.autorizada;
-          addHistoryLine(
-            `${ag.autorizada ? "Autorizada" : "Revocada autorización a"} ${
-              ag.nombre
-            } para gestionar la campaña.`
-          );
-          renderAgencies();
-        });
-
-        card.appendChild(main);
-        card.appendChild(btn);
-
-        agencyList.appendChild(card);
-
-        if (ag.autorizada) count++;
+        agenciasListEl.appendChild(card);
       });
 
-      if (agencyCount) {
-        if (count === 0) {
-          agencyCount.textContent = "0 agencias";
-        } else if (count === 1) {
-          agencyCount.textContent = "1 agencia";
-        } else {
-          agencyCount.textContent = `${count} agencias`;
-        }
+      agenciasListEl.querySelectorAll(".agency-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          autorizarAgencia(id);
+        });
+      });
+    }
+
+    function autorizarAgencia(id) {
+      agencias = agencias.map((ag) =>
+        ag.id === id ? { ...ag, autorizada: true } : ag
+      );
+      saveAgencias(agencias);
+      const ag = agencias.find((a) => a.id === id);
+      if (ag) {
+        addHistoryEntry(
+          `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
+        );
       }
+      renderAgencias();
     }
 
-    // --------------------------- Inicialización --------------------------- //
-    function seedInitialHistory() {
-      addHistoryLine(
-        "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña."
-      );
-      addHistoryLine(
-        "Home staging activado (750–1200 € sin IVA). Servicio visual en marcha."
-      );
-      addHistoryLine("Fotos PRO activado (450 € sin IVA). Sesión fotográfica inicial.");
+    // ==================== NAVEGACIÓN SERVICIOS ============================
+
+    function goToServicios() {
+      window.location.href = "servicios.html";
     }
 
-    seedInitialHistory();
-    updateEverything();
+    const btnVerServicios = document.getElementById("btnVerServicios");
+    const btnVerServicios2 = document.getElementById("btnVerServicios2");
+
+    if (btnVerServicios) btnVerServicios.addEventListener("click", goToServicios);
+    if (btnVerServicios2) btnVerServicios2.addEventListener("click", goToServicios);
+
+    // ==================== INIT ============================================
+    renderServiciosDashboard();
+    renderStatusPills();
+    calcularTotales();
+    renderAgencias();
   </script>
 </body>
 </html>
