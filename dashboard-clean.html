@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panamove • Dashboard 7.0</title>
+
+  <style>
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0f1521;
+      color: #e5e7eb;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background-color: #111827;
+      height: 100vh;
+      padding: 1.4rem;
+      box-sizing: border-box;
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+      display: flex;
+      color: #38bdf8;
+    }
+
+    .menu-item {
+      margin: 1rem 0;
+      padding: .6rem 1rem;
+      border-radius: .5rem;
+      cursor: pointer;
+      color: #e5e7eb;
+    }
+
+    .menu-item:hover,
+    .menu-active {
+      background-color: #1e293b;
+      color: #38bdf8;
+    }
+
+    /* Contenido */
+    .content {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: #1e293b;
+      padding: 1.5rem;
+      border-radius: .8rem;
+    }
+
+    .card h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+      color: #67b8f7;
+    }
+
+    .big-number {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="sidebar">
+    <div class="brand">Panamove</div>
+
+    <div class="menu-item menu-active">Dashboard</div>
+    <div class="menu-item">Propiedades</div>
+    <div class="menu-item">Clientes</div>
+    <div class="menu-item">Difusores</div>
+    <div class="menu-item">Auditoría</div>
+    <div class="menu-item">Configuración</div>
+  </div>
+
+  <div class="content">
+    <h1>Dashboard</h1>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Propiedades Activas</h3>
+        <div class="big-number">124</div>
+      </div>
+
+      <div class="card">
+        <h3>Ventas del Mes</h3>
+        <div class="big-number">$1.2M</div>
+      </div>
+
+      <div class="card">
+        <h3>Nuevos Clientes</h3>
+        <div class="big-number">84</div>
+      </div>
+    </div>
+
+    <div style="height: 2rem"></div>
+
+    <div class="grid">
+      <div class="card" style="grid-column: span 2">
+        <h3>Última Propiedad</h3>
+        <p><strong>Calle Falsa 123 · Centro</strong></p>
+        <p>Tipo: Casa — 150m² — 350.000€</p>
+      </div>
+
+      <div class="card">
+        <h3>Acciones Recientes</h3>
+        <p>📄 Documento subido</p>
+        <p>✔ Servicio activado</p>
+        <p>👤 Nuevo cliente</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
