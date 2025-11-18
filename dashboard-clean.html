@@ -1,1261 +1,1169 @@
-    <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Panamove 7.0 – Dashboard</title>
+  <title>Panamove 7.0 – Dashboard propietario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg-body: #020617;
-      --bg-panel: #020617;
-      --bg-card: #020617;
-      --bg-card-soft: #0b1120;
-      --border-soft: rgba(148, 163, 184, 0.35);
+      --bg-main: #020617;
+      --bg-card: #020817;
+      --bg-card-alt: #020617;
+      --bg-elevated: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --gold: #fbbf24;
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.18);
-      --green: #4ade80;
-      --green-soft: rgba(34, 197, 94, 0.18);
+      --border-subtle: #111827;
       --danger: #f97373;
-      --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.9);
-      --radius-lg: 1.4rem;
-      --radius-pill: 999px;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+      --shadow-pill: 0 0 0 1px rgba(148, 163, 184, 0.3);
+      --transition-fast: 160ms ease-out;
     }
 
     * {
       box-sizing: border-box;
-    }
-
-    html,
-    body {
       margin: 0;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #020617 100%);
-      color: var(--text-main);
     }
 
     body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #020617, #000000 55%);
+      color: var(--text-main);
       display: flex;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* LAYOUT ---------------------------------------------------------------- */
+
+    .page {
+      display: flex;
+      width: 100%;
       min-height: 100vh;
     }
 
-    /* ===== SIDEBAR ===== */
-
     .sidebar {
       width: 230px;
-      background: radial-gradient(circle at top left, #22d3ee 0, #0f172a 42%, #020617 100%);
-      color: #e5e7eb;
-      padding: 1.4rem 1.2rem 1.4rem;
+      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+      border-right: 1px solid #0f172a;
+      padding: 1.5rem 1.3rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      border-right: 1px solid rgba(15, 23, 42, 0.9);
     }
 
-    .logo-row {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.8rem;
     }
 
-    .logo-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background: conic-gradient(from 180deg, #22c55e, #22d3ee, #6366f1, #22c55e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #020617;
-      font-weight: 700;
-      font-size: 0.85rem;
-      box-shadow: 0 0 25px rgba(56, 189, 248, 0.7);
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 160deg,
+        #22c55e,
+        #22d3ee,
+        #a855f7,
+        #22c55e
+      );
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
     }
 
-    .logo-text-main {
-      font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.02em;
-    }
-
-    .logo-text-sub {
-      font-size: 0.75rem;
-      color: rgba(226, 232, 240, 0.85);
-      line-height: 1.2;
-    }
-
-    .sidebar-nav {
-      margin-top: 1.4rem;
+    .brand-title {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.1rem;
+    }
+
+    .brand-title strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      max-width: 150px;
+    }
+
+    .nav {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.55rem 0.75rem;
-      border-radius: 0.9rem;
-      font-size: 0.88rem;
-      color: rgba(226, 232, 240, 0.9);
+      gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
       cursor: pointer;
       border: 1px solid transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast);
     }
 
-    .nav-item span.icon-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, 0.8);
+    .nav-item span.icon {
+      width: 18px;
+      display: inline-flex;
+      justify-content: center;
+      opacity: 0.8;
     }
 
-    .nav-item.active {
-      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.2), rgba(15, 23, 42, 0.9));
-      border-color: rgba(148, 163, 184, 0.5);
-      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.9);
+    .nav-item-active {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      border-color: #0f172a;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.3);
     }
 
-    .nav-item.active span.icon-dot {
-      background: #4ade80;
-      box-shadow: 0 0 12px rgba(74, 222, 128, 0.9);
+    .nav-item:hover {
+      background: rgba(15, 23, 42, 0.7);
+      color: #f9fafb;
     }
 
     .sidebar-footer {
       margin-top: auto;
-      font-size: 0.75rem;
-      color: rgba(148, 163, 184, 0.9);
+      font-size: 0.7rem;
+      color: #6b7280;
+      opacity: 0.9;
     }
-
-    /* ===== MAIN LAYOUT ===== */
 
     .main {
       flex: 1;
-      padding: 1.4rem 2rem 2rem;
-      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #020617 100%);
-      overflow-x: hidden;
+      padding: 1.7rem 1.9rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
     }
 
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.4rem;
+      gap: 1rem;
     }
 
     .top-left {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
 
-    .page-title {
-      font-size: 1.5rem;
+    .top-title {
+      font-size: 1.45rem;
       font-weight: 700;
     }
 
-    .page-subtitle {
-      font-size: 0.9rem;
+    .top-subtitle {
+      font-size: 0.86rem;
       color: var(--text-soft);
-    }
-
-    .campaign-pill-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-top: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .pill {
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: #e5e7eb;
-      background: rgba(15, 23, 42, 0.8);
-    }
-
-    .pill-strong {
-      border-color: rgba(248, 250, 252, 0.5);
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), rgba(15, 23, 42, 0.9));
-      font-weight: 600;
     }
 
     .top-right {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.6rem;
     }
 
-    .btn-ghost {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-      font-size: 0.8rem;
-      padding: 0.4rem 0.9rem;
-      cursor: pointer;
-    }
-
-    .btn-primary-top {
-      border-radius: var(--radius-pill);
-      border: none;
-      background: linear-gradient(135deg, #4ade80, #22c55e);
-      color: #020617;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 0.45rem 1rem;
-      cursor: pointer;
+    .pill {
+      border-radius: var(--radius-full);
+      padding: 0.32rem 0.8rem;
+      font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      box-shadow: 0 12px 35px rgba(22, 163, 74, 0.6);
+      gap: 0.4rem;
+      background: var(--bg-main);
+      box-shadow: var(--shadow-pill);
+      border: 1px solid rgba(31, 41, 55, 0.8);
     }
 
-    /* ===== GRID GENERAL ===== */
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    .pill-ghost {
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
+    }
+
+    /* GRID ------------------------------------------------------------------ */
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 1.1rem;
-    }
-
-    .card {
-      background: radial-gradient(
-          circle at top left,
-          rgba(15, 23, 42, 0.95),
-          rgba(15, 23, 42, 1)
-        );
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-soft);
-      padding: 1rem 1.1rem;
-      box-shadow: var(--shadow-card);
-    }
-
-    .card h3 {
-      margin: 0 0 0.3rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .card p {
-      margin: 0;
-    }
-
-    .card-big-number {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-top: 0.3rem;
-    }
-
-    .card-col-4 {
-      grid-column: span 4;
-    }
-
-    .card-col-3 {
-      grid-column: span 3;
-    }
-
-    .card-col-6 {
-      grid-column: span 6;
-    }
-
-    .card-col-8 {
-      grid-column: span 8;
-    }
-
-    .card-col-12 {
-      grid-column: span 12;
-    }
-
-    .muted {
-      color: var(--text-soft);
-      font-size: 0.85rem;
-    }
-
-    .spacer-vert {
-      height: 1rem;
-    }
-
-    /* ===== CAJA COSTES / PRECIO ===== */
-
-    .price-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .price-left {
-      font-size: 0.85rem;
-      color: var(--text-soft);
-    }
-
-    .price-input-wrap {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      border-radius: var(--radius-pill);
-      padding: 0.22rem 0.5rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-    }
-
-    .price-input-wrap label {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .price-input-wrap input {
-      border: none;
-      background: transparent;
-      color: #f9fafb;
-      width: 100px;
-      text-align: right;
-      font-size: 0.85rem;
-    }
-
-    .price-input-wrap input:focus {
-      outline: none;
-    }
-
-    .cost-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.83rem;
-    }
-
-    .cost-table tr + tr td {
-      border-top: 1px dashed rgba(51, 65, 85, 0.9);
-    }
-
-    .cost-table td {
-      padding: 0.32rem 0;
-    }
-
-    .cost-label {
-      color: var(--text-soft);
-    }
-
-    .cost-value {
-      text-align: right;
-    }
-
-    .cost-highlight {
-      color: #facc15;
-      font-weight: 600;
-    }
-
-    .cost-negative {
-      color: #bfdbfe;
-      font-weight: 600;
-    }
-
-    .badge-soft {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.2rem 0.65rem;
-      border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
-    }
-
-    /* ===== ÚLTIMA PROPIEDAD / CHIPS ===== */
-
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.55rem;
-    }
-
-    .chip {
-      border-radius: var(--radius-pill);
-      padding: 0.22rem 0.7rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(51, 65, 85, 0.85);
-      font-size: 0.78rem;
-      color: #e5e7eb;
-    }
-
-    .card-body-text {
-      margin-top: 0.55rem;
-      font-size: 0.86rem;
-      color: var(--text-soft);
-    }
-
-    /* ===== FOTOS / DOCUMENTACIÓN ===== */
-
-    .upload-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 0.6rem;
-    }
-
-    .upload-zone {
-      border-radius: 1.1rem;
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.85);
-      padding: 0.85rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      align-items: stretch;
-      justify-content: space-between;
-      min-height: 120px;
-    }
-
-    .upload-title {
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-
-    .upload-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-    }
-
-    .upload-actions-row {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-upload {
-      border-radius: var(--radius-pill);
-      border: none;
-      background: var(--accent-soft);
-      color: #e0f2fe;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-
-    .upload-counter {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    /* ===== ACCIONES RECIENTES ===== */
-
-    .timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      margin-top: 0.4rem;
-      font-size: 0.82rem;
-    }
-
-    .timeline-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.4rem;
-    }
-
-    .timeline-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      margin-top: 0.3rem;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
-    }
-
-    .timeline-text-main {
-      color: #e5e7eb;
-    }
-
-    .timeline-text-sub {
-      color: var(--text-soft);
-      font-size: 0.78rem;
-    }
-
-    /* ===== BARRA ESTADO SERVICIOS ACTIVADOS ===== */
-
-    .status-bar {
-      margin-top: 0.8rem;
-      border-radius: var(--radius-pill);
-      padding: 0.4rem 0.8rem;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(55, 65, 81, 0.85);
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      color: #e5e7eb;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34, 197, 94, 0.95);
-    }
-
-    /* ===== SERVICIOS ACTIVADOS (LISTA) ===== */
-
-    .activated-list {
-      margin-top: 0.4rem;
-      font-size: 0.83rem;
-      color: var(--text-soft);
-    }
-
-    .activated-list ul {
-      padding-left: 1.1rem;
-      margin: 0.2rem 0 0;
-    }
-
-    /* ===== SERVICIOS DISPONIBLES ===== */
-
-    .filters-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin: 0.6rem 0 0.9rem;
-      font-size: 0.8rem;
-    }
-
-    .filter-pill {
-      border-radius: var(--radius-pill);
-      padding: 0.2rem 0.75rem;
-      border: 1px solid rgba(55, 65, 81, 0.85);
-      background: rgba(15, 23, 42, 0.9);
-      cursor: pointer;
-      color: var(--text-soft);
-    }
-
-    .filter-pill.active {
-      background: rgba(37, 99, 235, 0.18);
-      border-color: #60a5fa;
-      color: #bfdbfe;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
     }
 
-    .service-card {
-      border-radius: 1.1rem;
-      padding: 0.9rem 0.9rem 0.85rem;
-      background: radial-gradient(
-          circle at top left,
-          rgba(59, 130, 246, 0.18),
-          transparent 55%
-        ),
-        rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      font-size: 0.83rem;
+    .grid-3 {
+      grid-template-columns: 2fr 1.5fr 1.4fr;
     }
 
-    .service-title {
-      font-size: 0.9rem;
-      font-weight: 600;
+    .grid-2 {
+      grid-template-columns: 1.8fr 1.2fr;
     }
 
-    .service-price {
-      font-weight: 600;
-      margin-top: 0.1rem;
+    .grid-2-equal {
+      grid-template-columns: 1.1fr 1.1fr;
     }
 
-    .service-desc {
-      color: var(--text-soft);
+    .grid-1 {
+      grid-template-columns: 1fr;
     }
 
-    .service-btn-row {
-      margin-top: 0.4rem;
-    }
-
-    .service-btn {
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-      font-size: 0.78rem;
-      padding: 0.35rem 0.85rem;
-      cursor: pointer;
-    }
-
-    .service-btn.active {
-      background: linear-gradient(135deg, #4ade80, #22c55e);
-      border-color: transparent;
-      color: #020617;
-      font-weight: 600;
-    }
-
-    /* ===== AGENCIAS INTERESADAS ===== */
-
-    .agencies-card {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .card-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-    }
-
-    .card-subtitle {
-      margin-top: 0.25rem;
-      font-size: 0.85rem;
-      color: var(--text-soft);
-    }
-
-    .agency-badge {
-      padding: 0.35rem 0.9rem;
-      border-radius: var(--radius-pill);
-      background: rgba(148, 163, 184, 0.08);
-      color: #e5e7eb;
-      font-size: 0.78rem;
-      white-space: nowrap;
-    }
-
-    .agency-empty-title {
-      font-size: 0.95rem;
-      margin-bottom: 0.25rem;
-      color: #e5e7eb;
-    }
-
-    .agency-empty-text {
-      font-size: 0.85rem;
-      color: var(--text-soft);
-    }
-
-    .agency-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 0.9rem;
-    }
-
-    .agency-item {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      padding: 0.9rem 1rem;
-      border-radius: 1rem;
-      background: radial-gradient(
-          circle at top left,
-          rgba(59, 130, 246, 0.25),
-          transparent 55%
-        ),
-        rgba(15, 23, 42, 0.96);
-      border: 1px solid rgba(148, 163, 184, 0.4);
-    }
-
-    .agency-logo-wrap {
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #4ade80, #22d3ee);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #020617;
-      font-weight: 700;
-      font-size: 0.9rem;
-      overflow: hidden;
-    }
-
-    .agency-logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .agency-info-main {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .agency-name {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #f9fafb;
-    }
-
-    .agency-tagline {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-    }
-
-    .agency-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-top: 0.25rem;
-      padding: 0.18rem 0.6rem;
-      border-radius: var(--radius-pill);
-      background: rgba(34, 197, 94, 0.15);
-      color: #bbf7d0;
-      font-size: 0.75rem;
-    }
-
-    .agency-cta-btn {
-      margin-top: 0.3rem;
-      align-self: flex-start;
-      border-radius: var(--radius-pill);
-      padding: 0.5rem 1.2rem;
-      background: linear-gradient(135deg, #4ade80, #22c55e);
-      border: none;
-      color: #020617;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      box-shadow: 0 12px 35px rgba(22, 163, 74, 0.6);
-    }
-
-    .agency-form {
-      margin-top: 0.75rem;
-      padding: 0.9rem 1rem;
-      border-radius: 1rem;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px dashed rgba(148, 163, 184, 0.55);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .agency-form-row {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .agency-form-row label {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-    }
-
-    .agency-form-row input {
-      border-radius: 0.7rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: #020617;
-      color: #e5e7eb;
-      padding: 0.45rem 0.6rem;
-      font-size: 0.85rem;
-    }
-
-    .agency-form-row input:focus {
-      outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
-    }
-
-    .agency-form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 0.5rem;
-    }
-
-    .btn-secondary,
-    .btn-primary {
-      border-radius: var(--radius-pill);
-      padding: 0.45rem 0.9rem;
-      font-size: 0.8rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-secondary {
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(15, 23, 42, 1);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4ade80, #22c55e);
-      color: #020617;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.07);
-    }
-
-    .agency-form-hint {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-    }
-
-    /* ===== RESPONSIVE ===== */
-
-    @media (max-width: 960px) {
-      body {
+    @media (max-width: 1024px) {
+      .page {
         flex-direction: column;
       }
-
       .sidebar {
         width: 100%;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
       }
-
-      .sidebar-nav {
+      .brand-sub {
+        display: none;
+      }
+      .nav {
         flex-direction: row;
         flex-wrap: wrap;
+        max-width: 420px;
       }
-
       .main {
-        padding: 1.1rem 1rem 1.6rem;
+        padding: 1rem 1.2rem 1.5rem;
       }
-
-      .grid {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+      .grid-3,
+      .grid-2,
+      .grid-2-equal {
+        grid-template-columns: 1fr;
       }
+    }
 
-      .card-col-4 {
-        grid-column: span 6;
-      }
+    /* CARDS ----------------------------------------------------------------- */
 
-      .card-col-3 {
-        grid-column: span 3;
-      }
+    .card {
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
 
-      .card-col-6,
-      .card-col-8,
-      .card-col-12 {
-        grid-column: span 6;
-      }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.55rem;
+    }
 
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .big-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    /* PRECIOS / CÁLCULOS ---------------------------------------------------- */
+
+    .price-input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+      margin-top: 0.2rem;
+    }
+
+    .price-input-row label {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .price-input {
+      background: #020617;
+      border-radius: var(--radius-full);
+      border: 1px solid #1f2937;
+      padding: 0.28rem 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      outline: none;
+      min-width: 130px;
+    }
+
+    .price-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-table tr + tr td {
+      border-top: 1px dashed rgba(55, 65, 81, 0.7);
+    }
+
+    .price-table td {
+      padding: 0.16rem 0;
+    }
+
+    .price-table td.label {
+      color: var(--text-soft);
+    }
+
+    .price-table td.value {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price-table tr.total-row td {
+      padding-top: 0.3rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .price-table tr.total-row td.value {
+      color: #f97316;
+    }
+
+    .price-hint {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    /* PROPERTY SUMMARY ------------------------------------------------------ */
+
+    .chips-row {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      color: #e5e7eb;
+    }
+
+    .property-text {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.6rem;
+    }
+
+    /* UPLOAD AREA ----------------------------------------------------------- */
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
       .upload-grid {
         grid-template-columns: 1fr;
       }
     }
+
+    .upload-card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(55, 65, 81, 0.9);
+      padding: 0.8rem 0.8rem 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .upload-card h3 {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .upload-drop {
+      margin-top: 0.1rem;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(56, 189, 248, 0.5);
+      padding: 0.75rem;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      justify-content: center;
+      align-items: center;
+      transition: border-color var(--transition-fast), background
+        var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-drop span {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .upload-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background var(--transition-fast), border-color
+        var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-btn:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
+    }
+
+    .upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .upload-view-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-view-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(148, 163, 184, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .upload-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.35rem;
+      min-width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 999px;
+      border: 1px solid #38bdf8;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+    }
+
+    .upload-progress {
+      font-size: 0.72rem;
+      color: #38bdf8;
+      margin-left: 0.4rem;
+    }
+
+    .drag-over {
+      border-color: #a855f7;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      transform: translateY(-1px);
+    }
+
+    /* MODAL ----------------------------------------------------------------- */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+
+    .modal {
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid #1f2937;
+      width: min(720px, 96vw);
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #111827;
+    }
+
+    .modal-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 0.75rem 0.9rem 0.9rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .modal-item {
+      border-radius: 0.9rem;
+      border: 1px solid #111827;
+      background: #020617;
+      padding: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+    }
+
+    .modal-item img {
+      width: 100%;
+      border-radius: 0.7rem;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    .modal-item-name {
+      color: var(--text-soft);
+      word-break: break-all;
+    }
+
+    .modal-delete {
+      align-self: flex-start;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+      background: rgba(127, 29, 29, 0.7);
+      color: #fecaca;
+      padding: 0.18rem 0.6rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
+    .modal-empty {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      grid-column: 1 / -1;
+    }
+
+    /* SERVICIOS ------------------------------------------------------------- */
+
+    .status-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      margin-top: 0.4rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .status-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.7rem;
+    }
+
+    @media (max-width: 1220px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-card {
+      border-radius: 16px;
+      background: linear-gradient(145deg, #020617, #020617);
+      border: 1px solid #111827;
+      padding: 0.8rem 0.85rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    .service-card h3 {
+      font-size: 0.88rem;
+    }
+
+    .service-price {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .service-desc {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .service-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.55rem;
+      gap: 0.5rem;
+    }
+
+    .service-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.7rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .service-btn:hover {
+      background: rgba(31, 41, 55, 1);
+      border-color: rgba(148, 163, 184, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .service-btn.active {
+      border-color: var(--gold);
+      background: rgba(250, 204, 21, 0.15);
+      color: #facc15;
+    }
+
+    .service-state-pill {
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      color: #facc15;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .service-state-pill span.icon {
+      font-size: 0.75rem;
+    }
+
+    /* ACCIONES TEXTO -------------------------------------------------------- */
+
+    .actions-list {
+      margin-top: 0.4rem;
+      padding-left: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+
+    .actions-list li {
+      margin-bottom: 0.16rem;
+    }
+
+    .actions-list span.price {
+      color: var(--text-soft);
+    }
+
+    .footer-hint {
+      margin-top: 0.6rem;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
   </style>
 </head>
-
 <body>
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="logo-row">
-      <div class="logo-circle">P7</div>
-      <div>
-        <div class="logo-text-main">Panamove 7.0</div>
-        <div class="logo-text-sub">
-          Propietarios, agencias y difusores<br />
-          en un mismo panel.
-        </div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-item active">
-        <span class="icon-dot"></span>
-        Dashboard
-      </div>
-      <div class="nav-item">
-        <span class="icon-dot"></span>
-        Propiedades
-      </div>
-      <div class="nav-item">
-        <span class="icon-dot"></span>
-        Clientes
-      </div>
-      <div class="nav-item">
-        <span class="icon-dot"></span>
-        Difusores
-      </div>
-      <div class="nav-item">
-        <span class="icon-dot"></span>
-        Auditoría
-      </div>
-      <div class="nav-item">
-        <span class="icon-dot"></span>
-        Configuración
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      Sistema 7.0 · Ser más inteligente que la inteligencia.
-    </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-    <!-- TOP BAR -->
-    <div class="top-bar">
-      <div class="top-left">
-        <div class="page-title">Dashboard</div>
-        <div class="page-subtitle">
-          Resumen rápido de tu campaña real dentro del sistema 7.0.
-        </div>
-        <div class="campaign-pill-row">
-          <span class="pill pill-strong">Campaña activa – Ático Blue Sunset</span>
-          <span class="pill">La Duquesa · Manilva · Costa del Sol</span>
-        </div>
-      </div>
-      <div class="top-right">
-        <button class="btn-ghost">Ver campaña detallada</button>
-        <button class="btn-primary-top">Abrir campaña 7.0 ⤴</button>
-      </div>
-    </div>
-
-    <!-- GRID PRINCIPAL -->
-    <div class="grid">
-      <!-- Propiedades activas -->
-      <section class="card card-col-4">
-        <h3>Propiedades activas</h3>
-        <p class="muted">Actualmente dentro del sistema 7.0.</p>
-        <div class="card-big-number" id="active-properties">1</div>
-        <div class="badge-soft" style="margin-top:0.4rem;">
-          <span class="badge-dot"></span> Sistema 7.0
-        </div>
-      </section>
-
-      <!-- Ventas del mes -->
-      <section class="card card-col-4">
-        <h3>Ventas del mes (objetivo)</h3>
-        <p class="muted">Incluye operaciones en curso + previsiones.</p>
-        <div class="card-big-number" id="month-sales">1 venta</div>
-        <p class="muted" style="margin-top:0.4rem;">
-          Objetivo: cerrar la operación del ático con plusvalía educativa y
-          comisiones alineadas.
-        </p>
-      </section>
-
-      <!-- AGENCIAS INTERESADAS -->
-      <section class="card card-col-4 agencies-card">
-        <div class="card-header-row">
-          <div>
-            <h3>Contactos cualificados</h3>
-            <p class="card-subtitle">
-              Agencias interesadas en asumir esta campaña y correr con los gastos.
-            </p>
+  <div class="page">
+    <!-- SIDEBAR -------------------------------------------------------------->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-title">
+          <strong>Panamove 7.0</strong>
+          <div class="brand-sub">
+            Propietarios, agencias, difusores y auditores.
           </div>
-          <div class="agency-badge" id="agency-count">0 agencias</div>
         </div>
+      </div>
 
-        <div id="agencies-empty">
-          <p class="agency-empty-title">Todavía no hay agencias interesadas.</p>
-          <p class="agency-empty-text">
-            Cuando una agencia pulse <strong>“Soy agencia — Quiero gestionar esta campaña”</strong>,
-            aparecerá aquí con su nombre y logo para que el propietario decida.
-          </p>
+      <nav class="nav">
+        <div class="nav-item nav-item-active">
+          <span class="icon">📊</span>Dashboard
         </div>
-
-        <div id="agencies-list" class="agency-list" style="display:none;"></div>
-
-        <button class="agency-cta-btn" type="button" onclick="showAgencyForm()">
-          Soy agencia — Quiero gestionar esta campaña
-        </button>
-
-        <div id="agency-form" class="agency-form" style="display:none;">
-          <div class="agency-form-row">
-            <label for="agency-name">Nombre de la agencia</label>
-            <input id="agency-name" type="text" placeholder="Ej. Bernabeu Realty" />
-          </div>
-          <div class="agency-form-row">
-            <label for="agency-logo">URL del logo (opcional)</label>
-            <input id="agency-logo" type="url" placeholder="https://..." />
-          </div>
-          <div class="agency-form-actions">
-            <button type="button" class="btn-secondary" onclick="hideAgencyForm()">Cancelar</button>
-            <button type="button" class="btn-primary" onclick="registerAgency()">Confirmar interés</button>
-          </div>
-          <p class="agency-form-hint">
-            Al confirmar, el propietario verá que estás dispuesto a correr con los gastos
-            para vender lo antes posible.
-          </p>
+        <div class="nav-item">
+          <span class="icon">🏠</span>Propiedades
         </div>
-      </section>
+        <div class="nav-item">
+          <span class="icon">👤</span>Clientes
+        </div>
+        <div class="nav-item">
+          <span class="icon">📣</span>Difusores
+        </div>
+        <div class="nav-item">
+          <span class="icon">🕵️</span>Auditoría
+        </div>
+        <div class="nav-item">
+          <span class="icon">⚙️</span>Configuración
+        </div>
+      </nav>
 
-      <!-- Caja de coste / precio propiedad -->
-      <section class="card card-col-6">
-        <div class="price-header">
-          <div class="price-left">
-            <strong>Precio de la propiedad</strong><br />
-            <span class="muted">Simulación rápida de costes y comisiones.</span>
+      <div class="sidebar-footer">
+        Vista de ejemplo del sistema 7.0 para propietarios.
+      </div>
+    </aside>
+
+    <!-- MAIN ----------------------------------------------------------------->
+    <main class="main">
+      <!-- Top bar -->
+      <header class="top-bar">
+        <div class="top-left">
+          <div class="top-title">Dashboard</div>
+          <div class="top-subtitle">
+            Resumen rápido de tu campaña real dentro del sistema 7.0.
           </div>
-          <div class="price-input-wrap">
-            <label for="price-input">Introduce el precio:</label>
+        </div>
+        <div class="top-right">
+          <div class="pill">
+            <div class="pill-dot"></div>
+            Campaña activa – Ático Blue Sunset
+          </div>
+          <div class="pill pill-ghost">Ver panel detallado</div>
+        </div>
+      </header>
+
+      <!-- Fila 1: precios + KPIs básicos -->
+      <section class="grid grid-3">
+        <!-- Caja de coste / calculadora -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Precio de la propiedad</div>
+              <div class="card-subtitle">
+                Simulación de costes con servicios activados e IVA.
+              </div>
+            </div>
+            <span class="badge">Simulación rápida 7.0</span>
+          </div>
+
+          <div class="price-input-row">
+            <label for="precioPropiedad">Introduce el precio orientativo:</label>
             <input
-              id="price-input"
+              id="precioPropiedad"
               type="number"
-              min="0"
-              step="1000"
+              class="price-input"
               value="545000"
-              oninput="recalculateCosts()"
+              min="50000"
+              step="1000"
             />
+            <span class="muted">€</span>
           </div>
-        </div>
 
-        <table class="cost-table">
-          <tr>
-            <td class="cost-label">Total servicios activados (sin IVA):</td>
-            <td class="cost-value" id="services-total">0 €</td>
-          </tr>
-          <tr>
-            <td class="cost-label">IVA servicios 21 %:</td>
-            <td class="cost-value" id="services-iva">0 €</td>
-          </tr>
-          <tr>
-            <td class="cost-label">Comisión 3 % gestión:</td>
-            <td class="cost-value" id="commission">0 €</td>
-          </tr>
-          <tr>
-            <td class="cost-label">IVA 21 % comisión:</td>
-            <td class="cost-value" id="commission-iva">0 €</td>
-          </tr>
-          <tr>
-            <td class="cost-label">Total costes estimados servicios + comisión (con IVA):</td>
-            <td class="cost-value cost-highlight" id="total-costs">0 €</td>
-          </tr>
-          <tr>
-            <td class="cost-label">
-              Neto para el propietario (antes de plusvalía municipal, IRPF u otros):
-            </td>
-            <td class="cost-value cost-negative" id="net-owner">0 €</td>
-          </tr>
-        </table>
+          <table class="price-table">
+            <tbody>
+              <tr>
+                <td class="label">Total servicios activados (sin IVA):</td>
+                <td id="totalServiciosSinIVA" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA servicios 21 %:</td>
+                <td id="ivaServicios" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">Comisión 3 % gestión:</td>
+                <td id="comision" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA 21 % comisión:</td>
+                <td id="ivaComision" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Total a pagar (servicios + comisión + IVA):</td>
+                <td id="totalGeneral" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Neto para ti (antes de plusvalía):</td>
+                <td id="netoParaTi" class="value">0 €</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="price-hint">
+            El cálculo es orientativo. No incluye plusvalía municipal, IRPF u
+            otros impuestos. La comisión del 3&nbsp;% se aplica sobre el precio
+            de venta introducido.
+          </p>
+        </article>
+
+        <!-- KPI: propiedades activas -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Propiedades activas</div>
+              <div class="card-subtitle">
+                Viviendas actualmente dentro del sistema 7.0.
+              </div>
+            </div>
+          </div>
+          <div class="big-number" id="kpiPropiedades">1</div>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Cuando agregues nuevas
+            campañas, aparecerán aquí.
+          </p>
+        </article>
+
+        <!-- KPI: contactos (ejemplo) -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Contactos cualificados</div>
+              <div class="card-subtitle">
+                Clientes interesados en esta campaña.
+              </div>
+            </div>
+          </div>
+          <div class="big-number" id="kpiContactos">0</div>
+          <p class="muted">
+            Cuando registres contactos reales aparecerán aquí para hacer
+            seguimiento.
+          </p>
+        </article>
       </section>
 
-      <!-- Fotos y documentación -->
-      <section class="card card-col-6">
-        <h3>Fotos y documentación</h3>
-        <p class="muted">
-          Gestiona las fotos HD, planos, escrituras y toda la documentación desde un único panel.
-        </p>
-
-        <div class="upload-grid">
-          <div class="upload-zone">
+      <!-- Fila 2: resumen propiedad + acciones recientes -------------------->
+      <section class="grid grid-2">
+        <!-- Última propiedad -->
+        <article class="card">
+          <div class="card-header">
             <div>
-              <div class="upload-title">Subir fotos de la vivienda</div>
-              <div class="upload-subtitle">
-                Arrastra y suelta aquí o usa el botón para elegir archivos.
+              <div class="card-title">Última propiedad en campaña</div>
+              <div class="card-subtitle">
+                Pieza clave dentro del método 7.0.
               </div>
             </div>
-            <div class="upload-actions-row">
-              <button
-                class="btn-upload"
-                type="button"
-                onclick="document.getElementById('photos-input').click()"
-              >
-                Subir / arrastrar fotos
-              </button>
-              <span class="upload-counter" id="photos-counter">0 fotos subidas</span>
-            </div>
-            <input
-              id="photos-input"
-              type="file"
-              accept="image/*"
-              multiple
-              onchange="updatePhotoCounter()"
-            />
+            <span class="badge">Sistema 7.0</span>
           </div>
 
-          <div class="upload-zone">
-            <div>
-              <div class="upload-title">Subir documentación</div>
-              <div class="upload-subtitle">
-                Contrato de arras, nota simple, escrituras, certificados, etc.
-              </div>
-            </div>
-            <div class="upload-actions-row">
-              <button
-                class="btn-upload"
-                type="button"
-                onclick="document.getElementById('docs-input').click()"
-              >
-                Subir / arrastrar documentación
-              </button>
-              <span class="upload-counter" id="docs-counter">0 documentos</span>
-            </div>
-            <input
-              id="docs-input"
-              type="file"
-              multiple
-              onchange="updateDocsCounter()"
-            />
-          </div>
-        </div>
-      </section>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Operación en tiempo real
+            para cerrar al mejor precio posible con plusvalía educativa.
+          </p>
 
-      <!-- Última propiedad -->
-      <section class="card card-col-8">
-        <h3>Última propiedad en campaña</h3>
-        <p class="muted">Ático Blue Sunset – La Duquesa · Manilva.</p>
-
-        <div class="chips-row">
-          <span class="chip">2 dorm · 2 baños</span>
-          <span class="chip">134 m² construidos aprox.</span>
-          <span class="chip">4 balcones panorámicos Velux</span>
-          <span class="chip">Vistas a Málaga · Cádiz · África · Gibraltar</span>
-        </div>
-
-        <p class="card-body-text">
-          Este ático es la pieza clave del método 7.0. Desde aquí solo ves el
-          resumen; el resto se controla en el panel completo.
-        </p>
-      </section>
-
-      <!-- Acciones recientes -->
-      <section class="card card-col-4">
-        <h3>Acciones recientes</h3>
-        <p class="muted">Últimos movimientos vinculados a esta campaña.</p>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div>
-              <div class="timeline-text-main">
-                Documento de arras cargado en el sistema.
-              </div>
-              <div class="timeline-text-sub">El propietario ha subido el contrato de arras.</div>
-            </div>
+          <div class="chips-row">
+            <span class="chip">2 dorm · 2 baños</span>
+            <span class="chip">134 m² construidos aprox.</span>
+            <span class="chip">4 balcones panorámicos Velux</span>
+            <span class="chip">Vistas a Málaga · Cádiz · África · Gibraltar</span>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
+          <p class="property-text">
+            Este ático es la pieza clave del método 7.0. Desde aquí ves solo el
+            resumen; el resto se controla desde el panel detallado y la
+            auditoría de acciones.
+          </p>
+        </article>
+
+        <!-- Acciones recientes / resumen servicios -->
+        <article class="card">
+          <div class="card-header">
             <div>
-              <div class="timeline-text-main">
-                Servicios activados para la campaña del ático.
-              </div>
-              <div class="timeline-text-sub">
-                Fotos PRO, vídeo + dron y home staging listos para coordinar.
+              <div class="card-title">Acciones recientes</div>
+              <div class="card-subtitle">
+                Movimiento real vinculado a esta campaña.
               </div>
             </div>
           </div>
 
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div>
-              <div class="timeline-text-main">
-                Nuevo contacto interesado (ejemplo).
-              </div>
-              <div class="timeline-text-sub">
-                Cuando registres clientes reales aparecerán aquí.
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div>
-              <div class="timeline-text-main">Panel 7.0 preparado.</div>
-              <div class="timeline-text-sub">
-                Todo listo para empezar a documentar cada movimiento.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Servicios activados -->
-      <section class="card card-col-6">
-        <h3>Servicios activados por el propietario</h3>
-        <p class="muted">
-          Qué está activo, qué falta por activar y qué servicios ya han sido realizados.
-        </p>
-
-        <div class="status-bar">
-          <div class="status-dot"></div>
-          <span id="status-text">
-            De momento no hay servicios activados. Activa alguno en la sección inferior.
-          </span>
-        </div>
-
-        <div class="activated-list">
-          <strong>Detalle de acciones activadas:</strong>
-          <ul id="activated-list">
-            <!-- se rellena con JS -->
+          <ul class="actions-list" id="accionesList">
+            <!-- Se rellena por JS en función de los servicios activados -->
           </ul>
-        </div>
+
+          <p class="footer-hint">
+            Todo listo para empezar a documentar cada movimiento dentro del
+            sistema 7.0.
+          </p>
+        </article>
       </section>
 
-      <!-- Servicios disponibles -->
-      <section class="card card-col-6">
-        <h3>Servicios disponibles (tarifas ejemplo)</h3>
-        <div class="filters-row">
-          <button class="filter-pill active" type="button">Todos</button>
-          <button class="filter-pill" type="button">1–4</button>
-          <button class="filter-pill" type="button">5–8</button>
-          <button class="filter-pill" type="button">9–12</button>
-          <button class="filter-pill" type="button">13–16</button>
-          <button class="filter-pill" type="button">17–20</button>
-          <button class="filter-pill" type="button">21–24</button>
-          <button class="filter-pill" type="button">25–28</button>
-        </div>
+      <!-- Fila 3: subida de fotos y documentación --------------------------->
+      <section class="grid grid-2-equal">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Subir fotos y documentación</div>
+              <div class="card-subtitle">
+                Gestiona todas las fotos HD, planos y escrituras desde aquí.
+              </div>
+            </div>
+          </div>
 
-        <div class="services-grid" id="services-grid">
-          <!-- services se generan por JS -->
-        </div>
+          <div class="upload-section">
+            <div class="upload-grid">
+              <!-- Fotos -->
+              <div class="upload-card">
+                <h3>Subir fotos de la vivienda</h3>
+                <div
+                  class="upload-drop"
+                  id="drop-fotos"
+                  onclick="document.getElementById('input-fotos').click()"
+                >
+                  <span>Arrastra las fotos aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-fotos-select"
+                  >
+                    ⬆️ Subir / arrastrar fotos
+                  </button>
+                  <input
+                    type="file"
+                    id="input-fotos"
+                    accept="image/*"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
+              </div>
+
+              <!-- Documentos -->
+              <div class="upload-card">
+                <h3>Subir documentación</h3>
+                <div
+                  class="upload-drop"
+                  id="drop-docs"
+                  onclick="document.getElementById('input-docs').click()"
+                >
+                  <span>Arrastra la documentación aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-docs-select"
+                  >
+                    ⬆️ Subir / arrastrar documentación
+                  </button>
+                  <input
+                    type="file"
+                    id="input-docs"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-actions">
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-fotos"
+              >
+                Ver fotos subidas
+                <span id="badge-fotos" class="upload-counter"></span>
+                <span id="progress-fotos" class="upload-progress"></span>
+              </button>
+
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-docs"
+              >
+                Ver documentación subida
+                <span id="badge-docs" class="upload-counter"></span>
+                <span id="progress-docs" class="upload-progress"></span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicios disponibles -------------------------------------------->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                Servicios disponibles (tarifas ejemplo)
+              </div>
+              <div class="card-subtitle">
+                Activa solo lo que tenga sentido para tu campaña.
+              </div>
+            </div>
+          </div>
+
+          <!-- Burbujas de servicios activos -->
+          <div class="status-pills-row" id="statusPillsRow">
+            <!-- Se rellena por JS -->
+          </div>
+
+          <div class="services-grid" id="servicesGrid">
+            <!-- Se rellena por JS -->
+          </div>
+
+          <p class="footer-hint">
+            El propietario ve esto como “panel de mando”: qué está activo, qué
+            falta por activar y qué servicios ya han sido realizados.
+          </p>
+        </article>
       </section>
+    </main>
+  </div>
+
+  <!-- MODAL ----------------------------------------------------------------->
+  <div id="modalBackdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">Archivos subidos</div>
+        <button class="modal-close" id="modalClose">Cerrar</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
-  </main>
+  </div>
 
-  <!-- JS -->
+  <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    /* ===== ESTADO Y SERVICIOS ===== */
-
-    const services = [
+    // --------------------------- SERVICIOS / COSTES ----------------------- //
+    const servicios = [
       {
-        id: "fotos-pro",
-        name: "Fotos PRO",
-        price: 450,
-        description: "Fotógrafo especializado inmobiliario.",
+        id: "fotos",
+        nombre: "Fotos PRO",
+        precio: 450,
+        descripcion: "Fotógrafo especializado inmobiliario.",
+        activo: true,
       },
       {
-        id: "video-dron",
-        name: "Vídeo + dron",
-        price: 450,
-        description: "Recorrido interior + vistas aéreas.",
+        id: "video",
+        nombre: "Vídeo + dron",
+        precio: 450,
+        descripcion: "Recorrido interior + vistas aéreas.",
+        activo: false,
       },
       {
-        id: "home-staging",
-        name: "Home staging",
-        price: 900,
-        description: "Mejora estética sin reformas pesadas.",
+        id: "home",
+        nombre: "Home staging",
+        precioMin: 750,
+        precioMax: 1200,
+        precio: 900, // valor medio para la simulación
+        descripcion: "Mejora estética sin reformas pesadas.",
+        activo: true,
       },
       {
-        id: "blogger-internacional",
-        name: "Blogger internacional",
-        price: 3000,
-        description: "Historia real del inmueble en otro país.",
+        id: "blogger",
+        nombre: "Blogger internacional",
+        precio: 3000,
+        descripcion: "Historia real en otro país.",
+        activo: false,
       },
     ];
 
-    const activeServices = new Set();
+    const servicesGrid = document.getElementById("servicesGrid");
+    const statusPillsRow = document.getElementById("statusPillsRow");
+    const accionesList = document.getElementById("accionesList");
 
-    function formatCurrency(value) {
+    function formatEuro(value) {
       return (
         value.toLocaleString("es-ES", {
           minimumFractionDigits: 0,
@@ -1264,231 +1172,324 @@
       );
     }
 
-    function renderServices() {
-      const container = document.getElementById("services-grid");
-      container.innerHTML = "";
-      services.forEach((svc) => {
-        const isActive = activeServices.has(svc.id);
+    function renderServicios() {
+      servicesGrid.innerHTML = "";
+
+      servicios.forEach((svc) => {
         const card = document.createElement("div");
         card.className = "service-card";
+        if (svc.activo) {
+          card.style.borderColor = "rgba(250,204,21,0.5)";
+        }
+
+        const precioText =
+          svc.id === "home"
+            ? `${svc.precioMin}–${svc.precioMax} € · pago a éxito`
+            : `${svc.precio} € · pago a éxito`;
+
         card.innerHTML = `
-          <div class="service-title">${svc.name}</div>
-          <div class="service-price">${formatCurrency(svc.price)} · pago a éxito</div>
-          <div class="service-desc">${svc.description}</div>
-          <div class="service-btn-row">
-            <button
-              type="button"
-              class="service-btn ${isActive ? "active" : ""}"
-              onclick="toggleService('${svc.id}')"
-            >
-              ${isActive ? "Servicio activado" : "Activar este servicio"}
+          <h3>${svc.nombre}</h3>
+          <div class="service-price">${precioText}</div>
+          <p class="service-desc">${svc.descripcion}</p>
+          <div class="service-footer">
+            <span class="service-state-pill" style="opacity:${
+              svc.activo ? 1 : 0.4
+            }">
+              <span class="icon">★</span>
+              ${svc.activo ? "Servicio activado" : "Pendiente"}
+            </span>
+            <button class="service-btn ${
+              svc.activo ? "active" : ""
+            }" data-id="${svc.id}">
+              ${svc.activo ? "Desactivar" : "Activar este servicio"}
             </button>
           </div>
         `;
-        container.appendChild(card);
+
+        servicesGrid.appendChild(card);
+      });
+
+      document.querySelectorAll(".service-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const svc = servicios.find((s) => s.id === id);
+          if (!svc) return;
+          svc.activo = !svc.activo;
+          updateEverything();
+        });
       });
     }
 
-    function recalculateCosts() {
-      const priceInput = document.getElementById("price-input");
-      const price = Number(priceInput.value || 0);
+    function renderStatusPills() {
+      statusPillsRow.innerHTML = "";
+      const activos = servicios.filter((s) => s.activo);
 
-      let servicesTotal = 0;
-      services.forEach((svc) => {
-        if (activeServices.has(svc.id)) servicesTotal += svc.price;
-      });
-
-      const servicesIVA = servicesTotal * 0.21;
-      const commission = price * 0.03;
-      const commissionIVA = commission * 0.21;
-      const totalCosts = servicesTotal + servicesIVA + commission + commissionIVA;
-      const netOwner = price - totalCosts;
-
-      document.getElementById("services-total").textContent = formatCurrency(
-        servicesTotal
-      );
-      document.getElementById("services-iva").textContent = formatCurrency(
-        servicesIVA
-      );
-      document.getElementById("commission").textContent = formatCurrency(
-        commission
-      );
-      document.getElementById("commission-iva").textContent = formatCurrency(
-        commissionIVA
-      );
-      document.getElementById("total-costs").textContent =
-        formatCurrency(totalCosts);
-      document.getElementById("net-owner").textContent = formatCurrency(
-        netOwner
-      );
-    }
-
-    function updateActivatedUI() {
-      const statusText = document.getElementById("status-text");
-      const listEl = document.getElementById("activated-list");
-      listEl.innerHTML = "";
-
-      if (activeServices.size === 0) {
-        statusText.textContent =
-          "De momento no hay servicios activados. Activa alguno en la sección inferior.";
+      if (!activos.length) {
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "Aún no hay servicios activados.";
+        statusPillsRow.appendChild(span);
         return;
       }
 
-      const names = services
-        .filter((svc) => activeServices.has(svc.id))
-        .map((svc) => svc.name);
+      activos.forEach((svc) => {
+        const pill = document.createElement("div");
+        pill.className = "status-pill";
+        pill.innerHTML = `
+          <span class="dot"></span>
+          ${svc.nombre} activado por el propietario
+        `;
+        statusPillsRow.appendChild(pill);
+      });
+    }
 
-      statusText.textContent = `Servicios activos: ${names.join(", ")}.`;
+    function renderAccionesList() {
+      accionesList.innerHTML = "";
+      const activos = servicios.filter((s) => s.activo);
 
-      services.forEach((svc) => {
-        if (activeServices.has(svc.id)) {
-          const li = document.createElement("li");
-          li.textContent = `${svc.name} activado (${formatCurrency(
-            svc.price
-          )} sin IVA).`;
-          listEl.appendChild(li);
+      if (!activos.length) {
+        const li = document.createElement("li");
+        li.textContent =
+          "Sin servicios activos todavía. Cuando actives alguno aparecerá aquí.";
+        accionesList.appendChild(li);
+        return;
+      }
+
+      activos.forEach((svc) => {
+        const li = document.createElement("li");
+        const base =
+          svc.id === "home"
+            ? `${svc.precioMin}–${svc.precioMax} € sin IVA`
+            : `${formatEuro(svc.precio)} sin IVA`;
+        li.innerHTML = `${svc.nombre} activado <span class="price">(${base}).</span>`;
+        accionesList.appendChild(li);
+      });
+    }
+
+    function calcularTotales() {
+      const precioPropiedad =
+        parseFloat(document.getElementById("precioPropiedad").value) || 0;
+
+      const activos = servicios.filter((s) => s.activo);
+      let totalServicios = 0;
+      activos.forEach((svc) => {
+        if (svc.id === "home") {
+          totalServicios += svc.precio; // usamos el valor medio
+        } else {
+          totalServicios += svc.precio;
         }
       });
+
+      const ivaServicios = totalServicios * 0.21;
+      const comision = precioPropiedad * 0.03;
+      const ivaComision = comision * 0.21;
+      const totalGeneral = totalServicios + ivaServicios + comision + ivaComision;
+      const netoParaTi = precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
+
+      document.getElementById("totalServiciosSinIVA").textContent =
+        formatEuro(totalServicios);
+      document.getElementById("ivaServicios").textContent = formatEuro(
+        ivaServicios
+      );
+      document.getElementById("comision").textContent = formatEuro(comision);
+      document.getElementById("ivaComision").textContent =
+        formatEuro(ivaComision);
+      document.getElementById("totalGeneral").textContent =
+        formatEuro(totalGeneral);
+      document.getElementById("netoParaTi").textContent =
+        formatEuro(netoParaTi);
     }
 
-    function toggleService(id) {
-      if (activeServices.has(id)) {
-        activeServices.delete(id);
-      } else {
-        activeServices.add(id);
-      }
-      renderServices();
-      updateActivatedUI();
-      recalculateCosts();
+    function updateEverything() {
+      renderServicios();
+      renderStatusPills();
+      renderAccionesList();
+      calcularTotales();
     }
 
-    /* ===== FOTOS / DOCS ===== */
+    document
+      .getElementById("precioPropiedad")
+      .addEventListener("input", calcularTotales);
 
-    function updatePhotoCounter() {
-      const input = document.getElementById("photos-input");
-      const counter = document.getElementById("photos-counter");
-      const count = input.files.length;
-      counter.textContent =
-        count === 1 ? "1 foto subida" : `${count} fotos subidas`;
+    // --------------------------- UPLOAD / MODAL --------------------------- //
+    const fotoFiles = [];
+    const docFiles = [];
+
+    const dropFotos = document.getElementById("drop-fotos");
+    const dropDocs = document.getElementById("drop-docs");
+    const inputFotos = document.getElementById("input-fotos");
+    const inputDocs = document.getElementById("input-docs");
+    const btnFotosSelect = document.getElementById("btn-fotos-select");
+    const btnDocsSelect = document.getElementById("btn-docs-select");
+    const btnVerFotos = document.getElementById("btn-ver-fotos");
+    const btnVerDocs = document.getElementById("btn-ver-docs");
+    const badgeFotos = document.getElementById("badge-fotos");
+    const badgeDocs = document.getElementById("badge-docs");
+    const progressFotos = document.getElementById("progress-fotos");
+    const progressDocs = document.getElementById("progress-docs");
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
     }
 
-    function updateDocsCounter() {
-      const input = document.getElementById("docs-input");
-      const counter = document.getElementById("docs-counter");
-      const count = input.files.length;
-      counter.textContent =
-        count === 1 ? "1 documento" : `${count} documentos`;
-    }
-
-    /* ===== AGENCIAS INTERESADAS ===== */
-
-    const agencies = [];
-
-    function initialsFromName(name) {
-      return name
-        .split(" ")
-        .filter(Boolean)
-        .map((p) => p[0].toUpperCase())
-        .slice(0, 2)
-        .join("");
-    }
-
-    function renderAgencies() {
-      const listEl = document.getElementById("agencies-list");
-      const emptyEl = document.getElementById("agencies-empty");
-      const countEl = document.getElementById("agency-count");
-
-      if (!listEl || !emptyEl || !countEl) return;
-
-      if (agencies.length === 0) {
-        emptyEl.style.display = "block";
-        listEl.style.display = "none";
-        countEl.textContent = "0 agencias";
-        return;
-      }
-
-      emptyEl.style.display = "none";
-      listEl.style.display = "grid";
-
-      countEl.textContent =
-        agencies.length === 1
-          ? "1 agencia interesada"
-          : `${agencies.length} agencias interesadas`;
-
-      listEl.innerHTML = "";
-      agencies.forEach((agency) => {
-        const item = document.createElement("div");
-        item.className = "agency-item";
-        const hasLogo = agency.logo && agency.logo.trim() !== "";
-        item.innerHTML = `
-          <div class="agency-logo-wrap">
-            ${
-              hasLogo
-                ? `<img src="${agency.logo}" alt="${agency.name}" />`
-                : `<span>${initialsFromName(agency.name)}</span>`
-            }
-          </div>
-          <div class="agency-info-main">
-            <div class="agency-name">${agency.name}</div>
-            <div class="agency-tagline">
-              Dispuesta a correr con los gastos para vender lo antes posible.
-            </div>
-            <span class="agency-pill">✓ Quiere gestionar esta campaña</span>
-          </div>
-        `;
-        listEl.appendChild(item);
+    function addDropEvents(area, handler) {
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, preventDefaults);
+      });
+      ["dragenter", "dragover"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.add("drag-over"));
+      });
+      ["dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.remove("drag-over"));
+      });
+      area.addEventListener("drop", (e) => {
+        const files = Array.from(e.dataTransfer.files || []);
+        handler(files);
       });
     }
 
-    function showAgencyForm() {
-      const form = document.getElementById("agency-form");
-      if (!form) return;
-      form.style.display = "flex";
-      const nameInput = document.getElementById("agency-name");
-      if (nameInput) nameInput.focus();
+    function updateUploadCounters() {
+      badgeFotos.textContent = fotoFiles.length ? fotoFiles.length : "";
+      badgeDocs.textContent = docFiles.length ? docFiles.length : "";
     }
 
-    function hideAgencyForm() {
-      const form = document.getElementById("agency-form");
-      if (!form) return;
-      form.style.display = "none";
+    function simulateUploadProgress(type, count) {
+      const span =
+        type === "fotos" ? progressFotos : progressDocs;
+      if (!span) return;
+
+      let pct = 0;
+      span.textContent = "Cargando 0%";
+
+      const interval = setInterval(() => {
+        pct += 18;
+        if (pct >= 100) {
+          pct = 100;
+          clearInterval(interval);
+          span.textContent = "";
+        } else {
+          span.textContent = `Cargando ${pct}%`;
+        }
+      }, 150);
     }
 
-    function registerAgency() {
-      const nameInput = document.getElementById("agency-name");
-      const logoInput = document.getElementById("agency-logo");
-      if (!nameInput || !logoInput) return;
+    function handleFotos(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f && f.type && f.type.startsWith("image/")) {
+          fotoFiles.push(f);
+          valid.push(f);
+        }
+      });
+      if (valid.length) simulateUploadProgress("fotos", valid.length);
+      updateUploadCounters();
+    }
 
-      const name = nameInput.value.trim();
-      const logo = logoInput.value.trim();
+    function handleDocs(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f) {
+          docFiles.push(f);
+          valid.push(f);
+        }
+      });
+      if (valid.length) simulateUploadProgress("docs", valid.length);
+      updateUploadCounters();
+    }
 
-      if (!name) {
-        alert("Por favor, indica el nombre de la agencia.");
-        return;
+    if (btnFotosSelect && inputFotos) {
+      btnFotosSelect.addEventListener("click", () => inputFotos.click());
+      inputFotos.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleFotos(files);
+      });
+    }
+
+    if (btnDocsSelect && inputDocs) {
+      btnDocsSelect.addEventListener("click", () => inputDocs.click());
+      inputDocs.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleDocs(files);
+      });
+    }
+
+    if (dropFotos) addDropEvents(dropFotos, handleFotos);
+    if (dropDocs) addDropEvents(dropDocs, handleDocs);
+
+    function openModal(type) {
+      modalBackdrop.style.display = "flex";
+      modalBody.innerHTML = "";
+
+      const list = type === "fotos" ? fotoFiles : docFiles;
+      if (!list.length) {
+        const p = document.createElement("p");
+        p.className = "modal-empty";
+        p.textContent =
+          "Todavía no has subido ningún archivo en esta sección.";
+        modalBody.appendChild(p);
       }
 
-      agencies.push({ name, logo });
+      if (type === "fotos") {
+        modalTitle.textContent = "Fotos subidas";
+      } else {
+        modalTitle.textContent = "Documentación subida";
+      }
 
-      nameInput.value = "";
-      logoInput.value = "";
+      list.forEach((file, idx) => {
+        const item = document.createElement("div");
+        item.className = "modal-item";
 
-      hideAgencyForm();
-      renderAgencies();
+        if (type === "fotos") {
+          const img = document.createElement("img");
+          const url = URL.createObjectURL(file);
+          img.src = url;
+          img.alt = file.name || "Foto subida";
+          img.addEventListener("click", () => {
+            window.open(url, "_blank");
+          });
+          item.appendChild(img);
+        }
+
+        const name = document.createElement("div");
+        name.className = "modal-item-name";
+        name.textContent = file.name || `Archivo ${idx + 1}`;
+        item.appendChild(name);
+
+        const del = document.createElement("button");
+        del.className = "modal-delete";
+        del.textContent = "Eliminar";
+        del.addEventListener("click", () => {
+          list.splice(idx, 1);
+          updateUploadCounters();
+          openModal(type);
+        });
+        item.appendChild(del);
+
+        modalBody.appendChild(item);
+      });
     }
 
-    /* ===== INIT ===== */
+    function closeModal() {
+      modalBackdrop.style.display = "none";
+    }
 
-    // Puedes arrancar con algún servicio activo de ejemplo:
-    activeServices.add("fotos-pro");
-    activeServices.add("home-staging");
+    if (btnVerFotos) btnVerFotos.addEventListener("click", () => openModal("fotos"));
+    if (btnVerDocs) btnVerDocs.addEventListener("click", () => openModal("docs"));
+    if (modalClose) modalClose.addEventListener("click", closeModal);
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) closeModal();
+      });
+    }
 
-    // Y también, si quieres, con una agencia de ejemplo:
-    // agencies.push({ name: "Bernabeu Realty", logo: "" });
-
-    renderServices();
-    updateActivatedUI();
-    recalculateCosts();
-    renderAgencies();
+    // Inicializamos todo
+    updateEverything();
   </script>
 </body>
 </html>
