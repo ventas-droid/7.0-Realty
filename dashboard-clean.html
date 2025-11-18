@@ -219,7 +219,7 @@
     }
 
     .grid-3 {
-      grid-template-columns: 2fr 1.5fr 1.6fr;
+      grid-template-columns: 2fr 1.5fr 1.4fr;
     }
 
     .grid-2 {
@@ -778,110 +778,146 @@
       color: var(--text-soft);
     }
 
-    /* AGENCIAS -------------------------------------------------------------- */
+    /* =========================================================
+       BLOQUE AGENCIAS INTERESADAS EN GESTIÓN DE CAMPAÑA
+       ========================================================= */
 
-    .agency-card-content {
-      margin-top: 0.4rem;
-      padding: 0.7rem 0.75rem;
-      border-radius: 14px;
-      background: radial-gradient(circle at top left, #020617, #020617 60%);
-      border: 1px dashed rgba(55, 65, 81, 0.9);
+    .agencies-card {
+      margin-top: 0.8rem;
     }
 
-    .agency-list {
+    .agencies-header-text {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+      margin-top: 0.25rem;
+    }
+
+    .agencies-wrapper {
+      margin-top: 0.9rem;
+      border-radius: 18px;
+      border: 1px dashed rgba(148, 163, 184, 0.4);
+      padding: 0.9rem 1rem 0.85rem;
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+    }
+
+    .agencies-list {
+      margin-top: 0.2rem;
+      max-height: 210px;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-      max-height: 160px;
-      overflow-y: auto;
-      padding-right: 0.15rem;
+      gap: 0.55rem;
+      padding-right: 0.25rem;
     }
 
-    .agency-list::-webkit-scrollbar {
-      width: 4px;
+    .agencies-list::-webkit-scrollbar {
+      width: 6px;
     }
-    .agency-list::-webkit-scrollbar-thumb {
-      background: #4b5563;
-      border-radius: 999px;
-    }
-    .agency-list::-webkit-scrollbar-track {
+    .agencies-list::-webkit-scrollbar-track {
       background: transparent;
     }
-
-   .agency-item {
-  display: flex;
-  align-items: center;              /* antes: flex-start */
-  gap: 0.6rem;
-  padding: 0.45rem 0.55rem;
-  border-radius: 12px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(31, 41, 55, 0.95);
-   }
-
-    .agency-avatar {
-      width: 28px;
-      height: 28px;
+    .agencies-list::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.4);
       border-radius: 999px;
-      background: radial-gradient(circle at top, #22c55e, #16a34a);
+    }
+
+    .agency-item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 0.9rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #020617, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: 0 14px 45px rgba(15, 23, 42, 0.8);
+      opacity: 0;
+      transform: translateY(6px);
+      animation: agencyIn 260ms ease-out forwards;
+    }
+
+    @keyframes agencyIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .agency-main {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .agency-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0%, #bbf7d0, #22c55e 55%, #15803d);
+      display: inline-flex;
+      align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.86rem;
       color: #022c22;
-      flex-shrink: 0;
+      box-shadow: 0 10px 26px rgba(22, 163, 74, 0.6);
     }
 
-    .agency-info {
-      flex: 1;
-      min-width: 0;
+    .agency-texts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.12rem;
     }
 
-   .agency-row {
-  display: flex;
-  align-items: center;              /* nos aseguramos de centrar verticalmente */
-  justify-content: space-between;
-  gap: 0.4rem;
-  margin-bottom: 0.15rem;
+    .agency-name-row {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
     }
 
     .agency-name {
       font-size: 0.9rem;
       font-weight: 600;
-      white-space: nowrap;
     }
 
-    .agency-meta-line {
+    .agency-phone-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .agency-phone {
+      font-size: 0.8rem;
+    }
+
+    .agency-desc {
       font-size: 0.78rem;
       color: var(--text-soft);
     }
 
-    .agency-meta-line strong {
-      color: #e5e7eb;
-    }
-
-    .agency-meta-small {
-      font-size: 0.73rem;
-      margin-top: 0.08rem;
-    }
-
     .agency-btn {
-  border-radius: 999px;
-  border: none;
-  padding: 0.24rem 0.9rem;          /* un pelín más compacto */
-  margin-top: 0.08rem;              /* ajusta la altura del botón */
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: #022c22;
-  background: linear-gradient(120deg, #4ade80, #22c55e);
-  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.45);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  white-space: nowrap;
-  transition: transform var(--transition-fast),
-    box-shadow var(--transition-fast), opacity var(--transition-fast);
+      border-radius: 999px;
+      border: none;
+      padding: 0.24rem 0.9rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #022c22;
+      background: linear-gradient(120deg, #4ade80, #22c55e);
+      box-shadow: 0 8px 22px rgba(22, 163, 74, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        opacity var(--transition-fast),
+        background 140ms ease-out;
+    }
+
+    .agency-item .agency-btn {
+      align-self: center;
+      margin-top: 0;
     }
 
     .agency-btn:hover {
@@ -889,23 +925,22 @@
       box-shadow: 0 12px 30px rgba(22, 163, 74, 0.6);
     }
 
+    .agency-item-confirmed {
+      border-color: rgba(34, 197, 94, 0.6);
+      box-shadow: 0 16px 48px rgba(22, 163, 74, 0.4);
+    }
+
     .agency-btn-confirmed {
       background: linear-gradient(120deg, #22c55e, #16a34a);
       color: #ecfdf5;
-      box-shadow: 0 10px 26px rgba(22, 163, 74, 0.5);
     }
 
     .agency-hint {
       margin-top: 0.55rem;
       font-size: 0.74rem;
       color: var(--text-soft);
-    }
-    /* Corrección: centrar perfectamente el botón verde en el lateral derecho */
-  .agency-btn {
-  align-self: center !important;     /* centra verticalmente */
-  margin-top: 0 !important;          /* elimina salto hacia abajo */
-  display: inline-flex !important;
-  align-items: center !important;
+      border-top: 1px dashed rgba(55, 65, 81, 0.8);
+      padding-top: 0.55rem;
     }
   </style>
 </head>
@@ -968,7 +1003,7 @@
         </div>
       </header>
 
-      <!-- Fila 1: precios + KPIs + agencias -->
+      <!-- Fila 1: precios + KPIs básicos -->
       <section class="grid grid-3">
         <!-- Caja de coste / calculadora -->
         <article class="card">
@@ -1048,54 +1083,21 @@
           </p>
         </article>
 
-        <!-- NUEVA CAJA: agencias interesadas -->
+        <!-- KPI: contactos (ejemplo) -->
         <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">
-                Agencias interesadas en gestión de campaña de venta
-              </div>
+              <div class="card-title">Contactos cualificados</div>
               <div class="card-subtitle">
-                Cuando autorices, la agencia recibirá tus datos de contacto.
+                Clientes interesados en esta campaña.
               </div>
             </div>
           </div>
-
-          <div class="agency-card-content">
-            <div class="agency-list" id="agencyList">
-              <!-- Agencia de ejemplo -->
-              <div class="agency-item" data-id="bernabeu">
-                <div class="agency-avatar">BR</div>
-
-                <div class="agency-info">
-                  <div class="agency-row">
-                    <span class="agency-name">Bernabeu Realty</span>
-                    <button
-                      type="button"
-                      class="agency-btn"
-                      data-agency-id="bernabeu"
-                    >
-                      ✅ Autorizar
-                    </button>
-                  </div>
-
-                  <div class="agency-meta-line">
-                    <strong>Teléfono:</strong> 654 34 32 32
-                  </div>
-                  <div class="agency-meta-line agency-meta-small">
-                    Dispuesta a asumir los gastos clave para acelerar la venta.
-                  </div>
-                </div>
-              </div>
-
-              <!-- Aquí podrás duplicar más .agency-item para otras agencias -->
-            </div>
-
-            <p class="agency-hint" id="agencyHint">
-              Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
-              agencia autorizada para que te contacte lo antes posible.
-            </p>
-          </div>
+          <div class="big-number" id="kpiContactos">0</div>
+          <p class="muted">
+            Cuando registres contactos reales aparecerán aquí para hacer
+            seguimiento.
+          </p>
         </article>
       </section>
 
@@ -1154,7 +1156,7 @@
         </article>
       </section>
 
-      <!-- Fila 3: subida de fotos y documentación --------------------------->
+      <!-- Fila 3: subida de fotos y documentación + servicios --------------->
       <section class="grid grid-2-equal">
         <article class="card">
           <div class="card-header">
@@ -1272,18 +1274,79 @@
           </p>
         </article>
       </section>
-    </main>
-  </div>
 
-  <!-- MODAL ----------------------------------------------------------------->
-  <div id="modalBackdrop" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <div class="modal-title" id="modalTitle">Archivos subidos</div>
-        <button class="modal-close" id="modalClose">Cerrar</button>
-      </div>
-      <div class="modal-body" id="modalBody"></div>
-    </div>
+      <!-- BLOQUE AGENCIAS INTERESADAS --------------------------------------->
+      <article class="card agencies-card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              Agencias interesadas en gestión de campaña de venta
+            </div>
+            <div class="agencies-header-text">
+              Cuando autorices, la agencia recibirá tus datos de contacto para
+              llamarte cuanto antes.
+            </div>
+          </div>
+        </div>
+
+        <div class="agencies-wrapper">
+          <div class="agencies-list" id="agenciesList">
+            <!-- Agencia 1 -->
+            <div class="agency-item" data-agency-name="Bernabeu Realty">
+              <div class="agency-main">
+                <div class="agency-avatar">BR</div>
+                <div class="agency-texts">
+                  <div class="agency-name-row">
+                    <span class="agency-name">Bernabeu Realty</span>
+                  </div>
+                  <div>
+                    <span class="agency-phone-label">Teléfono:</span>
+                    <span class="agency-phone">654 34 32 32</span>
+                  </div>
+                  <div class="agency-desc">
+                    Dispuesta a asumir los gastos clave para acelerar la venta.
+                  </div>
+                </div>
+              </div>
+
+              <button class="agency-btn">
+                ✅ Autorizar
+              </button>
+            </div>
+
+            <!-- Agencia 2 -->
+            <div class="agency-item" data-agency-name="RT Rothchild Inmo">
+              <div class="agency-main">
+                <div class="agency-avatar">RT</div>
+                <div class="agency-texts">
+                  <div class="agency-name-row">
+                    <span class="agency-name">RT Rothchild Inmo</span>
+                  </div>
+                  <div>
+                    <span class="agency-phone-label">Teléfono:</span>
+                    <span class="agency-phone">654 34 32 32</span>
+                  </div>
+                  <div class="agency-desc">
+                    Dispuesta a asumir los gastos clave para acelerar la venta.
+                  </div>
+                </div>
+              </div>
+
+              <button class="agency-btn">
+                ✅ Autorizar
+              </button>
+            </div>
+
+            <!-- Aquí puedes copiar/pegar más .agency-item si quieres -->
+          </div>
+
+          <p class="agency-hint" id="agencyHintText">
+            Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
+            agencia autorizada para que te contacte lo antes posible.
+          </p>
+        </div>
+      </article>
+    </main>
   </div>
 
   <!-- SCRIPT ---------------------------------------------------------------->
@@ -1454,8 +1517,9 @@
 
       document.getElementById("totalServiciosSinIVA").textContent =
         formatEuro(totalServicios);
-      document.getElementById("ivaServicios").textContent =
-        formatEuro(ivaServicios);
+      document.getElementById("ivaServicios").textContent = formatEuro(
+        ivaServicios
+      );
       document.getElementById("comision").textContent = formatEuro(comision);
       document.getElementById("ivaComision").textContent =
         formatEuro(ivaComision);
@@ -1525,7 +1589,8 @@
     }
 
     function simulateUploadProgress(type, count) {
-      const span = type === "fotos" ? progressFotos : progressDocs;
+      const span =
+        type === "fotos" ? progressFotos : progressDocs;
       if (!span) return;
 
       let pct = 0;
@@ -1599,8 +1664,11 @@
         modalBody.appendChild(p);
       }
 
-      modalTitle.textContent =
-        type === "fotos" ? "Fotos subidas" : "Documentación subida";
+      if (type === "fotos") {
+        modalTitle.textContent = "Fotos subidas";
+      } else {
+        modalTitle.textContent = "Documentación subida";
+      }
 
       list.forEach((file, idx) => {
         const item = document.createElement("div");
@@ -1649,37 +1717,47 @@
       });
     }
 
-    // ---------------- AGENCIAS: AUTORIZAR CONTACTO ------------------------ //
-    const agencyHint = document.getElementById("agencyHint");
-
-    document.querySelectorAll(".agency-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        if (btn.classList.contains("agency-btn-confirmed")) return;
-
-        const agencyItem = btn.closest(".agency-item");
-        const agencyNameEl = agencyItem?.querySelector(".agency-name");
-        const agencyName = agencyNameEl
-          ? agencyNameEl.textContent.trim()
-          : "la agencia";
-
-        const ok = confirm(
-          `¿Confirmas que quieres compartir tus datos con ${agencyName} para que te contacte lo antes posible?`
-        );
-        if (!ok) return;
-
-        btn.textContent = "✅ Datos enviados";
-        btn.classList.add("agency-btn-confirmed");
-
-        if (agencyHint) {
-          agencyHint.textContent =
-            `${agencyName} recibirá tu teléfono, correo y WhatsApp. ` +
-            "En breve se pondrán en contacto contigo.";
-        }
-      });
-    });
-
-    // Inicializamos todo
+    // Inicializamos todo lo relacionado con servicios y calculadora
     updateEverything();
+
+    // =====================================================
+    //  BLOQUE LÓGICO – AGENCIAS INTERESADAS
+    // =====================================================
+    (function () {
+      const buttons = document.querySelectorAll(".agency-btn");
+      const hint = document.getElementById("agencyHintText");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const item = btn.closest(".agency-item");
+          const nombre = item?.dataset.agencyName || "la agencia seleccionada";
+          const already = btn.classList.contains("agency-btn-confirmed");
+
+          // si ya estaba autorizada, no hacemos nada (no desautoriza)
+          if (already) return;
+
+          // Quitar estado previo
+          document
+            .querySelectorAll(".agency-item")
+            .forEach((card) => card.classList.remove("agency-item-confirmed"));
+          document
+            .querySelectorAll(".agency-btn")
+            .forEach((b) => b.classList.remove("agency-btn-confirmed"));
+
+          // Marcar la seleccionada
+          item.classList.add("agency-item-confirmed");
+          btn.classList.add("agency-btn-confirmed");
+          btn.textContent = "✔ Datos enviados";
+
+          // Actualizar texto inferior
+          if (hint) {
+            hint.textContent =
+              nombre +
+              " recibirá tu teléfono, correo y WhatsApp. En breve se pondrán en contacto contigo.";
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
