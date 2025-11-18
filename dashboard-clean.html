@@ -5,1167 +5,1491 @@
   <title>Panamove 7.0 – Dashboard propietario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* ==========================
-       RESET BÁSICO
-       ========================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    :root {
+      --bg-main: #020617;
+      --bg-card: #020817;
+      --bg-card-alt: #020617;
+      --bg-elevated: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --gold: #fbbf24;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: #111827;
+      --danger: #f97373;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+      --shadow-pill: 0 0 0 1px rgba(148, 163, 184, 0.3);
+      --transition-fast: 160ms ease-out;
     }
-    html, body {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #020617;
-      color: #e5e7eb;
     }
+
     body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #020617, #000000 55%);
+      color: var(--text-main);
       display: flex;
     }
 
-    /* ==========================
-       SIDEBAR
-       ========================== */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* LAYOUT ---------------------------------------------------------------- */
+
+    .page {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
+
     .sidebar {
       width: 230px;
-      background: radial-gradient(circle at 0 0, #22d3ee44, #020617 55%);
+      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
       border-right: 1px solid #0f172a;
-      padding: 1.4rem 1.2rem;
+      padding: 1.5rem 1.3rem;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.5rem;
     }
+
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #0f172a;
-      margin-bottom: 0.4rem;
-    }
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      background: conic-gradient(from 210deg, #22c55e, #0ea5e9, #a855f7, #22c55e);
-      box-shadow: 0 0 18px #22d3ee77;
-    }
-    .brand-title {
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-    .brand-sub {
-      font-size: 0.72rem;
-      color: #9ca3af;
-      line-height: 1.2;
+      gap: 0.8rem;
     }
 
-    .nav-group-title {
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 160deg,
+        #22c55e,
+        #22d3ee,
+        #a855f7,
+        #22c55e
+      );
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
+    }
+
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-title strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-sub {
       font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #6b7280;
-      margin-top: 0.3rem;
-      margin-bottom: 0.3rem;
+      color: var(--text-soft);
+      max-width: 150px;
     }
 
     .nav {
+      margin-top: 0.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
     }
+
     .nav-item {
-      padding: 0.55rem 0.75rem;
-      border-radius: 0.75rem;
-      font-size: 0.85rem;
-      color: #9ca3af;
-      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: background 0.15s, color 0.15s, transform 0.1s;
+      gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast);
     }
-    .nav-item::before {
-      content: "●";
-      font-size: 0.45rem;
-      color: #1e293b;
+
+    .nav-item span.icon {
+      width: 18px;
+      display: inline-flex;
+      justify-content: center;
+      opacity: 0.8;
     }
-    .nav-item.active {
-      background: linear-gradient(135deg, #0f172a, #020617);
-      box-shadow: 0 0 0 1px #1d4ed8, 0 12px 45px #020617;
+
+    .nav-item-active {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      border-color: #0f172a;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-item:hover {
+      background: rgba(15, 23, 42, 0.7);
       color: #f9fafb;
-      transform: translateY(-1px);
-    }
-    .nav-item.active::before {
-      color: #22c55e;
-    }
-    .nav-item:hover:not(.active) {
-      background: #020617;
-      color: #e5e7eb;
     }
 
     .sidebar-footer {
       margin-top: auto;
-      padding-top: 0.75rem;
-      border-top: 1px solid #0f172a;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #6b7280;
+      opacity: 0.9;
     }
 
-    /* ==========================
-       LAYOUT PRINCIPAL
-       ========================== */
     .main {
       flex: 1;
-      padding: 1.6rem 1.8rem 1.8rem;
-      overflow-y: auto;
-      background: #ffffff;color: #020617;
-
-    }
-
-    .main-header {
+      padding: 1.7rem 1.9rem 2rem;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1.2rem;
+      flex-direction: column;
+      gap: 1.4rem;
     }
-    .main-header h1 {
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .top-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .top-title {
       font-size: 1.45rem;
-      margin: 0;
+      font-weight: 700;
+    }
+
+    .top-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .top-right {
       display: flex;
       align-items: center;
       gap: 0.6rem;
     }
-    .main-header h1 span {
-      font-size: 0.8rem;
-      font-weight: 400;
-      color: #9ca3af;
-    }
-    .badge-pill {
+
+    .pill {
+      border-radius: var(--radius-full);
+      padding: 0.32rem 0.8rem;
+      font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      border-radius: 999px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.74rem;
-      border: 1px solid #1e3a8a;
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: #bfdbfe;
-    }
-    .badge-pill::before {
-      content: "●";
-      font-size: 0.6rem;
-      color: #22c55e;
+      background: var(--bg-main);
+      box-shadow: var(--shadow-pill);
+      border: 1px solid rgba(31, 41, 55, 0.8);
     }
 
-    /* GRID GENERAL DEL DASHBOARD */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
-      gap: 1.2rem;
-      align-items: flex-start;
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
     }
+
+    .pill-ghost {
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
+    }
+
+    /* GRID ------------------------------------------------------------------ */
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: 2fr 1.5fr 1.4fr;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1.8fr 1.2fr;
+    }
+
+    .grid-2-equal {
+      grid-template-columns: 1.1fr 1.1fr;
+    }
+
+    .grid-1 {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 1024px) {
+      .page {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 420px;
+      }
+      .main {
+        padding: 1rem 1.2rem 1.5rem;
+      }
+      .grid-3,
+      .grid-2,
+      .grid-2-equal {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* CARDS ----------------------------------------------------------------- */
 
     .card {
-      background: radial-gradient(circle at top left, #020617, #020617);
-      border-radius: 1rem;
-      border: 1px solid #0f172a;
-      box-shadow: 0 24px 80px #020617;
-      padding: 1rem 1.12rem;
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.1rem 1.2rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
     }
+
     .card-header {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
+      align-items: center;
       gap: 0.6rem;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.55rem;
     }
+
     .card-title {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       font-weight: 600;
-      color: #e5e7eb;
     }
+
     .card-subtitle {
       font-size: 0.75rem;
-      color: #6b7280;
+      color: var(--text-soft);
     }
 
-    /* ==========================
-       CAJA RESUMEN CAMPAÑA
-       ========================== */
-    .summary-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 0.7rem;
-      margin-bottom: 1rem;
-    }
-    .summary-card {
-      border-radius: 0.9rem;
-      border: 1px solid #0f172a;
-      padding: 0.75rem 0.9rem;
-      background: radial-gradient(circle at top left, #020617, #020617);
-    }
-    .summary-label {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-bottom: 0.25rem;
-    }
-    .summary-value {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #f9fafb;
-    }
-    .summary-pill {
-      font-size: 0.7rem;
+    .badge {
       border-radius: 999px;
-      padding: 0.15rem 0.6rem;
-      border: 1px solid #1e3a8a;
-      color: #93c5fd;
-      background: #020617;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
-    /* ==========================
-       CAJA DE COSTES
-       ========================== */
-    .price-block {
-      margin-top: 0.35rem;
-      border-radius: 0.85rem;
-      border: 1px solid #0f172a;
-      background: radial-gradient(circle at top left, #020617, #020617);
-      padding: 0.8rem 0.9rem;
-      font-size: 0.78rem;
+    .big-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
     }
-    .price-row {
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    /* PRECIOS / CÁLCULOS ---------------------------------------------------- */
+
+    .price-input-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.25rem;
-      gap: 0.5rem;
-    }
-    .price-row span {
-      white-space: nowrap;
-    }
-    .price-row strong {
-      font-weight: 600;
-      color: #f9fafb;
-    }
-    .price-label {
-      color: #9ca3af;
-    }
-    .price-input {
-      width: 120px;
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      color: #e5e7eb;
-      padding: 0.18rem 0.55rem;
-      font-size: 0.76rem;
-      text-align: right;
-    }
-    .price-input:focus {
-      outline: none;
-      border-color: #22c55e;
-      box-shadow: 0 0 0 1px #22c55e33;
-    }
-    .price-row.total {
-      margin-top: 0.35rem;
-      padding-top: 0.3rem;
-      border-top: 1px dashed #1f2937;
-    }
-    .price-row.total strong {
-      color: #4ade80;
-      font-size: 0.9rem;
-    }
-    .tag-small {
-      font-size: 0.7rem;
-      border-radius: 999px;
-      padding: 0.1rem 0.45rem;
-      border: 1px solid #0f172a;
-      background: #020617;
-      color: #9ca3af;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+      margin-top: 0.2rem;
     }
 
-    /* ==========================
-       FOTOS / DOCUMENTACIÓN
-       ========================== */
+    .price-input-row label {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .price-input {
+      background: #020617;
+      border-radius: var(--radius-full);
+      border: 1px solid #1f2937;
+      padding: 0.28rem 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      outline: none;
+      min-width: 130px;
+    }
+
+    .price-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-table tr + tr td {
+      border-top: 1px dashed rgba(55, 65, 81, 0.7);
+    }
+
+    .price-table td {
+      padding: 0.16rem 0;
+    }
+
+    .price-table td.label {
+      color: var(--text-soft);
+    }
+
+    .price-table td.value {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price-table tr.total-row td {
+      padding-top: 0.3rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .price-table tr.total-row td.value {
+      color: #f97316;
+    }
+
+    .price-hint {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    /* PROPERTY SUMMARY ------------------------------------------------------ */
+
+    .chips-row {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      color: #e5e7eb;
+    }
+
+    .property-text {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.6rem;
+    }
+
+    /* UPLOAD AREA ----------------------------------------------------------- */
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
     .upload-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.7rem;
-      margin-top: 0.4rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
     }
+
+    @media (max-width: 768px) {
+      .upload-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .upload-card {
-      border-radius: 0.9rem;
-      border: 1px dashed #1f2937;
-      background: radial-gradient(circle at top left, #020617, #020617);
-      padding: 0.75rem 0.8rem 0.85rem;
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(55, 65, 81, 0.9);
+      padding: 0.8rem 0.8rem 0.95rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
+      gap: 0.4rem;
     }
+
     .upload-card h3 {
-      margin: 0;
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       font-weight: 600;
     }
-    .upload-hint {
-      font-size: 0.74rem;
-      color: #6b7280;
-    }
+
     .upload-drop {
-      margin-top: 0.3rem;
-      border-radius: 0.9rem;
-      border: 1px dashed #1f2937;
-      padding: 0.65rem 0.75rem;
+      margin-top: 0.1rem;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(56, 189, 248, 0.5);
+      padding: 0.75rem;
       text-align: center;
-      font-size: 0.76rem;
-      color: #9ca3af;
-      background: radial-gradient(circle at top left, #020617, #020617);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+      cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
+      gap: 0.4rem;
       justify-content: center;
       align-items: center;
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color var(--transition-fast), background
+        var(--transition-fast), transform var(--transition-fast);
     }
-    .upload-drop.drag-over {
-      border-color: #22c55e;
-      background: #020617;
-      box-shadow: 0 0 0 1px #22c55e33;
-    }
-    .upload-btn {
-      border-radius: 999px;
-      border: 1px solid #1e40af;
-      background: linear-gradient(135deg, #1d4ed8, #0f172a);
-      color: #e5e7eb;
+
+    .upload-drop span {
       font-size: 0.75rem;
-      padding: 0.35rem 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .upload-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
       cursor: pointer;
       display: inline-flex;
-      gap: 0.4rem;
       align-items: center;
+      gap: 0.3rem;
+      transition: background var(--transition-fast), border-color
+        var(--transition-fast), transform var(--transition-fast);
     }
+
     .upload-btn:hover {
-      filter: brightness(1.05);
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
     }
+
     .upload-actions {
-      margin-top: 0.5rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
+
     .upload-view-btn {
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #e5e7eb;
-      font-size: 0.74rem;
-      padding: 0.32rem 0.8rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      color: var(--text-main);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
     }
+
     .upload-view-btn:hover {
-      border-color: #22c55e;
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(148, 163, 184, 0.7);
+      transform: translateY(-1px);
     }
+
     .upload-counter {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-left: 0.2rem;
-      min-width: 1.3rem;
-      height: 1.3rem;
+      margin-left: 0.35rem;
+      min-width: 1.15rem;
+      height: 1.15rem;
       border-radius: 999px;
       border: 1px solid #38bdf8;
       font-size: 0.7rem;
       color: #e5e7eb;
-      background: #0f172a;
     }
+
     .upload-progress {
       font-size: 0.72rem;
       color: #38bdf8;
+      margin-left: 0.4rem;
     }
 
-    /* ==========================
-       SERVICIOS DISPONIBLES
-       ========================== */
-    .chips-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.4rem;
-      margin-bottom: 0.5rem;
-    }
-    .chip-filter {
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      font-size: 0.72rem;
-      color: #9ca3af;
-      padding: 0.18rem 0.7rem;
-      cursor: default;
-    }
-    .chip-filter.active {
-      border-color: #22c55e;
-      color: #bbf7d0;
-      background: radial-gradient(circle at top left, #14532d, #020617);
+    .drag-over {
+      border-color: #a855f7;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      transform: translateY(-1px);
     }
 
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.7rem;
-    }
-    .service-card {
-      border-radius: 0.9rem;
-      border: 1px solid #0f172a;
-      background: radial-gradient(circle at top left, #020617, #020617);
-      padding: 0.8rem 0.9rem 0.9rem;
-      font-size: 0.78rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .service-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.4rem;
-    }
-    .service-card-title {
-      font-size: 0.86rem;
-      font-weight: 600;
-    }
-    .service-price {
-      font-size: 0.8rem;
-      color: #bfdbfe;
-    }
-    .service-desc {
-      color: #9ca3af;
-      font-size: 0.76rem;
-    }
-    .service-btn,
-    .service-btn-gold,
-    .service-btn-done {
-      margin-top: 0.4rem;
-      padding: 0.32rem 0.75rem;
-      font-size: 0.75rem;
-      border-radius: 0.55rem;
-      line-height: 1.1;
-      min-height: 0;
-      cursor: pointer;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #e5e7eb;
-    }
-    .service-btn-gold {
-      border-color: #a16207;
-      background: linear-gradient(135deg, #fbbf24, #92400e);
-      color: #111827;
-      font-weight: 600;
-    }
-    .service-btn-done {
-      border-color: #22c55e;
-      color: #bbf7d0;
-      background: rgba(34, 197, 94, 0.08);
-    }
-    .service-card.active {
-      box-shadow: 0 0 0 1px #22c55e44;
-      border-color: #22c55e;
-    }
+    /* MODAL ----------------------------------------------------------------- */
 
-    /* ==========================
-       MODAL SUBIDAS
-       ========================== */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.88);
+      background: rgba(15, 23, 42, 0.85);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 40;
     }
+
     .modal {
-      width: min(780px, 92vw);
-      max-height: 80vh;
-      border-radius: 1rem;
       background: #020617;
+      border-radius: 18px;
       border: 1px solid #1f2937;
-      box-shadow: 0 24px 80px #000;
+      width: min(720px, 96vw);
+      max-height: 80vh;
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
     }
+
     .modal-header {
-      padding: 0.8rem 1rem;
-      border-bottom: 1px solid #111827;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #111827;
     }
+
     .modal-title {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
     }
+
     .modal-close {
       border-radius: 999px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #9ca3af;
-      font-size: 0.8rem;
-      padding: 0.2rem 0.6rem;
-      cursor: pointer;
-    }
-    .modal-body {
-      padding: 0.8rem 1rem 1rem;
-      overflow-y: auto;
-    }
-    .modal-empty {
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-    .modal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 0.7rem;
-    }
-    .modal-item {
-      border-radius: 0.75rem;
-      border: 1px solid #1f2937;
-      padding: 0.45rem 0.5rem 0.55rem;
-      font-size: 0.74rem;
-      background: #020617;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .modal-item img {
-      width: 100%;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 0.6rem;
-    }
-    .modal-item-name {
-      color: #e5e7eb;
-      word-break: break-all;
-    }
-    .modal-delete {
-      margin-top: 0.2rem;
-      align-self: flex-start;
-      border-radius: 999px;
-      border: 1px solid #7f1d1d;
-      background: #111827;
-      color: #fecaca;
-      font-size: 0.7rem;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 0.75rem;
       padding: 0.2rem 0.55rem;
       cursor: pointer;
     }
 
-    /* ==========================
-       RESPONSIVE
-       ========================== */
-    @media (max-width: 1024px) {
-      .sidebar {
-        display: none;
+    .modal-body {
+      padding: 0.75rem 0.9rem 0.9rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .modal-item {
+      border-radius: 0.9rem;
+      border: 1px solid #111827;
+      background: #020617;
+      padding: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+    }
+
+    .modal-item img {
+      width: 100%;
+      border-radius: 0.7rem;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    .modal-item-name {
+      color: var(--text-soft);
+      word-break: break-all;
+    }
+
+    .modal-delete {
+      align-self: flex-start;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+      background: rgba(127, 29, 29, 0.7);
+      color: #fecaca;
+      padding: 0.18rem 0.6rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
+    .modal-empty {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      grid-column: 1 / -1;
+    }
+
+    /* SERVICIOS ------------------------------------------------------------- */
+
+    .status-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      margin-top: 0.4rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .status-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.7rem;
+    }
+
+    @media (max-width: 1220px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
-      body {
-        display: block;
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
       }
-      .main {
-        padding: 1rem;
-      }
-      .dashboard-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
+    }
+
+    .service-card {
+      border-radius: 16px;
+      background: linear-gradient(145deg, #020617, #020617);
+      border: 1px solid #111827;
+      padding: 0.8rem 0.85rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    .service-card h3 {
+      font-size: 0.88rem;
+    }
+
+    .service-price {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .service-desc {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .service-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.55rem;
+      gap: 0.5rem;
+    }
+
+    .service-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.7rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .service-btn:hover {
+      background: rgba(31, 41, 55, 1);
+      border-color: rgba(148, 163, 184, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .service-btn.active {
+      border-color: var(--gold);
+      background: rgba(250, 204, 21, 0.15);
+      color: #facc15;
+    }
+
+    .service-state-pill {
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.5);
+      color: #facc15;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .service-state-pill span.icon {
+      font-size: 0.75rem;
+    }
+
+    /* ACCIONES TEXTO -------------------------------------------------------- */
+
+    .actions-list {
+      margin-top: 0.4rem;
+      padding-left: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+    }
+
+    .actions-list li {
+      margin-bottom: 0.16rem;
+    }
+
+    .actions-list span.price {
+      color: var(--text-soft);
+    }
+
+    .footer-hint {
+      margin-top: 0.6rem;
+      font-size: 0.7rem;
+      color: var(--text-soft);
     }
   </style>
 </head>
 <body>
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-logo"></div>
-      <div>
-        <div class="brand-title">Panamove 7.0</div>
-        <div class="brand-sub">Propietarios, agencias y difusores</div>
-      </div>
-    </div>
-
-    <div>
-      <div class="nav-group-title">Panel</div>
-      <div class="nav">
-        <div class="nav-item active">Dashboard</div>
-        <div class="nav-item">Propiedades</div>
-        <div class="nav-item">Clientes</div>
-        <div class="nav-item">Difusores</div>
-        <div class="nav-item">Auditoría</div>
-        <div class="nav-item">Configuración</div>
-      </div>
-    </div>
-
-    <div class="sidebar-footer">
-      Sistema 7.0 en modo demo para el ático Blue Sunset. Todo se calcula en tiempo real en tu navegador.
-    </div>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-    <header class="main-header">
-      <h1>
-        Dashboard
-        <span>Resumen rápido de tu campaña real dentro del sistema 7.0</span>
-      </h1>
-      <div class="badge-pill">Campaña activa – Ático Blue Sunset</div>
-    </header>
-
-    <div class="summary-row">
-      <div class="summary-card">
-        <div class="summary-label">Propiedades activas</div>
-        <div class="summary-value">1</div>
-        <div class="summary-label">Ático Blue Sunset – La Duquesa, Manilva.</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">Objetivo 7.0</div>
-        <div class="summary-value">Cerrar la venta con plusvalía educativa</div>
-        <div class="summary-label">Seguimiento en tiempo real desde este panel.</div>
-      </div>
-      <div class="summary-card">
-        <div class="summary-label">Sistema 7.0</div>
-        <div class="summary-value">
-          <span class="summary-pill">+ Info campaña completa</span>
+  <div class="page">
+    <!-- SIDEBAR -------------------------------------------------------------->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-title">
+          <strong>Panamove 7.0</strong>
+          <div class="brand-sub">
+            Propietarios, agencias, difusores y auditores.
+          </div>
         </div>
-        <div class="summary-label">Cuando registremos más propiedades, irán apareciendo aquí.</div>
       </div>
-    </div>
 
-    <div class="dashboard-grid">
-      <!-- COLUMNA IZQUIERDA -->
-      <section>
-        <!-- PROPIEDAD EN CAMPAÑA -->
-        <div class="card">
+      <nav class="nav">
+        <div class="nav-item nav-item-active">
+          <span class="icon">📊</span>Dashboard
+        </div>
+        <div class="nav-item">
+          <span class="icon">🏠</span>Propiedades
+        </div>
+        <div class="nav-item">
+          <span class="icon">👤</span>Clientes
+        </div>
+        <div class="nav-item">
+          <span class="icon">📣</span>Difusores
+        </div>
+        <div class="nav-item">
+          <span class="icon">🕵️</span>Auditoría
+        </div>
+        <div class="nav-item">
+          <span class="icon">⚙️</span>Configuración
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        Vista de ejemplo del sistema 7.0 para propietarios.
+      </div>
+    </aside>
+
+    <!-- MAIN ----------------------------------------------------------------->
+    <main class="main">
+      <!-- Top bar -->
+      <header class="top-bar">
+        <div class="top-left">
+          <div class="top-title">Dashboard</div>
+          <div class="top-subtitle">
+            Resumen rápido de tu campaña real dentro del sistema 7.0.
+          </div>
+        </div>
+        <div class="top-right">
+          <div class="pill">
+            <div class="pill-dot"></div>
+            Campaña activa – Ático Blue Sunset
+          </div>
+          <div class="pill pill-ghost">Ver panel detallado</div>
+        </div>
+      </header>
+
+      <!-- Fila 1: precios + KPIs básicos -->
+      <section class="grid grid-3">
+        <!-- Caja de coste / calculadora -->
+        <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Propiedad en campaña</div>
+              <div class="card-title">Precio de la propiedad</div>
               <div class="card-subtitle">
-                Ático Blue Sunset – La Duquesa · Manilva. Esta es la pieza clave del método 7.0.
+                Simulación de costes con servicios activados e IVA.
+              </div>
+            </div>
+            <span class="badge">Simulación rápida 7.0</span>
+          </div>
+
+          <div class="price-input-row">
+            <label for="precioPropiedad">Introduce el precio orientativo:</label>
+            <input
+              id="precioPropiedad"
+              type="number"
+              class="price-input"
+              value="545000"
+              min="50000"
+              step="1000"
+            />
+            <span class="muted">€</span>
+          </div>
+
+          <table class="price-table">
+            <tbody>
+              <tr>
+                <td class="label">Total servicios activados (sin IVA):</td>
+                <td id="totalServiciosSinIVA" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA servicios 21 %:</td>
+                <td id="ivaServicios" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">Comisión 3 % gestión:</td>
+                <td id="comision" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA 21 % comisión:</td>
+                <td id="ivaComision" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Total a pagar (servicios + comisión + IVA):</td>
+                <td id="totalGeneral" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Neto para ti (antes de plusvalía):</td>
+                <td id="netoParaTi" class="value">0 €</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="price-hint">
+            El cálculo es orientativo. No incluye plusvalía municipal, IRPF u
+            otros impuestos. La comisión del 3&nbsp;% se aplica sobre el precio
+            de venta introducido.
+          </p>
+        </article>
+
+        <!-- KPI: propiedades activas -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Propiedades activas</div>
+              <div class="card-subtitle">
+                Viviendas actualmente dentro del sistema 7.0.
               </div>
             </div>
           </div>
+          <div class="big-number" id="kpiPropiedades">1</div>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Cuando agregues nuevas
+            campañas, aparecerán aquí.
+          </p>
+        </article>
 
-          <div class="chips-row" style="margin-top:0.2rem; margin-bottom:0.4rem;">
-            <span class="chip-filter active">2 dorm · 2 baños</span>
-            <span class="chip-filter">134 m² construidos aprox.</span>
-            <span class="chip-filter">4 balcones panorámicos Velux</span>
-            <span class="chip-filter">Vistas a Málaga, Cádiz, África y Gibraltar</span>
-          </div>
-        </div>
-
-        <!-- CAJA DE PRECIO + COSTES -->
-        <div class="card">
+        <!-- KPI: contactos (ejemplo) -->
+        <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Precio de la propiedad y costes 7.0</div>
-              <div class="card-subtitle">El propietario controla en todo momento qué paga, qué se activa y cuánto le queda neto.</div>
-            </div>
-            <span class="tag-small">Simulación rápida</span>
-          </div>
-
-          <div class="price-block">
-            <div class="price-row">
-              <span class="price-label">Precio orientativo del ático</span>
-              <span>
-                <input id="input-precio" class="price-input" type="number" min="0" step="1000" value="545000" />
-                <span style="font-size:0.76rem; margin-left:0.2rem;">€</span>
-              </span>
-            </div>
-
-            <div class="price-row">
-              <span class="price-label">Total servicios activados (sin IVA)</span>
-              <span><strong id="total-servicios">0 €</strong></span>
-            </div>
-
-            <div class="price-row">
-              <span class="price-label">IVA 21 % sobre servicios</span>
-              <span><strong id="iva-servicios">0 €</strong></span>
-            </div>
-
-            <div class="price-row">
-              <span class="price-label">Comisión 3 % gestión 7.0</span>
-              <span><strong id="comision-gestion">0 €</strong></span>
-            </div>
-
-            <div class="price-row">
-              <span class="price-label">IVA 21 % sobre comisión</span>
-              <span><strong id="iva-comision">0 €</strong></span>
-            </div>
-
-            <div class="price-row total">
-              <span class="price-label">Neto para ti (antes de plusvalía municipal, IRPF u otros impuestos)</span>
-              <span><strong id="neto-propietario">0 €</strong></span>
+              <div class="card-title">Contactos cualificados</div>
+              <div class="card-subtitle">
+                Clientes interesados en esta campaña.
+              </div>
             </div>
           </div>
-
-          <div style="margin-top:0.45rem; font-size:0.74rem; color:#6b7280;">
-            El cálculo se hace automáticamente con cada servicio que actives abajo. Sólo son simulaciones para visualizar de forma
-            rápida el impacto real de la estrategia 7.0.
-          </div>
-        </div>
+          <div class="big-number" id="kpiContactos">0</div>
+          <p class="muted">
+            Cuando registres contactos reales aparecerán aquí para hacer
+            seguimiento.
+          </p>
+        </article>
       </section>
 
-      <!-- COLUMNA DERECHA -->
-      <section>
-        <!-- FOTOS Y DOCUMENTACIÓN -->
-        <div class="card">
+      <!-- Fila 2: resumen propiedad + acciones recientes -------------------->
+      <section class="grid grid-2">
+        <!-- Última propiedad -->
+        <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Fotos y documentación</div>
+              <div class="card-title">Última propiedad en campaña</div>
               <div class="card-subtitle">
-                Gestiona todas las fotos HD, planos y documentos legales del ático desde un único panel.
+                Pieza clave dentro del método 7.0.
               </div>
             </div>
+            <span class="badge">Sistema 7.0</span>
           </div>
 
-          <div class="upload-grid">
-            <div class="upload-card">
-              <h3>Subir fotos de la vivienda</h3>
-              <div class="upload-hint">Arrastra las fotos o pulsa el botón. Formatos: JPG, PNG…</div>
-              <div class="upload-drop" id="drop-fotos">
-                <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
-                <button type="button" class="upload-btn" id="btn-fotos-select">
-                  Subir / arrastrar fotos
-                </button>
-                <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
-              </div>
-            </div>
-
-            <div class="upload-card">
-              <h3>Subir documentación</h3>
-              <div class="upload-hint">Escrituras, contratos, notas simples, licencias, etc.</div>
-              <div class="upload-drop" id="drop-docs">
-                <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
-                <button type="button" class="upload-btn" id="btn-docs-select">
-                  Subir / arrastrar documentación
-                </button>
-                <input type="file" id="input-docs" multiple style="display:none;" />
-              </div>
-            </div>
-          </div>
-
-          <div class="upload-actions">
-            <button type="button" class="upload-view-btn" id="btn-ver-fotos">
-              Ver fotos subidas
-              <span id="badge-fotos" class="upload-counter"></span>
-              <span id="progress-fotos" class="upload-progress"></span>
-            </button>
-
-            <button type="button" class="upload-view-btn" id="btn-ver-docs">
-              Ver documentación subida
-              <span id="badge-docs" class="upload-counter"></span>
-              <span id="progress-docs" class="upload-progress"></span>
-            </button>
-          </div>
-        </div>
-
-        <!-- SERVICIOS DISPONIBLES -->
-        <div class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Servicios disponibles (tarifas ejemplo)</div>
-              <div class="card-subtitle">
-                El propietario ve qué está activo, qué falta por activar y qué servicios ya se han realizado.
-              </div>
-            </div>
-          </div>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Operación en tiempo real
+            para cerrar al mejor precio posible con plusvalía educativa.
+          </p>
 
           <div class="chips-row">
-            <span class="chip-filter">Todos</span>
-            <span class="chip-filter active">1–4</span>
-            <span class="chip-filter">5–8</span>
-            <span class="chip-filter">9–12</span>
-            <span class="chip-filter">13–16</span>
-            <span class="chip-filter">17–20</span>
-            <span class="chip-filter">25–28</span>
+            <span class="chip">2 dorm · 2 baños</span>
+            <span class="chip">134 m² construidos aprox.</span>
+            <span class="chip">4 balcones panorámicos Velux</span>
+            <span class="chip">Vistas a Málaga · Cádiz · África · Gibraltar</span>
           </div>
 
-          <div class="services-grid">
-            <!-- Fotos PRO -->
-            <article class="service-card" data-service-id="fotos">
-              <div class="service-card-header">
-                <div class="service-card-title">Fotos PRO</div>
-                <div class="service-price">450 € · pago a éxito</div>
-              </div>
-              <div class="service-desc">
-                Fotógrafo especializado inmobiliario. Reportaje profesional para destacar frente a otras viviendas.
-              </div>
-              <button class="service-btn-gold" data-service-toggle>
-                Activar este servicio
-              </button>
-            </article>
+          <p class="property-text">
+            Este ático es la pieza clave del método 7.0. Desde aquí ves solo el
+            resumen; el resto se controla desde el panel detallado y la
+            auditoría de acciones.
+          </p>
+        </article>
 
-            <!-- Vídeo + dron -->
-            <article class="service-card" data-service-id="video">
-              <div class="service-card-header">
-                <div class="service-card-title">Vídeo + dron</div>
-                <div class="service-price">450 € · pago a éxito</div>
+        <!-- Acciones recientes / resumen servicios -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Acciones recientes</div>
+              <div class="card-subtitle">
+                Movimiento real vinculado a esta campaña.
               </div>
-              <div class="service-desc">
-                Recorrido interior + vistas aéreas del residencial y del entorno, perfecto para compradores internacionales.
-              </div>
-              <button class="service-btn" data-service-toggle>
-                Activar este servicio
-              </button>
-            </article>
-
-            <!-- Home staging -->
-            <article class="service-card" data-service-id="staging">
-              <div class="service-card-header">
-                <div class="service-card-title">Home staging</div>
-                <div class="service-price">750–1200 €</div>
-              </div>
-              <div class="service-desc">
-                Mejora estética sin reformas pesadas. Preparación del ático para que luzca como en una revista.
-              </div>
-              <button class="service-btn" data-service-toggle>
-                Activar este servicio
-              </button>
-            </article>
-
-            <!-- Blogger internacional -->
-            <article class="service-card" data-service-id="blogger">
-              <div class="service-card-header">
-                <div class="service-card-title">Blogger internacional</div>
-                <div class="service-price">3000 € · pago a éxito</div>
-              </div>
-              <div class="service-desc">
-                Historia real del proyecto en otro país. Difusión cualitativa para atraer compradores de alto valor.
-              </div>
-              <button class="service-btn" data-service-toggle>
-                Activar este servicio
-              </button>
-            </article>
+            </div>
           </div>
 
-          <div style="margin-top:0.7rem; font-size:0.74rem; color:#6b7280;">
-            Cada servicio que actives se suma al cálculo de arriba. Puedes activar / desactivar para jugar con diferentes escenarios
-            de campaña antes de tomar decisiones.
-          </div>
-        </div>
+          <ul class="actions-list" id="accionesList">
+            <!-- Se rellena por JS en función de los servicios activados -->
+          </ul>
+
+          <p class="footer-hint">
+            Todo listo para empezar a documentar cada movimiento dentro del
+            sistema 7.0.
+          </p>
+        </article>
       </section>
-    </div>
 
-    <!-- LISTA RESUMEN DE SERVICIOS ACTIVOS -->
-    <div class="card" style="margin-top:1.2rem;">
-      <div class="card-header">
-        <div class="card-title">Acciones activadas por el propietario</div>
-        <div class="card-subtitle">Resumen rápido para saber qué está en marcha dentro del sistema 7.0.</div>
-      </div>
-      <ul id="lista-servicios-activos" style="margin:0.1rem 0 0; padding-left:1rem; font-size:0.78rem; color:#9ca3af;">
-        <li>De momento no hay ningún servicio activado.</li>
-      </ul>
-    </div>
-  </main>
+      <!-- Fila 3: subida de fotos y documentación --------------------------->
+      <section class="grid grid-2-equal">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Subir fotos y documentación</div>
+              <div class="card-subtitle">
+                Gestiona todas las fotos HD, planos y escrituras desde aquí.
+              </div>
+            </div>
+          </div>
 
-  <!-- MODAL PARA FOTOS / DOCUMENTOS -->
-  <div id="upload-modal-backdrop" class="modal-backdrop">
+          <div class="upload-section">
+            <div class="upload-grid">
+              <!-- Fotos -->
+              <div class="upload-card">
+                <h3>Subir fotos de la vivienda</h3>
+                <div
+                  class="upload-drop"
+                  id="drop-fotos"
+                  onclick="document.getElementById('input-fotos').click()"
+                >
+                  <span>Arrastra las fotos aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-fotos-select"
+                  >
+                    ⬆️ Subir / arrastrar fotos
+                  </button>
+                  <input
+                    type="file"
+                    id="input-fotos"
+                    accept="image/*"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
+              </div>
+
+              <!-- Documentos -->
+              <div class="upload-card">
+                <h3>Subir documentación</h3>
+                <div
+                  class="upload-drop"
+                  id="drop-docs"
+                  onclick="document.getElementById('input-docs').click()"
+                >
+                  <span>Arrastra la documentación aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-docs-select"
+                  >
+                    ⬆️ Subir / arrastrar documentación
+                  </button>
+                  <input
+                    type="file"
+                    id="input-docs"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-actions">
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-fotos"
+              >
+                Ver fotos subidas
+                <span id="badge-fotos" class="upload-counter"></span>
+                <span id="progress-fotos" class="upload-progress"></span>
+              </button>
+
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-docs"
+              >
+                Ver documentación subida
+                <span id="badge-docs" class="upload-counter"></span>
+                <span id="progress-docs" class="upload-progress"></span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Servicios disponibles -------------------------------------------->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                Servicios disponibles (tarifas ejemplo)
+              </div>
+              <div class="card-subtitle">
+                Activa solo lo que tenga sentido para tu campaña.
+              </div>
+            </div>
+          </div>
+
+          <!-- Burbujas de servicios activos -->
+          <div class="status-pills-row" id="statusPillsRow">
+            <!-- Se rellena por JS -->
+          </div>
+
+          <div class="services-grid" id="servicesGrid">
+            <!-- Se rellena por JS -->
+          </div>
+
+          <p class="footer-hint">
+            El propietario ve esto como “panel de mando”: qué está activo, qué
+            falta por activar y qué servicios ya han sido realizados.
+          </p>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- MODAL ----------------------------------------------------------------->
+  <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
-        <div class="modal-title" id="modal-title">Archivos subidos</div>
-        <button type="button" class="modal-close" id="modal-close">Cerrar</button>
+        <div class="modal-title" id="modalTitle">Archivos subidos</div>
+        <button class="modal-close" id="modalClose">Cerrar</button>
       </div>
-      <div class="modal-body">
-        <div id="modal-body"></div>
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
+  <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      /* ==========================================================
-         1) LÓGICA DE SERVICIOS + CAJA DE COSTES
-         ========================================================== */
-      const precioInput = document.getElementById('input-precio');
-      const elTotalServicios = document.getElementById('total-servicios');
-      const elIvaServicios   = document.getElementById('iva-servicios');
-      const elComision       = document.getElementById('comision-gestion');
-      const elIvaComision    = document.getElementById('iva-comision');
-      const elNeto           = document.getElementById('neto-propietario');
-      const listaServicios   = document.getElementById('lista-servicios-activos');
+    // --------------------------- SERVICIOS / COSTES ----------------------- //
+    const servicios = [
+      {
+        id: "fotos",
+        nombre: "Fotos PRO",
+        precio: 450,
+        descripcion: "Fotógrafo especializado inmobiliario.",
+        activo: true,
+      },
+      {
+        id: "video",
+        nombre: "Vídeo + dron",
+        precio: 450,
+        descripcion: "Recorrido interior + vistas aéreas.",
+        activo: false,
+      },
+      {
+        id: "home",
+        nombre: "Home staging",
+        precioMin: 750,
+        precioMax: 1200,
+        precio: 900, // valor medio para la simulación
+        descripcion: "Mejora estética sin reformas pesadas.",
+        activo: true,
+      },
+      {
+        id: "blogger",
+        nombre: "Blogger internacional",
+        precio: 3000,
+        descripcion: "Historia real en otro país.",
+        activo: false,
+      },
+    ];
 
-      const serviciosDef = {
-        fotos:   { nombre: 'Fotos PRO',           precio: 450 },
-        video:   { nombre: 'Vídeo + dron',        precio: 450 },
-        staging: { nombre: 'Home staging',        precio: 900 }, // valor medio
-        blogger: { nombre: 'Blogger internacional', precio: 3000 },
-      };
+    const servicesGrid = document.getElementById("servicesGrid");
+    const statusPillsRow = document.getElementById("statusPillsRow");
+    const accionesList = document.getElementById("accionesList");
 
-      const serviciosActivos = new Set();
-
-      function formatoEuro(num) {
-        return num.toLocaleString('es-ES', {
-          style: 'currency',
-          currency: 'EUR',
+    function formatEuro(value) {
+      return (
+        value.toLocaleString("es-ES", {
+          minimumFractionDigits: 0,
           maximumFractionDigits: 0,
-        });
-      }
+        }) + " €"
+      );
+    }
 
-      function recalcularCostes() {
-        const precioPropiedad = Number(precioInput.value || 0);
+    function renderServicios() {
+      servicesGrid.innerHTML = "";
 
-        // Suma servicios
-        let totalServicios = 0;
-        serviciosActivos.forEach(id => {
-          const def = serviciosDef[id];
-          if (def) totalServicios += def.precio;
-        });
-
-        const ivaServicios = totalServicios * 0.21;
-        const comision = precioPropiedad * 0.03;       // 3 %
-        const ivaComision = comision * 0.21;
-        const neto = precioPropiedad - comision - ivaComision - totalServicios - ivaServicios;
-
-        elTotalServicios.textContent = formatoEuro(totalServicios);
-        elIvaServicios.textContent   = formatoEuro(ivaServicios);
-        elComision.textContent       = formatoEuro(comision);
-        elIvaComision.textContent    = formatoEuro(ivaComision);
-        elNeto.textContent           = formatoEuro(Math.max(neto, 0));
-
-        // Lista resumen de servicios activos
-        listaServicios.innerHTML = '';
-        if (!serviciosActivos.size) {
-          const li = document.createElement('li');
-          li.textContent = 'De momento no hay ningún servicio activado.';
-          listaServicios.appendChild(li);
-        } else {
-          serviciosActivos.forEach(id => {
-            const li = document.createElement('li');
-            const def = serviciosDef[id];
-            li.textContent = `${def.nombre} activado (${formatoEuro(def.precio)} sin IVA).`;
-            listaServicios.appendChild(li);
-          });
+      servicios.forEach((svc) => {
+        const card = document.createElement("div");
+        card.className = "service-card";
+        if (svc.activo) {
+          card.style.borderColor = "rgba(250,204,21,0.5)";
         }
-      }
 
-      // Eventos de botones en tarjetas de servicios
-      document.querySelectorAll('[data-service-toggle]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const card = btn.closest('.service-card');
-          const id = card.getAttribute('data-service-id');
-          const activo = serviciosActivos.has(id);
+        const precioText =
+          svc.id === "home"
+            ? `${svc.precioMin}–${svc.precioMax} € · pago a éxito`
+            : `${svc.precio} € · pago a éxito`;
 
-          if (activo) {
-            serviciosActivos.delete(id);
-            card.classList.remove('active');
-            btn.className = btn.className.replace('service-btn-done', '').trim();
-            if (!btn.className.includes('service-btn-gold')) {
-              btn.classList.add('service-btn');
-            }
-            btn.textContent = 'Activar este servicio';
-          } else {
-            serviciosActivos.add(id);
-            card.classList.add('active');
-            btn.classList.remove('service-btn');
-            btn.classList.remove('service-btn-gold');
-            btn.classList.add('service-btn-done');
-            btn.textContent = 'Servicio activado';
-          }
+        card.innerHTML = `
+          <h3>${svc.nombre}</h3>
+          <div class="service-price">${precioText}</div>
+          <p class="service-desc">${svc.descripcion}</p>
+          <div class="service-footer">
+            <span class="service-state-pill" style="opacity:${
+              svc.activo ? 1 : 0.4
+            }">
+              <span class="icon">★</span>
+              ${svc.activo ? "Servicio activado" : "Pendiente"}
+            </span>
+            <button class="service-btn ${
+              svc.activo ? "active" : ""
+            }" data-id="${svc.id}">
+              ${svc.activo ? "Desactivar" : "Activar este servicio"}
+            </button>
+          </div>
+        `;
 
-          recalcularCostes();
-        });
+        servicesGrid.appendChild(card);
       });
 
-      precioInput.addEventListener('input', recalcularCostes);
-      recalcularCostes();
+      document.querySelectorAll(".service-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const svc = servicios.find((s) => s.id === id);
+          if (!svc) return;
+          svc.activo = !svc.activo;
+          updateEverything();
+        });
+      });
+    }
 
-      /* ==========================================================
-         2) SUBIDA DE FOTOS / DOCUMENTOS (MISMA LÓGICA QUE AYER)
-         ========================================================== */
-      const dropFotos     = document.getElementById('drop-fotos');
-      const dropDocs      = document.getElementById('drop-docs');
-      const btnFotosSel   = document.getElementById('btn-fotos-select');
-      const btnDocsSel    = document.getElementById('btn-docs-select');
-      const inputFotos    = document.getElementById('input-fotos');
-      const inputDocs     = document.getElementById('input-docs');
-      const btnVerFotos   = document.getElementById('btn-ver-fotos');
-      const btnVerDocs    = document.getElementById('btn-ver-docs');
-      const badgeFotos    = document.getElementById('badge-fotos');
-      const badgeDocs     = document.getElementById('badge-docs');
-      const progressFotos = document.getElementById('progress-fotos');
-      const progressDocs  = document.getElementById('progress-docs');
+    function renderStatusPills() {
+      statusPillsRow.innerHTML = "";
+      const activos = servicios.filter((s) => s.activo);
 
-      const modalBackdrop = document.getElementById('upload-modal-backdrop');
-      const modalTitle    = document.getElementById('modal-title');
-      const modalBody     = document.getElementById('modal-body');
-      const modalClose    = document.getElementById('modal-close');
-
-      const fotoFiles = [];
-      const docFiles  = [];
-
-      function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      if (!activos.length) {
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "Aún no hay servicios activados.";
+        statusPillsRow.appendChild(span);
+        return;
       }
 
-      function addDropEvents(area, handler) {
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
-          area.addEventListener(ev, preventDefaults);
-        });
-        ['dragenter', 'dragover'].forEach(ev => {
-          area.addEventListener(ev, () => area.classList.add('drag-over'));
-        });
-        ['dragleave', 'drop'].forEach(ev => {
-          area.addEventListener(ev, () => area.classList.remove('drag-over'));
-        });
-        area.addEventListener('drop', e => {
-          const files = Array.from(e.dataTransfer.files || []);
-          handler(files);
-        });
+      activos.forEach((svc) => {
+        const pill = document.createElement("div");
+        pill.className = "status-pill";
+        pill.innerHTML = `
+          <span class="dot"></span>
+          ${svc.nombre} activado por el propietario
+        `;
+        statusPillsRow.appendChild(pill);
+      });
+    }
+
+    function renderAccionesList() {
+      accionesList.innerHTML = "";
+      const activos = servicios.filter((s) => s.activo);
+
+      if (!activos.length) {
+        const li = document.createElement("li");
+        li.textContent =
+          "Sin servicios activos todavía. Cuando actives alguno aparecerá aquí.";
+        accionesList.appendChild(li);
+        return;
       }
 
-      function simulateUploadProgress(type, totalFiles) {
-        const span = type === 'fotos' ? progressFotos : progressDocs;
-        if (!span) return;
+      activos.forEach((svc) => {
+        const li = document.createElement("li");
+        const base =
+          svc.id === "home"
+            ? `${svc.precioMin}–${svc.precioMax} € sin IVA`
+            : `${formatEuro(svc.precio)} sin IVA`;
+        li.innerHTML = `${svc.nombre} activado <span class="price">(${base}).</span>`;
+        accionesList.appendChild(li);
+      });
+    }
 
-        let pct = 0;
-        span.textContent = 'Cargando 0%';
+    function calcularTotales() {
+      const precioPropiedad =
+        parseFloat(document.getElementById("precioPropiedad").value) || 0;
 
-        const step = 15;
-        const ms = 180;
-
-        const interval = setInterval(() => {
-          pct += step;
-          if (pct >= 100) {
-            pct = 100;
-            clearInterval(interval);
-            span.textContent = '';
-            updateUploadCounters();
-          } else {
-            span.textContent = `Cargando ${pct}%`;
-          }
-        }, ms);
-      }
-
-      function updateUploadCounters() {
-        badgeFotos.textContent = fotoFiles.length || '';
-        badgeDocs.textContent  = docFiles.length || '';
-      }
-
-      function handleFotos(files) {
-        const valid = [];
-        files.forEach(f => {
-          if (f && f.type && f.type.startsWith('image/')) {
-            fotoFiles.push(f);
-            valid.push(f);
-          }
-        });
-        if (valid.length) {
-          simulateUploadProgress('fotos', valid.length);
+      const activos = servicios.filter((s) => s.activo);
+      let totalServicios = 0;
+      activos.forEach((svc) => {
+        if (svc.id === "home") {
+          totalServicios += svc.precio; // usamos el valor medio
+        } else {
+          totalServicios += svc.precio;
         }
-        updateUploadCounters();
-      }
+      });
 
-      function handleDocs(files) {
-        const valid = [];
-        files.forEach(f => {
-          if (f) {
-            docFiles.push(f);
-            valid.push(f);
-          }
-        });
-        if (valid.length) {
-          simulateUploadProgress('docs', valid.length);
+      const ivaServicios = totalServicios * 0.21;
+      const comision = precioPropiedad * 0.03;
+      const ivaComision = comision * 0.21;
+      const totalGeneral = totalServicios + ivaServicios + comision + ivaComision;
+      const netoParaTi = precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
+
+      document.getElementById("totalServiciosSinIVA").textContent =
+        formatEuro(totalServicios);
+      document.getElementById("ivaServicios").textContent = formatEuro(
+        ivaServicios
+      );
+      document.getElementById("comision").textContent = formatEuro(comision);
+      document.getElementById("ivaComision").textContent =
+        formatEuro(ivaComision);
+      document.getElementById("totalGeneral").textContent =
+        formatEuro(totalGeneral);
+      document.getElementById("netoParaTi").textContent =
+        formatEuro(netoParaTi);
+    }
+
+    function updateEverything() {
+      renderServicios();
+      renderStatusPills();
+      renderAccionesList();
+      calcularTotales();
+    }
+
+    document
+      .getElementById("precioPropiedad")
+      .addEventListener("input", calcularTotales);
+
+    // --------------------------- UPLOAD / MODAL --------------------------- //
+    const fotoFiles = [];
+    const docFiles = [];
+
+    const dropFotos = document.getElementById("drop-fotos");
+    const dropDocs = document.getElementById("drop-docs");
+    const inputFotos = document.getElementById("input-fotos");
+    const inputDocs = document.getElementById("input-docs");
+    const btnFotosSelect = document.getElementById("btn-fotos-select");
+    const btnDocsSelect = document.getElementById("btn-docs-select");
+    const btnVerFotos = document.getElementById("btn-ver-fotos");
+    const btnVerDocs = document.getElementById("btn-ver-docs");
+    const badgeFotos = document.getElementById("badge-fotos");
+    const badgeDocs = document.getElementById("badge-docs");
+    const progressFotos = document.getElementById("progress-fotos");
+    const progressDocs = document.getElementById("progress-docs");
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function addDropEvents(area, handler) {
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, preventDefaults);
+      });
+      ["dragenter", "dragover"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.add("drag-over"));
+      });
+      ["dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.remove("drag-over"));
+      });
+      area.addEventListener("drop", (e) => {
+        const files = Array.from(e.dataTransfer.files || []);
+        handler(files);
+      });
+    }
+
+    function updateUploadCounters() {
+      badgeFotos.textContent = fotoFiles.length ? fotoFiles.length : "";
+      badgeDocs.textContent = docFiles.length ? docFiles.length : "";
+    }
+
+    function simulateUploadProgress(type, count) {
+      const span =
+        type === "fotos" ? progressFotos : progressDocs;
+      if (!span) return;
+
+      let pct = 0;
+      span.textContent = "Cargando 0%";
+
+      const interval = setInterval(() => {
+        pct += 18;
+        if (pct >= 100) {
+          pct = 100;
+          clearInterval(interval);
+          span.textContent = "";
+        } else {
+          span.textContent = `Cargando ${pct}%`;
         }
-        updateUploadCounters();
-      }
+      }, 150);
+    }
 
-      if (btnFotosSel && inputFotos) {
-        btnFotosSel.addEventListener('click', () => inputFotos.click());
-        inputFotos.addEventListener('change', e => {
-          const files = Array.from(e.target.files || []);
-          handleFotos(files);
-        });
-      }
-      if (btnDocsSel && inputDocs) {
-        btnDocsSel.addEventListener('click', () => inputDocs.click());
-        inputDocs.addEventListener('change', e => {
-          const files = Array.from(e.target.files || []);
-          handleDocs(files);
-        });
-      }
-
-      if (dropFotos) addDropEvents(dropFotos, handleFotos);
-      if (dropDocs)  addDropEvents(dropDocs, handleDocs);
-
-      function openModal(type) {
-        modalBackdrop.style.display = 'flex';
-        modalBody.innerHTML = '';
-
-        const list = type === 'fotos' ? fotoFiles : docFiles;
-        if (type === 'fotos') modalTitle.textContent = 'Fotos subidas';
-        else modalTitle.textContent = 'Documentación subida';
-
-        if (!list.length) {
-          const p = document.createElement('p');
-          p.className = 'modal-empty';
-          p.textContent = 'Todavía no has subido ningún archivo.';
-          modalBody.appendChild(p);
-          return;
+    function handleFotos(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f && f.type && f.type.startsWith("image/")) {
+          fotoFiles.push(f);
+          valid.push(f);
         }
+      });
+      if (valid.length) simulateUploadProgress("fotos", valid.length);
+      updateUploadCounters();
+    }
 
-        const grid = document.createElement('div');
-        grid.className = 'modal-grid';
+    function handleDocs(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f) {
+          docFiles.push(f);
+          valid.push(f);
+        }
+      });
+      if (valid.length) simulateUploadProgress("docs", valid.length);
+      updateUploadCounters();
+    }
 
-        list.forEach((file, idx) => {
-          const item = document.createElement('div');
-          item.className = 'modal-item';
+    if (btnFotosSelect && inputFotos) {
+      btnFotosSelect.addEventListener("click", () => inputFotos.click());
+      inputFotos.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleFotos(files);
+      });
+    }
 
-          if (type === 'fotos' && file.type && file.type.startsWith('image/')) {
-            const img = document.createElement('img');
-            const url = URL.createObjectURL(file);
-            img.src = url;
-            img.alt = file.name || ('Foto ' + (idx + 1));
-            img.addEventListener('click', () => {
-              window.open(url, '_blank');
-            });
-            item.appendChild(img);
-          }
+    if (btnDocsSelect && inputDocs) {
+      btnDocsSelect.addEventListener("click", () => inputDocs.click());
+      inputDocs.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleDocs(files);
+      });
+    }
 
-          const name = document.createElement('div');
-          name.className = 'modal-item-name';
-          name.textContent = file.name || ('Archivo ' + (idx + 1));
-          item.appendChild(name);
+    if (dropFotos) addDropEvents(dropFotos, handleFotos);
+    if (dropDocs) addDropEvents(dropDocs, handleDocs);
 
-          const del = document.createElement('button');
-          del.className = 'modal-delete';
-          del.textContent = 'Eliminar';
-          del.addEventListener('click', () => {
-            list.splice(idx, 1);
-            openModal(type); // recarga listado
-            updateUploadCounters();
+    function openModal(type) {
+      modalBackdrop.style.display = "flex";
+      modalBody.innerHTML = "";
+
+      const list = type === "fotos" ? fotoFiles : docFiles;
+      if (!list.length) {
+        const p = document.createElement("p");
+        p.className = "modal-empty";
+        p.textContent =
+          "Todavía no has subido ningún archivo en esta sección.";
+        modalBody.appendChild(p);
+      }
+
+      if (type === "fotos") {
+        modalTitle.textContent = "Fotos subidas";
+      } else {
+        modalTitle.textContent = "Documentación subida";
+      }
+
+      list.forEach((file, idx) => {
+        const item = document.createElement("div");
+        item.className = "modal-item";
+
+        if (type === "fotos") {
+          const img = document.createElement("img");
+          const url = URL.createObjectURL(file);
+          img.src = url;
+          img.alt = file.name || "Foto subida";
+          img.addEventListener("click", () => {
+            window.open(url, "_blank");
           });
-          item.appendChild(del);
+          item.appendChild(img);
+        }
 
-          grid.appendChild(item);
+        const name = document.createElement("div");
+        name.className = "modal-item-name";
+        name.textContent = file.name || `Archivo ${idx + 1}`;
+        item.appendChild(name);
+
+        const del = document.createElement("button");
+        del.className = "modal-delete";
+        del.textContent = "Eliminar";
+        del.addEventListener("click", () => {
+          list.splice(idx, 1);
+          updateUploadCounters();
+          openModal(type);
         });
+        item.appendChild(del);
 
-        modalBody.appendChild(grid);
-      }
+        modalBody.appendChild(item);
+      });
+    }
 
-      function closeModal() {
-        modalBackdrop.style.display = 'none';
-      }
+    function closeModal() {
+      modalBackdrop.style.display = "none";
+    }
 
-      if (btnVerFotos) btnVerFotos.addEventListener('click', () => openModal('fotos'));
-      if (btnVerDocs)  btnVerDocs.addEventListener('click', () => openModal('docs'));
-      if (modalClose)  modalClose.addEventListener('click', closeModal);
-      if (modalBackdrop) {
-        modalBackdrop.addEventListener('click', e => {
-          if (e.target === modalBackdrop) closeModal();
-        });
-      }
-    });
+    if (btnVerFotos) btnVerFotos.addEventListener("click", () => openModal("fotos"));
+    if (btnVerDocs) btnVerDocs.addEventListener("click", () => openModal("docs"));
+    if (modalClose) modalClose.addEventListener("click", closeModal);
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) closeModal();
+      });
+    }
+
+    // Inicializamos todo
+    updateEverything();
   </script>
 </body>
 </html>
