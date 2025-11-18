@@ -144,6 +144,7 @@
       margin-top: auto;
       font-size: 0.7rem;
       color: #6b7280;
+      opacity: 0.9;
     }
 
     .main {
@@ -222,30 +223,7 @@
       background: rgba(15, 23, 42, 0.92);
     }
 
-    .btn-ghost {
-      border-radius: var(--radius-full);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.78rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      text-decoration: none;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
-      border-color: rgba(209, 213, 219, 0.7);
-      transform: translateY(-1px);
-    }
-
-    /* GRID -------------------------------------------------------------- */
+    /* GRID --------------------------------------------------------------- */
 
     .grid {
       display: grid;
@@ -253,7 +231,7 @@
     }
 
     .grid-3 {
-      grid-template-columns: 2fr 1.5fr 1.4fr;
+      grid-template-columns: 2fr 1.6fr 1.4fr;
     }
 
     .grid-2 {
@@ -296,13 +274,13 @@
       }
     }
 
-    /* CARDS -------------------------------------------------------------- */
+    /* CARDS --------------------------------------------------------------- */
 
     .card {
-      background: radial-gradient(circle at top left, #020817, #020617 55%);
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      padding: 1.2rem 1.3rem;
+      padding: 1.1rem 1.2rem;
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
@@ -323,8 +301,14 @@
     }
 
     .card-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--text-soft);
+    }
+
+    .card-actions-right {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .badge {
@@ -349,7 +333,7 @@
       font-size: 0.8rem;
     }
 
-    /* PRECIOS ------------------------------------------------------------ */
+    /* PRECIO -------------------------------------------------------------- */
 
     .price-input-row {
       display: flex;
@@ -421,7 +405,7 @@
       line-height: 1.4;
     }
 
-    /* PROPERTY SUMMARY --------------------------------------------------- */
+    /* CHIPS PROPIEDAD ------------------------------------------------------ */
 
     .chips-row {
       margin-top: 0.6rem;
@@ -445,7 +429,7 @@
       margin-top: 0.6rem;
     }
 
-    /* UPLOAD AREA -------------------------------------------------------- */
+    /* UPLOADS -------------------------------------------------------------- */
 
     .upload-section {
       display: flex;
@@ -653,8 +637,24 @@
       word-break: break-all;
     }
 
+    .modal-actions-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-open {
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      padding: 0.18rem 0.6rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
     .modal-delete {
-      align-self: flex-start;
       border-radius: 999px;
       border: 1px solid rgba(248, 113, 113, 0.8);
       background: rgba(127, 29, 29, 0.7);
@@ -670,7 +670,7 @@
       grid-column: 1 / -1;
     }
 
-    /* SERVICIOS ----------------------------------------------------------- */
+    /* SERVICIOS ------------------------------------------------------------ */
 
     .status-pills-row {
       display: flex;
@@ -726,12 +726,6 @@
       flex-direction: column;
       gap: 0.3rem;
       font-size: 0.78rem;
-    }
-
-    .service-card-active {
-      border-color: rgba(250, 204, 21, 0.7);
-      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35),
-        0 18px 45px rgba(15, 23, 42, 0.9);
     }
 
     .service-card h3 {
@@ -798,72 +792,93 @@
       color: #facc15;
     }
 
+    .services-link {
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .services-link:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.7);
+      transform: translateY(-1px);
+    }
+
     .footer-hint {
       margin-top: 0.6rem;
       font-size: 0.7rem;
       color: var(--text-soft);
     }
 
-    /* AGENCIAS ------------------------------------------------------------ */
+    /* AGENCIAS ------------------------------------------------------------- */
 
-    .agencies-wrapper {
-      margin-top: 0.5rem;
-    }
-
-    .agencies-scroll {
-      max-height: 220px;
-      overflow-y: auto;
-      padding-right: 0.4rem;
-      margin-top: 0.6rem;
+    .agency-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.8rem;
     }
 
     .agency-card {
       border-radius: 16px;
-      background: #020817;
+      background: #020617;
       border: 1px solid #111827;
-      padding: 0.75rem 0.85rem;
+      padding: 0.75rem 0.8rem;
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
-      margin-bottom: 0.5rem;
+      gap: 0.45rem;
     }
 
-    .agency-main-row {
+    .agency-main {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.5rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
 
-    .agency-left {
+    .agency-info {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      min-width: 0;
     }
 
     .agency-avatar {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 999px;
       background: radial-gradient(circle at top, #22c55e, #16a34a);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 700;
       color: #022c22;
-      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
+      box-shadow: 0 10px 25px rgba(22, 163, 74, 0.55);
     }
 
     .agency-name {
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       font-weight: 600;
     }
 
     .agency-phone {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
+    }
+
+    .agency-phone strong {
+      color: #e5e7eb;
     }
 
     .agency-desc {
@@ -887,8 +902,6 @@
       white-space: nowrap;
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast), opacity var(--transition-fast);
-      align-self: center;
-      margin-top: 0;
     }
 
     .agency-btn:hover {
@@ -908,80 +921,90 @@
       color: var(--text-soft);
     }
 
-    /* ACCIONES RECIENTES ------------------------------------------------- */
+    /* ACCIONES RECIENTES --------------------------------------------------- */
 
-    .acciones-body {
-      margin-top: 0.35rem;
-      border-top: 1px dashed rgba(55, 65, 81, 0.9);
-      padding-top: 0.45rem;
-      max-height: 190px;
-      overflow-y: auto;
-      font-size: 0.78rem;
-    }
-
-    .acciones-item {
-      padding: 0.18rem 0;
-      border-bottom: 1px dashed rgba(55, 65, 81, 0.6);
-    }
-
-    .acciones-item:last-child {
-      border-bottom: none;
-    }
-
-    .acciones-time {
-      color: var(--text-soft);
-      margin-right: 0.35rem;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      font-size: 0.74rem;
-    }
-
-    .acciones-text {
-      color: #e5e7eb;
-    }
-
-    .acciones-empty {
-      font-size: 0.78rem;
-      color: var(--text-soft);
+    .acciones-header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .notif-btn {
       border-radius: var(--radius-full);
-      padding: 0.28rem 0.85rem;
+      padding: 0.3rem 0.9rem;
       font-size: 0.78rem;
       border: 1px solid rgba(56, 189, 248, 0.8);
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.96);
       color: var(--accent);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      cursor: pointer;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast), transform var(--transition-fast),
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+      transition: background var(--transition-fast), transform var(--transition-fast),
         box-shadow var(--transition-fast);
     }
 
-    .notif-btn:hover {
-      background: rgba(56, 189, 248, 0.14);
-      border-color: var(--accent-strong);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.9);
-      transform: translateY(-1px);
-    }
-
-    .notif-dot {
-      width: 7px;
-      height: 7px;
+    .notif-btn-dot {
+      width: 10px;
+      height: 10px;
       border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
     }
 
-    /* FOOTER ------------------------------------------------------------- */
+    .notif-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.9);
+    }
 
-    .footer-note {
+    .acciones-scroll {
+      max-height: 210px;
+      overflow-y: auto;
       margin-top: 0.6rem;
-      font-size: 0.76rem;
-      color: var(--text-soft);
+      padding-right: 0.3rem;
+    }
+
+    .acciones-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.8rem;
+    }
+
+    .acciones-list li {
+      padding: 0.28rem 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
+      display: flex;
+      gap: 0.7rem;
+      align-items: flex-start;
+      color: #e5e7eb;
+    }
+
+    .acciones-list li:last-child {
+      border-bottom: none;
+    }
+
+    .log-time {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.77rem;
+      color: #9ca3af;
+      min-width: 180px;
+    }
+
+    .acciones-highlight {
+      animation: accionesGlow 0.7s ease-out;
+    }
+
+    @keyframes accionesGlow {
+      0% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.0);
+      }
     }
   </style>
 </head>
@@ -1033,17 +1056,17 @@
           </div>
         </div>
         <div class="top-right">
+          <span class="badge-sistema">SISTEMA 7.0</span>
           <div class="pill">
             <div class="pill-dot"></div>
             Campaña activa – Ático Blue Sunset
           </div>
-          <a href="servicios.html" class="pill pill-ghost">Ver servicios campaña</a>
         </div>
       </header>
 
-      <!-- Fila 1 -->
+      <!-- Fila 1: precios + venta particular + contactos -->
       <section class="grid grid-3">
-        <!-- Calculadora -->
+        <!-- Caja de coste / calculadora -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1052,7 +1075,7 @@
                 Simulación de costes con servicios activados e IVA.
               </div>
             </div>
-            <span class="badge">Simulación rápida 7.0</span>
+            <span class="badge">SIMULACIÓN RÁPIDA 7.0</span>
           </div>
 
           <div class="price-input-row">
@@ -1104,24 +1127,25 @@
           </p>
         </article>
 
-        <!-- Propiedades activas -->
+        <!-- Venta particular / colaboración -->
         <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Propiedades activas</div>
+              <div class="card-title">Venta particular y colaboración con profesionales</div>
               <div class="card-subtitle">
-                Viviendas actualmente dentro del sistema 7.0.
+                Espacio para propietarios que quieren vender como particular,
+                activando servicios y colaborando con freelance y empresas especializadas.
               </div>
             </div>
           </div>
-          <div class="big-number" id="kpiPropiedades">1</div>
           <p class="muted">
-            Ático Blue Sunset – La Duquesa, Manilva. Cuando agregues nuevas
-            campañas, aparecerán aquí.
+            Aquí aparecerán oportunidades de fotógrafos, marketers, home stagers,
+            arquitectos y otros profesionales que puedan asumir servicios a éxito
+            y colaborar contigo en la venta como particular.
           </p>
         </article>
 
-        <!-- Contactos cualificados -->
+        <!-- KPI: contactos (ejemplo) -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1139,7 +1163,7 @@
         </article>
       </section>
 
-      <!-- Fila 2 -->
+      <!-- Fila 2: resumen propiedad + acciones recientes -------------------->
       <section class="grid grid-2">
         <!-- Última propiedad -->
         <article class="card">
@@ -1150,7 +1174,7 @@
                 Pieza clave dentro del método 7.0.
               </div>
             </div>
-            <span class="badge-sistema">SISTEMA 7.0</span>
+            <span class="badge">SISTEMA 7.0</span>
           </div>
 
           <p class="muted">
@@ -1181,26 +1205,30 @@
                 Histórico de lo que se ha activado, subido y autorizado.
               </div>
             </div>
-            <button type="button" class="notif-btn" id="btnNotificaciones">
-              <span class="notif-dot"></span>
-              Notificaciones
-            </button>
+            <div class="acciones-header-right">
+              <button type="button" class="notif-btn" id="btnNotificaciones">
+                <span class="notif-btn-dot"></span>
+                Notificaciones
+              </button>
+            </div>
           </div>
 
-          <div id="accionesBody" class="acciones-body">
-            <!-- JS: histórico -->
+          <div class="acciones-scroll" id="accionesScroll">
+            <ul class="acciones-list" id="accionesList">
+              <!-- JS -->
+            </ul>
           </div>
 
-          <p class="footer-note">
+          <p class="footer-hint">
             Este histórico es el “cerebro” de la campaña: siempre podrás revisar
             qué se hizo, quién lo activó y cuándo.
           </p>
         </article>
       </section>
 
-      <!-- Fila 3 -->
+      <!-- Fila 3: subida de fotos y documentación + servicios ---------------->
       <section class="grid grid-2-equal">
-        <!-- Subida de archivos -->
+        <!-- Uploads -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1219,7 +1247,6 @@
                 <div
                   class="upload-drop"
                   id="drop-fotos"
-                  onclick="document.getElementById('input-fotos').click()"
                 >
                   <span>Arrastra las fotos aquí</span>
                   <button
@@ -1245,7 +1272,6 @@
                 <div
                   class="upload-drop"
                   id="drop-docs"
-                  onclick="document.getElementById('input-docs').click()"
                 >
                   <span>Arrastra la documentación aquí</span>
                   <button
@@ -1300,9 +1326,9 @@
                 Activa solo lo que tenga sentido para tu campaña.
               </div>
             </div>
-            <button type="button" class="btn-ghost" id="btnVerServicios">
+            <a href="servicios.html" class="services-link" id="btnVerServicios">
               Ver servicios
-            </button>
+            </a>
           </div>
 
           <!-- Burbujas de servicios activos -->
@@ -1311,7 +1337,7 @@
           </div>
 
           <div class="services-grid" id="servicesGrid">
-            <!-- JS: 4 servicios -->
+            <!-- JS: solo 4 servicios visibles -->
           </div>
 
           <p class="footer-hint">
@@ -1321,7 +1347,7 @@
         </article>
       </section>
 
-      <!-- Fila 4: Agencias -->
+      <!-- Fila 4: Agencias interesadas -------------------------------------->
       <section class="grid grid-1">
         <article class="card">
           <div class="card-header">
@@ -1333,20 +1359,16 @@
                 Cuando autorices, la agencia recibirá tus datos de contacto.
               </div>
             </div>
-            <div class="pill pill-ghost" id="contadorAgencias">
-              0 agencias
-            </div>
           </div>
 
-          <div class="agencies-wrapper">
-            <div class="agencies-scroll" id="agenciesList">
-              <!-- JS -->
-            </div>
-            <p class="agency-hint">
-              Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
-              agencia autorizada para que te contacte lo antes posible.
-            </p>
+          <div class="agency-list" id="agencyList">
+            <!-- JS -->
           </div>
+
+          <p class="agency-hint">
+            Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
+            agencia autorizada para que te contacte lo antes posible.
+          </p>
         </article>
       </section>
     </main>
@@ -1365,7 +1387,11 @@
 
   <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    /* ------------------------ UTILIDADES GENERALES ---------------------- */
+    /* ==================== UTILIDADES COMUNES ===================== */
+    const LOG_KEY = "panamoveLog";
+    const SERVICIOS_KEY = "panamoveServicios";
+    const FOTOS_KEY = "panamoveFotos";
+    const DOCS_KEY = "panamoveDocs";
 
     function formatEuro(value) {
       return (
@@ -1376,55 +1402,85 @@
       );
     }
 
-    function nowStamp() {
-      const d = new Date();
-      const hh = String(d.getHours()).padStart(2, "0");
-      const mm = String(d.getMinutes()).padStart(2, "0");
-      const ss = String(d.getSeconds()).padStart(2, "0");
-      const yyyy = d.getFullYear();
-      const MM = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      return {
-        hora: `${hh}:${mm}:${ss}`,
-        fecha: `${yyyy}-${MM}-${dd}`,
-      };
+    /* ==================== LOG / NOTIFICACIONES ==================== */
+    function loadLog() {
+      try {
+        const raw = localStorage.getItem(LOG_KEY);
+        if (!raw) return [];
+        return JSON.parse(raw);
+      } catch (e) {
+        console.warn("No se pudo leer el log", e);
+        return [];
+      }
     }
 
-    /* ------------------------ SERVICIOS (sincronía) --------------------- */
+    function saveLog(list) {
+      try {
+        localStorage.setItem(LOG_KEY, JSON.stringify(list));
+      } catch (e) {
+        console.warn("No se pudo guardar el log", e);
+      }
+    }
 
-    const STORAGE_SERVICIOS = "panamoveServicios";
+    function renderLog() {
+      const list = loadLog();
+      const ul = document.getElementById("accionesList");
+      ul.innerHTML = "";
 
-    const serviciosBaseDashboard = [
+      if (!list.length) {
+        const li = document.createElement("li");
+        li.innerHTML =
+          '<span class="log-time">[--:--:-- · ----------]</span> No hay notificaciones todavía. Cuando actives servicios, agencias o subas documentación, aparecerán aquí.';
+        ul.appendChild(li);
+        return;
+      }
+
+      list.forEach((entry) => {
+        const li = document.createElement("li");
+        const d = new Date(entry.ts || entry.time || Date.now());
+        const timeStr = d.toTimeString().slice(0, 8);
+        const dateStr = d.toISOString().slice(0, 10);
+        const timeSpan = document.createElement("span");
+        timeSpan.className = "log-time";
+        timeSpan.textContent = `[${timeStr} · ${dateStr}]`;
+
+        const textSpan = document.createElement("span");
+        textSpan.textContent = entry.message || "";
+
+        li.appendChild(timeSpan);
+        li.appendChild(textSpan);
+        ul.appendChild(li);
+      });
+    }
+
+    /* ==================== SERVICIOS (4 DEL DASHBOARD) ============= */
+    const serviciosBase = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
-        precioNumero: 450,
-        precioTexto: "450 € · pago a éxito",
+        precio: 450,
         descripcion: "Fotógrafo especializado inmobiliario.",
         activoPorDefecto: true,
       },
       {
         id: "video-dron",
         nombre: "Vídeo + dron",
-        precioNumero: 450,
-        precioTexto: "450 € · pago a éxito",
+        precio: 450,
         descripcion: "Recorrido interior + vistas aéreas.",
         activoPorDefecto: true,
       },
       {
         id: "home-staging",
         nombre: "Home staging",
-        precioNumero: 900, // valor medio para cálculo
-        precioTexto: "750–1200 € · pago a éxito",
+        precio: 900,
         descripcion: "Mejora estética sin reformas pesadas.",
         activoPorDefecto: true,
       },
       {
         id: "blogger-internacional",
         nombre: "Blogger internacional",
-        precioNumero: 3000,
-        precioTexto: "3000 € · pago a éxito",
-        descripcion: "Historia real en otro país.",
+        precio: 3000,
+        descripcion: "Historia real de la vivienda en otro país.",
         activoPorDefecto: false,
       },
     ];
@@ -1432,13 +1488,13 @@
     function loadServiciosDashboard() {
       let stored = [];
       try {
-        const raw = localStorage.getItem(STORAGE_SERVICIOS);
+        const raw = localStorage.getItem(SERVICIOS_KEY);
         if (raw) stored = JSON.parse(raw);
       } catch (e) {
-        console.warn("No se pudo leer servicios de localStorage", e);
+        console.warn("No se pudo leer servicios", e);
       }
       const mapStored = new Map(stored.map((s) => [s.id, s]));
-      return serviciosBaseDashboard.map((svc) => {
+      return serviciosBase.map((svc) => {
         const saved = mapStored.get(svc.id);
         return {
           ...svc,
@@ -1450,50 +1506,42 @@
       });
     }
 
-    function saveServiciosDashboard(servicios) {
-      try {
-        const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
-        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(minimal));
-      } catch (e) {
-        console.warn("No se pudo guardar servicios en localStorage", e);
-      }
-    }
+    function renderServiciosDashboard() {
+      const servicios = loadServiciosDashboard();
+      const servicesGrid = document.getElementById("servicesGrid");
+      const statusPillsRow = document.getElementById("statusPillsRow");
 
-    let serviciosDashboard = loadServiciosDashboard();
-
-    const servicesGrid = document.getElementById("servicesGrid");
-    const statusPillsRow = document.getElementById("statusPillsRow");
-
-    function renderStatusPills() {
+      servicesGrid.innerHTML = "";
       statusPillsRow.innerHTML = "";
-      const activos = serviciosDashboard.filter((s) => s.activo);
+
+      const activos = servicios.filter((s) => s.activo);
       if (!activos.length) {
         const span = document.createElement("span");
         span.className = "muted";
         span.textContent = "Aún no hay servicios activados.";
         statusPillsRow.appendChild(span);
-        return;
+      } else {
+        activos.forEach((svc) => {
+          const pill = document.createElement("div");
+          pill.className = "status-pill";
+          pill.innerHTML = `
+            <span class="dot"></span>
+            ${svc.nombre} activado por el propietario
+          `;
+          statusPillsRow.appendChild(pill);
+        });
       }
-      activos.forEach((svc) => {
-        const pill = document.createElement("div");
-        pill.className = "status-pill";
-        pill.innerHTML = `
-          <span class="dot"></span>
-          ${svc.nombre} activado por el propietario
-        `;
-        statusPillsRow.appendChild(pill);
-      });
-    }
 
-    function renderServiciosDashboard() {
-      servicesGrid.innerHTML = "";
-      serviciosDashboard.forEach((svc) => {
+      servicios.forEach((svc) => {
         const card = document.createElement("div");
-        card.className =
-          "service-card" + (svc.activo ? " service-card-active" : "");
+        card.className = "service-card";
+        if (svc.activo) {
+          card.style.borderColor = "rgba(250,204,21,0.5)";
+        }
+
         card.innerHTML = `
           <h3>${svc.nombre}</h3>
-          <div class="service-price">${svc.precioTexto}</div>
+          <div class="service-price">${formatEuro(svc.precio)} · pago a éxito</div>
           <p class="service-desc">${svc.descripcion}</p>
           <div class="service-footer">
             <span class="service-state-pill" style="opacity:${
@@ -1504,256 +1552,83 @@
             </span>
             <button class="service-btn ${
               svc.activo ? "active" : ""
-            }" data-id="${svc.id}">
-              ${svc.activo ? "Desactivar" : "Activar este servicio"}
+            }" disabled>
+              ${svc.activo ? "Activo" : "Configurar en servicios"}
             </button>
           </div>
         `;
         servicesGrid.appendChild(card);
       });
 
-      document.querySelectorAll(".service-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-id");
-          toggleServicioDashboard(id);
-        });
-      });
-
-      renderStatusPills();
-      calcularTotales();
+      calcularTotales(servicios);
     }
 
-    function toggleServicioDashboard(id) {
-      serviciosDashboard = serviciosDashboard.map((svc) =>
-        svc.id === id ? { ...svc, activo: !svc.activo } : svc
-      );
-      saveServiciosDashboard(serviciosDashboard);
-
-      const svc = serviciosDashboard.find((s) => s.id === id);
-      addAccionHistorico(
-        svc.activo
-          ? `Servicio activado: ${svc.nombre}.`
-          : `Servicio desactivado: ${svc.nombre}.`
-      );
-
-      renderServiciosDashboard();
-    }
-
-    /* ------------------------- CALCULADORA PRECIOS ---------------------- */
-
-    function calcularTotales() {
+    /* ==================== CALCULADORA COSTES ======================= */
+    function calcularTotales(servicios) {
       const precioPropiedad =
         parseFloat(document.getElementById("precioPropiedad").value) || 0;
 
-      const activos = serviciosDashboard.filter((s) => s.activo);
+      const activos = servicios.filter((s) => s.activo);
       let totalServicios = 0;
       activos.forEach((svc) => {
-        totalServicios += svc.precioNumero || 0;
+        totalServicios += svc.precio || 0;
       });
 
       const ivaServicios = totalServicios * 0.21;
       const comision = precioPropiedad * 0.03;
       const ivaComision = comision * 0.21;
-      const totalGeneral =
-        totalServicios + ivaServicios + comision + ivaComision;
+      const totalGeneral = totalServicios + ivaServicios + comision + ivaComision;
       const netoParaTi =
         precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
 
       document.getElementById("totalServiciosSinIVA").textContent =
         formatEuro(totalServicios);
-      document.getElementById("ivaServicios").textContent =
-        formatEuro(ivaServicios);
+      document.getElementById("ivaServicios").textContent = formatEuro(
+        ivaServicios
+      );
       document.getElementById("comision").textContent = formatEuro(comision);
       document.getElementById("ivaComision").textContent =
         formatEuro(ivaComision);
       document.getElementById("totalGeneral").textContent =
         formatEuro(totalGeneral);
-      document.getElementById("netoParaTi").textContent = formatEuro(netoParaTi);
+      document.getElementById("netoParaTi").textContent =
+        formatEuro(netoParaTi);
     }
 
     document
       .getElementById("precioPropiedad")
-      .addEventListener("input", calcularTotales);
-
-    /* ----------------------------- ACCIONES / HISTÓRICO ----------------- */
-
-    const STORAGE_HISTORICO = "panamoveHistorico";
-    const accionesBody = document.getElementById("accionesBody");
-
-    function loadHistorico() {
-      try {
-        const raw = localStorage.getItem(STORAGE_HISTORICO);
-        if (!raw) return [];
-        const arr = JSON.parse(raw);
-        return Array.isArray(arr) ? arr : [];
-      } catch (e) {
-        console.warn("No se pudo leer histórico", e);
-        return [];
-      }
-    }
-
-    function saveHistorico(list) {
-      try {
-        localStorage.setItem(STORAGE_HISTORICO, JSON.stringify(list));
-      } catch (e) {
-        console.warn("No se pudo guardar histórico", e);
-      }
-    }
-
-    let acciones = loadHistorico();
-
-    function renderHistorico() {
-      accionesBody.innerHTML = "";
-      if (!acciones.length) {
-        const p = document.createElement("p");
-        p.className = "acciones-empty";
-        p.textContent =
-          "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña.";
-        accionesBody.appendChild(p);
-        return;
-      }
-      acciones
-        .slice()
-        .reverse()
-        .forEach((item) => {
-          const div = document.createElement("div");
-          div.className = "acciones-item";
-          div.innerHTML = `
-            <span class="acciones-time">[${item.hora} · ${item.fecha}]</span>
-            <span class="acciones-text">${item.texto}</span>
-          `;
-          accionesBody.appendChild(div);
-        });
-    }
-
-    function addAccionHistorico(texto) {
-      const stamp = nowStamp();
-      acciones.push({
-        hora: stamp.hora,
-        fecha: stamp.fecha,
-        texto,
-      });
-      if (acciones.length > 200) {
-        acciones = acciones.slice(-200);
-      }
-      saveHistorico(acciones);
-      renderHistorico();
-    }
-
-    document.getElementById("btnNotificaciones").addEventListener("click", () => {
-      addAccionHistorico("Has abierto el panel de notificaciones del dashboard.");
-    });
-
-    /* ----------------------------- AGENCIAS ------------------------------ */
-
-    const STORAGE_AGENCIAS = "panamoveAgencias";
-
-    const agenciasBase = [
-      {
-        id: "bernabeu",
-        nombre: "Bernabeu Realty",
-        telefono: "654 34 32 32",
-        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
-        iniciales: "BR",
-      },
-      {
-        id: "rothchild",
-        nombre: "RT Rothchild Inmo",
-        telefono: "654 34 32 32",
-        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
-        iniciales: "RT",
-      },
-    ];
-
-    function loadAgencias() {
-      try {
-        const raw = localStorage.getItem(STORAGE_AGENCIAS);
-        if (!raw) return agenciasBase.map((a) => ({ ...a, autorizado: false }));
-        const arr = JSON.parse(raw);
-        const map = new Map(arr.map((a) => [a.id, a]));
-        return agenciasBase.map((a) => {
-          const saved = map.get(a.id);
-          return { ...a, autorizado: saved ? !!saved.autorizado : false };
-        });
-      } catch (e) {
-        console.warn("No se pudo leer agencias", e);
-        return agenciasBase.map((a) => ({ ...a, autorizado: false }));
-      }
-    }
-
-    function saveAgencias(list) {
-      try {
-        const minimal = list.map((a) => ({
-          id: a.id,
-          autorizado: !!a.autorizado,
-        }));
-        localStorage.setItem(STORAGE_AGENCIAS, JSON.stringify(minimal));
-      } catch (e) {
-        console.warn("No se pudo guardar agencias", e);
-      }
-    }
-
-    let agencias = loadAgencias();
-    const agenciesList = document.getElementById("agenciesList");
-    const contadorAgencias = document.getElementById("contadorAgencias");
-
-    function renderAgencias() {
-      agenciesList.innerHTML = "";
-      agencias.forEach((ag) => {
-        const card = document.createElement("div");
-        card.className = "agency-card";
-        card.innerHTML = `
-          <div class="agency-main-row">
-            <div class="agency-left">
-              <div class="agency-avatar">${ag.iniciales}</div>
-              <div>
-                <div class="agency-name">${ag.nombre}</div>
-                <div class="agency-phone">
-                  <strong>Teléfono:</strong> ${ag.telefono}
-                </div>
-              </div>
-            </div>
-            <button class="agency-btn ${
-              ag.autorizado ? "agency-btn-confirmed" : ""
-            }" data-id="${ag.id}">
-              ${ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"}
-            </button>
-          </div>
-          <div class="agency-desc">${ag.desc}</div>
-        `;
-        agenciesList.appendChild(card);
-      });
-
-      const total = agencias.length;
-      const autorizadas = agencias.filter((a) => a.autorizado).length;
-      contadorAgencias.textContent = `${total} agencias · ${autorizadas} autorizadas`;
-
-      agenciesList.querySelectorAll(".agency-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-id");
-          autorizarAgencia(id);
-        });
-      });
-    }
-
-    function autorizarAgencia(id) {
-      agencias = agencias.map((ag) =>
-        ag.id === id ? { ...ag, autorizado: !ag.autorizado } : ag
+      .addEventListener("input", () =>
+        calcularTotales(loadServiciosDashboard())
       );
-      saveAgencias(agencias);
-      const ag = agencias.find((a) => a.id === id);
-      addAccionHistorico(
-        ag.autorizado
-          ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
-          : `Has retirado la autorización a ${ag.nombre}.`
-      );
-      renderAgencias();
+
+    /* ==================== UPLOADS CON PERSISTENCIA ================= */
+    let fotoItems = [];
+    let docItems = [];
+
+    function loadUploads() {
+      try {
+        const f = localStorage.getItem(FOTOS_KEY);
+        if (f) fotoItems = JSON.parse(f);
+      } catch (e) {
+        console.warn("No se pudieron leer fotos", e);
+      }
+      try {
+        const d = localStorage.getItem(DOCS_KEY);
+        if (d) docItems = JSON.parse(d);
+      } catch (e) {
+        console.warn("No se pudieron leer docs", e);
+      }
     }
 
-    /* ----------------------------- UPLOAD / MODAL ------------------------ */
-
-    const fotoFiles = [];
-    const docFiles = [];
+    function saveUploads() {
+      try {
+        localStorage.setItem(FOTOS_KEY, JSON.stringify(fotoItems));
+        localStorage.setItem(DOCS_KEY, JSON.stringify(docItems));
+      } catch (e) {
+        console.warn("No se pudieron guardar uploads", e);
+      }
+      updateUploadCounters();
+    }
 
     const dropFotos = document.getElementById("drop-fotos");
     const dropDocs = document.getElementById("drop-docs");
@@ -1767,11 +1642,6 @@
     const badgeDocs = document.getElementById("badge-docs");
     const progressFotos = document.getElementById("progress-fotos");
     const progressDocs = document.getElementById("progress-docs");
-
-    const modalBackdrop = document.getElementById("modalBackdrop");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalBody = document.getElementById("modalBody");
-    const modalClose = document.getElementById("modalClose");
 
     function preventDefaults(e) {
       e.preventDefault();
@@ -1795,11 +1665,11 @@
     }
 
     function updateUploadCounters() {
-      badgeFotos.textContent = fotoFiles.length ? fotoFiles.length : "";
-      badgeDocs.textContent = docFiles.length ? docFiles.length : "";
+      badgeFotos.textContent = fotoItems.length ? fotoItems.length : "";
+      badgeDocs.textContent = docItems.length ? docItems.length : "";
     }
 
-    function simulateUploadProgress(type, count) {
+    function simulateUploadProgress(type, filesCount) {
       const span = type === "fotos" ? progressFotos : progressDocs;
       if (!span) return;
       let pct = 0;
@@ -1818,37 +1688,40 @@
     }
 
     function handleFotos(files) {
-      const valid = [];
-      files.forEach((f) => {
-        if (f && f.type && f.type.startsWith("image/")) {
-          fotoFiles.push(f);
-          valid.push(f);
-        }
+      if (!files.length) return;
+      simulateUploadProgress("fotos", files.length);
+      files.forEach((file) => {
+        if (!file.type || !file.type.startsWith("image/")) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          fotoItems.push({
+            name: file.name,
+            type: file.type,
+            dataUrl: e.target.result,
+            addedAt: new Date().toISOString(),
+          });
+          saveUploads();
+        };
+        reader.readAsDataURL(file);
       });
-      if (valid.length) {
-        simulateUploadProgress("fotos", valid.length);
-        updateUploadCounters();
-        addAccionHistorico(
-          `Se han añadido ${valid.length} foto(s) a la galería de la vivienda.`
-        );
-      }
     }
 
     function handleDocs(files) {
-      const valid = [];
-      files.forEach((f) => {
-        if (f) {
-          docFiles.push(f);
-          valid.push(f);
-        }
+      if (!files.length) return;
+      simulateUploadProgress("docs", files.length);
+      files.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          docItems.push({
+            name: file.name,
+            type: file.type,
+            dataUrl: e.target.result,
+            addedAt: new Date().toISOString(),
+          });
+          saveUploads();
+        };
+        reader.readAsDataURL(file);
       });
-      if (valid.length) {
-        simulateUploadProgress("docs", valid.length);
-        updateUploadCounters();
-        addAccionHistorico(
-          `Se han añadido ${valid.length} documento(s) a la documentación de la campaña.`
-        );
-      }
     }
 
     if (btnFotosSelect && inputFotos) {
@@ -1856,8 +1729,6 @@
       inputFotos.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleFotos(files);
-        // importante para poder volver a seleccionar las mismas fotos
-        inputFotos.value = "";
       });
     }
 
@@ -1866,18 +1737,23 @@
       inputDocs.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleDocs(files);
-        inputDocs.value = "";
       });
     }
 
     if (dropFotos) addDropEvents(dropFotos, handleFotos);
     if (dropDocs) addDropEvents(dropDocs, handleDocs);
 
+    /* ==================== MODAL UPLOADS ================================== */
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
+    const modalClose = document.getElementById("modalClose");
+
     function openModal(type) {
       modalBackdrop.style.display = "flex";
       modalBody.innerHTML = "";
 
-      const list = type === "fotos" ? fotoFiles : docFiles;
+      const list = type === "fotos" ? fotoItems : docItems;
       if (!list.length) {
         const p = document.createElement("p");
         p.className = "modal-empty";
@@ -1889,37 +1765,46 @@
       modalTitle.textContent =
         type === "fotos" ? "Fotos subidas" : "Documentación subida";
 
-      list.forEach((file, idx) => {
-        const item = document.createElement("div");
-        item.className = "modal-item";
+      list.forEach((item, idx) => {
+        const card = document.createElement("div");
+        card.className = "modal-item";
 
-        if (type === "fotos") {
+        if (type === "fotos" && item.dataUrl) {
           const img = document.createElement("img");
-          const url = URL.createObjectURL(file);
-          img.src = url;
-          img.alt = file.name || "Foto subida";
-          img.addEventListener("click", () => {
-            window.open(url, "_blank");
-          });
-          item.appendChild(img);
+          img.src = item.dataUrl;
+          img.alt = item.name || "Foto subida";
+          card.appendChild(img);
         }
 
         const name = document.createElement("div");
         name.className = "modal-item-name";
-        name.textContent = file.name || `Archivo ${idx + 1}`;
-        item.appendChild(name);
+        name.textContent = item.name || `Archivo ${idx + 1}`;
+        card.appendChild(name);
 
-        const del = document.createElement("button");
-        del.className = "modal-delete";
-        del.textContent = "Eliminar";
-        del.addEventListener("click", () => {
+        const actions = document.createElement("div");
+        actions.className = "modal-actions-row";
+
+        const openBtn = document.createElement("button");
+        openBtn.className = "modal-open";
+        openBtn.textContent = "Abrir";
+        openBtn.addEventListener("click", () => {
+          if (item.dataUrl) window.open(item.dataUrl, "_blank");
+        });
+
+        const delBtn = document.createElement("button");
+        delBtn.className = "modal-delete";
+        delBtn.textContent = "Eliminar";
+        delBtn.addEventListener("click", () => {
           list.splice(idx, 1);
-          updateUploadCounters();
+          saveUploads();
           openModal(type);
         });
-        item.appendChild(del);
 
-        modalBody.appendChild(item);
+        actions.appendChild(openBtn);
+        actions.appendChild(delBtn);
+        card.appendChild(actions);
+
+        modalBody.appendChild(card);
       });
     }
 
@@ -1936,24 +1821,131 @@
       });
     }
 
-    /* ----------------------------- BOTÓN VER SERVICIOS ------------------ */
+    /* ==================== AGENCIAS ======================================= */
+    const agencies = [
+      {
+        id: "bernabeu",
+        nombre: "Bernabeu Realty",
+        telefono: "654 34 32 32",
+        descripcion:
+          "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "BR",
+        autorizada: false,
+      },
+      {
+        id: "rothchild",
+        nombre: "RT Rothchild Inmo",
+        telefono: "654 34 32 32",
+        descripcion:
+          "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "RT",
+        autorizada: false,
+      },
+    ];
 
-    document.getElementById("btnVerServicios").addEventListener("click", () => {
-      window.location.href = "servicios.html";
-    });
-
-    /* ----------------------------- INICIALIZACIÓN ----------------------- */
-
-    renderServiciosDashboard();
-    renderHistorico();
-    renderAgencias();
-    calcularTotales();
-
-    if (!acciones.length) {
-      addAccionHistorico(
-        "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña."
-      );
+    function loadAgenciesState() {
+      try {
+        const raw = localStorage.getItem("panamoveAgencies");
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        agencies.forEach((ag) => {
+          const found = saved.find((s) => s.id === ag.id);
+          if (found) ag.autorizada = !!found.autorizada;
+        });
+      } catch (e) {
+        console.warn("No se pudieron leer agencias", e);
+      }
     }
+
+    function saveAgenciesState() {
+      try {
+        const minimal = agencies.map((a) => ({
+          id: a.id,
+          autorizada: a.autorizada,
+        }));
+        localStorage.setItem("panamoveAgencies", JSON.stringify(minimal));
+      } catch (e) {
+        console.warn("No se pudieron guardar agencias", e);
+      }
+    }
+
+    function renderAgencies() {
+      const container = document.getElementById("agencyList");
+      container.innerHTML = "";
+
+      agencies.forEach((ag) => {
+        const card = document.createElement("div");
+        card.className = "agency-card";
+
+        card.innerHTML = `
+          <div class="agency-main">
+            <div class="agency-info">
+              <div class="agency-avatar">${ag.iniciales}</div>
+              <div>
+                <div class="agency-name">${ag.nombre}</div>
+                <div class="agency-phone">
+                  <strong>Teléfono:</strong> ${ag.telefono}
+                </div>
+              </div>
+            </div>
+            <button class="agency-btn ${
+              ag.autorizada ? "agency-btn-confirmed" : ""
+            }" data-id="${ag.id}">
+              ${ag.autorizada ? "✔ Datos enviados" : "✓ Autorizar"}
+            </button>
+          </div>
+          <div class="agency-desc">
+            ${ag.descripcion}
+          </div>
+        `;
+
+        const btn = card.querySelector(".agency-btn");
+        btn.addEventListener("click", () => {
+          ag.autorizada = !ag.autorizada;
+          saveAgenciesState();
+          // Notificación de agencia
+          const log = loadLog();
+          log.unshift({
+            ts: new Date().toISOString(),
+            message: `${
+              ag.autorizada ? "Has autorizado" : "Has desautorizado"
+            } a ${ag.nombre} para gestionar la campaña.`,
+          });
+          if (log.length > 200) log.length = 200;
+          saveLog(log);
+          renderLog();
+          renderAgencies();
+        });
+
+        container.appendChild(card);
+      });
+    }
+
+    /* ==================== BOTÓN NOTIFICACIONES ============================ */
+    const btnNotificaciones = document.getElementById("btnNotificaciones");
+    const accionesScroll = document.getElementById("accionesScroll");
+    if (btnNotificaciones && accionesScroll) {
+      btnNotificaciones.addEventListener("click", () => {
+        accionesScroll.scrollTop = 0;
+        accionesScroll.classList.add("acciones-highlight");
+        setTimeout(
+          () => accionesScroll.classList.remove("acciones-highlight"),
+          600
+        );
+      });
+    }
+
+    /* ==================== INIT ============================================ */
+    function init() {
+      loadUploads();
+      loadAgenciesState();
+      renderLog();
+      renderServiciosDashboard();
+      updateUploadCounters();
+      renderAgencies();
+    }
+
+    init();
   </script>
 </body>
 </html>
