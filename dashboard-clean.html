@@ -2,727 +2,1169 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Panamove – Dashboard limpio</title>
+  <title>Panamove 7.0 – Dashboard propietario</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <style>
-    :root {
-      --bg-main: #020617;
-      --bg-card: #020617;
-      --bg-card-soft: #020617;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --border-subtle: #111827;
-      --danger: #fb7185;
-      --success: #22c55e;
-      --sidebar-bg: #020617;
-      --sidebar-border: #020617;
-      --sidebar-active: rgba(56, 189, 248, 0.12);
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.75);
-    }
-
-    * {
+    /* ==========================
+       RESET BÁSICO
+       ========================== */
+    *, *::before, *::after {
       box-sizing: border-box;
+    }
+    html, body {
       margin: 0;
       padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
     }
-
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
-      color: var(--text-main);
-      min-height: 100vh;
+      display: flex;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      min-height: 100vh;
-    }
-
-    /* SIDEBAR */
-
+    /* ==========================
+       SIDEBAR
+       ========================== */
     .sidebar {
-      border-right: 1px solid var(--sidebar-border);
-      background: radial-gradient(circle at top left, #020617 0, #020617 55%);
-      padding: 24px 20px;
+      width: 230px;
+      background: radial-gradient(circle at 0 0, #22d3ee44, #020617 55%);
+      border-right: 1px solid #0f172a;
+      padding: 1.4rem 1.2rem;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 1.2rem;
     }
-
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 0.85rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #0f172a;
+      margin-bottom: 0.4rem;
     }
-
     .brand-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 12px;
-      background: conic-gradient(
-        from 200deg,
-        #38bdf8,
-        #22c55e,
-        #f97316,
-        #38bdf8
-      );
-      box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #22c55e, #0ea5e9, #a855f7, #22c55e);
+      box-shadow: 0 0 18px #22d3ee77;
+    }
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .brand-sub {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      line-height: 1.2;
     }
 
-    .brand-text-main {
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
-
-    .brand-text-sub {
-      font-size: 0.75rem;
-      color: var(--text-soft);
+    .nav-group-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+      margin-top: 0.3rem;
+      margin-bottom: 0.3rem;
     }
 
     .nav {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
+      gap: 0.25rem;
     }
-
     .nav-item {
-      padding: 9px 10px;
-      border-radius: 999px;
-      font-size: 0.84rem;
-      color: var(--text-soft);
+      padding: 0.55rem 0.75rem;
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+      cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
+      gap: 0.5rem;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
     }
-
-    .nav-item span.icon {
-      width: 18px;
-      text-align: center;
-      opacity: 0.8;
-      font-size: 0.85rem;
+    .nav-item::before {
+      content: "●";
+      font-size: 0.45rem;
+      color: #1e293b;
     }
-
-    .nav-item:hover {
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
+    .nav-item.active {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      box-shadow: 0 0 0 1px #1d4ed8, 0 12px 45px #020617;
+      color: #f9fafb;
       transform: translateY(-1px);
     }
-
-    .nav-item.active {
-      background: var(--sidebar-active);
-      color: var(--accent);
+    .nav-item.active::before {
+      color: #22c55e;
     }
-
-    .nav-item.active span.icon {
-      opacity: 1;
+    .nav-item:hover:not(.active) {
+      background: #020617;
+      color: #e5e7eb;
     }
 
     .sidebar-footer {
       margin-top: auto;
-      font-size: 0.74rem;
-      color: var(--text-soft);
-      border-radius: 14px;
-      border: 1px solid rgba(15, 23, 42, 0.9);
-      padding: 10px 12px;
-      background: radial-gradient(
-        circle at top,
-        rgba(56, 189, 248, 0.1),
-        transparent 60%
-      );
+      padding-top: 0.75rem;
+      border-top: 1px solid #0f172a;
+      font-size: 0.72rem;
+      color: #6b7280;
     }
 
-    .sidebar-footer strong {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* MAIN */
-
+    /* ==========================
+       LAYOUT PRINCIPAL
+       ========================== */
     .main {
-      padding: 24px 26px 26px;
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+      flex: 1;
+      padding: 1.6rem 1.8rem 1.8rem;
+      overflow-y: auto;
+      background: radial-gradient(circle at top left, #0f172a 0, #020617 55%);
     }
 
     .main-header {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      gap: 16px;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
     }
-
-    .main-header-title {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
     .main-header h1 {
-      font-size: 1.4rem;
-      letter-spacing: 0.02em;
-    }
-
-    .main-header-sub {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-    }
-
-    .pill {
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      font-size: 0.7rem;
-      display: inline-flex;
+      font-size: 1.45rem;
+      margin: 0;
+      display: flex;
       align-items: center;
-      gap: 6px;
-      color: var(--text-soft);
+      gap: 0.6rem;
     }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
-    }
-
-    .btn-ghost {
-      padding: 7px 11px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text-main);
-      font-size: 0.78rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-    }
-
-    .btn-primary {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #38bdf8, #22c55e);
-      border: none;
-      color: #0b1120;
+    .main-header h1 span {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 400;
+      color: #9ca3af;
+    }
+    .badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.55);
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.2rem 0.8rem;
+      font-size: 0.74rem;
+      border: 1px solid #1e3a8a;
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #bfdbfe;
+    }
+    .badge-pill::before {
+      content: "●";
+      font-size: 0.6rem;
+      color: #22c55e;
     }
 
-    .btn-primary span.chevron {
-      font-size: 0.9rem;
-    }
-
-    /* TOP KPIs */
-
-    .kpi-grid {
+    /* GRID GENERAL DEL DASHBOARD */
+    .dashboard-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1.1fr 1.1fr;
-      gap: 14px;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 1.2rem;
+      align-items: flex-start;
     }
 
     .card {
-      background: radial-gradient(circle at top left, #020617 0, #020617 60%);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 18px 15px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border-radius: 1rem;
+      border: 1px solid #0f172a;
+      box-shadow: 0 24px 80px #020617;
+      padding: 1rem 1.12rem;
     }
-
     .card-header {
       display: flex;
+      align-items: baseline;
       justify-content: space-between;
-      align-items: center;
-      gap: 8px;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
     }
-
     .card-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-soft);
-    }
-
-    .card-pill {
-      font-size: 0.7rem;
-      color: var(--accent);
-      background: rgba(56, 189, 248, 0.08);
-      border-radius: 999px;
-      padding: 3px 7px;
-    }
-
-    .card-big-number {
-      font-size: 1.35rem;
+      font-size: 0.92rem;
       font-weight: 600;
+      color: #e5e7eb;
     }
-
-    .card-sub {
+    .card-subtitle {
       font-size: 0.75rem;
-      color: var(--text-soft);
+      color: #6b7280;
     }
 
-    .card-tagline {
-      font-size: 0.72rem;
-      color: var(--text-soft);
-      margin-top: -2px;
-    }
-
-    /* GRID INFERIOR */
-
-    .bottom-grid {
+    /* ==========================
+       CAJA RESUMEN CAMPAÑA
+       ========================== */
+    .summary-row {
       display: grid;
-      grid-template-columns: 2fr 1.1fr;
-      gap: 14px;
-      align-items: stretch;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 1rem;
     }
-
-    .property-card {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .summary-card {
+      border-radius: 0.9rem;
+      border: 1px solid #0f172a;
+      padding: 0.75rem 0.9rem;
+      background: radial-gradient(circle at top left, #020617, #020617);
     }
-
-    .property-title-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+    .summary-label {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 0.25rem;
     }
-
-    .property-title {
-      font-size: 0.9rem;
+    .summary-value {
+      font-size: 1rem;
       font-weight: 600;
+      color: #f9fafb;
     }
-
-    .property-sub {
-      font-size: 0.76rem;
-      color: var(--text-soft);
-    }
-
-    .property-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 0.76rem;
-      color: var(--text-soft);
-    }
-
-    .meta-pill {
-      padding: 4px 9px;
+    .summary-pill {
+      font-size: 0.7rem;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.9);
+      padding: 0.15rem 0.6rem;
+      border: 1px solid #1e3a8a;
+      color: #93c5fd;
+      background: #020617;
     }
 
-    .meta-pill strong {
-      color: var(--accent);
-    }
-
-    .property-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .property-footer-text {
-      font-size: 0.74rem;
-      color: var(--text-soft);
-    }
-
-    /* Acciones recientes */
-
-    .actions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 4px;
+    /* ==========================
+       CAJA DE COSTES
+       ========================== */
+    .price-block {
+      margin-top: 0.35rem;
+      border-radius: 0.85rem;
+      border: 1px solid #0f172a;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      padding: 0.8rem 0.9rem;
       font-size: 0.78rem;
     }
-
-    .actions-list-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-soft);
-    }
-
-    .actions-list-item span.icon {
-      font-size: 0.9rem;
-      width: 16px;
-      text-align: center;
-    }
-
-    .actions-list-item strong {
-      color: var(--text-main);
-      font-weight: 500;
-    }
-
-    /* Fila extra: Precio + Subidas */
-
-    .middle-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1.1fr;
-      gap: 14px;
-    }
-
     .price-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-end;
-      gap: 12px;
-      margin-top: 8px;
+      align-items: center;
+      margin-bottom: 0.25rem;
+      gap: 0.5rem;
     }
-
-    .price-neto {
-      font-size: 1rem;
+    .price-row span {
+      white-space: nowrap;
+    }
+    .price-row strong {
       font-weight: 600;
-      color: var(--accent);
+      color: #f9fafb;
+    }
+    .price-label {
+      color: #9ca3af;
+    }
+    .price-input {
+      width: 120px;
+      background: #020617;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      color: #e5e7eb;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.76rem;
+      text-align: right;
+    }
+    .price-input:focus {
+      outline: none;
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px #22c55e33;
+    }
+    .price-row.total {
+      margin-top: 0.35rem;
+      padding-top: 0.3rem;
+      border-top: 1px dashed #1f2937;
+    }
+    .price-row.total strong {
+      color: #4ade80;
+      font-size: 0.9rem;
+    }
+    .tag-small {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.1rem 0.45rem;
+      border: 1px solid #0f172a;
+      background: #020617;
+      color: #9ca3af;
     }
 
-    .price-caption {
-      font-size: 0.73rem;
-      color: var(--text-soft);
+    /* ==========================
+       FOTOS / DOCUMENTACIÓN
+       ========================== */
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      margin-top: 0.4rem;
     }
-
-    .upload-row {
+    .upload-card {
+      border-radius: 0.9rem;
+      border: 1px dashed #1f2937;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      padding: 0.75rem 0.8rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      margin-top: 8px;
+      gap: 0.25rem;
     }
-
-    .upload-summary {
-      font-size: 0.75rem;
-      color: var(--text-soft);
+    .upload-card h3 {
+      margin: 0;
+      font-size: 0.86rem;
+      font-weight: 600;
     }
-
-    .upload-pill-row {
+    .upload-hint {
+      font-size: 0.74rem;
+      color: #6b7280;
+    }
+    .upload-drop {
+      margin-top: 0.3rem;
+      border-radius: 0.9rem;
+      border: 1px dashed #1f2937;
+      padding: 0.65rem 0.75rem;
+      text-align: center;
+      font-size: 0.76rem;
+      color: #9ca3af;
+      background: radial-gradient(circle at top left, #020617, #020617);
       display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 0.45rem;
+      justify-content: center;
+      align-items: center;
+      transition: border-color 0.15s, background 0.15s;
     }
-
-    .upload-pill {
-      padding: 6px 9px;
+    .upload-drop.drag-over {
+      border-color: #22c55e;
+      background: #020617;
+      box-shadow: 0 0 0 1px #22c55e33;
+    }
+    .upload-btn {
       border-radius: 999px;
-      border: 1px dashed rgba(148, 163, 184, 0.5);
+      border: 1px solid #1e40af;
+      background: linear-gradient(135deg, #1d4ed8, #0f172a);
+      color: #e5e7eb;
+      font-size: 0.75rem;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+    .upload-btn:hover {
+      filter: brightness(1.05);
+    }
+    .upload-actions {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .upload-view-btn {
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.74rem;
+      padding: 0.32rem 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .upload-view-btn:hover {
+      border-color: #22c55e;
+    }
+    .upload-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.2rem;
+      min-width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 999px;
+      border: 1px solid #38bdf8;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      background: #0f172a;
+    }
+    .upload-progress {
       font-size: 0.72rem;
-      color: var(--text-soft);
+      color: #38bdf8;
     }
 
-    .upload-pill strong {
-      color: var(--accent);
+    /* ==========================
+       SERVICIOS DISPONIBLES
+       ========================== */
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .chip-filter {
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      font-size: 0.72rem;
+      color: #9ca3af;
+      padding: 0.18rem 0.7rem;
+      cursor: default;
+    }
+    .chip-filter.active {
+      border-color: #22c55e;
+      color: #bbf7d0;
+      background: radial-gradient(circle at top left, #14532d, #020617);
     }
 
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 64px minmax(0, 1fr);
-      }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+    }
+    .service-card {
+      border-radius: 0.9rem;
+      border: 1px solid #0f172a;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      padding: 0.8rem 0.9rem 0.9rem;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .service-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+    .service-card-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+    .service-price {
+      font-size: 0.8rem;
+      color: #bfdbfe;
+    }
+    .service-desc {
+      color: #9ca3af;
+      font-size: 0.76rem;
+    }
+    .service-btn,
+    .service-btn-gold,
+    .service-btn-done {
+      margin-top: 0.4rem;
+      padding: 0.32rem 0.75rem;
+      font-size: 0.75rem;
+      border-radius: 0.55rem;
+      line-height: 1.1;
+      min-height: 0;
+      cursor: pointer;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #e5e7eb;
+    }
+    .service-btn-gold {
+      border-color: #a16207;
+      background: linear-gradient(135deg, #fbbf24, #92400e);
+      color: #111827;
+      font-weight: 600;
+    }
+    .service-btn-done {
+      border-color: #22c55e;
+      color: #bbf7d0;
+      background: rgba(34, 197, 94, 0.08);
+    }
+    .service-card.active {
+      box-shadow: 0 0 0 1px #22c55e44;
+      border-color: #22c55e;
+    }
 
-      .brand-text-main,
-      .brand-text-sub,
-      .sidebar-footer {
-        display: none;
-      }
+    /* ==========================
+       MODAL SUBIDAS
+       ========================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.88);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+    .modal {
+      width: min(780px, 92vw);
+      max-height: 80vh;
+      border-radius: 1rem;
+      background: #020617;
+      border: 1px solid #1f2937;
+      box-shadow: 0 24px 80px #000;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-header {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid #111827;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+    }
+    .modal-body {
+      padding: 0.8rem 1rem 1rem;
+      overflow-y: auto;
+    }
+    .modal-empty {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.7rem;
+    }
+    .modal-item {
+      border-radius: 0.75rem;
+      border: 1px solid #1f2937;
+      padding: 0.45rem 0.5rem 0.55rem;
+      font-size: 0.74rem;
+      background: #020617;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .modal-item img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 0.6rem;
+    }
+    .modal-item-name {
+      color: #e5e7eb;
+      word-break: break-all;
+    }
+    .modal-delete {
+      margin-top: 0.2rem;
+      align-self: flex-start;
+      border-radius: 999px;
+      border: 1px solid #7f1d1d;
+      background: #111827;
+      color: #fecaca;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+    }
 
+    /* ==========================
+       RESPONSIVE
+       ========================== */
+    @media (max-width: 1024px) {
       .sidebar {
-        padding-inline: 10px;
-        align-items: center;
-      }
-
-      .nav-item span.label {
         display: none;
       }
-    }
-
-    @media (max-width: 780px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        display: none;
+      body {
+        display: block;
       }
       .main {
-        padding-inline: 16px;
+        padding: 1rem;
       }
-      .kpi-grid,
-      .middle-grid,
-      .bottom-grid {
-        grid-template-columns: 1fr;
+      .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="layout">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-logo"></div>
-        <div>
-          <div class="brand-text-main">Panamove 7.0</div>
-          <div class="brand-text-sub">Propietarios, agencias y difusores</div>
-        </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo"></div>
+      <div>
+        <div class="brand-title">Panamove 7.0</div>
+        <div class="brand-sub">Propietarios, agencias y difusores</div>
       </div>
+    </div>
 
-      <nav class="nav">
-        <div class="nav-item active">
-          <span class="icon">🏠</span>
-          <span class="label">Dashboard</span>
-        </div>
-        <div class="nav-item">
-          <span class="icon">🏢</span>
-          <span class="label">Propiedades</span>
-        </div>
-        <div class="nav-item">
-          <span class="icon">👥</span>
-          <span class="label">Clientes</span>
-        </div>
-        <div class="nav-item">
-          <span class="icon">📡</span>
-          <span class="label">Difusores</span>
-        </div>
-        <div class="nav-item">
-          <span class="icon">🧾</span>
-          <span class="label">Auditoría</span>
-        </div>
-        <div class="nav-item">
-          <span class="icon">⚙️</span>
-          <span class="label">Configuración</span>
-        </div>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div><strong>Modo panel rápido</strong></div>
-        <div>Este dashboard resume la campaña del Ático Blue Sunset y te lleva al panel avanzado cuando lo necesites.</div>
+    <div>
+      <div class="nav-group-title">Panel</div>
+      <div class="nav">
+        <div class="nav-item active">Dashboard</div>
+        <div class="nav-item">Propiedades</div>
+        <div class="nav-item">Clientes</div>
+        <div class="nav-item">Difusores</div>
+        <div class="nav-item">Auditoría</div>
+        <div class="nav-item">Configuración</div>
       </div>
-    </aside>
+    </div>
 
-    <!-- MAIN -->
-    <main class="main">
-      <header class="main-header">
-        <div class="main-header-title">
-          <h1>Dashboard</h1>
-          <div class="main-header-sub">
-            Resumen rápido de tu campaña actual dentro del sistema 7.0.
-            <span class="pill">
-              <span class="pill-dot"></span> Campaña activa – Ático Blue Sunset
-            </span>
+    <div class="sidebar-footer">
+      Sistema 7.0 en modo demo para el ático Blue Sunset. Todo se calcula en tiempo real en tu navegador.
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="main-header">
+      <h1>
+        Dashboard
+        <span>Resumen rápido de tu campaña real dentro del sistema 7.0</span>
+      </h1>
+      <div class="badge-pill">Campaña activa – Ático Blue Sunset</div>
+    </header>
+
+    <div class="summary-row">
+      <div class="summary-card">
+        <div class="summary-label">Propiedades activas</div>
+        <div class="summary-value">1</div>
+        <div class="summary-label">Ático Blue Sunset – La Duquesa, Manilva.</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Objetivo 7.0</div>
+        <div class="summary-value">Cerrar la venta con plusvalía educativa</div>
+        <div class="summary-label">Seguimiento en tiempo real desde este panel.</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Sistema 7.0</div>
+        <div class="summary-value">
+          <span class="summary-pill">+ Info campaña completa</span>
+        </div>
+        <div class="summary-label">Cuando registremos más propiedades, irán apareciendo aquí.</div>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- COLUMNA IZQUIERDA -->
+      <section>
+        <!-- PROPIEDAD EN CAMPAÑA -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Propiedad en campaña</div>
+              <div class="card-subtitle">
+                Ático Blue Sunset – La Duquesa · Manilva. Esta es la pieza clave del método 7.0.
+              </div>
+            </div>
+          </div>
+
+          <div class="chips-row" style="margin-top:0.2rem; margin-bottom:0.4rem;">
+            <span class="chip-filter active">2 dorm · 2 baños</span>
+            <span class="chip-filter">134 m² construidos aprox.</span>
+            <span class="chip-filter">4 balcones panorámicos Velux</span>
+            <span class="chip-filter">Vistas a Málaga, Cádiz, África y Gibraltar</span>
           </div>
         </div>
 
-        <div style="display:flex; gap:8px; align-items:center;">
-          <a class="btn-ghost" href="dashboard.html">
-            Ver panel detallado
-          </a>
-          <button class="btn-primary" onclick="location.href='dashboard.html'">
-            Abrir campaña 7.0 <span class="chevron">↗</span>
-          </button>
+        <!-- CAJA DE PRECIO + COSTES -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Precio de la propiedad y costes 7.0</div>
+              <div class="card-subtitle">El propietario controla en todo momento qué paga, qué se activa y cuánto le queda neto.</div>
+            </div>
+            <span class="tag-small">Simulación rápida</span>
+          </div>
+
+          <div class="price-block">
+            <div class="price-row">
+              <span class="price-label">Precio orientativo del ático</span>
+              <span>
+                <input id="input-precio" class="price-input" type="number" min="0" step="1000" value="545000" />
+                <span style="font-size:0.76rem; margin-left:0.2rem;">€</span>
+              </span>
+            </div>
+
+            <div class="price-row">
+              <span class="price-label">Total servicios activados (sin IVA)</span>
+              <span><strong id="total-servicios">0 €</strong></span>
+            </div>
+
+            <div class="price-row">
+              <span class="price-label">IVA 21 % sobre servicios</span>
+              <span><strong id="iva-servicios">0 €</strong></span>
+            </div>
+
+            <div class="price-row">
+              <span class="price-label">Comisión 3 % gestión 7.0</span>
+              <span><strong id="comision-gestion">0 €</strong></span>
+            </div>
+
+            <div class="price-row">
+              <span class="price-label">IVA 21 % sobre comisión</span>
+              <span><strong id="iva-comision">0 €</strong></span>
+            </div>
+
+            <div class="price-row total">
+              <span class="price-label">Neto para ti (antes de plusvalía municipal, IRPF u otros impuestos)</span>
+              <span><strong id="neto-propietario">0 €</strong></span>
+            </div>
+          </div>
+
+          <div style="margin-top:0.45rem; font-size:0.74rem; color:#6b7280;">
+            El cálculo se hace automáticamente con cada servicio que actives abajo. Sólo son simulaciones para visualizar de forma
+            rápida el impacto real de la estrategia 7.0.
+          </div>
         </div>
-      </header>
-
-      <!-- TOP KPI -->
-      <section class="kpi-grid">
-        <article class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Propiedades activas</div>
-            </div>
-            <span class="card-pill">Sistema 7.0</span>
-          </div>
-          <div class="card-big-number">1</div>
-          <div class="card-sub">Ático Blue Sunset – La Duquesa, Manilva.</div>
-          <div class="card-tagline">Cuando añadas más campañas, aparecerán aquí.</div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Ventas del mes (objetivo)</div>
-            </div>
-            <span class="card-pill">Plan estratégico</span>
-          </div>
-          <div class="card-big-number">1 venta</div>
-          <div class="card-sub">Objetivo: cerrar la operación del ático con plusvalía educativa.</div>
-          <div class="card-tagline">Seguimiento en tiempo real desde el panel avanzado.</div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Contactos cualificados</div>
-            </div>
-            <span class="card-pill">Embudo 7.0</span>
-          </div>
-          <div class="card-big-number">0</div>
-          <div class="card-sub">Los leads interesados se irán sumando cuando actives la difusión.</div>
-          <div class="card-tagline">Puedes registrar contactos desde el panel detallado.</div>
-        </article>
       </section>
 
-      <!-- FILA PRECIO + SUBIDAS -->
-      <section class="middle-grid">
-        <article class="card">
+      <!-- COLUMNA DERECHA -->
+      <section>
+        <!-- FOTOS Y DOCUMENTACIÓN -->
+        <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Precio de la propiedad</div>
-            </div>
-            <span class="card-pill">Simulación rápida</span>
-          </div>
-
-          <div class="price-row">
-            <div>
-              <div class="card-sub">Precio orientativo del ático</div>
-              <div class="card-big-number">545.000 €</div>
-            </div>
-            <div>
-              <div class="price-caption">Neto para ti (antes de plusvalía municipal, IRPF u otros)</div>
-              <div class="price-neto">≈ 544.500 €</div>
-            </div>
-          </div>
-
-          <div class="card-tagline">
-            El cálculo detallado de servicios, honorarios e impuestos lo tienes en el tablero avanzado.
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Fotos & documentación</div>
-            </div>
-            <span class="card-pill">Panel avanzado</span>
-          </div>
-
-          <div class="upload-row">
-            <div class="upload-summary">
-              Gestiona todas las fotos HD, planos, escrituras y documentación desde el panel detallado del Ático Blue Sunset.
-            </div>
-
-            <div class="upload-pill-row">
-              <div class="upload-pill">
-                📸 <strong>Fotos</strong> – subir y ordenar
+              <div class="card-title">Fotos y documentación</div>
+              <div class="card-subtitle">
+                Gestiona todas las fotos HD, planos y documentos legales del ático desde un único panel.
               </div>
-              <div class="upload-pill">
-                📑 <strong>Documentos</strong> – arras, escrituras, planos
-              </div>
-              <div class="upload-pill">
-                🧮 <strong>Plan 7.0</strong> – acciones, tareas y tiempos
+            </div>
+          </div>
+
+          <div class="upload-grid">
+            <div class="upload-card">
+              <h3>Subir fotos de la vivienda</h3>
+              <div class="upload-hint">Arrastra las fotos o pulsa el botón. Formatos: JPG, PNG…</div>
+              <div class="upload-drop" id="drop-fotos">
+                <span style="font-size:.78rem;color:#9ca3af;">Arrastra las fotos aquí</span>
+                <button type="button" class="upload-btn" id="btn-fotos-select">
+                  Subir / arrastrar fotos
+                </button>
+                <input type="file" id="input-fotos" accept="image/*" multiple style="display:none;" />
               </div>
             </div>
 
-            <div class="property-footer">
-              <div class="property-footer-text">
-                Pulsa para ir directamente a la zona de subida de archivos.
+            <div class="upload-card">
+              <h3>Subir documentación</h3>
+              <div class="upload-hint">Escrituras, contratos, notas simples, licencias, etc.</div>
+              <div class="upload-drop" id="drop-docs">
+                <span style="font-size:.78rem;color:#9ca3af;">Arrastra la documentación aquí</span>
+                <button type="button" class="upload-btn" id="btn-docs-select">
+                  Subir / arrastrar documentación
+                </button>
+                <input type="file" id="input-docs" multiple style="display:none;" />
               </div>
-              <button class="btn-ghost" onclick="location.href='dashboard.html#upload'">
-                Ir a gestor de archivos
-              </button>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <!-- FILA INFERIOR: PROPIEDAD + ACCIONES -->
-      <section class="bottom-grid">
-        <article class="card property-card">
-          <div class="property-title-row">
-            <div>
-              <div class="property-title">Última propiedad en campaña</div>
-              <div class="property-sub">Ático Blue Sunset – La Duquesa · Manilva</div>
             </div>
           </div>
 
-          <div class="property-meta">
-            <div class="meta-pill">2 dorm · 2 baños</div>
-            <div class="meta-pill">134 m² construidos aprox.</div>
-            <div class="meta-pill">4 balcones panorámicos Velux</div>
-            <div class="meta-pill">Vistas a Málaga · Cádiz · África · Gibraltar</div>
-          </div>
+          <div class="upload-actions">
+            <button type="button" class="upload-view-btn" id="btn-ver-fotos">
+              Ver fotos subidas
+              <span id="badge-fotos" class="upload-counter"></span>
+              <span id="progress-fotos" class="upload-progress"></span>
+            </button>
 
-          <div class="property-footer">
-            <div class="property-footer-text">
-              Este ático es la pieza clave del método 7.0. Desde aquí solo ves el resumen; el resto se controla en el tablero
-              completo.
-            </div>
-            <button class="btn-primary" onclick="location.href='dashboard.html'">
-              Ver campaña completa ↗
+            <button type="button" class="upload-view-btn" id="btn-ver-docs">
+              Ver documentación subida
+              <span id="badge-docs" class="upload-counter"></span>
+              <span id="progress-docs" class="upload-progress"></span>
             </button>
           </div>
-        </article>
+        </div>
 
-        <article class="card">
+        <!-- SERVICIOS DISPONIBLES -->
+        <div class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Acciones recientes</div>
-            </div>
-            <span class="card-pill">Histórico 7.0</span>
-          </div>
-
-          <div class="actions-list">
-            <div class="actions-list-item">
-              <span class="icon">📁</span>
-              <div>
-                <strong>Documento de arras</strong> cargado en el sistema.<br />
-                <span class="card-tagline">Puedes consultarlo desde la carpeta de documentación.</span>
-              </div>
-            </div>
-
-            <div class="actions-list-item">
-              <span class="icon">✅</span>
-              <div>
-                <strong>Servicios activados</strong> para la campaña del ático.<br />
-                <span class="card-tagline">Fotografía, diseño de dossier y panel de difusión.</span>
-              </div>
-            </div>
-
-            <div class="actions-list-item">
-              <span class="icon">👤</span>
-              <div>
-                <strong>Nuevo contacto interesado</strong> (ejemplo).<br />
-                <span class="card-tagline">Cuando registres clientes reales aparecerán aquí.</span>
-              </div>
-            </div>
-
-            <div class="actions-list-item">
-              <span class="icon">📊</span>
-              <div>
-                <strong>Panel 7.0 preparado</strong>.<br />
-                <span class="card-tagline">Todo listo para empezar a documentar cada movimiento.</span>
+              <div class="card-title">Servicios disponibles (tarifas ejemplo)</div>
+              <div class="card-subtitle">
+                El propietario ve qué está activo, qué falta por activar y qué servicios ya se han realizado.
               </div>
             </div>
           </div>
-        </article>
+
+          <div class="chips-row">
+            <span class="chip-filter">Todos</span>
+            <span class="chip-filter active">1–4</span>
+            <span class="chip-filter">5–8</span>
+            <span class="chip-filter">9–12</span>
+            <span class="chip-filter">13–16</span>
+            <span class="chip-filter">17–20</span>
+            <span class="chip-filter">25–28</span>
+          </div>
+
+          <div class="services-grid">
+            <!-- Fotos PRO -->
+            <article class="service-card" data-service-id="fotos">
+              <div class="service-card-header">
+                <div class="service-card-title">Fotos PRO</div>
+                <div class="service-price">450 € · pago a éxito</div>
+              </div>
+              <div class="service-desc">
+                Fotógrafo especializado inmobiliario. Reportaje profesional para destacar frente a otras viviendas.
+              </div>
+              <button class="service-btn-gold" data-service-toggle>
+                Activar este servicio
+              </button>
+            </article>
+
+            <!-- Vídeo + dron -->
+            <article class="service-card" data-service-id="video">
+              <div class="service-card-header">
+                <div class="service-card-title">Vídeo + dron</div>
+                <div class="service-price">450 € · pago a éxito</div>
+              </div>
+              <div class="service-desc">
+                Recorrido interior + vistas aéreas del residencial y del entorno, perfecto para compradores internacionales.
+              </div>
+              <button class="service-btn" data-service-toggle>
+                Activar este servicio
+              </button>
+            </article>
+
+            <!-- Home staging -->
+            <article class="service-card" data-service-id="staging">
+              <div class="service-card-header">
+                <div class="service-card-title">Home staging</div>
+                <div class="service-price">750–1200 €</div>
+              </div>
+              <div class="service-desc">
+                Mejora estética sin reformas pesadas. Preparación del ático para que luzca como en una revista.
+              </div>
+              <button class="service-btn" data-service-toggle>
+                Activar este servicio
+              </button>
+            </article>
+
+            <!-- Blogger internacional -->
+            <article class="service-card" data-service-id="blogger">
+              <div class="service-card-header">
+                <div class="service-card-title">Blogger internacional</div>
+                <div class="service-price">3000 € · pago a éxito</div>
+              </div>
+              <div class="service-desc">
+                Historia real del proyecto en otro país. Difusión cualitativa para atraer compradores de alto valor.
+              </div>
+              <button class="service-btn" data-service-toggle>
+                Activar este servicio
+              </button>
+            </article>
+          </div>
+
+          <div style="margin-top:0.7rem; font-size:0.74rem; color:#6b7280;">
+            Cada servicio que actives se suma al cálculo de arriba. Puedes activar / desactivar para jugar con diferentes escenarios
+            de campaña antes de tomar decisiones.
+          </div>
+        </div>
       </section>
-    </main>
+    </div>
+
+    <!-- LISTA RESUMEN DE SERVICIOS ACTIVOS -->
+    <div class="card" style="margin-top:1.2rem;">
+      <div class="card-header">
+        <div class="card-title">Acciones activadas por el propietario</div>
+        <div class="card-subtitle">Resumen rápido para saber qué está en marcha dentro del sistema 7.0.</div>
+      </div>
+      <ul id="lista-servicios-activos" style="margin:0.1rem 0 0; padding-left:1rem; font-size:0.78rem; color:#9ca3af;">
+        <li>De momento no hay ningún servicio activado.</li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- MODAL PARA FOTOS / DOCUMENTOS -->
+  <div id="upload-modal-backdrop" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Archivos subidos</div>
+        <button type="button" class="modal-close" id="modal-close">Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-body"></div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      /* ==========================================================
+         1) LÓGICA DE SERVICIOS + CAJA DE COSTES
+         ========================================================== */
+      const precioInput = document.getElementById('input-precio');
+      const elTotalServicios = document.getElementById('total-servicios');
+      const elIvaServicios   = document.getElementById('iva-servicios');
+      const elComision       = document.getElementById('comision-gestion');
+      const elIvaComision    = document.getElementById('iva-comision');
+      const elNeto           = document.getElementById('neto-propietario');
+      const listaServicios   = document.getElementById('lista-servicios-activos');
+
+      const serviciosDef = {
+        fotos:   { nombre: 'Fotos PRO',           precio: 450 },
+        video:   { nombre: 'Vídeo + dron',        precio: 450 },
+        staging: { nombre: 'Home staging',        precio: 900 }, // valor medio
+        blogger: { nombre: 'Blogger internacional', precio: 3000 },
+      };
+
+      const serviciosActivos = new Set();
+
+      function formatoEuro(num) {
+        return num.toLocaleString('es-ES', {
+          style: 'currency',
+          currency: 'EUR',
+          maximumFractionDigits: 0,
+        });
+      }
+
+      function recalcularCostes() {
+        const precioPropiedad = Number(precioInput.value || 0);
+
+        // Suma servicios
+        let totalServicios = 0;
+        serviciosActivos.forEach(id => {
+          const def = serviciosDef[id];
+          if (def) totalServicios += def.precio;
+        });
+
+        const ivaServicios = totalServicios * 0.21;
+        const comision = precioPropiedad * 0.03;       // 3 %
+        const ivaComision = comision * 0.21;
+        const neto = precioPropiedad - comision - ivaComision - totalServicios - ivaServicios;
+
+        elTotalServicios.textContent = formatoEuro(totalServicios);
+        elIvaServicios.textContent   = formatoEuro(ivaServicios);
+        elComision.textContent       = formatoEuro(comision);
+        elIvaComision.textContent    = formatoEuro(ivaComision);
+        elNeto.textContent           = formatoEuro(Math.max(neto, 0));
+
+        // Lista resumen de servicios activos
+        listaServicios.innerHTML = '';
+        if (!serviciosActivos.size) {
+          const li = document.createElement('li');
+          li.textContent = 'De momento no hay ningún servicio activado.';
+          listaServicios.appendChild(li);
+        } else {
+          serviciosActivos.forEach(id => {
+            const li = document.createElement('li');
+            const def = serviciosDef[id];
+            li.textContent = `${def.nombre} activado (${formatoEuro(def.precio)} sin IVA).`;
+            listaServicios.appendChild(li);
+          });
+        }
+      }
+
+      // Eventos de botones en tarjetas de servicios
+      document.querySelectorAll('[data-service-toggle]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.service-card');
+          const id = card.getAttribute('data-service-id');
+          const activo = serviciosActivos.has(id);
+
+          if (activo) {
+            serviciosActivos.delete(id);
+            card.classList.remove('active');
+            btn.className = btn.className.replace('service-btn-done', '').trim();
+            if (!btn.className.includes('service-btn-gold')) {
+              btn.classList.add('service-btn');
+            }
+            btn.textContent = 'Activar este servicio';
+          } else {
+            serviciosActivos.add(id);
+            card.classList.add('active');
+            btn.classList.remove('service-btn');
+            btn.classList.remove('service-btn-gold');
+            btn.classList.add('service-btn-done');
+            btn.textContent = 'Servicio activado';
+          }
+
+          recalcularCostes();
+        });
+      });
+
+      precioInput.addEventListener('input', recalcularCostes);
+      recalcularCostes();
+
+      /* ==========================================================
+         2) SUBIDA DE FOTOS / DOCUMENTOS (MISMA LÓGICA QUE AYER)
+         ========================================================== */
+      const dropFotos     = document.getElementById('drop-fotos');
+      const dropDocs      = document.getElementById('drop-docs');
+      const btnFotosSel   = document.getElementById('btn-fotos-select');
+      const btnDocsSel    = document.getElementById('btn-docs-select');
+      const inputFotos    = document.getElementById('input-fotos');
+      const inputDocs     = document.getElementById('input-docs');
+      const btnVerFotos   = document.getElementById('btn-ver-fotos');
+      const btnVerDocs    = document.getElementById('btn-ver-docs');
+      const badgeFotos    = document.getElementById('badge-fotos');
+      const badgeDocs     = document.getElementById('badge-docs');
+      const progressFotos = document.getElementById('progress-fotos');
+      const progressDocs  = document.getElementById('progress-docs');
+
+      const modalBackdrop = document.getElementById('upload-modal-backdrop');
+      const modalTitle    = document.getElementById('modal-title');
+      const modalBody     = document.getElementById('modal-body');
+      const modalClose    = document.getElementById('modal-close');
+
+      const fotoFiles = [];
+      const docFiles  = [];
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      function addDropEvents(area, handler) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(ev => {
+          area.addEventListener(ev, preventDefaults);
+        });
+        ['dragenter', 'dragover'].forEach(ev => {
+          area.addEventListener(ev, () => area.classList.add('drag-over'));
+        });
+        ['dragleave', 'drop'].forEach(ev => {
+          area.addEventListener(ev, () => area.classList.remove('drag-over'));
+        });
+        area.addEventListener('drop', e => {
+          const files = Array.from(e.dataTransfer.files || []);
+          handler(files);
+        });
+      }
+
+      function simulateUploadProgress(type, totalFiles) {
+        const span = type === 'fotos' ? progressFotos : progressDocs;
+        if (!span) return;
+
+        let pct = 0;
+        span.textContent = 'Cargando 0%';
+
+        const step = 15;
+        const ms = 180;
+
+        const interval = setInterval(() => {
+          pct += step;
+          if (pct >= 100) {
+            pct = 100;
+            clearInterval(interval);
+            span.textContent = '';
+            updateUploadCounters();
+          } else {
+            span.textContent = `Cargando ${pct}%`;
+          }
+        }, ms);
+      }
+
+      function updateUploadCounters() {
+        badgeFotos.textContent = fotoFiles.length || '';
+        badgeDocs.textContent  = docFiles.length || '';
+      }
+
+      function handleFotos(files) {
+        const valid = [];
+        files.forEach(f => {
+          if (f && f.type && f.type.startsWith('image/')) {
+            fotoFiles.push(f);
+            valid.push(f);
+          }
+        });
+        if (valid.length) {
+          simulateUploadProgress('fotos', valid.length);
+        }
+        updateUploadCounters();
+      }
+
+      function handleDocs(files) {
+        const valid = [];
+        files.forEach(f => {
+          if (f) {
+            docFiles.push(f);
+            valid.push(f);
+          }
+        });
+        if (valid.length) {
+          simulateUploadProgress('docs', valid.length);
+        }
+        updateUploadCounters();
+      }
+
+      if (btnFotosSel && inputFotos) {
+        btnFotosSel.addEventListener('click', () => inputFotos.click());
+        inputFotos.addEventListener('change', e => {
+          const files = Array.from(e.target.files || []);
+          handleFotos(files);
+        });
+      }
+      if (btnDocsSel && inputDocs) {
+        btnDocsSel.addEventListener('click', () => inputDocs.click());
+        inputDocs.addEventListener('change', e => {
+          const files = Array.from(e.target.files || []);
+          handleDocs(files);
+        });
+      }
+
+      if (dropFotos) addDropEvents(dropFotos, handleFotos);
+      if (dropDocs)  addDropEvents(dropDocs, handleDocs);
+
+      function openModal(type) {
+        modalBackdrop.style.display = 'flex';
+        modalBody.innerHTML = '';
+
+        const list = type === 'fotos' ? fotoFiles : docFiles;
+        if (type === 'fotos') modalTitle.textContent = 'Fotos subidas';
+        else modalTitle.textContent = 'Documentación subida';
+
+        if (!list.length) {
+          const p = document.createElement('p');
+          p.className = 'modal-empty';
+          p.textContent = 'Todavía no has subido ningún archivo.';
+          modalBody.appendChild(p);
+          return;
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'modal-grid';
+
+        list.forEach((file, idx) => {
+          const item = document.createElement('div');
+          item.className = 'modal-item';
+
+          if (type === 'fotos' && file.type && file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            const url = URL.createObjectURL(file);
+            img.src = url;
+            img.alt = file.name || ('Foto ' + (idx + 1));
+            img.addEventListener('click', () => {
+              window.open(url, '_blank');
+            });
+            item.appendChild(img);
+          }
+
+          const name = document.createElement('div');
+          name.className = 'modal-item-name';
+          name.textContent = file.name || ('Archivo ' + (idx + 1));
+          item.appendChild(name);
+
+          const del = document.createElement('button');
+          del.className = 'modal-delete';
+          del.textContent = 'Eliminar';
+          del.addEventListener('click', () => {
+            list.splice(idx, 1);
+            openModal(type); // recarga listado
+            updateUploadCounters();
+          });
+          item.appendChild(del);
+
+          grid.appendChild(item);
+        });
+
+        modalBody.appendChild(grid);
+      }
+
+      function closeModal() {
+        modalBackdrop.style.display = 'none';
+      }
+
+      if (btnVerFotos) btnVerFotos.addEventListener('click', () => openModal('fotos'));
+      if (btnVerDocs)  btnVerDocs.addEventListener('click', () => openModal('docs'));
+      if (modalClose)  modalClose.addEventListener('click', closeModal);
+      if (modalBackdrop) {
+        modalBackdrop.addEventListener('click', e => {
+          if (e.target === modalBackdrop) closeModal();
+        });
+      }
+    });
+  </script>
 </body>
 </html>
