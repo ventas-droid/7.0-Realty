@@ -808,15 +808,15 @@
       background: transparent;
     }
 
-    .agency-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.45rem 0.55rem;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(31, 41, 55, 0.95);
-    }
+   .agency-item {
+  display: flex;
+  align-items: center;              /* antes: flex-start */
+  gap: 0.6rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(31, 41, 55, 0.95);
+   }
 
     .agency-avatar {
       width: 28px;
@@ -837,12 +837,12 @@
       min-width: 0;
     }
 
-    .agency-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      margin-bottom: 0.15rem;
+   .agency-row {
+  display: flex;
+  align-items: center;              /* nos aseguramos de centrar verticalmente */
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin-bottom: 0.15rem;
     }
 
     .agency-name {
@@ -866,21 +866,22 @@
     }
 
     .agency-btn {
-      border-radius: 999px;
-      border: none;
-      padding: 0.26rem 0.8rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #022c22;
-      background: linear-gradient(120deg, #4ade80, #22c55e);
-      box-shadow: 0 8px 22px rgba(22, 163, 74, 0.45);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      white-space: nowrap;
-      transition: transform var(--transition-fast),
-        box-shadow var(--transition-fast), opacity var(--transition-fast);
+  border-radius: 999px;
+  border: none;
+  padding: 0.24rem 0.9rem;          /* un pelín más compacto */
+  margin-top: 0.08rem;              /* ajusta la altura del botón */
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #022c22;
+  background: linear-gradient(120deg, #4ade80, #22c55e);
+  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.45);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  transition: transform var(--transition-fast),
+    box-shadow var(--transition-fast), opacity var(--transition-fast);
     }
 
     .agency-btn:hover {
