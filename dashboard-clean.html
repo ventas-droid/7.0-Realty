@@ -1,135 +1,728 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panamove • Dashboard 7.0</title>
+  <meta charset="UTF-8" />
+  <title>Panamove – Dashboard limpio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0f1521;
-      color: #e5e7eb;
-      display: flex;
+    :root {
+      --bg-main: #020617;
+      --bg-card: #020617;
+      --bg-card-soft: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: #111827;
+      --danger: #fb7185;
+      --success: #22c55e;
+      --sidebar-bg: #020617;
+      --sidebar-border: #020617;
+      --sidebar-active: rgba(56, 189, 248, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.75);
     }
 
-    /* Sidebar */
-    .sidebar {
-      width: 230px;
-      background-color: #111827;
-      height: 100vh;
-      padding: 1.4rem;
+    * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      border-right: 1px solid var(--sidebar-border);
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
 
     .brand {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-bottom: 2rem;
       display: flex;
-      color: #38bdf8;
+      align-items: center;
+      gap: 12px;
     }
 
-    .menu-item {
-      margin: 1rem 0;
-      padding: .6rem 1rem;
-      border-radius: .5rem;
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: conic-gradient(
+        from 200deg,
+        #38bdf8,
+        #22c55e,
+        #f97316,
+        #38bdf8
+      );
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+    }
+
+    .brand-text-main {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .nav-item {
+      padding: 9px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
       cursor: pointer;
-      color: #e5e7eb;
+      transition: background 0.18s ease, color 0.18s ease, transform 0.1s ease;
     }
 
-    .menu-item:hover,
-    .menu-active {
-      background-color: #1e293b;
-      color: #38bdf8;
+    .nav-item span.icon {
+      width: 18px;
+      text-align: center;
+      opacity: 0.8;
+      font-size: 0.85rem;
     }
 
-    /* Contenido */
-    .content {
-      flex: 1;
-      padding: 2rem;
+    .nav-item:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      transform: translateY(-1px);
     }
 
-    .grid {
+    .nav-item.active {
+      background: var(--sidebar-active);
+      color: var(--accent);
+    }
+
+    .nav-item.active span.icon {
+      opacity: 1;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 0.74rem;
+      color: var(--text-soft);
+      border-radius: 14px;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 10px 12px;
+      background: radial-gradient(
+        circle at top,
+        rgba(56, 189, 248, 0.1),
+        transparent 60%
+      );
+    }
+
+    .sidebar-footer strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* MAIN */
+
+    .main {
+      padding: 24px 26px 26px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .main-header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .main-header h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.02em;
+    }
+
+    .main-header-sub {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
+
+    .btn-ghost {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-main);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+    }
+
+    .btn-primary {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #22c55e);
+      border: none;
+      color: #0b1120;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.55);
+    }
+
+    .btn-primary span.chevron {
+      font-size: 0.9rem;
+    }
+
+    /* TOP KPIs */
+
+    .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: 1.4fr 1.1fr 1.1fr;
+      gap: 14px;
     }
 
     .card {
-      background-color: #1e293b;
-      padding: 1.5rem;
-      border-radius: .8rem;
+      background: radial-gradient(circle at top left, #020617 0, #020617 60%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .card h3 {
-      margin: 0 0 1rem 0;
-      font-size: 1.2rem;
-      color: #67b8f7;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
     }
 
-    .big-number {
-      font-size: 2rem;
-      font-weight: bold;
+    .card-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
     }
 
+    .card-pill {
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 999px;
+      padding: 3px 7px;
+    }
+
+    .card-big-number {
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .card-tagline {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      margin-top: -2px;
+    }
+
+    /* GRID INFERIOR */
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.1fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .property-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .property-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .property-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .property-sub {
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+
+    .property-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+
+    .meta-pill {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .meta-pill strong {
+      color: var(--accent);
+    }
+
+    .property-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .property-footer-text {
+      font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    /* Acciones recientes */
+
+    .actions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+      font-size: 0.78rem;
+    }
+
+    .actions-list-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+    }
+
+    .actions-list-item span.icon {
+      font-size: 0.9rem;
+      width: 16px;
+      text-align: center;
+    }
+
+    .actions-list-item strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Fila extra: Precio + Subidas */
+
+    .middle-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 14px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .price-neto {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .price-caption {
+      font-size: 0.73rem;
+      color: var(--text-soft);
+    }
+
+    .upload-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .upload-summary {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .upload-pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .upload-pill {
+      padding: 6px 9px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 0.72rem;
+      color: var(--text-soft);
+    }
+
+    .upload-pill strong {
+      color: var(--accent);
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+
+      .brand-text-main,
+      .brand-text-sub,
+      .sidebar-footer {
+        display: none;
+      }
+
+      .sidebar {
+        padding-inline: 10px;
+        align-items: center;
+      }
+
+      .nav-item span.label {
+        display: none;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+      .main {
+        padding-inline: 16px;
+      }
+      .kpi-grid,
+      .middle-grid,
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div>
+          <div class="brand-text-main">Panamove 7.0</div>
+          <div class="brand-text-sub">Propietarios, agencias y difusores</div>
+        </div>
+      </div>
 
-  <div class="sidebar">
-    <div class="brand">Panamove</div>
+      <nav class="nav">
+        <div class="nav-item active">
+          <span class="icon">🏠</span>
+          <span class="label">Dashboard</span>
+        </div>
+        <div class="nav-item">
+          <span class="icon">🏢</span>
+          <span class="label">Propiedades</span>
+        </div>
+        <div class="nav-item">
+          <span class="icon">👥</span>
+          <span class="label">Clientes</span>
+        </div>
+        <div class="nav-item">
+          <span class="icon">📡</span>
+          <span class="label">Difusores</span>
+        </div>
+        <div class="nav-item">
+          <span class="icon">🧾</span>
+          <span class="label">Auditoría</span>
+        </div>
+        <div class="nav-item">
+          <span class="icon">⚙️</span>
+          <span class="label">Configuración</span>
+        </div>
+      </nav>
 
-    <div class="menu-item menu-active">Dashboard</div>
-    <div class="menu-item">Propiedades</div>
-    <div class="menu-item">Clientes</div>
-    <div class="menu-item">Difusores</div>
-    <div class="menu-item">Auditoría</div>
-    <div class="menu-item">Configuración</div>
+      <div class="sidebar-footer">
+        <div><strong>Modo panel rápido</strong></div>
+        <div>Este dashboard resume la campaña del Ático Blue Sunset y te lleva al panel avanzado cuando lo necesites.</div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <header class="main-header">
+        <div class="main-header-title">
+          <h1>Dashboard</h1>
+          <div class="main-header-sub">
+            Resumen rápido de tu campaña actual dentro del sistema 7.0.
+            <span class="pill">
+              <span class="pill-dot"></span> Campaña activa – Ático Blue Sunset
+            </span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center;">
+          <a class="btn-ghost" href="dashboard.html">
+            Ver panel detallado
+          </a>
+          <button class="btn-primary" onclick="location.href='dashboard.html'">
+            Abrir campaña 7.0 <span class="chevron">↗</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- TOP KPI -->
+      <section class="kpi-grid">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Propiedades activas</div>
+            </div>
+            <span class="card-pill">Sistema 7.0</span>
+          </div>
+          <div class="card-big-number">1</div>
+          <div class="card-sub">Ático Blue Sunset – La Duquesa, Manilva.</div>
+          <div class="card-tagline">Cuando añadas más campañas, aparecerán aquí.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Ventas del mes (objetivo)</div>
+            </div>
+            <span class="card-pill">Plan estratégico</span>
+          </div>
+          <div class="card-big-number">1 venta</div>
+          <div class="card-sub">Objetivo: cerrar la operación del ático con plusvalía educativa.</div>
+          <div class="card-tagline">Seguimiento en tiempo real desde el panel avanzado.</div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Contactos cualificados</div>
+            </div>
+            <span class="card-pill">Embudo 7.0</span>
+          </div>
+          <div class="card-big-number">0</div>
+          <div class="card-sub">Los leads interesados se irán sumando cuando actives la difusión.</div>
+          <div class="card-tagline">Puedes registrar contactos desde el panel detallado.</div>
+        </article>
+      </section>
+
+      <!-- FILA PRECIO + SUBIDAS -->
+      <section class="middle-grid">
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Precio de la propiedad</div>
+            </div>
+            <span class="card-pill">Simulación rápida</span>
+          </div>
+
+          <div class="price-row">
+            <div>
+              <div class="card-sub">Precio orientativo del ático</div>
+              <div class="card-big-number">545.000 €</div>
+            </div>
+            <div>
+              <div class="price-caption">Neto para ti (antes de plusvalía municipal, IRPF u otros)</div>
+              <div class="price-neto">≈ 544.500 €</div>
+            </div>
+          </div>
+
+          <div class="card-tagline">
+            El cálculo detallado de servicios, honorarios e impuestos lo tienes en el tablero avanzado.
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Fotos & documentación</div>
+            </div>
+            <span class="card-pill">Panel avanzado</span>
+          </div>
+
+          <div class="upload-row">
+            <div class="upload-summary">
+              Gestiona todas las fotos HD, planos, escrituras y documentación desde el panel detallado del Ático Blue Sunset.
+            </div>
+
+            <div class="upload-pill-row">
+              <div class="upload-pill">
+                📸 <strong>Fotos</strong> – subir y ordenar
+              </div>
+              <div class="upload-pill">
+                📑 <strong>Documentos</strong> – arras, escrituras, planos
+              </div>
+              <div class="upload-pill">
+                🧮 <strong>Plan 7.0</strong> – acciones, tareas y tiempos
+              </div>
+            </div>
+
+            <div class="property-footer">
+              <div class="property-footer-text">
+                Pulsa para ir directamente a la zona de subida de archivos.
+              </div>
+              <button class="btn-ghost" onclick="location.href='dashboard.html#upload'">
+                Ir a gestor de archivos
+              </button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- FILA INFERIOR: PROPIEDAD + ACCIONES -->
+      <section class="bottom-grid">
+        <article class="card property-card">
+          <div class="property-title-row">
+            <div>
+              <div class="property-title">Última propiedad en campaña</div>
+              <div class="property-sub">Ático Blue Sunset – La Duquesa · Manilva</div>
+            </div>
+          </div>
+
+          <div class="property-meta">
+            <div class="meta-pill">2 dorm · 2 baños</div>
+            <div class="meta-pill">134 m² construidos aprox.</div>
+            <div class="meta-pill">4 balcones panorámicos Velux</div>
+            <div class="meta-pill">Vistas a Málaga · Cádiz · África · Gibraltar</div>
+          </div>
+
+          <div class="property-footer">
+            <div class="property-footer-text">
+              Este ático es la pieza clave del método 7.0. Desde aquí solo ves el resumen; el resto se controla en el tablero
+              completo.
+            </div>
+            <button class="btn-primary" onclick="location.href='dashboard.html'">
+              Ver campaña completa ↗
+            </button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Acciones recientes</div>
+            </div>
+            <span class="card-pill">Histórico 7.0</span>
+          </div>
+
+          <div class="actions-list">
+            <div class="actions-list-item">
+              <span class="icon">📁</span>
+              <div>
+                <strong>Documento de arras</strong> cargado en el sistema.<br />
+                <span class="card-tagline">Puedes consultarlo desde la carpeta de documentación.</span>
+              </div>
+            </div>
+
+            <div class="actions-list-item">
+              <span class="icon">✅</span>
+              <div>
+                <strong>Servicios activados</strong> para la campaña del ático.<br />
+                <span class="card-tagline">Fotografía, diseño de dossier y panel de difusión.</span>
+              </div>
+            </div>
+
+            <div class="actions-list-item">
+              <span class="icon">👤</span>
+              <div>
+                <strong>Nuevo contacto interesado</strong> (ejemplo).<br />
+                <span class="card-tagline">Cuando registres clientes reales aparecerán aquí.</span>
+              </div>
+            </div>
+
+            <div class="actions-list-item">
+              <span class="icon">📊</span>
+              <div>
+                <strong>Panel 7.0 preparado</strong>.<br />
+                <span class="card-tagline">Todo listo para empezar a documentar cada movimiento.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
   </div>
-
-  <div class="content">
-    <h1>Dashboard</h1>
-
-    <div class="grid">
-      <div class="card">
-        <h3>Propiedades Activas</h3>
-        <div class="big-number">124</div>
-      </div>
-
-      <div class="card">
-        <h3>Ventas del Mes</h3>
-        <div class="big-number">$1.2M</div>
-      </div>
-
-      <div class="card">
-        <h3>Nuevos Clientes</h3>
-        <div class="big-number">84</div>
-      </div>
-    </div>
-
-    <div style="height: 2rem"></div>
-
-    <div class="grid">
-      <div class="card" style="grid-column: span 2">
-        <h3>Última Propiedad</h3>
-        <p><strong>Calle Falsa 123 · Centro</strong></p>
-        <p>Tipo: Casa — 150m² — 350.000€</p>
-      </div>
-
-      <div class="card">
-        <h3>Acciones Recientes</h3>
-        <p>📄 Documento subido</p>
-        <p>✔ Servicio activado</p>
-        <p>👤 Nuevo cliente</p>
-      </div>
-    </div>
-
-  </div>
-
 </body>
 </html>
