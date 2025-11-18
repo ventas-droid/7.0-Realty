@@ -97,7 +97,7 @@
     .brand-sub {
       font-size: 0.7rem;
       color: var(--text-soft);
-      max-width: 150px;
+      max-width: 160px;
     }
 
     .nav {
@@ -209,17 +209,6 @@
       background: transparent;
       border-color: rgba(148, 163, 184, 0.4);
       color: var(--text-soft);
-      cursor: pointer;
-      text-decoration: none;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .pill-ghost:hover {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
-      border-color: rgba(209, 213, 219, 0.7);
-      transform: translateY(-1px);
     }
 
     .badge-sistema {
@@ -233,7 +222,30 @@
       background: rgba(15, 23, 42, 0.92);
     }
 
-    /* GRID ---------------------------------------------------------------- */
+    .btn-ghost {
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.7);
+      transform: translateY(-1px);
+    }
+
+    /* GRID -------------------------------------------------------------- */
 
     .grid {
       display: grid;
@@ -284,13 +296,13 @@
       }
     }
 
-    /* CARDS --------------------------------------------------------------- */
+    /* CARDS -------------------------------------------------------------- */
 
     .card {
       background: radial-gradient(circle at top left, #020817, #020617 55%);
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
-      padding: 1.1rem 1.2rem;
+      padding: 1.2rem 1.3rem;
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
@@ -337,13 +349,7 @@
       font-size: 0.8rem;
     }
 
-    .footer-hint {
-      margin-top: 0.6rem;
-      font-size: 0.7rem;
-      color: var(--text-soft);
-    }
-
-    /* PRECIOS / CÁLCULOS -------------------------------------------------- */
+    /* PRECIOS ------------------------------------------------------------ */
 
     .price-input-row {
       display: flex;
@@ -351,6 +357,7 @@
       gap: 0.6rem;
       margin-bottom: 0.9rem;
       margin-top: 0.2rem;
+      flex-wrap: wrap;
     }
 
     .price-input-row label {
@@ -414,7 +421,7 @@
       line-height: 1.4;
     }
 
-    /* PROPERTY SUMMARY ---------------------------------------------------- */
+    /* PROPERTY SUMMARY --------------------------------------------------- */
 
     .chips-row {
       margin-top: 0.6rem;
@@ -438,7 +445,7 @@
       margin-top: 0.6rem;
     }
 
-    /* UPLOAD AREA --------------------------------------------------------- */
+    /* UPLOAD AREA -------------------------------------------------------- */
 
     .upload-section {
       display: flex;
@@ -663,7 +670,7 @@
       grid-column: 1 / -1;
     }
 
-    /* SERVICIOS DASHBOARD ------------------------------------------------- */
+    /* SERVICIOS ----------------------------------------------------------- */
 
     .status-pills-row {
       display: flex;
@@ -712,7 +719,7 @@
 
     .service-card {
       border-radius: 16px;
-      background: #020617;
+      background: linear-gradient(145deg, #020617, #020617);
       border: 1px solid #111827;
       padding: 0.8rem 0.85rem 0.85rem;
       display: flex;
@@ -721,7 +728,7 @@
       font-size: 0.78rem;
     }
 
-    .service-card.active {
+    .service-card-active {
       border-color: rgba(250, 204, 21, 0.7);
       box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35),
         0 18px 45px rgba(15, 23, 42, 0.9);
@@ -747,6 +754,7 @@
       align-items: center;
       margin-top: 0.55rem;
       gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .service-state-pill {
@@ -790,155 +798,63 @@
       color: #facc15;
     }
 
-    .services-link {
-      border-radius: var(--radius-full);
-      padding: 0.3rem 0.85rem;
-      font-size: 0.78rem;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      text-decoration: none;
-      transition: background var(--transition-fast), color var(--transition-fast),
-        border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .services-link:hover {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
-      border-color: rgba(209, 213, 219, 0.7);
-      transform: translateY(-1px);
-    }
-
-    /* ACCIONES RECIENTES (HISTÓRICO) ------------------------------------- */
-
-    .history-card-body {
+    .footer-hint {
       margin-top: 0.6rem;
-    }
-
-    .history-list {
-      margin-top: 0.4rem;
-      padding-top: 0.2rem;
-      border-top: 1px dashed rgba(55, 65, 81, 0.8);
-      font-size: 0.78rem;
-      color: var(--text-main);
-      max-height: 170px;
-      overflow-y: auto;
-      padding-right: 0.4rem;
-    }
-
-    .history-item {
-      padding: 0.18rem 0;
-      border-bottom: 1px dashed rgba(55, 65, 81, 0.7);
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-meta {
+      font-size: 0.7rem;
       color: var(--text-soft);
-    }
-
-    .btn-notifications {
-      border-radius: var(--radius-full);
-      padding: 0.28rem 0.9rem;
-      font-size: 0.78rem;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--accent);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: background var(--transition-fast),
-        border-color var(--transition-fast),
-        transform var(--transition-fast), box-shadow var(--transition-fast);
-    }
-
-    .btn-notifications::before {
-      content: "🔔";
-      font-size: 0.85rem;
-    }
-
-    .btn-notifications:hover {
-      background: var(--accent-soft);
-      border-color: var(--accent-strong);
-      transform: translateY(-1px);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.85);
     }
 
     /* AGENCIAS ------------------------------------------------------------ */
 
     .agencies-wrapper {
-      border-radius: var(--radius-lg);
-      border: 1px dashed rgba(75, 85, 99, 0.9);
-      padding: 0.9rem 1rem 1rem;
-      background: radial-gradient(circle at top left, #020617, #020617 55%);
+      margin-top: 0.5rem;
     }
 
-    .agencies-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .agencies-count {
-      font-size: 0.78rem;
-      color: var(--text-soft);
-      border-radius: var(--radius-full);
-      padding: 0.15rem 0.7rem;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-    }
-
-    .agencies-list {
-      margin-top: 0.4rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      max-height: 210px;
+    .agencies-scroll {
+      max-height: 220px;
       overflow-y: auto;
+      padding-right: 0.4rem;
+      margin-top: 0.6rem;
     }
 
     .agency-card {
-      border-radius: 18px;
-      padding: 0.7rem 0.9rem;
-      background: #020617;
+      border-radius: 16px;
+      background: #020817;
       border: 1px solid #111827;
+      padding: 0.75rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
     }
 
-    .agency-main {
+    .agency-main-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 0.6rem;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .agency-left {
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.6rem;
+      min-width: 0;
     }
 
     .agency-avatar {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: radial-gradient(circle at top, #22c55e, #15803d);
-      display: inline-flex;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, #22c55e, #16a34a);
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #ecfdf5;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #022c22;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
     }
 
     .agency-name {
@@ -947,8 +863,7 @@
     }
 
     .agency-phone {
-      font-size: 0.8rem;
-      color: var(--text-soft);
+      font-size: 0.78rem;
     }
 
     .agency-desc {
@@ -972,6 +887,8 @@
       white-space: nowrap;
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast), opacity var(--transition-fast);
+      align-self: center;
+      margin-top: 0;
     }
 
     .agency-btn:hover {
@@ -988,6 +905,82 @@
     .agency-hint {
       margin-top: 0.55rem;
       font-size: 0.74rem;
+      color: var(--text-soft);
+    }
+
+    /* ACCIONES RECIENTES ------------------------------------------------- */
+
+    .acciones-body {
+      margin-top: 0.35rem;
+      border-top: 1px dashed rgba(55, 65, 81, 0.9);
+      padding-top: 0.45rem;
+      max-height: 190px;
+      overflow-y: auto;
+      font-size: 0.78rem;
+    }
+
+    .acciones-item {
+      padding: 0.18rem 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.6);
+    }
+
+    .acciones-item:last-child {
+      border-bottom: none;
+    }
+
+    .acciones-time {
+      color: var(--text-soft);
+      margin-right: 0.35rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 0.74rem;
+    }
+
+    .acciones-text {
+      color: #e5e7eb;
+    }
+
+    .acciones-empty {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .notif-btn {
+      border-radius: var(--radius-full);
+      padding: 0.28rem 0.85rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
+    }
+
+    .notif-btn:hover {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: var(--accent-strong);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .notif-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    /* FOOTER ------------------------------------------------------------- */
+
+    .footer-note {
+      margin-top: 0.6rem;
+      font-size: 0.76rem;
       color: var(--text-soft);
     }
   </style>
@@ -1007,9 +1000,9 @@
       </div>
 
       <nav class="nav">
-        <div class="nav-item nav-item-active">
+        <a href="dashboard-clean.html" class="nav-item nav-item-active">
           <span class="icon">📊</span>Dashboard
-        </div>
+        </a>
         <a href="servicios.html" class="nav-item">
           <span class="icon">🧩</span>Servicios campaña
         </a>
@@ -1044,15 +1037,13 @@
             <div class="pill-dot"></div>
             Campaña activa – Ático Blue Sunset
           </div>
-          <button type="button" class="pill pill-ghost" id="btnVerServicios">
-            Ver todos los servicios
-          </button>
+          <a href="servicios.html" class="pill pill-ghost">Ver servicios campaña</a>
         </div>
       </header>
 
-      <!-- Fila 1: precios + KPIs básicos ----------------------------------->
+      <!-- Fila 1 -->
       <section class="grid grid-3">
-        <!-- Caja de coste / calculadora -->
+        <!-- Calculadora -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1113,7 +1104,7 @@
           </p>
         </article>
 
-        <!-- KPI: propiedades activas -->
+        <!-- Propiedades activas -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1130,7 +1121,7 @@
           </p>
         </article>
 
-        <!-- KPI: contactos (ejemplo) -->
+        <!-- Contactos cualificados -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1148,7 +1139,7 @@
         </article>
       </section>
 
-      <!-- Fila 2: resumen propiedad + ACCIONES RECIENTES ------------------->
+      <!-- Fila 2 -->
       <section class="grid grid-2">
         <!-- Última propiedad -->
         <article class="card">
@@ -1159,7 +1150,7 @@
                 Pieza clave dentro del método 7.0.
               </div>
             </div>
-            <span class="badge-sistema">Sistema 7.0</span>
+            <span class="badge-sistema">SISTEMA 7.0</span>
           </div>
 
           <p class="muted">
@@ -1181,7 +1172,7 @@
           </p>
         </article>
 
-        <!-- ACCIONES RECIENTES / HISTÓRICO --------------------------------->
+        <!-- Acciones recientes -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1190,27 +1181,26 @@
                 Histórico de lo que se ha activado, subido y autorizado.
               </div>
             </div>
-            <button type="button" class="btn-notifications">
+            <button type="button" class="notif-btn" id="btnNotificaciones">
+              <span class="notif-dot"></span>
               Notificaciones
             </button>
           </div>
 
-          <div class="history-card-body">
-            <div class="history-list" id="historyList">
-              <!-- JS: entradas del histórico -->
-            </div>
-            <p class="footer-hint">
-              Este histórico es el “cerebro” de la campaña: siempre podrás revisar
-              qué se hizo, quién lo activó y cuándo.
-            </p>
+          <div id="accionesBody" class="acciones-body">
+            <!-- JS: histórico -->
           </div>
+
+          <p class="footer-note">
+            Este histórico es el “cerebro” de la campaña: siempre podrás revisar
+            qué se hizo, quién lo activó y cuándo.
+          </p>
         </article>
       </section>
 
-      <!-- Fila 3: subida de fotos y documentación + servicios -------------->
-
+      <!-- Fila 3 -->
       <section class="grid grid-2-equal">
-        <!-- Subida de fotos / docs -->
+        <!-- Subida de archivos -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1299,7 +1289,7 @@
           </div>
         </article>
 
-        <!-- Servicios disponibles resumen ---------------------------------->
+        <!-- Servicios disponibles -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1310,7 +1300,7 @@
                 Activa solo lo que tenga sentido para tu campaña.
               </div>
             </div>
-            <button type="button" class="services-link" id="btnVerServicios2">
+            <button type="button" class="btn-ghost" id="btnVerServicios">
               Ver servicios
             </button>
           </div>
@@ -1321,7 +1311,7 @@
           </div>
 
           <div class="services-grid" id="servicesGrid">
-            <!-- JS: 4 servicios visibles -->
+            <!-- JS: 4 servicios -->
           </div>
 
           <p class="footer-hint">
@@ -1331,7 +1321,7 @@
         </article>
       </section>
 
-      <!-- Fila 4: Agencias interesadas ------------------------------------->
+      <!-- Fila 4: Agencias -->
       <section class="grid grid-1">
         <article class="card">
           <div class="card-header">
@@ -1343,22 +1333,15 @@
                 Cuando autorices, la agencia recibirá tus datos de contacto.
               </div>
             </div>
+            <div class="pill pill-ghost" id="contadorAgencias">
+              0 agencias
+            </div>
           </div>
 
           <div class="agencies-wrapper">
-            <div class="agencies-header">
-              <div class="muted">
-                Agencias dispuestas a asumir los gastos clave para acelerar la venta.
-              </div>
-              <div class="agencies-count">
-                <span id="agenciasCount">0</span> agencias
-              </div>
+            <div class="agencies-scroll" id="agenciesList">
+              <!-- JS -->
             </div>
-
-            <div class="agencies-list" id="agenciasList">
-              <!-- JS: tarjetas agencia -->
-            </div>
-
             <p class="agency-hint">
               Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
               agencia autorizada para que te contacte lo antes posible.
@@ -1369,7 +1352,7 @@
     </main>
   </div>
 
-  <!-- MODAL FOTOS / DOCS --------------------------------------------------->
+  <!-- MODAL ----------------------------------------------------------------->
   <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
@@ -1380,140 +1363,82 @@
     </div>
   </div>
 
-  <!-- SCRIPT --------------------------------------------------------------->
+  <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    // ==================== SERVICIOS (COMPARTIDOS CON servicios.html) ======
-    const STORAGE_KEY_SERVICIOS = "panamoveServicios";
-    const STORAGE_KEY_AGENCIAS = "panamoveAgencias";
-    const HISTORY_KEY = "panamoveHistory";
+    /* ------------------------ UTILIDADES GENERALES ---------------------- */
 
-    const serviciosBase = [
+    function formatEuro(value) {
+      return (
+        value.toLocaleString("es-ES", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }) + " €"
+      );
+    }
+
+    function nowStamp() {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      const ss = String(d.getSeconds()).padStart(2, "0");
+      const yyyy = d.getFullYear();
+      const MM = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return {
+        hora: `${hh}:${mm}:${ss}`,
+        fecha: `${yyyy}-${MM}-${dd}`,
+      };
+    }
+
+    /* ------------------------ SERVICIOS (sincronía) --------------------- */
+
+    const STORAGE_SERVICIOS = "panamoveServicios";
+
+    const serviciosBaseDashboard = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
-        categoria: "Imagen",
-        precio: "450 € · pago a éxito",
+        precioNumero: 450,
+        precioTexto: "450 € · pago a éxito",
         descripcion: "Fotógrafo especializado inmobiliario.",
-        meta: "Sesión interior + exterior en alta resolución.",
         activoPorDefecto: true,
       },
       {
         id: "video-dron",
         nombre: "Vídeo + dron",
-        categoria: "Vídeo",
-        precio: "450 € · pago a éxito",
+        precioNumero: 450,
+        precioTexto: "450 € · pago a éxito",
         descripcion: "Recorrido interior + vistas aéreas.",
-        meta: "Ideal para campañas potentes y redes sociales.",
         activoPorDefecto: true,
       },
       {
         id: "home-staging",
         nombre: "Home staging",
-        categoria: "Estética",
-        precio: "750–1200 € · pago a éxito",
+        precioNumero: 900, // valor medio para cálculo
+        precioTexto: "750–1200 € · pago a éxito",
         descripcion: "Mejora estética sin reformas pesadas.",
-        meta: "Incluye propuesta de estilo y reordenación.",
         activoPorDefecto: true,
       },
       {
         id: "blogger-internacional",
         nombre: "Blogger internacional",
-        categoria: "Difusión",
-        precio: "3000 € · pago a éxito",
-        descripcion: "Historia real de la vivienda en otro país.",
-        meta: "Enlace directo con público extranjero.",
+        precioNumero: 3000,
+        precioTexto: "3000 € · pago a éxito",
+        descripcion: "Historia real en otro país.",
         activoPorDefecto: false,
-      },
-      {
-        id: "tour-360",
-        nombre: "Tour virtual 360º",
-        categoria: "Tecnología",
-        precio: "350 € · pago único",
-        descripcion: "Recorrido virtual interactivo de la vivienda.",
-        meta: "Perfecto para compradores internacionales.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "copy-luxury",
-        nombre: "Copywriting de lujo",
-        categoria: "Narrativa",
-        precio: "280 € · pago único",
-        descripcion:
-          "Texto editorial estilo revista para portales y dossieres.",
-        meta: "Orientado a públicos premium e inversores.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "plan-medios",
-        nombre: "Plan de medios 7.0",
-        categoria: "Difusión",
-        precio: "900 € · pago a éxito",
-        descripcion:
-          "Estrategia coordinada en portales, redes y base de datos.",
-        meta: "Control centralizado de todos los impactos.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "open-house",
-        nombre: "Open House privado",
-        categoria: "Eventos",
-        precio: "600 € · pago a éxito",
-        descripcion:
-          "Jornada de puertas abiertas para compradores filtrados.",
-        meta: "Se prepara guion, timings y feedback de visitas.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "arquitecto",
-        nombre: "Informe arquitecto 7.0",
-        categoria: "Técnico",
-        precio: "450 € · pago único",
-        descripcion:
-          "Informe visual sobre estado, mejoras y potencial de la vivienda.",
-        meta: "Aporta confianza al comprador indeciso.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "notion-dossier",
-        nombre: "Dossier interactivo",
-        categoria: "Documento",
-        precio: "220 € · pago único",
-        descripcion:
-          "Dossier online con fotos, planos, cálculos y storytelling.",
-        meta: "Se comparte con compradores serios por enlace privado.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "whatsapp-camp",
-        nombre: "Campaña WhatsApp PRO",
-        categoria: "Difusión",
-        precio: "350 € · pago a éxito",
-        descripcion:
-          "Mensajes guiados y seguimiento con compradores de tu base.",
-        meta: "Controlamos aperturas, respuestas y tiempos.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "embudo-7",
-        nombre: "Embudo 7 pasos",
-        categoria: "Sistema 7.0",
-        precio: "Incluido según pack",
-        descripcion:
-          "Seguimiento paso a paso desde lead frío hasta oferta firme.",
-        meta: "Visión completa para la parte educativa del método.",
-        activoPorDefecto: true,
       },
     ];
 
-    function loadServicios() {
+    function loadServiciosDashboard() {
       let stored = [];
       try {
-        const raw = localStorage.getItem(STORAGE_KEY_SERVICIOS);
+        const raw = localStorage.getItem(STORAGE_SERVICIOS);
         if (raw) stored = JSON.parse(raw);
-      } catch (e) {}
-
+      } catch (e) {
+        console.warn("No se pudo leer servicios de localStorage", e);
+      }
       const mapStored = new Map(stored.map((s) => [s.id, s]));
-      return serviciosBase.map((svc) => {
+      return serviciosBaseDashboard.map((svc) => {
         const saved = mapStored.get(svc.id);
         return {
           ...svc,
@@ -1525,60 +1450,23 @@
       });
     }
 
-    function saveServicios(servicios) {
+    function saveServiciosDashboard(servicios) {
       try {
         const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
-        localStorage.setItem(STORAGE_KEY_SERVICIOS, JSON.stringify(minimal));
-      } catch (e) {}
+        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(minimal));
+      } catch (e) {
+        console.warn("No se pudo guardar servicios en localStorage", e);
+      }
     }
 
-    let servicios = loadServicios();
+    let serviciosDashboard = loadServiciosDashboard();
 
     const servicesGrid = document.getElementById("servicesGrid");
     const statusPillsRow = document.getElementById("statusPillsRow");
 
-    function renderServiciosDashboard() {
-      if (!servicesGrid) return;
-      servicesGrid.innerHTML = "";
-      const subset = servicios.slice(0, 4); // solo 4 servicios clave
-
-      subset.forEach((svc) => {
-        const card = document.createElement("div");
-        card.className = "service-card" + (svc.activo ? " active" : "");
-        card.innerHTML = `
-          <h3>${svc.nombre}</h3>
-          <div class="service-price">${svc.precio}</div>
-          <p class="service-desc">${svc.descripcion}</p>
-          <div class="service-footer">
-            <span class="service-state-pill" style="opacity:${
-              svc.activo ? 1 : 0.4
-            }">
-              <span class="icon">★</span>
-              ${svc.activo ? "Servicio activado" : "Pendiente"}
-            </span>
-            <button class="service-btn ${
-              svc.activo ? "active" : ""
-            }" data-id="${svc.id}">
-              ${svc.activo ? "Desactivar" : "Activar servicio"}
-            </button>
-          </div>
-        `;
-        servicesGrid.appendChild(card);
-      });
-
-      servicesGrid.querySelectorAll(".service-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-id");
-          toggleServicio(id);
-        });
-      });
-    }
-
     function renderStatusPills() {
-      if (!statusPillsRow) return;
       statusPillsRow.innerHTML = "";
-      const activos = servicios.filter((s) => s.activo).slice(0, 10);
-
+      const activos = serviciosDashboard.filter((s) => s.activo);
       if (!activos.length) {
         const span = document.createElement("span");
         span.className = "muted";
@@ -1586,7 +1474,6 @@
         statusPillsRow.appendChild(span);
         return;
       }
-
       activos.forEach((svc) => {
         const pill = document.createElement("div");
         pill.className = "status-pill";
@@ -1598,134 +1485,273 @@
       });
     }
 
-    function toggleServicio(id) {
-      servicios = servicios.map((svc) =>
+    function renderServiciosDashboard() {
+      servicesGrid.innerHTML = "";
+      serviciosDashboard.forEach((svc) => {
+        const card = document.createElement("div");
+        card.className =
+          "service-card" + (svc.activo ? " service-card-active" : "");
+        card.innerHTML = `
+          <h3>${svc.nombre}</h3>
+          <div class="service-price">${svc.precioTexto}</div>
+          <p class="service-desc">${svc.descripcion}</p>
+          <div class="service-footer">
+            <span class="service-state-pill" style="opacity:${
+              svc.activo ? 1 : 0.4
+            }">
+              <span class="icon">★</span>
+              ${svc.activo ? "Servicio activado" : "Pendiente"}
+            </span>
+            <button class="service-btn ${
+              svc.activo ? "active" : ""
+            }" data-id="${svc.id}">
+              ${svc.activo ? "Desactivar" : "Activar este servicio"}
+            </button>
+          </div>
+        `;
+        servicesGrid.appendChild(card);
+      });
+
+      document.querySelectorAll(".service-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          toggleServicioDashboard(id);
+        });
+      });
+
+      renderStatusPills();
+      calcularTotales();
+    }
+
+    function toggleServicioDashboard(id) {
+      serviciosDashboard = serviciosDashboard.map((svc) =>
         svc.id === id ? { ...svc, activo: !svc.activo } : svc
       );
-      saveServicios(servicios);
-      const svc = servicios.find((s) => s.id === id);
-      if (svc) {
-        addHistoryEntry(
-          `Servicio ${svc.activo ? "activado" : "desactivado"}: ${svc.nombre}.`
-        );
-      }
-      calcularTotales();
-      renderServiciosDashboard();
-      renderStatusPills();
-    }
+      saveServiciosDashboard(serviciosDashboard);
 
-    // ==================== HISTÓRICO / ACCIONES RECIENTES ==================
-    const historyListEl = document.getElementById("historyList");
-
-    function addHistoryEntry(text) {
-      const now = new Date();
-      const time = now.toTimeString().slice(0, 8);
-      const date = now.toLocaleDateString("es-ES", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      });
-
-      let stored = [];
-      try {
-        const raw = localStorage.getItem(HISTORY_KEY);
-        if (raw) stored = JSON.parse(raw);
-      } catch (e) {}
-
-      stored.unshift({
-        ts: now.getTime(),
-        date,
-        time,
-        text,
-      });
-
-      stored = stored.slice(0, 100);
-
-      try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(stored));
-      } catch (e) {}
-
-      renderHistoryFromStored(stored);
-    }
-
-    function renderHistoryFromStored(list) {
-      if (!historyListEl) return;
-      historyListEl.innerHTML = "";
-
-      list.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "history-item";
-        row.innerHTML = `
-          <span class="history-meta">[${item.date} ${item.time}]</span>
-          <span> ${item.text}</span>
-        `;
-        historyListEl.appendChild(row);
-      });
-    }
-
-    (function initHistory() {
-      try {
-        const raw = localStorage.getItem(HISTORY_KEY);
-        if (raw) {
-          renderHistoryFromStored(JSON.parse(raw));
-        } else {
-          addHistoryEntry("Histórico iniciado.");
-        }
-      } catch (e) {}
-    })();
-
-    // ==================== CALCULADORA PRECIOS =============================
-
-    function formatEuro(value) {
-      return (
-        value.toLocaleString("es-ES", {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        }) + " €"
+      const svc = serviciosDashboard.find((s) => s.id === id);
+      addAccionHistorico(
+        svc.activo
+          ? `Servicio activado: ${svc.nombre}.`
+          : `Servicio desactivado: ${svc.nombre}.`
       );
+
+      renderServiciosDashboard();
     }
+
+    /* ------------------------- CALCULADORA PRECIOS ---------------------- */
 
     function calcularTotales() {
       const precioPropiedad =
         parseFloat(document.getElementById("precioPropiedad").value) || 0;
 
-      const activos = servicios.filter((s) => s.activo);
+      const activos = serviciosDashboard.filter((s) => s.activo);
       let totalServicios = 0;
       activos.forEach((svc) => {
-        // valor muy aproximado: si tiene "Incluido" cuenta 0
-        if (svc.precio.includes("Incluido")) return;
-        const numeros = svc.precio.match(/\d+/g);
-        if (numeros && numeros.length) {
-          totalServicios += parseInt(numeros[0], 10);
-        }
+        totalServicios += svc.precioNumero || 0;
       });
 
       const ivaServicios = totalServicios * 0.21;
       const comision = precioPropiedad * 0.03;
       const ivaComision = comision * 0.21;
-      const totalGeneral = totalServicios + ivaServicios + comision + ivaComision;
+      const totalGeneral =
+        totalServicios + ivaServicios + comision + ivaComision;
       const netoParaTi =
         precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
 
       document.getElementById("totalServiciosSinIVA").textContent =
         formatEuro(totalServicios);
-      document.getElementById("ivaServicios").textContent = formatEuro(
-        ivaServicios
-      );
+      document.getElementById("ivaServicios").textContent =
+        formatEuro(ivaServicios);
       document.getElementById("comision").textContent = formatEuro(comision);
       document.getElementById("ivaComision").textContent =
         formatEuro(ivaComision);
       document.getElementById("totalGeneral").textContent =
         formatEuro(totalGeneral);
-      document.getElementById("netoParaTi").textContent =
-        formatEuro(netoParaTi);
+      document.getElementById("netoParaTi").textContent = formatEuro(netoParaTi);
     }
 
     document
       .getElementById("precioPropiedad")
       .addEventListener("input", calcularTotales);
 
-    // ==================== UPLOAD / MODAL ==================================
+    /* ----------------------------- ACCIONES / HISTÓRICO ----------------- */
+
+    const STORAGE_HISTORICO = "panamoveHistorico";
+    const accionesBody = document.getElementById("accionesBody");
+
+    function loadHistorico() {
+      try {
+        const raw = localStorage.getItem(STORAGE_HISTORICO);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) {
+        console.warn("No se pudo leer histórico", e);
+        return [];
+      }
+    }
+
+    function saveHistorico(list) {
+      try {
+        localStorage.setItem(STORAGE_HISTORICO, JSON.stringify(list));
+      } catch (e) {
+        console.warn("No se pudo guardar histórico", e);
+      }
+    }
+
+    let acciones = loadHistorico();
+
+    function renderHistorico() {
+      accionesBody.innerHTML = "";
+      if (!acciones.length) {
+        const p = document.createElement("p");
+        p.className = "acciones-empty";
+        p.textContent =
+          "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña.";
+        accionesBody.appendChild(p);
+        return;
+      }
+      acciones
+        .slice()
+        .reverse()
+        .forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "acciones-item";
+          div.innerHTML = `
+            <span class="acciones-time">[${item.hora} · ${item.fecha}]</span>
+            <span class="acciones-text">${item.texto}</span>
+          `;
+          accionesBody.appendChild(div);
+        });
+    }
+
+    function addAccionHistorico(texto) {
+      const stamp = nowStamp();
+      acciones.push({
+        hora: stamp.hora,
+        fecha: stamp.fecha,
+        texto,
+      });
+      if (acciones.length > 200) {
+        acciones = acciones.slice(-200);
+      }
+      saveHistorico(acciones);
+      renderHistorico();
+    }
+
+    document.getElementById("btnNotificaciones").addEventListener("click", () => {
+      addAccionHistorico("Has abierto el panel de notificaciones del dashboard.");
+    });
+
+    /* ----------------------------- AGENCIAS ------------------------------ */
+
+    const STORAGE_AGENCIAS = "panamoveAgencias";
+
+    const agenciasBase = [
+      {
+        id: "bernabeu",
+        nombre: "Bernabeu Realty",
+        telefono: "654 34 32 32",
+        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "BR",
+      },
+      {
+        id: "rothchild",
+        nombre: "RT Rothchild Inmo",
+        telefono: "654 34 32 32",
+        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "RT",
+      },
+    ];
+
+    function loadAgencias() {
+      try {
+        const raw = localStorage.getItem(STORAGE_AGENCIAS);
+        if (!raw) return agenciasBase.map((a) => ({ ...a, autorizado: false }));
+        const arr = JSON.parse(raw);
+        const map = new Map(arr.map((a) => [a.id, a]));
+        return agenciasBase.map((a) => {
+          const saved = map.get(a.id);
+          return { ...a, autorizado: saved ? !!saved.autorizado : false };
+        });
+      } catch (e) {
+        console.warn("No se pudo leer agencias", e);
+        return agenciasBase.map((a) => ({ ...a, autorizado: false }));
+      }
+    }
+
+    function saveAgencias(list) {
+      try {
+        const minimal = list.map((a) => ({
+          id: a.id,
+          autorizado: !!a.autorizado,
+        }));
+        localStorage.setItem(STORAGE_AGENCIAS, JSON.stringify(minimal));
+      } catch (e) {
+        console.warn("No se pudo guardar agencias", e);
+      }
+    }
+
+    let agencias = loadAgencias();
+    const agenciesList = document.getElementById("agenciesList");
+    const contadorAgencias = document.getElementById("contadorAgencias");
+
+    function renderAgencias() {
+      agenciesList.innerHTML = "";
+      agencias.forEach((ag) => {
+        const card = document.createElement("div");
+        card.className = "agency-card";
+        card.innerHTML = `
+          <div class="agency-main-row">
+            <div class="agency-left">
+              <div class="agency-avatar">${ag.iniciales}</div>
+              <div>
+                <div class="agency-name">${ag.nombre}</div>
+                <div class="agency-phone">
+                  <strong>Teléfono:</strong> ${ag.telefono}
+                </div>
+              </div>
+            </div>
+            <button class="agency-btn ${
+              ag.autorizado ? "agency-btn-confirmed" : ""
+            }" data-id="${ag.id}">
+              ${ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"}
+            </button>
+          </div>
+          <div class="agency-desc">${ag.desc}</div>
+        `;
+        agenciesList.appendChild(card);
+      });
+
+      const total = agencias.length;
+      const autorizadas = agencias.filter((a) => a.autorizado).length;
+      contadorAgencias.textContent = `${total} agencias · ${autorizadas} autorizadas`;
+
+      agenciesList.querySelectorAll(".agency-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          autorizarAgencia(id);
+        });
+      });
+    }
+
+    function autorizarAgencia(id) {
+      agencias = agencias.map((ag) =>
+        ag.id === id ? { ...ag, autorizado: !ag.autorizado } : ag
+      );
+      saveAgencias(agencias);
+      const ag = agencias.find((a) => a.id === id);
+      addAccionHistorico(
+        ag.autorizado
+          ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
+          : `Has retirado la autorización a ${ag.nombre}.`
+      );
+      renderAgencias();
+    }
+
+    /* ----------------------------- UPLOAD / MODAL ------------------------ */
+
     const fotoFiles = [];
     const docFiles = [];
 
@@ -1802,7 +1828,9 @@
       if (valid.length) {
         simulateUploadProgress("fotos", valid.length);
         updateUploadCounters();
-        addHistoryEntry(`Fotos subidas: ${valid.length} archivo(s).`);
+        addAccionHistorico(
+          `Se han añadido ${valid.length} foto(s) a la galería de la vivienda.`
+        );
       }
     }
 
@@ -1817,7 +1845,9 @@
       if (valid.length) {
         simulateUploadProgress("docs", valid.length);
         updateUploadCounters();
-        addHistoryEntry(`Documentación subida: ${valid.length} archivo(s).`);
+        addAccionHistorico(
+          `Se han añadido ${valid.length} documento(s) a la documentación de la campaña.`
+        );
       }
     }
 
@@ -1826,7 +1856,8 @@
       inputFotos.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleFotos(files);
-        e.target.value = ""; // permite varias tandas
+        // importante para poder volver a seleccionar las mismas fotos
+        inputFotos.value = "";
       });
     }
 
@@ -1835,7 +1866,7 @@
       inputDocs.addEventListener("change", (e) => {
         const files = Array.from(e.target.files || []);
         handleDocs(files);
-        e.target.value = ""; // permite varias tandas
+        inputDocs.value = "";
       });
     }
 
@@ -1905,134 +1936,24 @@
       });
     }
 
-    // ==================== AGENCIAS ========================================
-    const agenciasBase = [
-      {
-        id: "bernabeu",
-        nombre: "Bernabeu Realty",
-        telefono: "654 34 32 32",
-        iniciales: "BR",
-        mensaje:
-          "Dispuesta a asumir los gastos clave para acelerar la venta.",
-        autorizadaPorDefecto: false,
-      },
-      {
-        id: "rothchild",
-        nombre: "RT Rothchild Inmo",
-        telefono: "654 34 32 32",
-        iniciales: "RT",
-        mensaje:
-          "Dispuesta a asumir los gastos clave para acelerar la venta.",
-        autorizadaPorDefecto: false,
-      },
-    ];
+    /* ----------------------------- BOTÓN VER SERVICIOS ------------------ */
 
-    function loadAgencias() {
-      let stored = [];
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY_AGENCIAS);
-        if (raw) stored = JSON.parse(raw);
-      } catch (e) {}
-      const mapStored = new Map(stored.map((a) => [a.id, a]));
-      return agenciasBase.map((ag) => {
-        const saved = mapStored.get(ag.id);
-        return {
-          ...ag,
-          autorizada:
-            saved && typeof saved.autorizada === "boolean"
-              ? saved.autorizada
-              : !!ag.autorizadaPorDefecto,
-        };
-      });
-    }
-
-    function saveAgencias(agencias) {
-      try {
-        const minimal = agencias.map((a) => ({
-          id: a.id,
-          autorizada: a.autorizada,
-        }));
-        localStorage.setItem(STORAGE_KEY_AGENCIAS, JSON.stringify(minimal));
-      } catch (e) {}
-    }
-
-    let agencias = loadAgencias();
-    const agenciasListEl = document.getElementById("agenciasList");
-    const agenciasCountEl = document.getElementById("agenciasCount");
-
-    function renderAgencias() {
-      if (!agenciasListEl) return;
-      agenciasListEl.innerHTML = "";
-      agenciasCountEl.textContent = agencias.length;
-
-      agencias.forEach((ag) => {
-        const card = document.createElement("div");
-        card.className = "agency-card";
-
-        card.innerHTML = `
-          <div class="agency-main">
-            <div class="agency-left">
-              <div class="agency-avatar">${ag.iniciales}</div>
-              <div>
-                <div class="agency-name">${ag.nombre}</div>
-                <div class="agency-phone">
-                  <strong>Teléfono:</strong> ${ag.telefono}
-                </div>
-              </div>
-            </div>
-            <button class="agency-btn ${
-              ag.autorizada ? "agency-btn-confirmed" : ""
-            }" data-id="${ag.id}">
-              ${ag.autorizada ? "Datos enviados" : "Autorizar"}
-            </button>
-          </div>
-          <div class="agency-desc">
-            ${ag.mensaje}
-          </div>
-        `;
-
-        agenciasListEl.appendChild(card);
-      });
-
-      agenciasListEl.querySelectorAll(".agency-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-id");
-          autorizarAgencia(id);
-        });
-      });
-    }
-
-    function autorizarAgencia(id) {
-      agencias = agencias.map((ag) =>
-        ag.id === id ? { ...ag, autorizada: true } : ag
-      );
-      saveAgencias(agencias);
-      const ag = agencias.find((a) => a.id === id);
-      if (ag) {
-        addHistoryEntry(
-          `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
-        );
-      }
-      renderAgencias();
-    }
-
-    // ==================== NAVEGACIÓN SERVICIOS ============================
-
-    function goToServicios() {
+    document.getElementById("btnVerServicios").addEventListener("click", () => {
       window.location.href = "servicios.html";
-    }
+    });
 
-    const btnVerServicios = document.getElementById("btnVerServicios");
-    const btnVerServicios2 = document.getElementById("btnVerServicios2");
+    /* ----------------------------- INICIALIZACIÓN ----------------------- */
 
-    if (btnVerServicios) btnVerServicios.addEventListener("click", goToServicios);
-    if (btnVerServicios2) btnVerServicios2.addEventListener("click", goToServicios);
-
-    // ==================== INIT ============================================
     renderServiciosDashboard();
-    renderStatusPills();
-    calcularTotales();
+    renderHistorico();
     renderAgencias();
+    calcularTotales();
+
+    if (!acciones.length) {
+      addAccionHistorico(
+        "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña."
+      );
+    }
   </script>
 </body>
 </html>
