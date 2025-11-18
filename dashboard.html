@@ -2857,63 +2857,78 @@ header {
         buildGallery(docFiles, false);
       }
     }
+// Construye la galería del modal
 function buildGallery(list, isImage){
-  // Limpiamos el contenido del modal
+  // Limpiar contenido
   modalBody.innerHTML = '';
 
-  // Si no hay archivos, mensaje vacío
+  // Si no hay archivos
   if (!list.length){
     const p = document.createElement('p');
     p.className = 'modal-empty';
     p.textContent = 'Todavía no has subido ningún archivo.';
     modalBody.appendChild(p);
 
-    updateUploadCounters();   // por si se ha borrado todo
+    updateUploadCounters();
     return;
   }
 
- // Recorremos los archivos y pintamos la galería
-list.forEach((file, idx) => {
-  const item = document.createElement('div');
-  item.className = 'modal-item';
+  // Recorremos los archivos y pintamos la galería
+  list.forEach((file, idx) => {
+    const item = document.createElement('div');
+    item.className = 'modal-item';
 
-  // Si son imágenes, mostramos miniatura clicable
-  if (isImage) {
-    const img = document.createElement('img');
-    const url = URL.createObjectURL(file);
-    img.src = url;
-    img.alt = file.name || ('Foto ' + (idx + 1));
+    // Si son imágenes, mostramos miniatura clicable
+    if (isImage) {
+      const img = document.createElement('img');
+      const url = URL.createObjectURL(file);
+      img.src = url;
+      img.alt = file.name || ('Foto ' + (idx + 1));
 
-    // 👉 Al hacer clic se abre grande
-    img.style.cursor = 'pointer';
-    img.addEventListener('click', () => {
-      window.open(url, '_blank');
+      // 👉 Abrir en grande
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', () => {
+        window.open(url, '_blank');
+      });
+
+      item.appendChild(img);
+    }
+
+    // Nombre archivo
+    const name = document.createElement('div');
+    name.className = 'modal-item-name';
+    name.textContent = file.name || ('Archivo ' + (idx + 1));
+    item.appendChild(name);
+
+    // Botón eliminar
+    const del = document.createElement('button');
+    del.className = 'modal-delete';
+    del.textContent = 'Eliminar';
+
+    del.addEventListener('click', () => {
+      list.splice(idx, 1);          // quitamos del array
+      buildGallery(list, isImage);  // redibujamos
+      updateUploadCounters();       // actualizamos contador
     });
 
-    item.appendChild(img);
-  }
-
-  // Nombre del archivo
-  const name = document.createElement('div');
-  name.className = 'modal-item-name';
-  name.textContent = file.name || ('Archivo ' + (idx + 1));
-  item.appendChild(name);
-
-  // Botón eliminar
-  const del = document.createElement('button');
-  del.className = 'modal-delete';
-  del.textContent = 'Eliminar';
-  del.addEventListener('click', () => {
-    list.splice(idx, 1);          // quitamos del array
-    buildGallery(list, isImage);  // redibujamos
-    updateUploadCounters();       // actualizamos contador
+    item.appendChild(del);
+    modalBody.appendChild(item);
   });
-  item.appendChild(del);
 
-  modalBody.appendChild(item);
-});
-  // Actualizamos contadores al terminar de pintar
   updateUploadCounters();
+}
+
+
+// Actualiza los contadores pequeños al lado del botón
+function updateUploadCounters(){
+  const fotosCount = fotoFiles.length;
+  const docsCount  = docFiles.length;
+
+  const fotosBadge = document.getElementById('badge-fotos');
+  const docsBadge  = document.getElementById('badge-docs');
+
+  if (fotosBadge) fotosBadge.textContent = fotosCount ? `(${fotosCount})` : '';
+  if (docsBadge)  docsBadge.textContent  = docsCount  ? `(${docsCount})` : '';
 }
 
     if (btnVerFotos) btnVerFotos.addEventListener('click', () => openModal('fotos'));
