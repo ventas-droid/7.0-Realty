@@ -45,8 +45,6 @@
       text-decoration: none;
     }
 
-    /* LAYOUT -------------------------------------------------------------- */
-
     .page {
       display: flex;
       width: 100%;
@@ -206,12 +204,6 @@
       box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
     }
 
-    .pill-ghost {
-      background: transparent;
-      border-color: rgba(148, 163, 184, 0.4);
-      color: var(--text-soft);
-    }
-
     .badge-sistema {
       border-radius: var(--radius-full);
       padding: 0.15rem 0.75rem;
@@ -222,8 +214,6 @@
       border: 1px solid rgba(56, 189, 248, 0.4);
       background: rgba(15, 23, 42, 0.92);
     }
-
-    /* GRID --------------------------------------------------------------- */
 
     .grid {
       display: grid;
@@ -274,8 +264,6 @@
       }
     }
 
-    /* CARDS --------------------------------------------------------------- */
-
     .card {
       background: radial-gradient(circle at top left, #020617, #020617 55%);
       border-radius: var(--radius-lg);
@@ -305,12 +293,6 @@
       color: var(--text-soft);
     }
 
-    .card-actions-right {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
     .badge {
       border-radius: 999px;
       padding: 0.2rem 0.6rem;
@@ -332,8 +314,6 @@
       color: var(--text-soft);
       font-size: 0.8rem;
     }
-
-    /* PRECIO -------------------------------------------------------------- */
 
     .price-input-row {
       display: flex;
@@ -405,8 +385,6 @@
       line-height: 1.4;
     }
 
-    /* CHIPS PROPIEDAD ------------------------------------------------------ */
-
     .chips-row {
       margin-top: 0.6rem;
       display: flex;
@@ -428,8 +406,6 @@
       color: var(--text-soft);
       margin-top: 0.6rem;
     }
-
-    /* UPLOADS -------------------------------------------------------------- */
 
     .upload-section {
       display: flex;
@@ -559,8 +535,6 @@
       transform: translateY(-1px);
     }
 
-    /* MODAL --------------------------------------------------------------- */
-
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -610,7 +584,7 @@
       padding: 0.75rem 0.9rem 0.9rem;
       overflow-y: auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 0.6rem;
     }
 
@@ -623,12 +597,13 @@
       flex-direction: column;
       gap: 0.35rem;
       font-size: 0.7rem;
+      cursor: pointer;
     }
 
     .modal-item img {
       width: 100%;
       border-radius: 0.7rem;
-      height: 110px;
+      height: 170px;
       object-fit: cover;
     }
 
@@ -669,8 +644,6 @@
       color: var(--text-soft);
       grid-column: 1 / -1;
     }
-
-    /* SERVICIOS ------------------------------------------------------------ */
 
     .status-pills-row {
       display: flex;
@@ -821,8 +794,6 @@
       color: var(--text-soft);
     }
 
-    /* AGENCIAS ------------------------------------------------------------- */
-
     .agency-list {
       display: flex;
       flex-direction: column;
@@ -921,8 +892,6 @@
       color: var(--text-soft);
     }
 
-    /* ACCIONES RECIENTES --------------------------------------------------- */
-
     .acciones-header-right {
       display: flex;
       align-items: center;
@@ -1010,7 +979,6 @@
 </head>
 <body>
   <div class="page">
-    <!-- SIDEBAR -------------------------------------------------------------->
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-logo"></div>
@@ -1045,9 +1013,7 @@
       </div>
     </aside>
 
-    <!-- MAIN ----------------------------------------------------------------->
     <main class="main">
-      <!-- Top bar -->
       <header class="top-bar">
         <div class="top-left">
           <div class="top-title">Dashboard</div>
@@ -1064,9 +1030,9 @@
         </div>
       </header>
 
-      <!-- Fila 1: precios + venta particular + contactos -->
+      <!-- Fila 1 -->
       <section class="grid grid-3">
-        <!-- Caja de coste / calculadora -->
+        <!-- Calculadora -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1127,45 +1093,49 @@
           </p>
         </article>
 
-        <!-- Venta particular / colaboración -->
+        <!-- Venta particular -->
         <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Venta particular y colaboración con profesionales</div>
+              <div class="card-title">Venta particular</div>
               <div class="card-subtitle">
-                Espacio para propietarios que quieren vender como particular,
-                activando servicios y colaborando con freelance y empresas especializadas.
+                Espacio para propietarios que prefieren vender sin agencia
+                pero activando servicios profesionales 7.0.
               </div>
             </div>
           </div>
           <p class="muted">
-            Aquí aparecerán oportunidades de fotógrafos, marketers, home stagers,
-            arquitectos y otros profesionales que puedan asumir servicios a éxito
-            y colaborar contigo en la venta como particular.
+            Aquí se recopilarán las acciones y acuerdos ligados a la venta
+            como particular: servicios contratados a éxito, documentación
+            cargada y pasos completados del método 7.0 sin intermediación
+            directa de agencia.
           </p>
         </article>
 
-        <!-- KPI: contactos (ejemplo) -->
+        <!-- Venta colaborativa -->
         <article class="card">
           <div class="card-header">
             <div>
-              <div class="card-title">Contactos cualificados</div>
+              <div class="card-title">
+                Venta colaborativa (profesionales de servicios activos)
+              </div>
               <div class="card-subtitle">
-                Clientes interesados en esta campaña.
+                Colaboración entre propietario y freelance / empresas que
+                prestan servicios activados en la campaña.
               </div>
             </div>
           </div>
-          <div class="big-number" id="kpiContactos">0</div>
           <p class="muted">
-            Cuando registres contactos reales aparecerán aquí para hacer
-            seguimiento.
+            Este espacio representará la red de fotógrafos, home stagers,
+            marketers, arquitectos y demás profesionales que participan
+            activamente en la venta. A medida que se definan acuerdos y
+            compromisos, se podrán reflejar aquí las colaboraciones en curso.
           </p>
         </article>
       </section>
 
-      <!-- Fila 2: resumen propiedad + acciones recientes -------------------->
+      <!-- Fila 2 -->
       <section class="grid grid-2">
-        <!-- Última propiedad -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1196,7 +1166,6 @@
           </p>
         </article>
 
-        <!-- Acciones recientes -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1214,9 +1183,7 @@
           </div>
 
           <div class="acciones-scroll" id="accionesScroll">
-            <ul class="acciones-list" id="accionesList">
-              <!-- JS -->
-            </ul>
+            <ul class="acciones-list" id="accionesList"></ul>
           </div>
 
           <p class="footer-hint">
@@ -1226,9 +1193,8 @@
         </article>
       </section>
 
-      <!-- Fila 3: subida de fotos y documentación + servicios ---------------->
+      <!-- Fila 3 -->
       <section class="grid grid-2-equal">
-        <!-- Uploads -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1241,13 +1207,9 @@
 
           <div class="upload-section">
             <div class="upload-grid">
-              <!-- Fotos -->
               <div class="upload-card">
                 <h3>Subir fotos de la vivienda</h3>
-                <div
-                  class="upload-drop"
-                  id="drop-fotos"
-                >
+                <div class="upload-drop" id="drop-fotos">
                   <span>Arrastra las fotos aquí</span>
                   <button
                     type="button"
@@ -1266,13 +1228,9 @@
                 </div>
               </div>
 
-              <!-- Documentos -->
               <div class="upload-card">
                 <h3>Subir documentación</h3>
-                <div
-                  class="upload-drop"
-                  id="drop-docs"
-                >
+                <div class="upload-drop" id="drop-docs">
                   <span>Arrastra la documentación aquí</span>
                   <button
                     type="button"
@@ -1315,7 +1273,6 @@
           </div>
         </article>
 
-        <!-- Servicios disponibles -->
         <article class="card">
           <div class="card-header">
             <div>
@@ -1331,14 +1288,9 @@
             </a>
           </div>
 
-          <!-- Burbujas de servicios activos -->
-          <div class="status-pills-row" id="statusPillsRow">
-            <!-- JS -->
-          </div>
+          <div class="status-pills-row" id="statusPillsRow"></div>
 
-          <div class="services-grid" id="servicesGrid">
-            <!-- JS: solo 4 servicios visibles -->
-          </div>
+          <div class="services-grid" id="servicesGrid"></div>
 
           <p class="footer-hint">
             El propietario ve esto como “panel de mando”: qué está activo, qué
@@ -1347,7 +1299,7 @@
         </article>
       </section>
 
-      <!-- Fila 4: Agencias interesadas -------------------------------------->
+      <!-- Fila 4 -->
       <section class="grid grid-1">
         <article class="card">
           <div class="card-header">
@@ -1361,9 +1313,7 @@
             </div>
           </div>
 
-          <div class="agency-list" id="agencyList">
-            <!-- JS -->
-          </div>
+          <div class="agency-list" id="agencyList"></div>
 
           <p class="agency-hint">
             Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
@@ -1374,7 +1324,6 @@
     </main>
   </div>
 
-  <!-- MODAL ----------------------------------------------------------------->
   <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
@@ -1385,9 +1334,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    /* ==================== UTILIDADES COMUNES ===================== */
     const LOG_KEY = "panamoveLog";
     const SERVICIOS_KEY = "panamoveServicios";
     const FOTOS_KEY = "panamoveFotos";
@@ -1402,14 +1349,12 @@
       );
     }
 
-    /* ==================== LOG / NOTIFICACIONES ==================== */
     function loadLog() {
       try {
         const raw = localStorage.getItem(LOG_KEY);
         if (!raw) return [];
         return JSON.parse(raw);
       } catch (e) {
-        console.warn("No se pudo leer el log", e);
         return [];
       }
     }
@@ -1417,9 +1362,7 @@
     function saveLog(list) {
       try {
         localStorage.setItem(LOG_KEY, JSON.stringify(list));
-      } catch (e) {
-        console.warn("No se pudo guardar el log", e);
-      }
+      } catch (e) {}
     }
 
     function renderLog() {
@@ -1453,7 +1396,6 @@
       });
     }
 
-    /* ==================== SERVICIOS (4 DEL DASHBOARD) ============= */
     const serviciosBase = [
       {
         id: "fotos",
@@ -1490,9 +1432,7 @@
       try {
         const raw = localStorage.getItem(SERVICIOS_KEY);
         if (raw) stored = JSON.parse(raw);
-      } catch (e) {
-        console.warn("No se pudo leer servicios", e);
-      }
+      } catch (e) {}
       const mapStored = new Map(stored.map((s) => [s.id, s]));
       return serviciosBase.map((svc) => {
         const saved = mapStored.get(svc.id);
@@ -1552,18 +1492,23 @@
             </span>
             <button class="service-btn ${
               svc.activo ? "active" : ""
-            }" disabled>
-              ${svc.activo ? "Activo" : "Configurar en servicios"}
+            }" data-id="${svc.id}">
+              Configurar en servicios
             </button>
           </div>
         `;
+
+        const btn = card.querySelector(".service-btn");
+        btn.addEventListener("click", () => {
+          window.location.href = "servicios.html";
+        });
+
         servicesGrid.appendChild(card);
       });
 
       calcularTotales(servicios);
     }
 
-    /* ==================== CALCULADORA COSTES ======================= */
     function calcularTotales(servicios) {
       const precioPropiedad =
         parseFloat(document.getElementById("precioPropiedad").value) || 0;
@@ -1601,7 +1546,6 @@
         calcularTotales(loadServiciosDashboard())
       );
 
-    /* ==================== UPLOADS CON PERSISTENCIA ================= */
     let fotoItems = [];
     let docItems = [];
 
@@ -1609,24 +1553,18 @@
       try {
         const f = localStorage.getItem(FOTOS_KEY);
         if (f) fotoItems = JSON.parse(f);
-      } catch (e) {
-        console.warn("No se pudieron leer fotos", e);
-      }
+      } catch (e) {}
       try {
         const d = localStorage.getItem(DOCS_KEY);
         if (d) docItems = JSON.parse(d);
-      } catch (e) {
-        console.warn("No se pudieron leer docs", e);
-      }
+      } catch (e) {}
     }
 
     function saveUploads() {
       try {
         localStorage.setItem(FOTOS_KEY, JSON.stringify(fotoItems));
         localStorage.setItem(DOCS_KEY, JSON.stringify(docItems));
-      } catch (e) {
-        console.warn("No se pudieron guardar uploads", e);
-      }
+      } catch (e) {}
       updateUploadCounters();
     }
 
@@ -1669,12 +1607,11 @@
       badgeDocs.textContent = docItems.length ? docItems.length : "";
     }
 
-    function simulateUploadProgress(type, filesCount) {
+    function simulateUploadProgress(type) {
       const span = type === "fotos" ? progressFotos : progressDocs;
       if (!span) return;
       let pct = 0;
       span.textContent = "Cargando 0%";
-
       const interval = setInterval(() => {
         pct += 18;
         if (pct >= 100) {
@@ -1689,7 +1626,7 @@
 
     function handleFotos(files) {
       if (!files.length) return;
-      simulateUploadProgress("fotos", files.length);
+      simulateUploadProgress("fotos");
       files.forEach((file) => {
         if (!file.type || !file.type.startsWith("image/")) return;
         const reader = new FileReader();
@@ -1708,7 +1645,7 @@
 
     function handleDocs(files) {
       if (!files.length) return;
-      simulateUploadProgress("docs", files.length);
+      simulateUploadProgress("docs");
       files.forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -1743,7 +1680,6 @@
     if (dropFotos) addDropEvents(dropFotos, handleFotos);
     if (dropDocs) addDropEvents(dropDocs, handleDocs);
 
-    /* ==================== MODAL UPLOADS ================================== */
     const modalBackdrop = document.getElementById("modalBackdrop");
     const modalTitle = document.getElementById("modalTitle");
     const modalBody = document.getElementById("modalBody");
@@ -1769,10 +1705,15 @@
         const card = document.createElement("div");
         card.className = "modal-item";
 
+        const openInNew = () => {
+          if (item.dataUrl) window.open(item.dataUrl, "_blank");
+        };
+
         if (type === "fotos" && item.dataUrl) {
           const img = document.createElement("img");
           img.src = item.dataUrl;
           img.alt = item.name || "Foto subida";
+          img.addEventListener("click", openInNew);
           card.appendChild(img);
         }
 
@@ -1787,14 +1728,13 @@
         const openBtn = document.createElement("button");
         openBtn.className = "modal-open";
         openBtn.textContent = "Abrir";
-        openBtn.addEventListener("click", () => {
-          if (item.dataUrl) window.open(item.dataUrl, "_blank");
-        });
+        openBtn.addEventListener("click", openInNew);
 
         const delBtn = document.createElement("button");
         delBtn.className = "modal-delete";
         delBtn.textContent = "Eliminar";
-        delBtn.addEventListener("click", () => {
+        delBtn.addEventListener("click", (ev) => {
+          ev.stopPropagation();
           list.splice(idx, 1);
           saveUploads();
           openModal(type);
@@ -1803,6 +1743,8 @@
         actions.appendChild(openBtn);
         actions.appendChild(delBtn);
         card.appendChild(actions);
+
+        card.addEventListener("click", openInNew);
 
         modalBody.appendChild(card);
       });
@@ -1821,7 +1763,6 @@
       });
     }
 
-    /* ==================== AGENCIAS ======================================= */
     const agencies = [
       {
         id: "bernabeu",
@@ -1852,9 +1793,7 @@
           const found = saved.find((s) => s.id === ag.id);
           if (found) ag.autorizada = !!found.autorizada;
         });
-      } catch (e) {
-        console.warn("No se pudieron leer agencias", e);
-      }
+      } catch (e) {}
     }
 
     function saveAgenciesState() {
@@ -1864,9 +1803,7 @@
           autorizada: a.autorizada,
         }));
         localStorage.setItem("panamoveAgencies", JSON.stringify(minimal));
-      } catch (e) {
-        console.warn("No se pudieron guardar agencias", e);
-      }
+      } catch (e) {}
     }
 
     function renderAgencies() {
@@ -1903,7 +1840,7 @@
         btn.addEventListener("click", () => {
           ag.autorizada = !ag.autorizada;
           saveAgenciesState();
-          // Notificación de agencia
+
           const log = loadLog();
           log.unshift({
             ts: new Date().toISOString(),
@@ -1921,7 +1858,6 @@
       });
     }
 
-    /* ==================== BOTÓN NOTIFICACIONES ============================ */
     const btnNotificaciones = document.getElementById("btnNotificaciones");
     const accionesScroll = document.getElementById("accionesScroll");
     if (btnNotificaciones && accionesScroll) {
@@ -1935,7 +1871,6 @@
       });
     }
 
-    /* ==================== INIT ============================================ */
     function init() {
       loadUploads();
       loadAgenciesState();
