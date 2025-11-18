@@ -2857,16 +2857,66 @@ header {
         buildGallery(docFiles, false);
       }
     }
+function buildGallery(list, isImage){
+  // Limpiamos el contenido del modal
+  modalBody.innerHTML = '';
 
-    function buildGallery(list, isImage){
-      modalBody.innerHTML = '';
-      if (!list.length){
-        const p = document.createElement('p');
-        p.className = 'modal-empty';
-        p.textContent = 'Todavía no has subido ningún archivo.';
-        modalBody.appendChild(p);
-        return;
-      }
+  // Si no hay archivos, mensaje vacío
+  if (!list.length){
+    const p = document.createElement('p');
+    p.className = 'modal-empty';
+    p.textContent = 'Todavía no has subido ningún archivo.';
+    modalBody.appendChild(p);
+
+    // Actualizamos contadores (por si se ha borrado todo)
+    updateUploadCounters();
+    return;
+  }
+
+  // Recorremos los archivos y pintamos la galería
+  list.forEach((file, idx) => {
+    const item = document.createElement('div');
+    item.className = 'modal-item';
+
+    // Si son imágenes, mostramos miniatura grande
+    if (isImage) {
+      const img = document.createElement('img');
+      const url = URL.createObjectURL(file);
+      img.src = url;
+      img.onload = () => URL.revokeObjectURL(url);
+
+      // Al hacer clic, marcar/desmarcar como “seleccionada”
+      img.addEventListener('click', () => {
+        item.classList.toggle('selected');
+      });
+
+      item.appendChild(img);
+    }
+
+    // Nombre del archivo
+    const name = document.createElement('div');
+    name.className = 'modal-item-name';
+    name.textContent = file.name || ('Archivo ' + (idx + 1));
+    item.appendChild(name);
+
+    // Botón eliminar
+    const del = document.createElement('button');
+    del.className = 'modal-delete';
+    del.textContent = 'Eliminar';
+    del.addEventListener('click', () => {
+      list.splice(idx, 1);          // quitamos el archivo del array
+      buildGallery(list, isImage);  // redibujamos la galería
+      updateUploadCounters();       // y actualizamos contadores
+    });
+    item.appendChild(del);
+
+    modalBody.appendChild(item);
+  });
+
+  // Actualizamos contadores al terminar de pintar
+  updateUploadCounters();
+}
+
       list.forEach((file, idx) => {
         const item = document.createElement('div');
         item.className = 'modal-item';
