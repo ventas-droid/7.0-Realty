@@ -594,243 +594,257 @@
   </div>
 
   <script>
-    // Clave compartida con el dashboard para sincronizar estados
-    const STORAGE_KEY = "panamoveServicios";
+  const STORAGE_KEY = "panamoveServicios";
+  const LOG_KEY = "panamoveLog";
 
-    // Lista de servicios (incluye los 4 originales + más ejemplos)
-    const serviciosBase = [
-      {
-        id: "fotos",
-        nombre: "Fotos PRO",
-        categoria: "Imagen",
-        precio: "450 € · pago a éxito",
-        descripcion: "Fotógrafo especializado inmobiliario.",
-        meta: "Sesión interior + exterior en alta resolución.",
-        activoPorDefecto: true,
-      },
-      {
-        id: "video-dron",
-        nombre: "Vídeo + dron",
-        categoria: "Vídeo",
-        precio: "450 € · pago a éxito",
-        descripcion: "Recorrido interior + vistas aéreas.",
-        meta: "Ideal para campañas potentes y redes sociales.",
-        activoPorDefecto: true,
-      },
-      {
-        id: "home-staging",
-        nombre: "Home staging",
-        categoria: "Estética",
-        precio: "750–1200 € · pago a éxito",
-        descripcion: "Mejora estética sin reformas pesadas.",
-        meta: "Incluye propuesta de estilo y reordenación.",
-        activoPorDefecto: true,
-      },
-      {
-        id: "blogger-internacional",
-        nombre: "Blogger internacional",
-        categoria: "Difusión",
-        precio: "3000 € · pago a éxito",
-        descripcion: "Historia real de la vivienda en otro país.",
-        meta: "Enlace directo con público extranjero.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "tour-360",
-        nombre: "Tour virtual 360º",
-        categoria: "Tecnología",
-        precio: "350 € · pago único",
-        descripcion: "Recorrido virtual interactivo de la vivienda.",
-        meta: "Perfecto para compradores internacionales.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "copy-luxury",
-        nombre: "Copywriting de lujo",
-        categoria: "Narrativa",
-        precio: "280 € · pago único",
-        descripcion:
-          "Texto editorial estilo revista para portales y dossieres.",
-        meta: "Orientado a públicos premium e inversores.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "plan-medios",
-        nombre: "Plan de medios 7.0",
-        categoria: "Difusión",
-        precio: "900 € · pago a éxito",
-        descripcion:
-          "Estrategia coordinada en portales, redes y base de datos.",
-        meta: "Control centralizado de todos los impactos.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "open-house",
-        nombre: "Open House privado",
-        categoria: "Eventos",
-        precio: "600 € · pago a éxito",
-        descripcion:
-          "Jornada de puertas abiertas para compradores filtrados.",
-        meta: "Se prepara guion, timings y feedback de visitas.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "arquitecto",
-        nombre: "Informe arquitecto 7.0",
-        categoria: "Técnico",
-        precio: "450 € · pago único",
-        descripcion:
-          "Informe visual sobre estado, mejoras y potencial de la vivienda.",
-        meta: "Aporta confianza al comprador indeciso.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "notion-dossier",
-        nombre: "Dossier interactivo",
-        categoria: "Documento",
-        precio: "220 € · pago único",
-        descripcion:
-          "Dossier online con fotos, planos, cálculos y storytelling.",
-        meta: "Se comparte con compradores serios por enlace privado.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "whatsapp-camp",
-        nombre: "Campaña WhatsApp PRO",
-        categoria: "Difusión",
-        precio: "350 € · pago a éxito",
-        descripcion:
-          "Mensajes guiados y seguimiento con compradores de tu base.",
-        meta: "Controlamos aperturas, respuestas y tiempos.",
-        activoPorDefecto: false,
-      },
-      {
-        id: "embudo-7",
-        nombre: "Embudo 7 pasos",
-        categoria: "Sistema 7.0",
-        precio: "Incluido según pack",
-        descripcion:
-          "Seguimiento paso a paso desde lead frío hasta oferta firme.",
-        meta: "Visión completa para la parte educativa del método.",
-        activoPorDefecto: true,
-      },
-    ];
+  const serviciosBase = [
+    {
+      id: "fotos",
+      nombre: "Fotos PRO",
+      categoria: "Imagen",
+      precio: "450 € · pago a éxito",
+      descripcion: "Fotógrafo especializado inmobiliario.",
+      meta: "Sesión interior + exterior en alta resolución.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "video-dron",
+      nombre: "Vídeo + dron",
+      categoria: "Vídeo",
+      precio: "450 € · pago a éxito",
+      descripcion: "Recorrido interior + vistas aéreas.",
+      meta: "Ideal para campañas potentes y redes sociales.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "home-staging",
+      nombre: "Home staging",
+      categoria: "Estética",
+      precio: "750–1200 € · pago a éxito",
+      descripcion: "Mejora estética sin reformas pesadas.",
+      meta: "Incluye propuesta de estilo y reordenación.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "blogger-internacional",
+      nombre: "Blogger internacional",
+      categoria: "Difusión",
+      precio: "3000 € · pago a éxito",
+      descripcion: "Historia real de la vivienda en otro país.",
+      meta: "Enlace directo con público extranjero.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "tour-360",
+      nombre: "Tour virtual 360º",
+      categoria: "Tecnología",
+      precio: "350 € · pago único",
+      descripcion: "Recorrido virtual interactivo de la vivienda.",
+      meta: "Perfecto para compradores internacionales.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "copy-luxury",
+      nombre: "Copywriting de lujo",
+      categoria: "Narrativa",
+      precio: "280 € · pago único",
+      descripcion:
+        "Texto editorial estilo revista para portales y dossieres.",
+      meta: "Orientado a públicos premium e inversores.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "plan-medios",
+      nombre: "Plan de medios 7.0",
+      categoria: "Difusión",
+      precio: "900 € · pago a éxito",
+      descripcion:
+        "Estrategia coordinada en portales, redes y base de datos.",
+      meta: "Control centralizado de todos los impactos.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "open-house",
+      nombre: "Open House privado",
+      categoria: "Eventos",
+      precio: "600 € · pago a éxito",
+      descripcion:
+        "Jornada de puertas abiertas para compradores filtrados.",
+      meta: "Se prepara guion, timings y feedback de visitas.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "arquitecto",
+      nombre: "Informe arquitecto 7.0",
+      categoria: "Técnico",
+      precio: "450 € · pago único",
+      descripcion:
+        "Informe visual sobre estado, mejoras y potencial de la vivienda.",
+      meta: "Aporta confianza al comprador indeciso.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "notion-dossier",
+      nombre: "Dossier interactivo",
+      categoria: "Documento",
+      precio: "220 € · pago único",
+      descripcion:
+        "Dossier online con fotos, planos, cálculos y storytelling.",
+      meta: "Se comparte con compradores serios por enlace privado.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "whatsapp-camp",
+      nombre: "Campaña WhatsApp PRO",
+      categoria: "Difusión",
+      precio: "350 € · pago a éxito",
+      descripcion:
+        "Mensajes guiados y seguimiento con compradores de tu base.",
+      meta: "Controlamos aperturas, respuestas y tiempos.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "embudo-7",
+      nombre: "Embudo 7 pasos",
+      categoria: "Sistema 7.0",
+      precio: "Incluido según pack",
+      descripcion:
+        "Seguimiento paso a paso desde lead frío hasta oferta firme.",
+      meta: "Visión completa para la parte educativa del método.",
+      activoPorDefecto: true,
+    },
+  ];
 
-    // Cargar estado previo de localStorage y mezclar con base
-    function loadServicios() {
-      let stored = [];
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) stored = JSON.parse(raw);
-      } catch (e) {
-        console.warn("No se pudo leer localStorage", e);
-      }
+  function loadServicios() {
+    let stored = [];
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) stored = JSON.parse(raw);
+    } catch (e) {}
+    const mapStored = new Map(stored.map((s) => [s.id, s]));
+    return serviciosBase.map((svc) => {
+      const saved = mapStored.get(svc.id);
+      return {
+        ...svc,
+        activo:
+          saved && typeof saved.activo === "boolean"
+            ? saved.activo
+            : !!svc.activoPorDefecto,
+      };
+    });
+  }
 
-      const mapStored = new Map(stored.map((s) => [s.id, s]));
-      return serviciosBase.map((svc) => {
-        const saved = mapStored.get(svc.id);
-        return {
-          ...svc,
-          activo:
-            saved && typeof saved.activo === "boolean"
-              ? saved.activo
-              : !!svc.activoPorDefecto,
-        };
-      });
+  let servicios = loadServicios();
+
+  function saveServicios() {
+    try {
+      const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(minimal));
+    } catch (e) {}
+  }
+
+  function registrarNotificacionServicio(texto) {
+    try {
+      const now = new Date();
+      const entry = { ts: now.toISOString(), message: texto };
+      let list = [];
+      const raw = localStorage.getItem(LOG_KEY);
+      if (raw) list = JSON.parse(raw);
+      list.unshift(entry);
+      if (list.length > 200) list = list.slice(0, 200);
+      localStorage.setItem(LOG_KEY, JSON.stringify(list));
+    } catch (e) {}
+  }
+
+  const servicesGrid = document.getElementById("servicesGrid");
+  const summaryActivos = document.getElementById("summary-activos");
+  const summaryPendientes = document.getElementById("summary-pendientes");
+
+  function renderResumen() {
+    const activos = servicios.filter((s) => s.activo).length;
+    const pendientes = servicios.length - activos;
+
+    summaryActivos.querySelector("strong").textContent = activos;
+    summaryPendientes.querySelector("strong").textContent = pendientes;
+
+    if (!activos) {
+      summaryActivos.classList.add("inactive");
+    } else {
+      summaryActivos.classList.remove("inactive");
     }
-
-    let servicios = loadServicios();
-
-    function saveServicios() {
-      try {
-        const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(minimal));
-      } catch (e) {
-        console.warn("No se pudo guardar en localStorage", e);
-      }
+    if (!pendientes) {
+      summaryPendientes.classList.add("inactive");
+    } else {
+      summaryPendientes.classList.remove("inactive");
     }
+  }
 
-    const servicesGrid = document.getElementById("servicesGrid");
-    const summaryActivos = document.getElementById("summary-activos");
-    const summaryPendientes = document.getElementById("summary-pendientes");
+  function createServiceCard(svc) {
+    const card = document.createElement("article");
+    card.className = "service-card" + (svc.activo ? " service-card-active" : "");
+    card.dataset.id = svc.id;
 
-    function renderResumen() {
-      const activos = servicios.filter((s) => s.activo).length;
-      const pendientes = servicios.length - activos;
-
-      summaryActivos.querySelector("strong").textContent = activos;
-      summaryPendientes.querySelector("strong").textContent = pendientes;
-
-      // Cambiamos un poco el color si no hay activos
-      if (!activos) {
-        summaryActivos.classList.add("inactive");
-      } else {
-        summaryActivos.classList.remove("inactive");
-      }
-      if (!pendientes) {
-        summaryPendientes.classList.add("inactive");
-      } else {
-        summaryPendientes.classList.remove("inactive");
-      }
-    }
-
-    function createServiceCard(svc) {
-      const card = document.createElement("article");
-      card.className = "service-card" + (svc.activo ? " service-card-active" : "");
-      card.dataset.id = svc.id;
-
-      card.innerHTML = `
-        <div class="service-card-header">
-          <div>
-            <div class="service-name">${svc.nombre}</div>
-            <div class="service-price">${svc.precio}</div>
-          </div>
-          <div class="service-tag">${svc.categoria}</div>
+    card.innerHTML = `
+      <div class="service-card-header">
+        <div>
+          <div class="service-name">${svc.nombre}</div>
+          <div class="service-price">${svc.precio}</div>
         </div>
-        <p class="service-desc">${svc.descripcion}</p>
-        <p class="service-meta">${svc.meta}</p>
-        <div class="service-footer">
-          <span class="service-state-pill ${svc.activo ? "" : "inactive"}">
-            <span class="icon">★</span>
-            <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
-          </span>
-          <div>
-            <button class="service-btn ${
-              svc.activo ? "service-btn-danger" : "service-btn-primary"
-            } btn-toggle">
-              ${svc.activo ? "Desactivar" : "Activar servicio"}
-            </button>
-          </div>
+        <div class="service-tag">${svc.categoria}</div>
+      </div>
+      <p class="service-desc">${svc.descripcion}</p>
+      <p class="service-meta">${svc.meta}</p>
+      <div class="service-footer">
+        <span class="service-state-pill ${svc.activo ? "" : "inactive"}">
+          <span class="icon">★</span>
+          <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
+        </span>
+        <div>
+          <button class="service-btn ${
+            svc.activo ? "service-btn-danger" : "service-btn-primary"
+          } btn-toggle">
+            ${svc.activo ? "Desactivar" : "Activar servicio"}
+          </button>
         </div>
-      `;
+      </div>
+    `;
 
-      const btnToggle = card.querySelector(".btn-toggle");
-      btnToggle.addEventListener("click", () => {
-        toggleServicio(svc.id);
-      });
+    const btnToggle = card.querySelector(".btn-toggle");
+    btnToggle.addEventListener("click", () => {
+      toggleServicio(svc.id);
+    });
 
-      return card;
-    }
+    return card;
+  }
 
-    function renderServicios() {
-      servicesGrid.innerHTML = "";
-      servicios.forEach((svc) => {
-        const card = createServiceCard(svc);
-        servicesGrid.appendChild(card);
-      });
-      renderResumen();
-    }
+  function renderServicios() {
+    servicesGrid.innerHTML = "";
+    servicios.forEach((svc) => {
+      const card = createServiceCard(svc);
+      servicesGrid.appendChild(card);
+    });
+    renderResumen();
+  }
 
-    function toggleServicio(id) {
-      servicios = servicios.map((svc) =>
-        svc.id === id ? { ...svc, activo: !svc.activo } : svc
+  function toggleServicio(id) {
+    servicios = servicios.map((svc) =>
+      svc.id === id ? { ...svc, activo: !svc.activo } : svc
+    );
+    saveServicios();
+
+    const svc = servicios.find((s) => s.id === id);
+    if (svc) {
+      registrarNotificacionServicio(
+        `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
+          svc.nombre
+        }.`
       );
-      saveServicios();
-      renderServicios();
     }
 
-    // Inicializar
     renderServicios();
-  </script>
+  }
+
+  renderServicios();
+</script>
 </body>
 </html>
