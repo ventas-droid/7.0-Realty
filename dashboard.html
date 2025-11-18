@@ -2868,8 +2868,7 @@ function buildGallery(list, isImage){
     p.textContent = 'Todavía no has subido ningún archivo.';
     modalBody.appendChild(p);
 
-    // Actualizamos contadores (por si se ha borrado todo)
-    updateUploadCounters();
+    updateUploadCounters();   // por si se ha borrado todo
     return;
   }
 
@@ -2878,16 +2877,17 @@ function buildGallery(list, isImage){
     const item = document.createElement('div');
     item.className = 'modal-item';
 
-    // Si son imágenes, mostramos miniatura grande
+    // Si son imágenes, mostramos miniatura
     if (isImage) {
       const img = document.createElement('img');
       const url = URL.createObjectURL(file);
       img.src = url;
-      img.onload = () => URL.revokeObjectURL(url);
+      img.alt = file.name || ('Foto ' + (idx + 1));
 
-      // Al hacer clic, marcar/desmarcar como “seleccionada”
+      // 👉 Al hacer clic se abre grande en una pestaña nueva
+      img.style.cursor = 'pointer';
       img.addEventListener('click', () => {
-        item.classList.toggle('selected');
+        window.open(url, '_blank');
       });
 
       item.appendChild(img);
@@ -2916,37 +2916,6 @@ function buildGallery(list, isImage){
   // Actualizamos contadores al terminar de pintar
   updateUploadCounters();
 }
-
-      list.forEach((file, idx) => {
-        const item = document.createElement('div');
-        item.className = 'modal-item';
-        if (isImage) {
-          const img = document.createElement('img');
-          const url = URL.createObjectURL(file);
-          img.src = url;
-          img.onload = () => URL.revokeObjectURL(url);
-          item.appendChild(img);
-        }
-        const name = document.createElement('div');
-        name.className = 'modal-item-name';
-        name.textContent = file.name || ('Archivo ' + (idx+1));
-        item.appendChild(name);
-
-        const del = document.createElement('button');
-        del.className = 'modal-delete';
-        del.textContent = 'Eliminar';
-        del.addEventListener('click', () => {
-          list.splice(idx,1);
-          buildGallery(list,isImage);
-        });
-        item.appendChild(del);
-        modalBody.appendChild(item);
-      });
-    }
-
-    function closeModal(){
-      if (modal) modal.style.display = 'none';
-    }
 
     if (btnVerFotos) btnVerFotos.addEventListener('click', () => openModal('fotos'));
     if (btnVerDocs) btnVerDocs.addEventListener('click', () => openModal('docs'));
