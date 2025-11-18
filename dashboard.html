@@ -2840,20 +2840,77 @@ header {
       });
     }
 
-    function handleFotos(files){
+       function handleFotos(files){
+      const valid = [];
       files.forEach(f => {
         if (f && f.type && f.type.startsWith('image/')) {
           fotoFiles.push(f);
+          valid.push(f);
         }
       });
+
+      if (valid.length){
+        simulateUploadProgress('fotos', valid.length);
+      }
+      updateUploadCounters();
     }
 
     function handleDocs(files){
+      const valid = [];
       files.forEach(f => {
-        if (f) docFiles.push(f);
+        if (f) {
+          docFiles.push(f);
+          valid.push(f);
+        }
       });
+
+      if (valid.length){
+        simulateUploadProgress('docs', valid.length);
+      }
+      updateUploadCounters();
     }
 
+    // Simula la barra de porcentaje junto al botón
+    function simulateUploadProgress(type, totalFiles){
+      const progressSpan = (type === 'fotos')
+        ? document.getElementById('progress-fotos')
+        : document.getElementById('progress-docs');
+
+      if (!progressSpan) return;
+
+      let pct = 0;
+      progressSpan.textContent = 'Cargando 0%';
+
+      const step = 15;           // sube de 15 en 15
+      const ms   = 180;          // cada 180 ms
+
+      const interval = setInterval(() => {
+        pct += step;
+        if (pct >= 100){
+          pct = 100;
+          clearInterval(interval);
+          progressSpan.textContent = '';   // al llegar a 100% se borra
+          updateUploadCounters();          // y dejamos solo el (n)
+        } else {
+          progressSpan.textContent = `Cargando ${pct}%`;
+        }
+      }, ms);
+    }
+
+    // Actualiza los circulitos (1), (2)...
+    function updateUploadCounters(){
+      const fotosBadge = document.getElementById('badge-fotos');
+      const docsBadge  = document.getElementById('badge-docs');
+
+      if (fotosBadge) {
+        fotosBadge.textContent = fotoFiles.length ? fotoFiles.length : '';
+      }
+      if (docsBadge) {
+        docsBadge.textContent = docFiles.length ? docFiles.length : '';
+      }
+    }
+
+    // Click en “Subir / arrastrar fotos”
     if (btnFotosSelect && inputFotos) {
       btnFotosSelect.addEventListener('click', () => inputFotos.click());
       inputFotos.addEventListener('change', e => {
@@ -2862,6 +2919,7 @@ header {
       });
     }
 
+    // Click en “Subir / arrastrar documentación”
     if (btnDocsSelect && inputDocs) {
       btnDocsSelect.addEventListener('click', () => inputDocs.click());
       inputDocs.addEventListener('change', e => {
@@ -2870,13 +2928,16 @@ header {
       });
     }
 
+    // Drag & drop
     if (dropFotos) addDropEvents(dropFotos, handleFotos);
-    if (dropDocs) addDropEvents(dropDocs, handleDocs);
+    if (dropDocs)  addDropEvents(dropDocs, handleDocs);
 
+    // Abrir modal
     function openModal(type){
       if (!modal) return;
       modal.style.display = 'flex';
       modalBody.innerHTML = '';
+
       if (type === 'fotos') {
         modalTitle.textContent = 'Fotos subidas';
         buildGallery(fotoFiles, true);
@@ -2885,82 +2946,63 @@ header {
         buildGallery(docFiles, false);
       }
     }
-// Construye la galería del modal
-function buildGallery(list, isImage){
-  // Limpiar contenido
-  modalBody.innerHTML = '';
 
-  // Si no hay archivos
-  if (!list.length){
-    const p = document.createElement('p');
-    p.className = 'modal-empty';
-    p.textContent = 'Todavía no has subido ningún archivo.';
-    modalBody.appendChild(p);
+    // Galería del modal
+    function buildGallery(list, isImage){
+      modalBody.innerHTML = '';
 
-    updateUploadCounters();
-    return;
-  }
+      if (!list.length){
+        const p = document.createElement('p');
+        p.className = 'modal-empty';
+        p.textContent = 'Todavía no has subido ningún archivo.';
+        modalBody.appendChild(p);
+        updateUploadCounters();
+        return;
+      }
 
-  // Recorremos los archivos y pintamos la galería
-  list.forEach((file, idx) => {
-    const item = document.createElement('div');
-    item.className = 'modal-item';
+      list.forEach((file, idx) => {
+        const item = document.createElement('div');
+        item.className = 'modal-item';
 
-    // Si son imágenes, mostramos miniatura clicable
-    if (isImage) {
-      const img = document.createElement('img');
-      const url = URL.createObjectURL(file);
-      img.src = url;
-      img.alt = file.name || ('Foto ' + (idx + 1));
+        if (isImage) {
+          const img = document.createElement('img');
+          const url = URL.createObjectURL(file);
+          img.src = url;
+          img.alt = file.name || ('Foto ' + (idx + 1));
+          img.style.cursor = 'pointer';
+          img.addEventListener('click', () => {
+            window.open(url, '_blank');
+          });
+          item.appendChild(img);
+        }
 
-      // 👉 Abrir en grande
-      img.style.cursor = 'pointer';
-      img.addEventListener('click', () => {
-        window.open(url, '_blank');
+        const name = document.createElement('div');
+        name.className = 'modal-item-name';
+        name.textContent = file.name || ('Archivo ' + (idx + 1));
+        item.appendChild(name);
+
+        const del = document.createElement('button');
+        del.className = 'modal-delete';
+        del.textContent = 'Eliminar';
+        del.addEventListener('click', () => {
+          list.splice(idx, 1);
+          buildGallery(list, isImage);
+          updateUploadCounters();
+        });
+        item.appendChild(del);
+
+        modalBody.appendChild(item);
       });
 
-      item.appendChild(img);
+      updateUploadCounters();
     }
 
-    // Nombre archivo
-    const name = document.createElement('div');
-    name.className = 'modal-item-name';
-    name.textContent = file.name || ('Archivo ' + (idx + 1));
-    item.appendChild(name);
-
-    // Botón eliminar
-    const del = document.createElement('button');
-    del.className = 'modal-delete';
-    del.textContent = 'Eliminar';
-
-    del.addEventListener('click', () => {
-      list.splice(idx, 1);          // quitamos del array
-      buildGallery(list, isImage);  // redibujamos
-      updateUploadCounters();       // actualizamos contador
-    });
-
-    item.appendChild(del);
-    modalBody.appendChild(item);
-  });
-
-  updateUploadCounters();
-}
-
-
-// Actualiza los contadores pequeños al lado del botón
-function updateUploadCounters(){
-  const fotosCount = fotoFiles.length;
-  const docsCount  = docFiles.length;
-
-  const fotosBadge = document.getElementById('badge-fotos');
-  const docsBadge  = document.getElementById('badge-docs');
-
-  if (fotosBadge) fotosBadge.textContent = fotosCount ? `(${fotosCount})` : '';
-  if (docsBadge)  docsBadge.textContent  = docsCount  ? `(${docsCount})` : '';
-}
+    function closeModal(){
+      if (modal) modal.style.display = 'none';
+    }
 
     if (btnVerFotos) btnVerFotos.addEventListener('click', () => openModal('fotos'));
-    if (btnVerDocs) btnVerDocs.addEventListener('click', () => openModal('docs'));
+    if (btnVerDocs)  btnVerDocs.addEventListener('click', () => openModal('docs'));
     if (modalClose) modalClose.addEventListener('click', closeModal);
     if (modal) {
       modal.addEventListener('click', e => {
