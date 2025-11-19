@@ -490,7 +490,7 @@
       padding-top: 0.3rem;
     }
 
-    /* Pill de servicios DENTRO de la caja de Agencia (el mismo estilo que en el log) */
+    /* Pill de servicios DENTRO de la caja de Agencia (con burbuja verde) */
     .agency-service-pill {
       border-radius: var(--radius-full);
       padding: 0.3rem 0.8rem;
@@ -544,7 +544,7 @@
     .upload-card {
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle); 
-      background: rgba(15, 23, 42, 0.85);
+      background-color: var(--bg-main);
       padding: 0.9rem;
       display: flex;
       flex-direction: column;
@@ -990,7 +990,7 @@
         </article>
       </section>
 
-            <section class="grid">
+      <section class="grid">
                 <article class="card">
           <div class="card-header">
             <div class="card-header-main">
@@ -1145,12 +1145,12 @@
                 Activa solo lo que tenga sentido para tu campaña.
               </div>
             </div>
-            <button type="button" class="services-link" id="btnVerServicios">
+            <a href="servicios.html" class="btn-ghost" id="btnVerServicios">
               Ver todos los servicios
-            </button>
+            </a>
           </div>
 
-                    <div class="services-grid" id="servicesGrid"></div>
+          <div class="services-grid" id="servicesGrid"></div>
 
           <p class="card-subtitle" style="margin-top: 0.7rem;">
             El propietario ve esto como “panel de mando”: qué está activo, qué
@@ -1211,7 +1211,6 @@
     const STORAGE_UPLOADS = "panamoveUploads";
     const STORAGE_LOG = "panamoveLog";
     
-    // Simulación de carga: tiempo base para la subida
     const UPLOAD_DELAY = 10; 
 
     /* ============================
@@ -1296,7 +1295,6 @@
       });
     }
 
-    // Lógica de precios actualizada para incluir costes de servicios.
     function recalcPrice() {
       const input = document.getElementById("precioInput");
       const lines = document.getElementById("priceLines");
@@ -1304,23 +1302,14 @@
 
       const base = Number(input.value || 0);
 
-      // 1. Obtener la suma de costes fijos de servicios activos
       const serviciosActivos = loadServiciosEstado().filter(svc => svc.activo);
       const costeServiciosFijos = serviciosActivos.reduce((sum, svc) => sum + (svc.costeFijo || 0), 0);
       
-      // 2. Comisión base de gestión (3% del precio de venta)
       const comisionBase = base * 0.03;
-
-      // 3. Comisión total (comisión 3% fija de venta + Coste Servicios Fijos)
       const comisionTotal = comisionBase + costeServiciosFijos; 
       
-      // 4. Calcular IVA (21% sobre la comisión total)
       const ivaServicios = comisionTotal * 0.21;
-      
-      // 5. Total a pagar
       const totalServicios = comisionTotal + ivaServicios;
-      
-      // 6. Neto para el propietario
       const neto = base - comisionTotal;
 
       lines.innerHTML = `
@@ -1338,40 +1327,11 @@
     	SERVICIOS
     	============================ */
 
-    // Base de datos completa de servicios
     const serviciosDashboardBase = [
-      {
-        id: "fotos",
-        nombre: "Fotos PRO",
-        categoria: "Imagen",
-        precio: "450 € · pago a éxito",
-        costeFijo: 450, 
-        descripcion: "Fotógrafo especializado inmobiliario.",
-      },
-      {
-        id: "video-dron",
-        nombre: "Vídeo + dron",
-        categoria: "Vídeo",
-        precio: "450 € · pago a éxito",
-        costeFijo: 450,
-        descripcion: "Recorrido interior + vistas aéreas.",
-      },
-      {
-        id: "home-staging",
-        nombre: "Home staging",
-        categoria: "Estética",
-        precio: "750–1200 € · pago a éxito",
-        costeFijo: 750, 
-        descripcion: "Mejora estética sin reformas pesadas.",
-      },
-      {
-        id: "blogger-internacional",
-        nombre: "Blogger internacional",
-        categoria: "Difusión",
-        precio: "3000 € · pago a éxito",
-        costeFijo: 3000, 
-        descripcion: "Historia real de la vivienda en otro país.",
-      },
+      { id: "fotos", nombre: "Fotos PRO", categoria: "Imagen", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Fotógrafo especializado inmobiliario.", activoPorDefecto: true },
+      { id: "video-dron", nombre: "Vídeo + dron", categoria: "Vídeo", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Recorrido interior + vistas aéreas.", activoPorDefecto: true },
+      { id: "home-staging", nombre: "Home staging", categoria: "Estética", precio: "750–1200 € · pago a éxito", costeFijo: 750, descripcion: "Mejora estética sin reformas pesadas.", activoPorDefecto: true },
+      { id: "blogger-internacional", nombre: "Blogger internacional", categoria: "Difusión", precio: "3000 € · pago a éxito", costeFijo: 3000, descripcion: "Historia real de la vivienda en otro país.", activoPorDefecto: false },
     ];
 
     function loadServiciosEstado() {
@@ -1379,12 +1339,11 @@
         const raw = localStorage.getItem(STORAGE_SERVICIOS);
         const stored = raw ? JSON.parse(raw) : [];
         const map = new Map(stored.map((s) => [s.id, s.activo]));
-        // Usa los 4 servicios fijos de la base de datos
         return serviciosDashboardBase.map((svc) => ({
           ...svc,
           activo: map.has(svc.id)
             ? !!map.get(svc.id)
-            : svc.id === "fotos" || svc.id === "home-staging" // Activos por defecto si no hay nada en storage
+            : svc.id === "fotos" || svc.id === "home-staging"
         }));
       } catch (e) {
         return serviciosDashboardBase.map((svc) => ({
@@ -1437,15 +1396,15 @@
       const activos = serviciosEstado.filter(svc => svc.activo);
       
       if (activos.length === 0) {
-        container.innerHTML = `<p class="card-subtitle" style="margin: 0; padding-top: 5px;">Ningún servicio activo con la agencia.</p>`;
+        container.innerHTML = `<p class="card-subtitle" style="margin: 0; padding-top: 5px;">Ningún servicio de marketing activo en este momento.</p>`;
         return;
       }
       
       activos.forEach(svc => {
         const pill = document.createElement('div');
         pill.className = 'agency-service-pill';
-        // Los pills de la agencia tienen un punto verde
-        pill.innerHTML = `<span class="dot"></span> ${svc.nombre}`; 
+        // Los pills de la agencia tienen un dot verde
+        pill.innerHTML = `<span class="dot"></span> ${svc.nombre} activado por el propietario`; 
         container.appendChild(pill);
       });
     }
@@ -1463,14 +1422,14 @@
         card.innerHTML = `
           <div class="service-card-header">
             <div>
-              <div class="card-title">${svc.nombre}</div>
-              <div class="card-subtitle" style="margin-top:0;">${svc.precio}</div>
+              <div class="service-name">${svc.nombre}</div>
+              <div class="service-price" style="color: ${svc.activo ? 'var(--gold)' : 'var(--text-soft)'}; margin-top:0;">${svc.precio}</div>
             </div>
             <div class="service-tag">${svc.categoria}</div>
           </div>
           <p class="card-subtitle">${svc.descripcion}</p>
           <div class="service-footer" style="margin-top: auto; padding-top: 10px;">
-            <span class="service-pill-active ${svc.activo ? '' : 'inactive'}" style="
+            <span class="service-pill-active" style="
               border-color: ${svc.activo ? 'var(--gold)' : 'var(--border-subtle)'};
               color: ${svc.activo ? 'var(--gold)' : 'var(--text-soft)'};
               background: ${svc.activo ? 'rgba(251, 191, 36, 0.1)' : 'var(--bg-main)'};
