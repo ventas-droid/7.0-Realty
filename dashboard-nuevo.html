@@ -1,1307 +1,536 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Panamove 7.0 – Dashboard campaña</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    /* Variables y Estilo Global (Ajustado para Coherencia Premium) */
-    :root {
-      --bg-main: #0a0a0a; 
-      --bg-card: #1c1c25; /* Fondo de tarjetas limpio */
-      --bg-card-alt: #2a2a35;
-      --accent: #4285f4; /* Azul Google principal */
-      --accent-soft: rgba(66, 133, 244, 0.1);
-      --accent-strong: #3367d6;
-      --gold: #fbc02d; /* Amarillo dorado */
-      --text-main: #e8eaed; /* Texto principal claro */
-      --text-soft: #9aa0a6; /* Texto secundario gris */
-      --border-subtle: #3c4043; /* Borde muy sutil */
-      --danger: #ea4335; /* Rojo Google */
-      --success: #34a853; /* Verde Google */
-      --radius-lg: 12px;
-      --radius-full: 9999px;
-      --shadow-deep: 0 4px 10px rgba(0, 0, 0, 0.4);
-      --shadow-float: 0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.12);
-      --transition-fast: 0.2s ease-out;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panamove 7.0 – Premium Dashboard</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        /* --- VARIABLES & THEME --- */
+        :root {
+            --bg-body: #0b0e11;
+            --bg-sidebar: #15191e;
+            --bg-card: #1c2128;
+            --bg-hover: #2d333b;
+            
+            --border: #30363d;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            
+            --primary: #58a6ff;     /* Azul estilo GitHub/Google */
+            --primary-dim: rgba(56, 139, 253, 0.15);
+            --gold: #d29922;        /* Dorado Premium */
+            --gold-dim: rgba(187, 128, 9, 0.15);
+            --success: #3fb950;     /* Verde Éxito */
+            --danger: #f85149;      /* Rojo Alerta */
+            
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
 
-    body {
-      min-height: 100vh;
-      font-family: 'Roboto', sans-serif;
-      background-color: var(--bg-main);
-      color: var(--text-main);
-      display: flex;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    
-    button {
-      border: none;
-      background: none;
-      cursor: pointer;
-      font-family: inherit;
-      color: inherit;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
 
-    /* LAYOUT -------------------------------------------------------------- */
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            flex-shrink: 0;
+        }
 
-    .page {
-      display: flex;
-      width: 100%;
-      min-height: 100vh;
-    }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+            padding-left: 0.5rem;
+        }
+        .brand-logo {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            border-radius: 8px;
+        }
+        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
+        .brand-text span { font-size: 0.75rem; color: var(--text-muted); }
 
-    .sidebar {
-      width: 250px;
-      background-color: #121216; /* Fondo más sólido */
-      border-right: 1px solid var(--border-subtle);
-      padding: 1.5rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
+        .nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .nav-item:hover { background-color: var(--bg-hover); color: var(--text-main); }
+        .nav-item.active { background-color: var(--primary-dim); color: var(--primary); }
+        .nav-item i { width: 20px; text-align: center; }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
-    }
+        .sidebar-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
 
-    .brand-logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--accent), var(--success));
-      box-shadow: 0 0 8px rgba(66, 133, 244, 0.4);
-    }
+        /* --- MAIN CONTENT --- */
+        .main {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
 
-    .brand-title strong {
-      font-size: 1.1rem;
-      font-weight: 700;
-    }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+        }
+        .header h2 { font-size: 1.8rem; font-weight: 700; }
+        .header p { color: var(--text-muted); font-size: 0.9rem; }
+        .badge {
+            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(88, 166, 255, 0.3);
+        }
 
-    .brand-sub {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-    }
+        /* --- GRID SYSTEM --- */
+        .grid-kpi {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* 66% - 33% */
+            gap: 1.5rem;
+        }
+        .grid-cols-3 {
+             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
 
-    .nav {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-    }
+        /* --- CARDS --- */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+        .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
+        .card-subtitle { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      padding: 0.7rem 0.9rem;
-      border-radius: var(--radius-lg);
-      font-size: 0.9rem;
-      color: var(--text-soft);
-      transition: background var(--transition-fast), color var(--transition-fast);
-      border: 1px solid transparent;
-    }
+        /* KPIs */
+        .kpi-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .kpi-box::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+        }
+        .kpi-val { font-size: 1.8rem; font-weight: 700; margin: 5px 0; }
+        .kpi-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
 
-    .nav-item:hover {
-      background-color: var(--bg-card-alt);
-      color: var(--text-main);
-    }
+        /* Inputs */
+        .input-group { display: flex; align-items: center; gap: 10px; background: var(--bg-body); padding: 8px; border-radius: 8px; border: 1px solid var(--border); }
+        .input-group input { background: transparent; border: none; color: white; font-size: 1rem; width: 100%; }
+        .btn-action {
+            background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; transition: 0.2s;
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
 
-    .nav-item-active {
-      background-color: var(--accent-soft);
-      color: var(--accent);
-      border-color: var(--accent);
-      font-weight: 500;
-    }
+        /* Panel Agencia */
+        .agency-profile { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 15px; }
+        .avatar { width: 50px; height: 50px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 1.2rem; }
+        .agency-info h4 { font-size: 1rem; margin-bottom: 4px; }
+        .agency-info p { font-size: 0.8rem; color: var(--text-muted); }
 
-    .sidebar-footer {
-      margin-top: auto;
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      padding-top: 1rem;
-      border-top: 1px solid var(--border-subtle);
-    }
+        .active-services-container {
+            min-height: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .service-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600;
+            background: rgba(63, 185, 80, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+        .service-chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
 
-    .main {
-      flex: 1;
-      padding: 2rem 2.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.8rem;
-    }
+        .btn-gold {
+            width: 100%; padding: 12px; border-radius: 8px; border: none;
+            background: linear-gradient(135deg, #d29922, #fbbf24);
+            color: #000; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(210, 153, 34, 0.3);
+            transition: 0.2s;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(210, 153, 34, 0.5); }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-subtle);
-    }
+        /* Timeline Log */
+        .log-container { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .log-item { display: flex; gap: 10px; font-size: 0.85rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .log-time { color: var(--primary); font-family: monospace; min-width: 60px; }
+        .log-text { color: var(--text-muted); }
 
-    .top-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
+        /* Servicios Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+        .svc-card {
+            background: var(--bg-body); border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
+            transition: 0.2s; position: relative;
+        }
+        .svc-card:hover { border-color: var(--text-muted); }
+        .svc-card.active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+        .svc-head { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .svc-name { font-weight: 600; font-size: 0.9rem; }
+        .svc-price { font-size: 0.8rem; color: var(--text-muted); }
+        .svc-toggle {
+            width: 100%; padding: 6px; border-radius: 6px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-muted); font-size: 0.75rem; margin-top: 10px; cursor: pointer;
+        }
+        .svc-card.active .svc-toggle {
+            background: rgba(248, 81, 73, 0.15); color: var(--danger); border-color: var(--danger);
+        }
 
-    .badge-sistema {
-      border-radius: var(--radius-full);
-      padding: 0.2rem 0.8rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(66, 133, 244, 0.4);
-      background: var(--accent-soft);
-      font-weight: 500;
-    }
-
-    /* WRAPPERS Y CARDS */
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background-color: var(--bg-card);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      padding: 1.5rem;
-      box-shadow: var(--shadow-float);
-    }
-
-    /* PANEL DE AGENCIA ESPECÍFICO */
-    .agency-avatar {
-      width: 50px;
-      height: 50px;
-      background-color: var(--success);
-      color: var(--bg-card);
-      border-radius: 50%;
-      font-weight: 700;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .agency-service-pill {
-      border-radius: var(--radius-full);
-      padding: 0.4rem 0.9rem;
-      font-size: 0.78rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border: 1px solid var(--success);
-      background-color: rgba(52, 168, 83, 0.1);
-      color: var(--success);
-      font-weight: 500;
-    }
-
-    .agency-service-pill .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      flex-shrink: 0;
-    }
-
-    .btn-campana-firmada {
-      align-self: flex-start;
-      border-radius: var(--radius-lg);
-      padding: 0.8rem 2rem;
-      font-size: 1rem;
-      font-weight: 700;
-      background: var(--accent);
-      color: white;
-      box-shadow: var(--shadow-deep);
-      transition: background-color 0.1s;
-      margin-top: 1.5rem;
-    }
-    .btn-campana-firmada:hover {
-      background-color: var(--accent-strong);
-    }
-  </style>
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-cols-2 { grid-template-columns: 1fr; }
+            .sidebar { width: 70px; padding: 1rem 0.5rem; }
+            .brand-text, .nav-item span, .sidebar-footer { display: none; }
+            .nav-item { justify-content: center; }
+            .main { padding: 1rem; }
+        }
+    </style>
 </head>
 <body>
-  <div class="page">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-logo"></div>
-        <div class="brand-title">
-          <strong>Panamove 7.0</strong>
-          <div class="brand-sub">
-            Herramienta de Campaña
-          </div>
-        </div>
-      </div>
 
-      <nav class="nav">
-        <a href="dashboard-clean.html" class="nav-item nav-item-active">
-          <span class="icon">📊</span>Dashboard
-        </a>
-        <a href="servicios.html" class="nav-item">
-          <span class="icon">⚙️</span>Servicios
-        </a>
-        <div class="nav-item">
-          <span class="icon">🏠</span>Propiedades
-        </div>
-        <div class="nav-item">
-          <span class="icon">📢</span>Difusores
-        </div>
-        <div class="nav-item">
-          <span class="icon">🔍</span>Auditoría
-        </div>
-      </nav>
-
-      <div class="sidebar-footer">
-        V. 7.0 | © 2025
-      </div>
-    </aside>
-
-    <main class="main">
-      <header class="top-bar">
-        <div class="top-left">
-          <div class="top-title">Dashboard de Gestión</div>
-          <div class="top-subtitle">
-            Prioridades y resumen de costes en tiempo real.
-          </div>
-        </div>
-        <div class="top-right">
-          <span class="badge-sistema">
-            SISTEMA 7.0
-          </span>
-          <a href="servicios.html" class="btn-ghost">
-            Catálogo de Servicios
-          </a>
-        </div>
-      </header>
-
-            <section class="grid">
-        <article class="card" id="precioCard">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Precio de la propiedad</div>
-              <div class="card-subtitle">
-                Simulación de costes con servicios activados e IVA.
-              </div>
-            </div>
-            <button type="button" class="btn-mini" id="btnSimulacion" style="background-color: var(--accent-strong); color: white;">
-              SIMULAR
-            </button>
-          </div>
-
-          <div class="price-input-row">
-            <span>Precio Orientativo (€):</span>
-            <input
-              type="number"
-              id="precioInput"
-              value="545000"
-              min="50000"
-              step="1000"
-            />
-            <span>€</span>
-          </div>
-
-          <div class="price-lines" id="priceLines"></div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Venta particular y colaboración</div>
-              <div class="card-subtitle">
-                Espacio para propietarios que aún no han decidido agencia.
-              </div>
-            </div>
-          </div>
-
-          <div class="property-list">
-            <div class="property-main-name">
-              Ático Blue Sunset – La Duquesa, Manilva.
-            </div>
-            <p>
-              Esta propiedad coordina la venta particular con servicios activos
-              profesionales (fotografía, home staging, etc.).
-            </p>
-          </div>
-        </article>
-      </section>
-
-            <section class="grid">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Panel de Agencia</div>
-              <div class="card-subtitle">
-                Información de contacto y servicios asumidos.
-              </div>
-            </div>
-          </div>
-          
-          <div class="agency-panel-content">
-            <div class="agency-info">
-              <div class="agency-avatar">BR</div>
-              <div class="agency-details">
-                <div class="agency-name">Bernabeu Realty</div>
-                <div class="agency-contact">Teléfono: 654 34 32 32</div>
-                <div class="agency-assessor">Asesor: <strong>Víctor Pérez</strong></div>
-              </div>
-            </div>
-
-            <div class="agency-services-wrapper">
-              <div class="card-subtitle" style="margin-top:-0.5rem; margin-bottom: 0.5rem; font-weight: 600;">Servicios Activos:</div>
-              <div class="agency-services-list" id="agencyActiveServices">
-                              </div>
-            </div>
-
-            <button type="button" class="btn-campana-firmada">
-              <span style="color:white; margin-right: 5px;">✅</span> Campaña Firmada
-            </button>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Histórico de Acciones</div>
-              <div class="card-subtitle">
-                Cambios, subidas y autorizaciones recientes.
-              </div>
-            </div>
-            <button type="button" class="notification-pill" id="btnNotif" style="background-color: var(--bg-card-alt); border-color: var(--accent-soft);">
-              <span class="dot" style="background-color: var(--accent);"></span> Ver Log
-            </button>
-          </div>
-
-          <div class="recent-list" id="recentList"></div>
-          <div class="card-subtitle" style="margin-top: 0.5rem; text-align: center;">
-            <a href="#" style="color: var(--accent);">Auditar todas las acciones &rarr;</a>
-          </div>
-        </article>
-      </section>
-
-            <section class="grid">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Subir fotos y documentación</div>
-              <div class="card-subtitle">
-                Gestiona todas las fotos HD, planos y escrituras desde aquí.
-              </div>
-            </div>
-          </div>
-
-          <div class="upload-grid">
-            <div class="upload-card">
-              <div class="upload-title">Subir fotos de la vivienda</div>
-              <div
-                class="dropzone"
-                id="dropFotos"
-              >
-                Arrastra las fotos aquí o haz clic para seleccionar.
-              </div>
-              <input
-                type="file"
-                id="fileFotos"
-                accept="image/*"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
-                <div
-                  class="upload-progress-bar"
-                  id="progressFotos"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirFotos"
-                >
-                  Subir / arrastrar fotos
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerFotos"
-                >
-                  Ver fotos subidas
-                </button>
-              </div>
-              <div class="upload-meta" id="metaFotos"></div>
-            </div>
-
-            <div class="upload-card">
-              <div class="upload-title">Subir documentación</div>
-              <div
-                class="dropzone"
-                id="dropDocs"
-              >
-                Arrastra documentación (PDF, escrituras…) o haz clic.
-              </div>
-              <input
-                type="file"
-                id="fileDocs"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
-                <div
-                  class="upload-progress-bar"
-                  id="progressDocs"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirDocs"
-                >
-                  Subir / arrastrar documentación
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerDocs"
-                >
-                  Ver documentación subida
-                </button>
-              </div>
-              <div class="upload-meta" id="metaDocs"></div>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">
-                Servicios disponibles (tarifas ejemplo)
-              </div>
-              <div class="card-subtitle">
-                Activa solo lo que tenga sentido para tu campaña.
-              </div>
-            </div>
-            <button type="button" class="services-link" id="btnVerServicios">
-              Ver todos los servicios
-            </button>
-          </div>
-
-          <div class="services-grid" id="servicesGrid"></div>
-
-          <p class="card-subtitle" style="margin-top: 0.7rem;">
-            El propietario ve esto como “panel de mando”: qué está activo, qué
-            falta por activar y qué servicios ya han sido realizados.
-          </p>
-        </article>
-      </section>
-
-      <section class="grid-1">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">
-                Agencias interesadas en gestión de campaña de venta
-              </div>
-              <div class="card-subtitle">
-                Cuando autorices, la agencia recibirá tus datos de contacto para
-                llamarte cuanto antes.
-              </div>
-            </div>
-          </div>
-
-          <div class="agencies-list" id="agenciesList">
-            </div>
-
-          <div class="agency-caption">
-            Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
-            agencia autorizada para que te contacte lo antes posible.
-          </div>
-        </article>
-      </section>
-    </main>
-  </div>
-
-  <div class="modal-backdrop" id="uploadsModal">
-    <div class="modal">
-      <div class="modal-header">
-        <div class="modal-title" id="modalTitle">Archivos subidos</div>
-        <button class="modal-close" id="modalClose">✕</button>
-      </div>
-      <div class="modal-body" id="modalBody"></div>
-    </div>
-  </div>
-
-  <div class="image-viewer-backdrop" id="imageViewer">
-    <div class="image-viewer-inner">
-      <button class="image-viewer-close" id="imageViewerClose">✕</button>
-      <img src="" alt="Vista previa" id="imageViewerImg" />
-    </div>
-  </div>
-
-  <script>
-    /* ============================
-    	CONSTANTES DE STORAGE
-    	============================ */
-
-    const STORAGE_SERVICIOS = "panamoveServicios";
-    const STORAGE_UPLOADS = "panamoveUploads";
-    const STORAGE_LOG = "panamoveLog";
-    
-    const UPLOAD_DELAY = 10; 
-
-    /* ============================
-    	UTILIDAD: LOG DE ACCIONES
-    	============================ */
-
-    function loadLog() {
-      try {
-        const raw = localStorage.getItem(STORAGE_LOG);
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveLog(list) {
-      try {
-        localStorage.setItem(STORAGE_LOG, JSON.stringify(list));
-      } catch (e) {}
-    }
-
-    function addLogEntry(text) {
-      const now = new Date();
-      const dateStr = now.toISOString().slice(0, 10); // YYYY-MM-DD
-      const timeStr = now.toTimeString().slice(0, 8); // HH:MM:SS
-
-      const list = loadLog();
-      list.unshift({
-        time: timeStr,
-        date: dateStr,
-        text,
-      });
-
-      // Limitar a 200 entradas
-      if (list.length > 200) list.length = 200;
-      saveLog(list);
-      renderLog();
-    }
-
-    function renderLog() {
-      const list = loadLog();
-      const container = document.getElementById("recentList");
-      if (!container) return;
-
-      container.innerHTML = "";
-
-      if (!list.length) {
-        const p = document.createElement("p");
-        p.className = "card-subtitle";
-        p.textContent =
-          "Aquí aparecerán los servicios activados, documentos subidos y agencias autorizadas.";
-        container.appendChild(p);
-        return;
-      }
-
-      list.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "recent-item";
-
-        const time = document.createElement("div");
-        time.className = "recent-time";
-        time.textContent = `[${item.time} · ${item.date}]`;
-
-        const text = document.createElement("div");
-        text.className = "recent-text";
-        text.textContent = item.text;
-
-        row.appendChild(time);
-        row.appendChild(text);
-        container.appendChild(row);
-      });
-    }
-
-    /* ============================
-    	PRECIO / SIMULACIÓN
-    	============================ */
-
-    function formatMoney(num) {
-      return num.toLocaleString("es-ES", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      });
-    }
-
-    // Lógica de precios actualizada para incluir costes de servicios.
-    function recalcPrice() {
-      const input = document.getElementById("precioInput");
-      const lines = document.getElementById("priceLines");
-      if (!input || !lines) return;
-
-      const base = Number(input.value || 0);
-
-      const serviciosActivos = loadServiciosEstado().filter(svc => svc.activo);
-      const costeServiciosFijos = serviciosActivos.reduce((sum, svc) => sum + (svc.costeFijo || 0), 0);
-      
-      const comisionBase = base * 0.03;
-      const comisionTotal = comisionBase + costeServiciosFijos; 
-      
-      const ivaServicios = comisionTotal * 0.21;
-      const totalServicios = comisionTotal + ivaServicios;
-      
-      const neto = base - comisionTotal;
-
-      lines.innerHTML = `
-        IVA servicios 21 %: ${formatMoney(ivaServicios)} €<br />
-        Comisión 3 % gestión + Coste servicios fijos: ${formatMoney(comisionTotal)} €<br />
-        <span class="total">Total a pagar (servicios + comisión + IVA): ${formatMoney(
-          totalServicios
-        )} €</span><br /><br />
-        Neto para ti (antes de plusvalía): ${formatMoney(neto)} €
-      `;
-    }
-
-
-    /* ============================
-    	SERVICIOS (4 EN DASHBOARD)
-    	============================ */
-
-    // CORRECCIÓN: Se añade 'costeFijo' a cada servicio.
-    const serviciosDashboardBase = [
-      { id: "fotos", nombre: "Fotos PRO", categoria: "Imagen", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Fotógrafo especializado inmobiliario.", activoPorDefecto: true },
-      { id: "video-dron", nombre: "Vídeo + dron", categoria: "Vídeo", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Recorrido interior + vistas aéreas.", activoPorDefecto: true },
-      { id: "home-staging", nombre: "Home staging", categoria: "Estética", precio: "750–1200 € · pago a éxito", costeFijo: 750, descripcion: "Mejora estética sin reformas pesadas.", activoPorDefecto: true },
-      { id: "blogger-internacional", nombre: "Blogger internacional", categoria: "Difusión", precio: "3000 € · pago a éxito", costeFijo: 3000, descripcion: "Historia real de la vivienda en otro país.", activoPorDefecto: false },
-    ];
-
-    function loadServiciosEstado() {
-      try {
-        const raw = localStorage.getItem(STORAGE_SERVICIOS);
-        const stored = raw ? JSON.parse(raw) : [];
-        const map = new Map(stored.map((s) => [s.id, s.activo]));
-        return serviciosDashboardBase.map((svc) => ({
-          ...svc,
-          activo: map.has(svc.id)
-            ? !!map.get(svc.id)
-            : svc.id === "fotos" || svc.id === "home-staging" // Activos por defecto si no hay nada en storage
-        }));
-      } catch (e) {
-        return serviciosDashboardBase.map((svc) => ({
-          ...svc,
-          activo: svc.id === "fotos" || svc.id === "home-staging",
-        }));
-      }
-    }
-
-    let serviciosEstado = loadServiciosEstado();
-
-    function saveServiciosEstado() {
-      try {
-        const raw = localStorage.getItem(STORAGE_SERVICIOS);
-        const stored = raw ? JSON.parse(raw) : [];
-        const map = new Map(stored.map((s) => [s.id, s]));
-        serviciosEstado.forEach((svc) => {
-          map.set(svc.id, { id: svc.id, activo: !!svc.activo, costeFijo: svc.costeFijo });
-        });
-        const arr = Array.from(map.values());
-        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(arr));
-      } catch (e) {}
-    }
-
-    function toggleServicioDashboard(id) {
-      serviciosEstado = serviciosEstado.map((svc) =>
-        svc.id === id ? { ...svc, activo: !svc.activo } : svc
-      );
-      saveServiciosEstado();
-      const svc = serviciosEstado.find((s) => s.id === id);
-      if (svc) {
-        addLogEntry(
-          `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
-            svc.nombre
-          }.`
-        );
-      }
-      renderServiciosDashboard();
-      renderAgencyActiveServices(); // Actualiza los pills de la agencia
-      recalcPrice();
-    }
-    
-    // Función para renderizar los servicios activos DENTRO del Panel de Agencia
-    function renderAgencyActiveServices() {
-      const container = document.getElementById("agencyActiveServices");
-      if (!container) return;
-      
-      container.innerHTML = '';
-      
-      const activos = serviciosEstado.filter(svc => svc.activo);
-      
-      if (activos.length === 0) {
-        container.innerHTML = `<p class="card-subtitle" style="margin: 0; padding-top: 5px;">Ningún servicio de marketing activo en este momento.</p>`;
-        return;
-      }
-      
-      activos.forEach(svc => {
-        const pill = document.createElement('div');
-        pill.className = 'agency-service-pill';
-        // Los pills de la agencia tienen un dot verde
-        pill.innerHTML = `<span class="dot"></span> ${svc.nombre} activado por el propietario`; 
-        container.appendChild(pill);
-      });
-    }
-
-
-    function renderServiciosDashboard() {
-      const grid = document.getElementById("servicesGrid");
-      if (!grid) return;
-
-      grid.innerHTML = "";
-
-      serviciosEstado.forEach((svc) => {
-        const card = document.createElement("article");
-        card.className = "service-card" + (svc.activo ? " service-card-active" : "");
-        card.innerHTML = `
-          <div class="service-card-header">
-            <div>
-              <div class="service-name">${svc.nombre}</div>
-              <div class="service-price" style="color: ${svc.activo ? 'var(--gold)' : 'var(--text-soft)'}; margin-top:0;">${svc.precio}</div>
-            </div>
-            <div class="service-tag">${svc.categoria}</div>
-          </div>
-          <p class="service-desc">${svc.descripcion}</p>
-          <div class="service-footer">
-            <span class="service-state-pill ${svc.activo ? '' : 'inactive'}" style="
-              border-color: ${svc.activo ? 'var(--gold)' : 'var(--border-subtle)'};
-              color: ${svc.activo ? 'var(--gold)' : 'var(--text-soft)'};
-              background: ${svc.activo ? 'rgba(251, 191, 36, 0.1)' : 'var(--bg-main)'};
-            ">
-              <span class="icon">★</span> 
-              <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
-            </span>
-            <button class="btn-ghost" data-id="${svc.id}" style="
-              border-color: ${svc.activo ? 'var(--danger)' : 'var(--success)'}; 
-              color: ${svc.activo ? 'var(--danger)' : 'var(--success)'}; 
-              padding: 0.3rem 0.6rem; font-size: 0.75rem; 
-              background: ${svc.activo ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)'};
-            ">
-              ${svc.activo ? "Desactivar" : "Activar"}
-            </button>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      grid.querySelectorAll("button").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-id");
-          toggleServicioDashboard(id);
-        });
-      });
-    }
-
-    function toggleServicioDashboard(id) {
-      serviciosEstado = serviciosEstado.map((svc) =>
-        svc.id === id ? { ...svc, activo: !svc.activo } : svc
-      );
-      saveServiciosEstado();
-      const svc = serviciosEstado.find((s) => s.id === id);
-      if (svc) {
-        addLogEntry(
-          `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
-            svc.nombre
-          }.`
-        );
-      }
-      renderServiciosDashboard();
-      renderAgencyActiveServices(); // Actualiza los pills de la agencia
-      recalcPrice();
-    }
-
-    /* ============================
-    	AGENCIAS
-    	============================ */
-
-    const agenciesData = [
-      {
-        id: "bernabeu",
-        siglas: "BR",
-        nombre: "Bernabeu Realty",
-        telefono: "654 34 32 32",
-        texto: "Dispuesta a asumir los gastos clave para acelerar la venta.",
-      },
-      {
-        id: "roth",
-        siglas: "RT",
-        nombre: "RT Rothchild Inmo",
-        telefono: "654 34 32 32",
-        texto:
-          "Dispuesta a asumir los gastos clave para acelerar la venta.",
-      },
-    ];
-
-    function loadAgenciesState() {
-      try {
-        const raw = localStorage.getItem("panamoveAgencias");
-        const stored = raw ? JSON.parse(raw) : {};
-        return agenciesData.map((a) => ({
-          ...a,
-          autorizado: !!stored[a.id],
-        }));
-      } catch (e) {
-        return agenciesData.map((a) => ({ ...a, autorizado: false }));
-      }
-    }
-
-    let agenciesState = loadAgenciesState();
-
-    function saveAgenciesState() {
-      try {
-        const map = {};
-        agenciesState.forEach((a) => {
-          map[a.id] = !!a.autorizado;
-        });
-        localStorage.setItem("panamoveAgencias", JSON.stringify(map));
-      } catch (e) {}
-    }
-
-    function renderAgencies() {
-      const container = document.getElementById("agenciesList");
-      if (!container) return;
-      container.innerHTML = "";
-
-      agenciesState.forEach((ag) => {
-        const row = document.createElement("div");
-        row.className = "agency-row";
-
-        const main = document.createElement("div");
-        main.className = "agency-main";
-
-        const avatar = document.createElement("div");
-        avatar.className = "agency-avatar";
-        avatar.textContent = ag.siglas;
-
-        const text = document.createElement("div");
-        const name = document.createElement("div");
-        name.className = "agency-name";
-        name.textContent = ag.nombre;
-        const phone = document.createElement("div");
-        phone.className = "agency-phone";
-        phone.textContent = `Teléfono: ${ag.telefono}`;
-        const caption = document.createElement("div");
-        caption.className = "agency-phone";
-        caption.textContent = ag.texto;
-
-        text.appendChild(name);
-        text.appendChild(phone);
-        text.appendChild(caption);
-
-        main.appendChild(avatar);
-        main.appendChild(text);
-
-        const btn = document.createElement("button");
-        btn.className =
-          "agency-btn" + (ag.autorizado ? " agency-btn-confirmed" : "");
-        btn.innerHTML = `${
-          ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"
-        }`;
-        btn.addEventListener("click", () => {
-          ag.autorizado = !ag.autorizado;
-          saveAgenciesState();
-          addLogEntry(
-            ag.autorizado
-              ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
-              : `Has revocado la autorización a ${ag.nombre} en la campaña.`
-          );
-          renderAgencies();
-        });
-
-        row.appendChild(main);
-        row.appendChild(btn);
-        container.appendChild(row);
-      });
-    }
-
-    /* ============================
-    	UPLOADS + MODAL
-    	============================ */
-
-    function loadUploads() {
-      try {
-        const raw = localStorage.getItem(STORAGE_UPLOADS);
-        const parsed = raw ? JSON.parse(raw) : {};
-        return {
-          fotos: Array.isArray(parsed.fotos) ? parsed.fotos : [],
-          docs: Array.isArray(parsed.docs) ? parsed.docs : [],
-        };
-      } catch (e) {
-        return { fotos: [], docs: [] };
-      }
-    }
-
-    function saveUploads(data) {
-      try {
-        localStorage.setItem(STORAGE_UPLOADS, JSON.stringify(data));
-      } catch (e) {}
-    }
-
-    let uploads = loadUploads();
-
-    function updateUploadMeta() {
-      const metaFotos = document.getElementById("metaFotos");
-      const metaDocs = document.getElementById("metaDocs");
-      
-      const fotosCount = uploads.fotos.length;
-      const docsCount = uploads.docs.length;
-
-      if (metaFotos) {
-        metaFotos.textContent =
-          fotosCount === 0
-            ? "No hay fotos subidas todavía."
-            : `${fotosCount} foto(s) guardadas en el sistema.`;
-      }
-      if (metaDocs) {
-        metaDocs.textContent =
-          docsCount === 0
-            ? "No hay documentos subidos todavía."
-            : `${docsCount} documento(s) guardados en el sistema.`;
-      }
-    }
-
-    function handleFiles(list, tipo) {
-      if (!list || !list.length) return;
-      
-      const progressBar =
-        tipo === "fotos"
-          ? document.getElementById("progressFotos")
-          : document.getElementById("progressDocs");
-      const metaElement = 
-        tipo === "fotos"
-          ? document.getElementById("metaFotos")
-          : document.getElementById("metaDocs");
-          
-      if (progressBar) progressBar.style.width = "0%";
-      
-      const filesArray = Array.from(list);
-      let filesProcessed = 0;
-
-      const processFile = (file) => {
-          return new Promise(resolve => {
-              const reader = new FileReader();
-              
-              reader.onload = (ev) => {
-                  const dataUrl = ev.target.result;
-                  const item = {
-                      name: file.name,
-                      dataUrl,
-                      type: file.type // Guardar el tipo MIME para el futuro
-                  };
-                  if (tipo === "fotos") uploads.fotos.push(item);
-                  else uploads.docs.push(item);
-                  
-                  filesProcessed++;
-                  
-                  const percent = Math.round((filesProcessed / filesArray.length) * 100);
-                  
-                  if (progressBar) {
-                      progressBar.style.width = percent + "%";
-                  }
-                  
-                  if (metaElement) {
-                      metaElement.textContent = `Subiendo: ${percent}% completado (${filesProcessed}/${filesArray.length} archivos)`;
-                  }
-
-                  // Simular tiempo de subida
-                  setTimeout(() => resolve(), UPLOAD_DELAY); 
-              };
-
-              // Empezar la lectura del archivo
-              reader.readAsDataURL(file); 
-          });
-      };
-      
-      // Encadenar las promesas para subirlos uno por uno (simulación secuencial)
-      filesArray.reduce((p, file) => p.then(() => processFile(file)), Promise.resolve())
-          .then(() => {
-              // Una vez que todos los archivos han sido procesados
-              saveUploads(uploads);
-              updateUploadMeta();
-              
-              if (metaElement) {
-                  metaElement.textContent = `${filesArray.length} archivo(s) subidos con éxito.`;
-                  // Opcional: limpiar la barra de progreso después de un pequeño retraso
-                  setTimeout(() => { if (progressBar) progressBar.style.width = "0%"; }, 2000); 
-              }
-              
-              addLogEntry(
-                  `Has subido ${filesArray.length} ${
-                      tipo === "fotos" ? "foto(s)" : "documento(s)"
-                  } al dashboard.`
-              );
-              
-          });
-    }
-
-    // --- modal de lista (fotos / docs) ---
-    const uploadsModal = document.getElementById("uploadsModal");
-    const modalBody = document.getElementById("modalBody");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalClose = document.getElementById("modalClose");
-
-    function openModalUploads(tipo) {
-      if (!uploadsModal || !modalBody) return;
-      uploadsModal.style.display = "flex";
-      modalBody.innerHTML = "";
-
-      const list = tipo === "fotos" ? uploads.fotos : uploads.docs;
-      modalTitle.textContent =
-        tipo === "fotos" ? "Fotos subidas" : "Documentación subida";
-
-      if (!list.length) {
-        const p = document.createElement("p");
-        p.className = "card-subtitle";
-        p.textContent = "No hay archivos subidos todavía.";
-        modalBody.appendChild(p);
-        return;
-      }
-
-      list.forEach((item, idx) => {
-        const card = document.createElement("div");
-        card.className = "modal-item";
-
-        const openInNew = () => {
-          if (!item.dataUrl) return;
-          if (tipo === "fotos") {
-            openImageViewer(item.dataUrl, item.name);
-          } else {
-            window.open(item.dataUrl, "_blank");
-          }
-        };
-
-        if (tipo === "fotos" && item.dataUrl) {
-          const img = document.createElement("img");
-          img.src = item.dataUrl;
-          img.alt = item.name || "Foto subida";
-          img.addEventListener("click", openInNew);
-          card.appendChild(img);
-        }
-
-        const name = document.createElement("div");
-        name.className = "modal-item-name";
-        name.textContent = item.name || `Archivo ${idx + 1}`;
-        card.appendChild(name);
-
-        const actions = document.createElement("div");
-        actions.className = "modal-actions-row";
-
-        const openBtn = document.createElement("button");
-        openBtn.className = "modal-open";
-        openBtn.textContent = "Abrir";
-        openBtn.addEventListener("click", openInNew);
-
-        const delBtn = document.createElement("button");
-        delBtn.className = "modal-delete";
-        delBtn.textContent = "Eliminar";
-        delBtn.addEventListener("click", (ev) => {
-          ev.stopPropagation();
-          list.splice(idx, 1);
-          saveUploads(uploads);
-          updateUploadMeta();
-          openModalUploads(tipo);
-        });
-
-        actions.appendChild(openBtn);
-        actions.appendChild(delBtn);
-        card.appendChild(actions);
-
-        card.addEventListener("click", openInNew);
-
-        modalBody.appendChild(card);
-      });
-    }
-
-    function closeModalUploads() {
-      if (!uploadsModal) return;
-      uploadsModal.style.display = "none";
-    }
-
-    if (modalClose) {
-      modalClose.addEventListener("click", closeModalUploads);
-    }
-    if (uploadsModal) {
-      uploadsModal.addEventListener("click", (ev) => {
-        if (ev.target === uploadsModal) closeModalUploads();
-      });
-    }
-
-    /* VISOR PRO ----------------------------------------------------------- */
-    const imageViewer = document.getElementById("imageViewer");
-    const imageViewerImg = document.getElementById("imageViewerImg");
-    const imageViewerClose = document.getElementById("imageViewerClose");
-
-    function openImageViewer(url, name) {
-      if (!url || !imageViewer || !imageViewerImg) return;
-      imageViewerImg.src = url;
-      imageViewerImg.alt = name || "Foto subida";
-      imageViewer.style.display = "flex";
-    }
-
-    function closeImageViewer() {
-      if (!imageViewer || !imageViewerImg) return;
-      imageViewer.style.display = "none";
-      imageViewerImg.src = "";
-    }
-
-    if (imageViewerClose) {
-      imageViewerClose.addEventListener("click", closeImageViewer);
-    }
-    if (imageViewer) {
-      imageViewer.addEventListener("click", (ev) => {
-        if (ev.target === imageViewer) closeImageViewer();
-      });
-    }
-    document.addEventListener("keydown", (ev) => {
-      if (ev.key === "Escape") {
-        closeImageViewer();
-        closeModalUploads();
-      }
-    });
-
-    /* ============================
-      INICIALIZACIÓN & EVENTOS
-      ============================ */
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // precio
-      recalcPrice();
-      const precioInput = document.getElementById("precioInput");
-      if (precioInput) {
-        precioInput.addEventListener("input", recalcPrice);
-        precioInput.addEventListener("change", recalcPrice);
-        precioInput.addEventListener("blur", recalcPrice);
-      }
-      const btnSim = document.getElementById("btnSimulacion");
-      if (btnSim) btnSim.addEventListener("click", recalcPrice);
-
-      // servicios
-      serviciosEstado = loadServiciosEstado();
-      renderServiciosDashboard();
-      renderAgencyActiveServices();
-
-      const btnVerServicios = document.getElementById("btnVerServicios");
-      if (btnVerServicios) {
-        btnVerServicios.addEventListener("click", () => {
-          window.location.href = "servicios.html";
-        });
-      }
-
-      agenciesState = loadAgenciesState();
-      renderAgencies();
-
-      uploads = loadUploads();
-      updateUploadMeta();
-
-      const dropFotos = document.getElementById("dropFotos");
-      const dropDocs = document.getElementById("dropDocs");
-      const fileFotos = document.getElementById("fileFotos");
-      const fileDocs = document.getElementById("fileDocs");
-
-      if (dropFotos && fileFotos) {
-        const openPickerFotos = () => fileFotos.click();
-        const btnSubirFotos = document.getElementById("btnSubirFotos");
-        if(btnSubirFotos) btnSubirFotos.addEventListener("click", openPickerFotos);
-        
-        dropFotos.addEventListener("click", openPickerFotos);
-
-        ["dragenter", "dragover"].forEach((evName) =>
-          dropFotos.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropFotos.classList.add("dragover");
-          })
-        );
-        ["dragleave", "drop"].forEach((evName) =>
-          dropFotos.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropFotos.classList.remove("dragover");
-          })
-        );
-        dropFotos.addEventListener("drop", (ev) => {
-          const files = ev.dataTransfer.files;
-          handleFiles(files, "fotos");
-          dropFotos.classList.remove("dragover");
-        });
-        fileFotos.addEventListener("change", (ev) => {
-          handleFiles(ev.target.files, "fotos");
-          fileFotos.value = "";
-        });
-      }
-
-      if (dropDocs && fileDocs) {
-        const openPickerDocs = () => fileDocs.click();
-        const btnSubirDocs = document.getElementById("btnSubirDocs");
-        if(btnSubirDocs) btnSubirDocs.addEventListener("click", openPickerDocs);
-
-        dropDocs.addEventListener("click", openPickerDocs);
-
-        ["dragenter", "dragover"].forEach((evName) =>
-          dropDocs.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropDocs.classList.add("dragover");
-          })
-        );
-        ["dragleave", "drop"].forEach((evName) =>
-          dropDocs.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropDocs.classList.remove("dragover");
-          })
-        );
-        dropDocs.addEventListener("drop", (ev) => {
-          const files = ev.dataTransfer.files;
-          handleFiles(files, "docs");
-          dropDocs.classList.remove("dragover");
-        });
-        fileDocs.addEventListener("change", (ev) => {
-          handleFiles(ev.target.files, "docs");
-          fileDocs.value = "";
-        });
-      }
-
-      const btnVerFotos = document.getElementById("btnVerFotos");
-      if (btnVerFotos) {
-        btnVerFotos.addEventListener("click", () => openModalUploads("fotos"));
-      }
-      const btnVerDocs = document.getElementById("btnVerDocs");
-      if (btnVerDocs) {
-        btnVerDocs.addEventListener("click", () => openModalUploads("docs"));
-      }
-
-      const btnNotif = document.getElementById("btnNotif");
-      if (btnNotif) {
-        btnNotif.addEventListener("click", () => {
-          const recent = document.getElementById("recentList");
-          if (recent) recent.scrollTop = 0;
-        });
-      }
-
-      renderLog();
-    });
-  </script>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo"></div>
+            <div class="brand-text">
+                <h1>Panamove</h1>
+                <span>Sistema 7.0</span>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-file-signature"></i> <span>Auditoría</span></a>
+        </nav>
+        <div class="sidebar-footer">© 2025 V.7.0</div>
+    </aside>
+
+    <main class="main">
+        <div class="header">
+            <div>
+                <h2>Dashboard de Campaña</h2>
+                <p>Vista general de rendimiento y gestión de servicios.</p>
+            </div>
+            <span class="badge">En Vivo <i class="fas fa-circle" style="font-size:6px; vertical-align:middle; margin-left:4px;"></i></span>
+        </div>
+
+        <section class="grid-kpi">
+            <div class="kpi-box">
+                <div class="kpi-lbl">Vistas Totales</div>
+                <div class="kpi-val" id="kpiViews">0</div>
+            </div>
+            <div class="kpi-box">
+                <div class="kpi-lbl">Leads Cualificados</div>
+                <div class="kpi-val" id="kpiLeads">0</div>
+            </div>
+            <div class="kpi-box" style="border-color: var(--gold);">
+                <div class="kpi-lbl">Inversión Activa</div>
+                <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
+            </div>
+        </section>
+
+        <section class="grid-cols-2">
+            
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <article class="card">
+                    <div class="card-header">
+                        <span class="card-title">Simulador Financiero</span>
+                    </div>
+                    <div class="input-group">
+                        <label style="color: var(--text-muted); font-size: 0.85rem;">Precio Venta:</label>
+                        <input type="number" id="precioInput" value="545000">
+                        <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i></button>
+                    </div>
+                    <div id="priceLines" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+                        </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <span class="card-title">Catálogo de Servicios (Acceso Rápido)</span>
+                        <a href="servicios.html" style="font-size:0.8rem; color:var(--primary);">Ver Todo</a>
+                    </div>
+                    <div class="services-grid" id="servicesGrid">
+                        </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header"><span class="card-title">Documentación</span></div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div style="background: #15191e; padding: 1rem; border-radius: 8px; text-align: center; border: 1px dashed var(--border);">
+                            <i class="fas fa-camera" style="margin-bottom:5px; color: var(--primary);"></i>
+                            <div style="font-size:0.8rem;">Fotos Vivienda</div>
+                        </div>
+                        <div style="background: #15191e; padding: 1rem; border-radius: 8px; text-align: center; border: 1px dashed var(--border);">
+                            <i class="fas fa-file-pdf" style="margin-bottom:5px; color: var(--gold);"></i>
+                            <div style="font-size:0.8rem;">Escrituras</div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <article class="card">
+                    <div class="card-header">
+                        <span class="card-title">Panel de Agencia</span>
+                        <i class="fas fa-building" style="color: var(--text-muted);"></i>
+                    </div>
+                    <div class="agency-profile">
+                        <div class="avatar">BR</div>
+                        <div class="agency-info">
+                            <h4>Bernabeu Realty</h4>
+                            <p>Asesor: <strong>Víctor Pérez</strong></p>
+                            <p style="font-size:0.75rem;">654 34 32 32</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <p style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Servicios Activos:</p>
+                        <div class="active-services-container" id="agencyActiveServices">
+                            </div>
+                    </div>
+
+                    <button class="btn-gold">
+                        <i class="fas fa-signature"></i> Campaña Firmada
+                    </button>
+                </article>
+
+                <article class="card" style="flex: 1;">
+                    <div class="card-header">
+                        <span class="card-title">Actividad Reciente</span>
+                    </div>
+                    <div class="log-container" id="recentList">
+                        </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // --- CONFIG Y ESTADO ---
+        const STORAGE_SERVICIOS = "panamoveServicios";
+        const STORAGE_LOG = "panamoveLog";
+
+        const serviciosBase = [
+            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", def: true },
+            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", def: true },
+            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Estética", def: true },
+            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", def: false }
+        ];
+
+        // --- FUNCIONES LÓGICAS ---
+        
+        // 1. Log
+        function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
+        function addLog(msg) {
+            const list = getLog();
+            const now = new Date();
+            list.unshift({
+                time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
+                msg: msg
+            });
+            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(0, 20)));
+            renderLog();
+        }
+        function renderLog() {
+            const list = getLog();
+            const el = document.getElementById('recentList');
+            if(!el) return;
+            el.innerHTML = list.length ? list.map(i => `
+                <div class="log-item">
+                    <span class="log-time">${i.time}</span>
+                    <span class="log-text">${i.msg}</span>
+                </div>
+            `).join('') : '<div style="padding:10px; color:var(--text-muted);">Sin actividad.</div>';
+        }
+
+        // 2. Servicios
+        function getServicios() {
+            try {
+                const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
+                // Si no hay storage, usa los default
+                if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
+                
+                // Mezclar base con estado guardado
+                const map = new Map(stored.map(s => [s.id, s.activo]));
+                return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def}));
+            } catch { return serviciosBase; }
+        }
+
+        function toggleService(id) {
+            const current = getServicios();
+            const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
+            const changed = updated.find(s => s.id === id);
+            
+            // Guardar solo ID y estado
+            localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
+            
+            addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: ${changed.nombre}`);
+            renderAll();
+        }
+
+        // 3. Calculadora
+        function calcPrice() {
+            const input = document.getElementById('precioInput');
+            const output = document.getElementById('priceLines');
+            if(!input || !output) return;
+
+            const val = parseFloat(input.value) || 0;
+            // Sumar costes fijos de servicios activos
+            const activos = getServicios().filter(s => s.activo);
+            const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
+            
+            const comision = val * 0.03;
+            const totalSinIva = comision + fijos;
+            const iva = totalSinIva * 0.21;
+            const total = totalSinIva + iva;
+            const neto = val - totalSinIva; // Aprox
+
+            output.innerHTML = `
+                <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                    <span>Comisión (3%):</span> <span>${comision.toLocaleString()} €</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span>Servicios Activos:</span> <span>${fijos.toLocaleString()} €</span>
+                </div>
+                 <div style="display:flex; justify-content:space-between; color: var(--text-muted);">
+                    <span>IVA (21%):</span> <span>${iva.toLocaleString('es-ES', {maximumFractionDigits:0})} €</span>
+                </div>
+                <div style="border-top:1px solid var(--border); margin-top:8px; padding-top:8px; font-weight:bold; color:var(--gold); font-size:1.1rem;">
+                    Total: ${total.toLocaleString('es-ES', {maximumFractionDigits:0})} €
+                </div>
+                <div style="margin-top:5px; font-size:0.8rem;">Neto estimado: ${neto.toLocaleString()} €</div>
+            `;
+
+            // Actualizar KPI Coste
+            const kpiCost = document.getElementById('kpiCost');
+            if(kpiCost) kpiCost.textContent = `${total.toLocaleString('es-ES', {maximumFractionDigits:0})} €`;
+        }
+
+        // 4. Render Principal
+        function renderAll() {
+            const servicios = getServicios();
+
+            // Render Grid
+            const grid = document.getElementById('servicesGrid');
+            if(grid) {
+                grid.innerHTML = servicios.map(s => `
+                    <div class="svc-card ${s.activo ? 'active' : ''}">
+                        <div class="svc-head">
+                            <span class="svc-name">${s.nombre}</span>
+                            <span class="svc-price">${s.precio}</span>
+                        </div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">${s.cat}</div>
+                        <button class="svc-toggle" onclick="toggleService('${s.id}')">
+                            ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            // Render Agency Chips
+            const agencyBox = document.getElementById('agencyActiveServices');
+            if(agencyBox) {
+                const activos = servicios.filter(s => s.activo);
+                agencyBox.innerHTML = activos.length ? 
+                    activos.map(s => `<div class="service-chip"><span class="dot"></span> ${s.nombre}</div>`).join('') :
+                    '<span style="font-size:0.8rem; color:var(--text-muted)">Ninguno.</span>';
+            }
+
+            calcPrice();
+        }
+
+        // --- ANIMACIONES KPI ---
+        function animateValue(id, end) {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let start = 0;
+            let duration = 1500;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAll();
+            renderLog();
+            
+            // Listeners Precio
+            const pInput = document.getElementById('precioInput');
+            if(pInput) {
+                pInput.addEventListener('input', calcPrice);
+                document.getElementById('btnSimulacion')?.addEventListener('click', calcPrice);
+            }
+
+            // KPIs Animados
+            animateValue("kpiViews", 7840);
+            animateValue("kpiLeads", 42);
+        });
+    </script>
 </body>
 </html>
