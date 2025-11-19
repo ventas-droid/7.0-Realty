@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -115,8 +115,8 @@
       border-radius: var(--radius-full);
       font-size: 0.8rem;
       color: var(--text-soft);
-      border: 1px solid transparent;
       cursor: pointer;
+      border: 1px solid transparent;
       transition: background var(--transition-fast), color var(--transition-fast),
         border-color var(--transition-fast);
     }
@@ -132,7 +132,7 @@
       background: rgba(15, 23, 42, 0.95);
       color: var(--text-main);
       border-color: #0f172a;
-      box-shadow: var(--shadow-pill);
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.3);
     }
 
     .nav-item:hover {
@@ -192,9 +192,9 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      background: #020617;
-      border: 1px solid rgba(51, 65, 85, 0.8);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+      background: var(--bg-main);
+      box-shadow: var(--shadow-pill);
+      border: 1px solid rgba(31, 41, 55, 0.8);
     }
 
     .pill-dot {
@@ -203,6 +203,12 @@
       border-radius: 50%;
       background: var(--success);
       box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    .pill-ghost {
+      background: transparent;
+      border-color: rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
     }
 
     .badge-sistema {
@@ -239,364 +245,30 @@
       transform: translateY(-1px);
     }
 
-    /* WRAPPERS ------------------------------------------------------------- */
+    /* GRID -------------------------------------------------------------- */
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: 2fr 1.5fr 1.4fr;
+    }
+
+    .grid-2 {
+      grid-template-columns: 1.8fr 1.2fr;
+    }
+
+    .grid-2-equal {
+      grid-template-columns: 1.1fr 1.1fr;
     }
 
     .grid-1 {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 1rem;
+      grid-template-columns: 1fr;
     }
 
-    .card {
-      background: radial-gradient(circle at top left, #020817, #020617 55%);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      padding: 1.2rem 1.3rem;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.6rem;
-    }
-
-    .card-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .card-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      margin-top: 0.15rem;
-    }
-
-    .card-header-main {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-kpi {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-top: 0.6rem;
-    }
-
-    /* CAMPOS PRECIO -------------------------------------------------------- */
-
-    .price-input-row {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.8rem;
-      margin-bottom: 0.6rem;
-    }
-
-    .price-input-row input {
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid #1f2937;
-      padding: 0.25rem 0.6rem;
-      color: var(--text-main);
-      font-size: 0.78rem;
-      width: 120px;
-    }
-
-    .price-input-row input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
-    }
-
-    .btn-mini {
-      border-radius: 999px;
-      padding: 0.22rem 0.7rem;
-      font-size: 0.72rem;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--accent);
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .btn-mini:hover {
-      background: rgba(15, 23, 42, 1);
-    }
-
-    .price-lines {
-      font-size: 0.76rem;
-      color: var(--text-soft);
-      margin-top: 0.5rem;
-      line-height: 1.4;
-    }
-
-    .price-lines .total {
-      color: #f97316;
-      font-weight: 600;
-    }
-
-    /* BLOQUE PROPIEDADES / VENTA PARTICULAR ------------------------------- */
-
-    .property-list {
-      margin-top: 0.8rem;
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      line-height: 1.5;
-    }
-
-    .property-main-name {
-      font-size: 0.9rem;
-      color: var(--text-main);
-      margin-bottom: 0.3rem;
-    }
-
-    /* UPLOADS -------------------------------------------------------------- */
-
-    .upload-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.7rem;
-      margin-top: 0.8rem;
-    }
-
-    .upload-card {
-      border-radius: 16px;
-      border: 1px dashed rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.85);
-      padding: 0.9rem 0.9rem 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-      position: relative;
-    }
-
-    .upload-title {
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .dropzone {
-      margin-top: 0.35rem;
-      border-radius: 999px;
-      border: 1px dashed rgba(75, 85, 99, 0.9);
-      padding: 0.6rem 0.8rem;
-      font-size: 0.75rem;
-      color: var(--text-soft);
-      text-align: center;
-      cursor: pointer;
-      background: rgba(15, 23, 42, 0.9);
-      transition: border-color var(--transition-fast),
-        background var(--transition-fast), transform var(--transition-fast);
-    }
-
-    .dropzone.dragover {
-      border-color: var(--accent);
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-1px);
-    }
-
-    .upload-actions-row {
-      margin-top: 0.35rem;
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-upload {
-      border-radius: 999px;
-      padding: 0.24rem 0.85rem;
-      font-size: 0.74rem;
-      border: 1px solid rgba(56, 189, 248, 0.9);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--accent);
-      cursor: pointer;
-    }
-
-    .btn-upload.secondary {
-      border-color: rgba(156, 163, 175, 0.8);
-      color: var(--text-soft);
-    }
-
-    .upload-progress {
-      margin-top: 0.4rem;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(31, 41, 55, 0.9);
-      overflow: hidden;
-    }
-
-    .upload-progress-bar {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #22c55e, #0ea5e9);
-      transition: width 140ms ease-out;
-    }
-
-    .upload-meta {
-      margin-top: 0.35rem;
-      font-size: 0.72rem;
-      color: var(--text-soft);
-    }
-
-    /* MODAL LISTA DE ARCHIVOS --------------------------------------------- */
-
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.78);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9000;
-      backdrop-filter: blur(6px);
-    }
-
-    .modal {
-      background: #020617;
-      border-radius: 18px;
-      border: 1px solid #111827;
-      padding: 1rem 1.1rem;
-      width: min(720px, 90vw);
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.85);
-      font-size: 0.8rem;
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-    }
-
-    .modal-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .modal-close {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: transparent;
-      color: var(--text-soft);
-      width: 26px;
-      height: 26px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-body {
-      overflow-y: auto;
-      padding-top: 0.4rem;
-      gap: 0.5rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .modal-item {
-      border-radius: 12px;
-      border: 1px solid #111827;
-      padding: 0.5rem 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: #020617;
-      cursor: pointer;
-    }
-
-    .modal-item img {
-      width: 54px;
-      height: 54px;
-      object-fit: cover;
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-
-    .modal-item-name {
-      flex: 1;
-    }
-
-    .modal-actions-row {
-      display: flex;
-      gap: 0.4rem;
-    }
-
-    .modal-open,
-    .modal-delete {
-      border-radius: 999px;
-      padding: 0.15rem 0.75rem;
-      font-size: 0.72rem;
-      border: 1px solid rgba(156, 163, 175, 0.7);
-      background: transparent;
-      color: var(--text-soft);
-      cursor: pointer;
-    }
-
-    .modal-delete {
-      border-color: rgba(248, 113, 113, 0.9);
-      color: #fecaca;
-    }
-
-    /* SERVICIOS EN DASHBOARD ---------------------------------------------- */
-
-    .status-pills-row {
-      margin-top: 0.6rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.3rem 0.85rem;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.78rem;
-      white-space: nowrap;
-    }
-
-    .status-pill .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
-    }
-
-    .services-grid {
-      margin-top: 0.9rem;
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 0.75rem;
-    }
-
-    @media (max-width: 1280px) {
-      .services-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 780px) {
+    @media (max-width: 1024px) {
       .page {
         flex-direction: column;
       }
@@ -617,27 +289,500 @@
       .main {
         padding: 1rem 1.2rem 1.5rem;
       }
-      .grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .services-grid {
+      .grid-3,
+      .grid-2,
+      .grid-2-equal {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* CARDS -------------------------------------------------------------- */
+
+    .card {
+      background: radial-gradient(circle at top left, #020817, #020617 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.2rem 1.3rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .big-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
+    }
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    /* PRECIOS ------------------------------------------------------------ */
+
+    .price-input-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.9rem;
+      margin-top: 0.2rem;
+      flex-wrap: wrap;
+    }
+
+    .price-input-row label {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .price-input {
+      background: #020617;
+      border-radius: var(--radius-full);
+      border: 1px solid #1f2937;
+      padding: 0.28rem 0.8rem;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      outline: none;
+      min-width: 130px;
+    }
+
+    .price-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-table tr + tr td {
+      border-top: 1px dashed rgba(55, 65, 81, 0.7);
+    }
+
+    .price-table td {
+      padding: 0.16rem 0;
+    }
+
+    .price-table td.label {
+      color: var(--text-soft);
+    }
+
+    .price-table td.value {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .price-table tr.total-row td {
+      padding-top: 0.3rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .price-table tr.total-row td.value {
+      color: #f97316;
+    }
+
+    .price-hint {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    /* PROPERTY SUMMARY --------------------------------------------------- */
+
+    .chips-row {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 0.18rem 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      color: #e5e7eb;
+    }
+
+    .property-text {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.6rem;
+    }
+
+    /* UPLOAD AREA -------------------------------------------------------- */
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
       .upload-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .upload-card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(55, 65, 81, 0.9);
+      padding: 0.8rem 0.8rem 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .upload-card h3 {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .upload-drop {
+      margin-top: 0.1rem;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(56, 189, 248, 0.5);
+      padding: 0.75rem;
+      text-align: center;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      justify-content: center;
+      align-items: center;
+      transition: border-color var(--transition-fast), background
+        var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-drop span {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .upload-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background var(--transition-fast), border-color
+        var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-btn:hover {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--accent-strong);
+      transform: translateY(-1px);
+    }
+
+    .upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .upload-view-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.75rem;
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .upload-view-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      border-color: rgba(148, 163, 184, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .upload-counter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0.35rem;
+      min-width: 1.15rem;
+      height: 1.15rem;
+      border-radius: 999px;
+      border: 1px solid #38bdf8;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+    }
+
+    .upload-progress {
+      font-size: 0.72rem;
+      color: #38bdf8;
+      margin-left: 0.4rem;
+    }
+
+    .drag-over {
+      border-color: #a855f7;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      transform: translateY(-1px);
+    }
+
+    /* MODAL LISTADO ------------------------------------------------------ */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+
+    .modal {
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid #1f2937;
+      width: min(720px, 96vw);
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #111827;
+    }
+
+    .modal-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 0.75rem 0.9rem 0.9rem;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.6rem;
+    }
+
+    .modal-item {
+      border-radius: 0.9rem;
+      border: 1px solid #111827;
+      background: #020617;
+      padding: 0.45rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+    }
+
+    .modal-item img {
+      width: 100%;
+      border-radius: 0.7rem;
+      height: 110px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+
+    .modal-item-name {
+      color: var(--text-soft);
+      word-break: break-all;
+    }
+
+    .modal-delete {
+      align-self: flex-start;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+      background: rgba(127, 29, 29, 0.7);
+      color: #fecaca;
+      padding: 0.18rem 0.6rem;
+      font-size: 0.68rem;
+      cursor: pointer;
+    }
+
+    .modal-empty {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      grid-column: 1 / -1;
+    }
+
+    /* VISOR GRANDE DE FOTOS ---------------------------------------------- */
+
+    .viewer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+    }
+
+    .viewer-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      padding: 0.75rem 0.9rem 1rem;
+      background: #020617;
+      border-radius: 18px;
+      border: 1px solid #111827;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .viewer-image {
+      max-width: 86vw;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+    }
+
+    .viewer-name {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .viewer-close {
+      position: absolute;
+      top: 0.3rem;
+      right: 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      font-size: 0.78rem;
+      padding: 0.18rem 0.55rem;
+      cursor: pointer;
+    }
+
+    .viewer-close:hover {
+      background: rgba(30, 64, 175, 0.9);
+    }
+
+    /* SERVICIOS ----------------------------------------------------------- */
+
+    .status-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      margin-top: 0.4rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.18rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .status-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.7rem;
+    }
+
+    @media (max-width: 1220px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
         grid-template-columns: 1fr;
       }
     }
 
     .service-card {
       border-radius: 16px;
+      background: linear-gradient(145deg, #020617, #020617);
       border: 1px solid #111827;
-      background: #020617;
-      padding: 0.85rem 0.9rem 0.9rem;
+      padding: 0.8rem 0.85rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.3rem;
       font-size: 0.78rem;
-      position: relative;
     }
 
     .service-card-active {
@@ -646,158 +791,141 @@
         0 18px 45px rgba(15, 23, 42, 0.9);
     }
 
-    .service-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .service-name {
-      font-size: 0.86rem;
-      font-weight: 600;
-    }
-
-    .service-tag {
-      border-radius: var(--radius-full);
-      padding: 0.15rem 0.6rem;
-      font-size: 0.7rem;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      color: var(--text-soft);
+    .service-card h3 {
+      font-size: 0.88rem;
     }
 
     .service-price {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--text-soft);
-      margin-top: 0.12rem;
     }
 
     .service-desc {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       color: var(--text-soft);
-      margin-top: 0.1rem;
     }
 
     .service-footer {
-      margin-top: 0.55rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 0.45rem;
+      margin-top: 0.55rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
     .service-state-pill {
       border-radius: 999px;
-      padding: 0.2rem 0.7rem;
+      padding: 0.2rem 0.55rem;
       font-size: 0.7rem;
-      background: rgba(250, 204, 21, 0.12);
-      border: 1px solid rgba(250, 204, 21, 0.7);
+      background: rgba(250, 204, 21, 0.1);
+      border: 1px solid rgba(250, 204, 21, 0.5);
       color: #facc15;
       display: inline-flex;
       align-items: center;
       gap: 0.25rem;
     }
 
-    .service-state-pill.inactive {
-      background: rgba(15, 23, 42, 0.95);
-      border-color: rgba(55, 65, 81, 0.9);
-      color: var(--text-soft);
+    .service-state-pill span.icon {
+      font-size: 0.75rem;
     }
 
     .service-btn {
-      border-radius: var(--radius-full);
-      padding: 0.22rem 0.8rem;
-      font-size: 0.73rem;
-      border: 1px solid rgba(148, 163, 184, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
       background: rgba(15, 23, 42, 0.95);
       color: var(--text-main);
+      font-size: 0.72rem;
+      padding: 0.25rem 0.7rem;
       cursor: pointer;
       white-space: nowrap;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
     }
 
-    .service-btn-primary {
-      border-color: rgba(250, 204, 21, 0.8);
+    .service-btn:hover {
+      background: rgba(31, 41, 55, 1);
+      border-color: rgba(148, 163, 184, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .service-btn.active {
+      border-color: var(--gold);
+      background: rgba(250, 204, 21, 0.15);
       color: #facc15;
-      background: rgba(250, 204, 21, 0.12);
     }
 
-    .service-btn-danger {
-      border-color: rgba(248, 113, 113, 0.9);
-      color: #fecaca;
-      background: rgba(127, 29, 29, 0.7);
-    }
-
-    .services-link {
-      margin-top: 0.4rem;
-      font-size: 0.78rem;
-      border-radius: var(--radius-full);
-      padding: 0.22rem 0.8rem;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: transparent;
+    .footer-hint {
+      margin-top: 0.6rem;
+      font-size: 0.7rem;
       color: var(--text-soft);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
     }
 
-    /* AGENCIAS ------------------------------------------------------------- */
+    /* AGENCIAS ------------------------------------------------------------ */
 
-    .agencies-list {
-      margin-top: 0.8rem;
+    .agencies-wrapper {
+      margin-top: 0.5rem;
+    }
+
+    .agencies-scroll {
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 0.4rem;
+      margin-top: 0.6rem;
+    }
+
+    .agency-card {
+      border-radius: 16px;
+      background: #020817;
+      border: 1px solid #111827;
+      padding: 0.75rem 0.85rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      max-height: 210px;
-      overflow-y: auto;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
     }
 
-    .agency-row {
-      border-radius: 999px;
-      padding: 0.55rem 0.7rem;
-      background: #020617;
-      border: 1px solid #111827;
+    .agency-main-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 0.7rem;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
 
-    .agency-main {
+    .agency-left {
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      font-size: 0.8rem;
+      min-width: 0;
     }
 
     .agency-avatar {
-      width: 34px;
-      height: 34px;
+      width: 38px;
+      height: 38px;
       border-radius: 999px;
-      background: #22c55e;
-      display: inline-flex;
+      background: radial-gradient(circle at top, #22c55e, #16a34a);
+      display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 600;
       font-size: 0.8rem;
+      font-weight: 600;
       color: #022c22;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
     }
 
     .agency-name {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 600;
     }
 
     .agency-phone {
       font-size: 0.78rem;
-      color: var(--text-soft);
     }
 
-    .agency-caption {
-      font-size: 0.75rem;
+    .agency-desc {
+      font-size: 0.78rem;
       color: var(--text-soft);
-      margin-top: 0.4rem;
     }
 
     .agency-btn {
@@ -816,6 +944,8 @@
       white-space: nowrap;
       transition: transform var(--transition-fast),
         box-shadow var(--transition-fast), opacity var(--transition-fast);
+      align-self: center;
+      margin-top: 0;
     }
 
     .agency-btn:hover {
@@ -835,124 +965,86 @@
       color: var(--text-soft);
     }
 
-    /* ACCIONES RECIENTES --------------------------------------------------- */
+    /* ACCIONES RECIENTES ------------------------------------------------- */
 
-    .recent-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .recent-list {
-      margin-top: 0.4rem;
-      border-top: 1px dashed rgba(31, 41, 55, 0.9);
-      padding-top: 0.3rem;
-      font-size: 0.78rem;
-      max-height: 230px;
+    .acciones-body {
+      margin-top: 0.35rem;
+      border-top: 1px dashed rgba(55, 65, 81, 0.9);
+      padding-top: 0.45rem;
+      max-height: 190px;
       overflow-y: auto;
+      font-size: 0.78rem;
     }
 
-    .recent-item {
-      padding: 0.25rem 0;
-      border-bottom: 1px dashed rgba(31, 41, 55, 0.9);
-      display: flex;
-      gap: 0.5rem;
+    .acciones-item {
+      padding: 0.18rem 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.6);
     }
 
-    .recent-time {
+    .acciones-item:last-child {
+      border-bottom: none;
+    }
+
+    .acciones-time {
       color: var(--text-soft);
-      min-width: 158px;
+      margin-right: 0.35rem;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
         "Liberation Mono", "Courier New", monospace;
+      font-size: 0.74rem;
     }
 
-    .recent-text {
-      flex: 1;
+    .acciones-text {
+      color: #e5e7eb;
     }
 
-    .notification-pill {
-      border-radius: var(--radius-full);
-      padding: 0.3rem 0.9rem;
+    .acciones-empty {
       font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .notif-btn {
+      border-radius: var(--radius-full);
+      padding: 0.28rem 0.85rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--accent);
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid rgba(56, 189, 248, 0.6);
-      color: var(--accent);
+      gap: 0.35rem;
       cursor: pointer;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast);
     }
 
-    .notification-pill .dot {
-      width: 8px;
-      height: 8px;
+    .notif-btn:hover {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: var(--accent-strong);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .notif-dot {
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.35);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
     }
 
-    /* VISOR PRO DE IMÁGENES ----------------------------------------------- */
+    /* FOOTER ------------------------------------------------------------- */
 
-    .image-viewer-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.85);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      backdrop-filter: blur(6px);
-    }
-
-    .image-viewer-inner {
-      position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 18px;
-      overflow: hidden;
-      background: #020617;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9);
-      padding: 0.6rem;
-    }
-
-    .image-viewer-inner img {
-      display: block;
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    .image-viewer-close {
-      position: absolute;
-      top: 0.3rem;
-      right: 0.4rem;
-      border: none;
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
-      border-radius: 999px;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.5);
-      transition: background 160ms ease-out, transform 160ms ease-out;
-    }
-
-    .image-viewer-close:hover {
-      background: rgba(30, 64, 175, 0.9);
-      transform: translateY(-1px);
+    .footer-note {
+      margin-top: 0.6rem;
+      font-size: 0.76rem;
+      color: var(--text-soft);
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <!-- SIDEBAR ------------------------------------------------------------>
+    <!-- SIDEBAR -------------------------------------------------------------->
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-logo"></div>
@@ -987,134 +1079,188 @@
       </div>
     </aside>
 
-    <!-- MAIN --------------------------------------------------------------->
+    <!-- MAIN ----------------------------------------------------------------->
     <main class="main">
+      <!-- Top bar -->
       <header class="top-bar">
         <div class="top-left">
-          <div class="top-title">Dashboard campaña</div>
+          <div class="top-title">Dashboard</div>
           <div class="top-subtitle">
             Resumen rápido de tu campaña real dentro del sistema 7.0.
           </div>
         </div>
         <div class="top-right">
-          <span class="badge-sistema">
-            <span class="pill-dot"></span> SISTEMA 7.0
-          </span>
-          <a href="servicios.html" class="btn-ghost">
-            Ver catálogo completo de servicios
-          </a>
+          <div class="pill">
+            <div class="pill-dot"></div>
+            Campaña activa – Ático Blue Sunset
+          </div>
+          <a href="servicios.html" class="pill pill-ghost">Ver servicios campaña</a>
         </div>
       </header>
 
-      <!-- FILA 1: Precio + Venta particular / contactos ---------------------->
-      <section class="grid">
+      <!-- Fila 1 -->
+      <section class="grid grid-3">
+        <!-- Calculadora -->
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
+            <div>
               <div class="card-title">Precio de la propiedad</div>
               <div class="card-subtitle">
                 Simulación de costes con servicios activados e IVA.
               </div>
             </div>
-            <button type="button" class="btn-mini" id="btnSimulacion">
-              SIMULACIÓN RÁPIDA 7.0
-            </button>
+            <span class="badge">Simulación rápida 7.0</span>
           </div>
 
           <div class="price-input-row">
-            <span>Introduce el precio orientativo:</span>
+            <label for="precioPropiedad">Introduce el precio orientativo:</label>
             <input
+              id="precioPropiedad"
               type="number"
-              id="precioInput"
+              class="price-input"
               value="545000"
               min="50000"
               step="1000"
             />
-            <span>€</span>
+            <span class="muted">€</span>
           </div>
 
-          <div class="price-lines" id="priceLines">
-            <!-- se rellena por JS -->
-          </div>
+          <table class="price-table">
+            <tbody>
+              <tr>
+                <td class="label">Total servicios activados (sin IVA):</td>
+                <td id="totalServiciosSinIVA" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA servicios 21 %:</td>
+                <td id="ivaServicios" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">Comisión 3 % gestión:</td>
+                <td id="comision" class="value">0 €</td>
+              </tr>
+              <tr>
+                <td class="label">IVA 21 % comisión:</td>
+                <td id="ivaComision" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Total a pagar (servicios + comisión + IVA):</td>
+                <td id="totalGeneral" class="value">0 €</td>
+              </tr>
+              <tr class="total-row">
+                <td class="label">Neto para ti (antes de plusvalía):</td>
+                <td id="netoParaTi" class="value">0 €</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="price-hint">
+            El cálculo es orientativo. No incluye plusvalía municipal, IRPF u
+            otros impuestos. La comisión del 3&nbsp;% se aplica sobre el precio
+            de venta introducido.
+          </p>
         </article>
 
+        <!-- Propiedades activas -->
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Venta particular y colaboración</div>
+            <div>
+              <div class="card-title">Propiedades activas</div>
               <div class="card-subtitle">
-                Espacio para propietarios que aún no han decidido agencia,
-                pero quieren activar servicios profesionales a éxito.
+                Viviendas actualmente dentro del sistema 7.0.
               </div>
             </div>
           </div>
+          <div class="big-number" id="kpiPropiedades">1</div>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Cuando agregues nuevas
+            campañas, aparecerán aquí.
+          </p>
+        </article>
 
-          <div class="property-list">
-            <div class="property-main-name">
-              Ático Blue Sunset – La Duquesa, Manilva.
+        <!-- Contactos cualificados -->
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Contactos cualificados</div>
+              <div class="card-subtitle">
+                Clientes interesados en esta campaña.
+              </div>
             </div>
-            <p>
-              Esta propiedad está en campaña dentro del método 7.0. Desde aquí
-              se coordinará la venta como particular y la colaboración con
-              profesionales de servicios activos (fotografía, vídeo, home
-              staging, blogger internacional, etc.).
-            </p>
           </div>
+          <div class="big-number" id="kpiContactos">0</div>
+          <p class="muted">
+            Cuando registres contactos reales aparecerán aquí para hacer
+            seguimiento.
+          </p>
         </article>
       </section>
 
-      <!-- FILA 2: Última propiedad + Acciones recientes --------------------->
-      <section class="grid">
+      <!-- Fila 2 -->
+      <section class="grid grid-2">
+        <!-- Última propiedad -->
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
+            <div>
               <div class="card-title">Última propiedad en campaña</div>
               <div class="card-subtitle">
                 Pieza clave dentro del método 7.0.
               </div>
             </div>
+            <span class="badge-sistema">SISTEMA 7.0</span>
           </div>
 
-          <div class="property-list">
-            <div class="property-main-name">
-              Atico Blue Sunset – La Duquesa, Manilva.
-            </div>
-            <p>
-              Operación en tiempo real para cerrar al mejor precio posible con
-              plusvalía educativa. Esta es la pieza clave del método 7.0. Desde
-              aquí ves solo el resumen; el resto se controla desde el panel
-              detallado y la auditoría de acciones.
-            </p>
+          <p class="muted">
+            Ático Blue Sunset – La Duquesa, Manilva. Operación en tiempo real
+            para cerrar al mejor precio posible con plusvalía educativa.
+          </p>
+
+          <div class="chips-row">
+            <span class="chip">2 dorm · 2 baños</span>
+            <span class="chip">134 m² construidos aprox.</span>
+            <span class="chip">4 balcones panorámicos Velux</span>
+            <span class="chip">Vistas a Málaga · Cádiz · África · Gibraltar</span>
           </div>
+
+          <p class="property-text">
+            Este ático es la pieza clave del método 7.0. Desde aquí ves solo el
+            resumen; el resto se controla desde el panel detallado y la
+            auditoría de acciones.
+          </p>
         </article>
 
+        <!-- Acciones recientes -->
         <article class="card">
-          <div class="recent-header">
+          <div class="card-header">
             <div>
               <div class="card-title">Acciones recientes</div>
               <div class="card-subtitle">
                 Histórico de lo que se ha activado, subido y autorizado.
               </div>
             </div>
-            <button type="button" class="notification-pill" id="btnNotif">
-              <span class="dot"></span> Notificaciones
+            <button type="button" class="notif-btn" id="btnNotificaciones">
+              <span class="notif-dot"></span>
+              Notificaciones
             </button>
           </div>
 
-          <div class="recent-list" id="recentList"></div>
+          <div id="accionesBody" class="acciones-body">
+            <!-- JS: histórico -->
+          </div>
 
-          <p class="card-subtitle" style="margin-top: 0.5rem;">
+          <p class="footer-note">
             Este histórico es el “cerebro” de la campaña: siempre podrás revisar
             qué se hizo, quién lo activó y cuándo.
           </p>
         </article>
       </section>
 
-      <!-- FILA 3: Subir fotos / docs + Servicios disponibles ---------------->
-      <section class="grid">
+      <!-- Fila 3 -->
+      <section class="grid grid-2-equal">
+        <!-- Subida de archivos -->
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
+            <div>
               <div class="card-title">Subir fotos y documentación</div>
               <div class="card-subtitle">
                 Gestiona todas las fotos HD, planos y escrituras desde aquí.
@@ -1122,93 +1268,88 @@
             </div>
           </div>
 
-          <div class="upload-grid">
-            <!-- FOTOS -->
-            <div class="upload-card">
-              <div class="upload-title">Subir fotos de la vivienda</div>
-              <div
-                class="dropzone"
-                id="dropFotos"
-              >
-                Arrastra las fotos aquí o haz clic para seleccionar.
-              </div>
-              <input
-                type="file"
-                id="fileFotos"
-                accept="image/*"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
+          <div class="upload-section">
+            <div class="upload-grid">
+              <!-- Fotos -->
+              <div class="upload-card">
+                <h3>Subir fotos de la vivienda</h3>
                 <div
-                  class="upload-progress-bar"
-                  id="progressFotos"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirFotos"
+                  class="upload-drop"
+                  id="drop-fotos"
+                  onclick="document.getElementById('input-fotos').click()"
                 >
-                  Subir / arrastrar fotos
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerFotos"
-                >
-                  Ver fotos subidas
-                </button>
+                  <span>Arrastra las fotos aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-fotos-select"
+                  >
+                    ⬆️ Subir / arrastrar fotos
+                  </button>
+                  <input
+                    type="file"
+                    id="input-fotos"
+                    accept="image/*"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
               </div>
-              <div class="upload-meta" id="metaFotos"></div>
+
+              <!-- Documentos -->
+              <div class="upload-card">
+                <h3>Subir documentación</h3>
+                <div
+                  class="upload-drop"
+                  id="drop-docs"
+                  onclick="document.getElementById('input-docs').click()"
+                >
+                  <span>Arrastra la documentación aquí</span>
+                  <button
+                    type="button"
+                    class="upload-btn"
+                    id="btn-docs-select"
+                  >
+                    ⬆️ Subir / arrastrar documentación
+                  </button>
+                  <input
+                    type="file"
+                    id="input-docs"
+                    multiple
+                    style="display: none"
+                  />
+                </div>
+              </div>
             </div>
 
-            <!-- DOCUMENTOS -->
-            <div class="upload-card">
-              <div class="upload-title">Subir documentación</div>
-              <div
-                class="dropzone"
-                id="dropDocs"
+            <div class="upload-actions">
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-fotos"
               >
-                Arrastra documentación (PDF, escrituras…) o haz clic.
-              </div>
-              <input
-                type="file"
-                id="fileDocs"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
-                <div
-                  class="upload-progress-bar"
-                  id="progressDocs"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirDocs"
-                >
-                  Subir / arrastrar documentación
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerDocs"
-                >
-                  Ver documentación subida
-                </button>
-              </div>
-              <div class="upload-meta" id="metaDocs"></div>
+                Ver fotos subidas
+                <span id="badge-fotos" class="upload-counter"></span>
+                <span id="progress-fotos" class="upload-progress"></span>
+              </button>
+
+              <button
+                type="button"
+                class="upload-view-btn"
+                id="btn-ver-docs"
+              >
+                Ver documentación subida
+                <span id="badge-docs" class="upload-counter"></span>
+                <span id="progress-docs" class="upload-progress"></span>
+              </button>
             </div>
           </div>
         </article>
 
+        <!-- Servicios disponibles -->
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
+            <div>
               <div class="card-title">
                 Servicios disponibles (tarifas ejemplo)
               </div>
@@ -1216,8 +1357,8 @@
                 Activa solo lo que tenga sentido para tu campaña.
               </div>
             </div>
-            <button type="button" class="services-link" id="btnVerServicios">
-              Ver todos los servicios
+            <button type="button" class="btn-ghost" id="btnVerServicios">
+              Ver servicios
             </button>
           </div>
 
@@ -1226,759 +1367,687 @@
             <!-- JS -->
           </div>
 
-          <!-- Solo 4 servicios visibles -->
-          <div class="services-grid" id="servicesGrid"></div>
+          <div class="services-grid" id="servicesGrid">
+            <!-- JS: 4 servicios -->
+          </div>
 
-          <p class="card-subtitle" style="margin-top: 0.7rem;">
+          <p class="footer-hint">
             El propietario ve esto como “panel de mando”: qué está activo, qué
             falta por activar y qué servicios ya han sido realizados.
           </p>
         </article>
       </section>
 
-      <!-- FILA 4: Agencias interesadas ------------------------------------->
-      <section class="grid-1">
+      <!-- Fila 4: Agencias -->
+      <section class="grid grid-1">
         <article class="card">
           <div class="card-header">
-            <div class="card-header-main">
+            <div>
               <div class="card-title">
                 Agencias interesadas en gestión de campaña de venta
               </div>
               <div class="card-subtitle">
-                Cuando autorices, la agencia recibirá tus datos de contacto para
-                llamarte cuanto antes.
+                Cuando autorices, la agencia recibirá tus datos de contacto.
               </div>
+            </div>
+            <div class="pill pill-ghost" id="contadorAgencias">
+              0 agencias
             </div>
           </div>
 
-          <div class="agencies-list" id="agenciesList">
-            <!-- JS -->
-          </div>
-
-          <div class="agency-caption">
-            Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
-            agencia autorizada para que te contacte lo antes posible.
+          <div class="agencies-wrapper">
+            <div class="agencies-scroll" id="agenciesList">
+              <!-- JS -->
+            </div>
+            <p class="agency-hint">
+              Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
+              agencia autorizada para que te contacte lo antes posible.
+            </p>
           </div>
         </article>
       </section>
     </main>
   </div>
 
-  <!-- MODAL LISTA DE ARCHIVOS ---------------------------------------------->
-  <div class="modal-backdrop" id="uploadsModal">
+  <!-- MODAL LISTADO DE ARCHIVOS -------------------------------------------->
+  <div id="modalBackdrop" class="modal-backdrop">
     <div class="modal">
       <div class="modal-header">
         <div class="modal-title" id="modalTitle">Archivos subidos</div>
-        <button class="modal-close" id="modalClose">✕</button>
+        <button class="modal-close" id="modalClose">Cerrar</button>
       </div>
       <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
-  <!-- VISOR PRO DE IMÁGENES ----------------------------------------------->
-  <div class="image-viewer-backdrop" id="imageViewer">
-    <div class="image-viewer-inner">
-      <button class="image-viewer-close" id="imageViewerClose">✕</button>
-      <img src="" alt="Vista previa" id="imageViewerImg" />
+  <!-- VISOR GRANDE DE FOTOS ------------------------------------------------>
+  <div id="viewerBackdrop" class="viewer-backdrop">
+    <div class="viewer-inner">
+      <button type="button" class="viewer-close" id="viewerClose">✕</button>
+      <div class="viewer-name" id="viewerName"></div>
+      <img src="" alt="" class="viewer-image" id="viewerImage" />
     </div>
   </div>
 
+  <!-- SCRIPT ---------------------------------------------------------------->
   <script>
-    /* ============================
-       CONSTANTES DE STORAGE
-       ============================ */
+    /* ------------------------ UTILIDADES GENERALES ---------------------- */
+
+    function formatEuro(value) {
+      return (
+        value.toLocaleString("es-ES", {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        }) + " €"
+      );
+    }
+
+    function nowStamp() {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      const ss = String(d.getSeconds()).padStart(2, "0");
+      const yyyy = d.getFullYear();
+      const MM = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return {
+        hora: `${hh}:${mm}:${ss}`,
+        fecha: `${yyyy}-${MM}-${dd}`,
+      };
+    }
+
+    /* ------------------------ SERVICIOS (sincronía) --------------------- */
 
     const STORAGE_SERVICIOS = "panamoveServicios";
-    const STORAGE_UPLOADS = "panamoveUploads";
-    const STORAGE_LOG = "panamoveLog";
 
-    /* ============================
-       UTILIDAD: LOG DE ACCIONES
-       ============================ */
-
-    function loadLog() {
-      try {
-        const raw = localStorage.getItem(STORAGE_LOG);
-        return raw ? JSON.parse(raw) : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveLog(list) {
-      try {
-        localStorage.setItem(STORAGE_LOG, JSON.stringify(list));
-      } catch (e) {}
-    }
-
-    function addLogEntry(text) {
-      const now = new Date();
-      const dateStr = now.toISOString().slice(0, 10); // YYYY-MM-DD
-      const timeStr = now.toTimeString().slice(0, 8); // HH:MM:SS
-
-      const list = loadLog();
-      list.unshift({
-        time: timeStr,
-        date: dateStr,
-        text,
-      });
-
-      // Limitar a 200 entradas
-      if (list.length > 200) list.length = 200;
-      saveLog(list);
-      renderLog();
-    }
-
-    function renderLog() {
-      const list = loadLog();
-      const container = document.getElementById("recentList");
-      if (!container) return;
-
-      container.innerHTML = "";
-
-      if (!list.length) {
-        const p = document.createElement("p");
-        p.className = "card-subtitle";
-        p.textContent =
-          "Aquí aparecerán los servicios activados, documentos subidos y agencias autorizadas.";
-        container.appendChild(p);
-        return;
-      }
-
-      list.forEach((item) => {
-        const row = document.createElement("div");
-        row.className = "recent-item";
-
-        const time = document.createElement("div");
-        time.className = "recent-time";
-        time.textContent = `[${item.time} · ${item.date}]`;
-
-        const text = document.createElement("div");
-        text.className = "recent-text";
-        text.textContent = item.text;
-
-        row.appendChild(time);
-        row.appendChild(text);
-        container.appendChild(row);
-      });
-    }
-
-    /* ============================
-       PRECIO / SIMULACIÓN
-       ============================ */
-
-    function formatMoney(num) {
-      return num.toLocaleString("es-ES", {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      });
-    }
-
-    function recalcPrice() {
-      const input = document.getElementById("precioInput");
-      const lines = document.getElementById("priceLines");
-      if (!input || !lines) return;
-
-      const base = Number(input.value || 0);
-      const comision = base * 0.03;
-      const ivaServicios = comision * 0.21;
-      const totalServicios = comision + ivaServicios;
-      const neto = base - comision;
-
-      lines.innerHTML = `
-        IVA servicios 21 %: ${formatMoney(ivaServicios)} €<br />
-        Comisión 3 % gestión: ${formatMoney(comision)} €<br />
-        <span class="total">Total a pagar (servicios + comisión + IVA): ${formatMoney(
-          totalServicios
-        )} €</span><br /><br />
-        Neto para ti (antes de plusvalía): ${formatMoney(neto)} €
-      `;
-    }
-
-    /* ============================
-       SERVICIOS (4 EN DASHBOARD)
-       ============================ */
-
-    const serviciosDashboardBase = [
+    const serviciosBaseDashboard = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
-        categoria: "Imagen",
-        precio: "450 € · pago a éxito",
+        precioNumero: 450,
+        precioTexto: "450 € · pago a éxito",
         descripcion: "Fotógrafo especializado inmobiliario.",
+        activoPorDefecto: true,
       },
       {
         id: "video-dron",
         nombre: "Vídeo + dron",
-        categoria: "Vídeo",
-        precio: "450 € · pago a éxito",
+        precioNumero: 450,
+        precioTexto: "450 € · pago a éxito",
         descripcion: "Recorrido interior + vistas aéreas.",
+        activoPorDefecto: true,
       },
       {
         id: "home-staging",
         nombre: "Home staging",
-        categoria: "Estética",
-        precio: "750–1200 € · pago a éxito",
+        precioNumero: 900, // valor medio para cálculo
+        precioTexto: "750–1200 € · pago a éxito",
         descripcion: "Mejora estética sin reformas pesadas.",
+        activoPorDefecto: true,
       },
       {
         id: "blogger-internacional",
         nombre: "Blogger internacional",
-        categoria: "Difusión",
-        precio: "3000 € · pago a éxito",
-        descripcion: "Historia real de la vivienda en otro país.",
+        precioNumero: 3000,
+        precioTexto: "3000 € · pago a éxito",
+        descripcion: "Historia real en otro país.",
+        activoPorDefecto: false,
       },
     ];
 
-    function loadServiciosEstado() {
+    function loadServiciosDashboard() {
+      let stored = [];
       try {
         const raw = localStorage.getItem(STORAGE_SERVICIOS);
-        const stored = raw ? JSON.parse(raw) : [];
-        const map = new Map(stored.map((s) => [s.id, s.activo]));
-        return serviciosDashboardBase.map((svc) => ({
-          ...svc,
-          activo: map.has(svc.id)
-            ? !!map.get(svc.id)
-            : svc.id === "fotos" || svc.id === "home-staging"
-        }));
+        if (raw) stored = JSON.parse(raw);
       } catch (e) {
-        return serviciosDashboardBase.map((svc) => ({
+        console.warn("No se pudo leer servicios de localStorage", e);
+      }
+      const mapStored = new Map(stored.map((s) => [s.id, s]));
+      return serviciosBaseDashboard.map((svc) => {
+        const saved = mapStored.get(svc.id);
+        return {
           ...svc,
-          activo: svc.id === "fotos" || svc.id === "home-staging",
-        }));
+          activo:
+            saved && typeof saved.activo === "boolean"
+              ? saved.activo
+              : !!svc.activoPorDefecto,
+        };
+      });
+    }
+
+    function saveServiciosDashboard(servicios) {
+      try {
+        const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
+        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(minimal));
+      } catch (e) {
+        console.warn("No se pudo guardar servicios en localStorage", e);
       }
     }
 
-    let serviciosEstado = loadServiciosEstado();
+    let serviciosDashboard = loadServiciosDashboard();
 
-    function saveServiciosEstado() {
-      try {
-        const raw = localStorage.getItem(STORAGE_SERVICIOS);
-        const stored = raw ? JSON.parse(raw) : [];
-        const map = new Map(stored.map((s) => [s.id, s]));
-        serviciosEstado.forEach((svc) => {
-          map.set(svc.id, { id: svc.id, activo: !!svc.activo });
-        });
-        const arr = Array.from(map.values());
-        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(arr));
-      } catch (e) {}
-    }
+    const servicesGrid = document.getElementById("servicesGrid");
+    const statusPillsRow = document.getElementById("statusPillsRow");
 
-    function renderServiciosDashboard() {
-      const grid = document.getElementById("servicesGrid");
-      const pillsRow = document.getElementById("statusPillsRow");
-      if (!grid || !pillsRow) return;
-
-      grid.innerHTML = "";
-      pillsRow.innerHTML = "";
-
-      serviciosEstado.forEach((svc) => {
-        // pills
+    function renderStatusPills() {
+      statusPillsRow.innerHTML = "";
+      const activos = serviciosDashboard.filter((s) => s.activo);
+      if (!activos.length) {
+        const span = document.createElement("span");
+        span.className = "muted";
+        span.textContent = "Aún no hay servicios activados.";
+        statusPillsRow.appendChild(span);
+        return;
+      }
+      activos.forEach((svc) => {
         const pill = document.createElement("div");
         pill.className = "status-pill";
         pill.innerHTML = `
           <span class="dot"></span>
-          <span>${svc.nombre} activado por el propietario</span>
+          ${svc.nombre} activado por el propietario
         `;
-        if (!svc.activo) {
-          pill.style.opacity = "0.35";
-        }
-        pillsRow.appendChild(pill);
+        statusPillsRow.appendChild(pill);
+      });
+    }
 
-        // cards
-        const card = document.createElement("article");
-        card.className = "service-card" + (svc.activo ? " service-card-active" : "");
+    function renderServiciosDashboard() {
+      servicesGrid.innerHTML = "";
+      serviciosDashboard.forEach((svc) => {
+        const card = document.createElement("div");
+        card.className =
+          "service-card" + (svc.activo ? " service-card-active" : "");
         card.innerHTML = `
-          <div class="service-card-header">
-            <div>
-              <div class="service-name">${svc.nombre}</div>
-              <div class="service-price">${svc.precio}</div>
-            </div>
-            <div class="service-tag">${svc.categoria}</div>
-          </div>
+          <h3>${svc.nombre}</h3>
+          <div class="service-price">${svc.precioTexto}</div>
           <p class="service-desc">${svc.descripcion}</p>
           <div class="service-footer">
-            <span class="service-state-pill ${
-              svc.activo ? "" : "inactive"
+            <span class="service-state-pill" style="opacity:${
+              svc.activo ? 1 : 0.4
             }">
               <span class="icon">★</span>
-              <span>${
-                svc.activo ? "Servicio activado" : "Pendiente de activar"
-              }</span>
+              ${svc.activo ? "Servicio activado" : "Pendiente"}
             </span>
             <button class="service-btn ${
-              svc.activo ? "service-btn-danger" : "service-btn-primary"
+              svc.activo ? "active" : ""
             }" data-id="${svc.id}">
-              ${svc.activo ? "Desactivar" : "Activar servicio"}
+              ${svc.activo ? "Desactivar" : "Activar este servicio"}
             </button>
           </div>
         `;
-        grid.appendChild(card);
+        servicesGrid.appendChild(card);
       });
 
-      grid.querySelectorAll(".service-btn").forEach((btn) => {
+      document.querySelectorAll(".service-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const id = btn.getAttribute("data-id");
           toggleServicioDashboard(id);
         });
       });
+
+      renderStatusPills();
+      calcularTotales();
     }
 
     function toggleServicioDashboard(id) {
-      serviciosEstado = serviciosEstado.map((svc) =>
+      serviciosDashboard = serviciosDashboard.map((svc) =>
         svc.id === id ? { ...svc, activo: !svc.activo } : svc
       );
-      saveServiciosEstado();
-      const svc = serviciosEstado.find((s) => s.id === id);
-      if (svc) {
-        addLogEntry(
-          `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
-            svc.nombre
-          }.`
-        );
-      }
+      saveServiciosDashboard(serviciosDashboard);
+
+      const svc = serviciosDashboard.find((s) => s.id === id);
+      addAccionHistorico(
+        svc.activo
+          ? `Servicio activado: ${svc.nombre}.`
+          : `Servicio desactivado: ${svc.nombre}.`
+      );
+
       renderServiciosDashboard();
     }
 
-    /* ============================
-       AGENCIAS
-       ============================ */
+    /* ------------------------- CALCULADORA PRECIOS ---------------------- */
 
-    const agenciesData = [
+    function calcularTotales() {
+      const precioPropiedad =
+        parseFloat(document.getElementById("precioPropiedad").value) || 0;
+
+      const activos = serviciosDashboard.filter((s) => s.activo);
+      let totalServicios = 0;
+      activos.forEach((svc) => {
+        totalServicios += svc.precioNumero || 0;
+      });
+
+      const ivaServicios = totalServicios * 0.21;
+      const comision = precioPropiedad * 0.03;
+      const ivaComision = comision * 0.21;
+      const totalGeneral =
+        totalServicios + ivaServicios + comision + ivaComision;
+      const netoParaTi =
+        precioPropiedad - (comision + ivaComision) - (totalServicios + ivaServicios);
+
+      document.getElementById("totalServiciosSinIVA").textContent =
+        formatEuro(totalServicios);
+      document.getElementById("ivaServicios").textContent =
+        formatEuro(ivaServicios);
+      document.getElementById("comision").textContent = formatEuro(comision);
+      document.getElementById("ivaComision").textContent =
+        formatEuro(ivaComision);
+      document.getElementById("totalGeneral").textContent =
+        formatEuro(totalGeneral);
+      document.getElementById("netoParaTi").textContent = formatEuro(netoParaTi);
+    }
+
+    document
+      .getElementById("precioPropiedad")
+      .addEventListener("input", calcularTotales);
+
+    /* ----------------------------- ACCIONES / HISTÓRICO ----------------- */
+
+    const STORAGE_HISTORICO = "panamoveHistorico";
+    const accionesBody = document.getElementById("accionesBody");
+
+    function loadHistorico() {
+      try {
+        const raw = localStorage.getItem(STORAGE_HISTORICO);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) {
+        console.warn("No se pudo leer histórico", e);
+        return [];
+      }
+    }
+
+    function saveHistorico(list) {
+      try {
+        localStorage.setItem(STORAGE_HISTORICO, JSON.stringify(list));
+      } catch (e) {
+        console.warn("No se pudo guardar histórico", e);
+      }
+    }
+
+    let acciones = loadHistorico();
+
+    function renderHistorico() {
+      accionesBody.innerHTML = "";
+      if (!acciones.length) {
+        const p = document.createElement("p");
+        p.className = "acciones-empty";
+        p.textContent =
+          "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña.";
+        accionesBody.appendChild(p);
+        return;
+      }
+      acciones
+        .slice()
+        .reverse()
+        .forEach((item) => {
+          const div = document.createElement("div");
+          div.className = "acciones-item";
+          div.innerHTML = `
+            <span class="acciones-time">[${item.hora} · ${item.fecha}]</span>
+            <span class="acciones-text">${item.texto}</span>
+          `;
+          accionesBody.appendChild(div);
+        });
+    }
+
+    function addAccionHistorico(texto) {
+      const stamp = nowStamp();
+      acciones.push({
+        hora: stamp.hora,
+        fecha: stamp.fecha,
+        texto,
+      });
+      if (acciones.length > 200) {
+        acciones = acciones.slice(-200);
+      }
+      saveHistorico(acciones);
+      renderHistorico();
+    }
+
+    document.getElementById("btnNotificaciones").addEventListener("click", () => {
+      addAccionHistorico("Has abierto el panel de notificaciones del dashboard.");
+    });
+
+    /* ----------------------------- AGENCIAS ------------------------------ */
+
+    const STORAGE_AGENCIAS = "panamoveAgencias";
+
+    const agenciasBase = [
       {
         id: "bernabeu",
-        siglas: "BR",
         nombre: "Bernabeu Realty",
         telefono: "654 34 32 32",
-        texto: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "BR",
       },
       {
-        id: "roth",
-        siglas: "RT",
+        id: "rothchild",
         nombre: "RT Rothchild Inmo",
         telefono: "654 34 32 32",
-        texto:
-          "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        desc: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+        iniciales: "RT",
       },
     ];
 
-    function loadAgenciesState() {
+    function loadAgencias() {
       try {
-        const raw = localStorage.getItem("panamoveAgencias");
-        const stored = raw ? JSON.parse(raw) : {};
-        return agenciesData.map((a) => ({
-          ...a,
-          autorizado: !!stored[a.id],
+        const raw = localStorage.getItem(STORAGE_AGENCIAS);
+        if (!raw) return agenciasBase.map((a) => ({ ...a, autorizado: false }));
+        const arr = JSON.parse(raw);
+        const map = new Map(arr.map((a) => [a.id, a]));
+        return agenciasBase.map((a) => {
+          const saved = map.get(a.id);
+          return { ...a, autorizado: saved ? !!saved.autorizado : false };
+        });
+      } catch (e) {
+        console.warn("No se pudo leer agencias", e);
+        return agenciasBase.map((a) => ({ ...a, autorizado: false }));
+      }
+    }
+
+    function saveAgencias(list) {
+      try {
+        const minimal = list.map((a) => ({
+          id: a.id,
+          autorizado: !!a.autorizado,
         }));
+        localStorage.setItem(STORAGE_AGENCIAS, JSON.stringify(minimal));
       } catch (e) {
-        return agenciesData.map((a) => ({ ...a, autorizado: false }));
+        console.warn("No se pudo guardar agencias", e);
       }
     }
 
-    let agenciesState = loadAgenciesState();
+    let agencias = loadAgencias();
+    const agenciesList = document.getElementById("agenciesList");
+    const contadorAgencias = document.getElementById("contadorAgencias");
 
-    function saveAgenciesState() {
-      try {
-        const map = {};
-        agenciesState.forEach((a) => {
-          map[a.id] = !!a.autorizado;
-        });
-        localStorage.setItem("panamoveAgencias", JSON.stringify(map));
-      } catch (e) {}
-    }
+    function renderAgencias() {
+      agenciesList.innerHTML = "";
+      agencias.forEach((ag) => {
+        const card = document.createElement("div");
+        card.className = "agency-card";
+        card.innerHTML = `
+          <div class="agency-main-row">
+            <div class="agency-left">
+              <div class="agency-avatar">${ag.iniciales}</div>
+              <div>
+                <div class="agency-name">${ag.nombre}</div>
+                <div class="agency-phone">
+                  <strong>Teléfono:</strong> ${ag.telefono}
+                </div>
+              </div>
+            </div>
+            <button class="agency-btn ${
+              ag.autorizado ? "agency-btn-confirmed" : ""
+            }" data-id="${ag.id}">
+              ${ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"}
+            </button>
+          </div>
+          <div class="agency-desc">${ag.desc}</div>
+        `;
+        agenciesList.appendChild(card);
+      });
 
-    function renderAgencies() {
-      const container = document.getElementById("agenciesList");
-      if (!container) return;
-      container.innerHTML = "";
+      const total = agencias.length;
+      const autorizadas = agencias.filter((a) => a.autorizado).length;
+      contadorAgencias.textContent = `${total} agencias · ${autorizadas} autorizadas`;
 
-      agenciesState.forEach((ag) => {
-        const row = document.createElement("div");
-        row.className = "agency-row";
-
-        const main = document.createElement("div");
-        main.className = "agency-main";
-
-        const avatar = document.createElement("div");
-        avatar.className = "agency-avatar";
-        avatar.textContent = ag.siglas;
-
-        const text = document.createElement("div");
-        const name = document.createElement("div");
-        name.className = "agency-name";
-        name.textContent = ag.nombre;
-        const phone = document.createElement("div");
-        phone.className = "agency-phone";
-        phone.textContent = `Teléfono: ${ag.telefono}`;
-        const caption = document.createElement("div");
-        caption.className = "agency-phone";
-        caption.textContent = ag.texto;
-
-        text.appendChild(name);
-        text.appendChild(phone);
-        text.appendChild(caption);
-
-        main.appendChild(avatar);
-        main.appendChild(text);
-
-        const btn = document.createElement("button");
-        btn.className =
-          "agency-btn" + (ag.autorizado ? " agency-btn-confirmed" : "");
-        btn.innerHTML = `${
-          ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"
-        }`;
+      agenciesList.querySelectorAll(".agency-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
-          ag.autorizado = !ag.autorizado;
-          saveAgenciesState();
-          addLogEntry(
-            ag.autorizado
-              ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
-              : `Has revocado la autorización a ${ag.nombre} en la campaña.`
-          );
-          renderAgencies();
+          const id = btn.getAttribute("data-id");
+          autorizarAgencia(id);
         });
-
-        row.appendChild(main);
-        row.appendChild(btn);
-        container.appendChild(row);
       });
     }
 
-    /* ============================
-       UPLOADS + MODAL
-       ============================ */
-
-    function loadUploads() {
-      try {
-        const raw = localStorage.getItem(STORAGE_UPLOADS);
-        const parsed = raw ? JSON.parse(raw) : {};
-        return {
-          fotos: Array.isArray(parsed.fotos) ? parsed.fotos : [],
-          docs: Array.isArray(parsed.docs) ? parsed.docs : [],
-        };
-      } catch (e) {
-        return { fotos: [], docs: [] };
-      }
+    function autorizarAgencia(id) {
+      agencias = agencias.map((ag) =>
+        ag.id === id ? { ...ag, autorizado: !ag.autorizado } : ag
+      );
+      saveAgencias(agencias);
+      const ag = agencias.find((a) => a.id === id);
+      addAccionHistorico(
+        ag.autorizado
+          ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
+          : `Has retirado la autorización a ${ag.nombre}.`
+      );
+      renderAgencias();
     }
 
-    function saveUploads(data) {
-      try {
-        localStorage.setItem(STORAGE_UPLOADS, JSON.stringify(data));
-      } catch (e) {}
-    }
+    /* ----------------------------- UPLOAD / MODAL ------------------------ */
 
-    let uploads = loadUploads();
+    const fotoFiles = [];
+    const docFiles = [];
 
-    function updateUploadMeta() {
-      const metaFotos = document.getElementById("metaFotos");
-      const metaDocs = document.getElementById("metaDocs");
-      if (metaFotos) {
-        metaFotos.textContent =
-          uploads.fotos.length === 0
-            ? "No hay fotos subidas todavía."
-            : `${uploads.fotos.length} foto(s) guardadas en el sistema.`;
-      }
-      if (metaDocs) {
-        metaDocs.textContent =
-          uploads.docs.length === 0
-            ? "No hay documentos subidos todavía."
-            : `${uploads.docs.length} documento(s) guardados en el sistema.`;
-      }
-    }
+    const dropFotos = document.getElementById("drop-fotos");
+    const dropDocs = document.getElementById("drop-docs");
+    const inputFotos = document.getElementById("input-fotos");
+    const inputDocs = document.getElementById("input-docs");
+    const btnFotosSelect = document.getElementById("btn-fotos-select");
+    const btnDocsSelect = document.getElementById("btn-docs-select");
+    const btnVerFotos = document.getElementById("btn-ver-fotos");
+    const btnVerDocs = document.getElementById("btn-ver-docs");
+    const badgeFotos = document.getElementById("badge-fotos");
+    const badgeDocs = document.getElementById("badge-docs");
+    const progressFotos = document.getElementById("progress-fotos");
+    const progressDocs = document.getElementById("progress-docs");
 
-    function handleFiles(list, tipo) {
-      if (!list || !list.length) return;
-      const progressBar =
-        tipo === "fotos"
-          ? document.getElementById("progressFotos")
-          : document.getElementById("progressDocs");
-      if (progressBar) progressBar.style.width = "0%";
-
-      Array.from(list).forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const dataUrl = ev.target.result;
-          const item = {
-            name: file.name,
-            dataUrl,
-          };
-          if (tipo === "fotos") uploads.fotos.push(item);
-          else uploads.docs.push(item);
-
-          const percent = Math.round(
-            ((index + 1) / list.length) * 100
-          );
-          if (progressBar) {
-            progressBar.style.width = percent + "%";
-          }
-          saveUploads(uploads);
-          updateUploadMeta();
-          if (index === list.length - 1) {
-            addLogEntry(
-              `Has subido ${list.length} ${
-                tipo === "fotos" ? "foto(s)" : "documento(s)"
-              } al dashboard.`
-            );
-          }
-        };
-        if (tipo === "fotos") {
-          reader.readAsDataURL(file);
-        } else {
-          // para documentos guardamos solo como dataURL también
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-
-    // --- modal de lista (fotos / docs) ---
-    const uploadsModal = document.getElementById("uploadsModal");
-    const modalBody = document.getElementById("modalBody");
+    const modalBackdrop = document.getElementById("modalBackdrop");
     const modalTitle = document.getElementById("modalTitle");
+    const modalBody = document.getElementById("modalBody");
     const modalClose = document.getElementById("modalClose");
 
-    function openModalUploads(tipo) {
-      if (!uploadsModal || !modalBody) return;
-      uploadsModal.style.display = "flex";
+    // VISOR GRANDE
+    const viewerBackdrop = document.getElementById("viewerBackdrop");
+    const viewerImage = document.getElementById("viewerImage");
+    const viewerName = document.getElementById("viewerName");
+    const viewerClose = document.getElementById("viewerClose");
+
+    function openViewer(url, name) {
+      if (!viewerBackdrop || !viewerImage) return;
+      viewerImage.src = url;
+      viewerName.textContent = name || "";
+      viewerBackdrop.style.display = "flex";
+    }
+
+    function closeViewer() {
+      if (!viewerBackdrop || !viewerImage) return;
+      viewerBackdrop.style.display = "none";
+      viewerImage.src = "";
+    }
+
+    if (viewerClose) {
+      viewerClose.addEventListener("click", closeViewer);
+    }
+    if (viewerBackdrop) {
+      viewerBackdrop.addEventListener("click", (e) => {
+        if (e.target === viewerBackdrop) closeViewer();
+      });
+    }
+
+    function preventDefaults(e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    function addDropEvents(area, handler) {
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, preventDefaults);
+      });
+      ["dragenter", "dragover"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.add("drag-over"));
+      });
+      ["dragleave", "drop"].forEach((ev) => {
+        area.addEventListener(ev, () => area.classList.remove("drag-over"));
+      });
+      area.addEventListener("drop", (e) => {
+        const files = Array.from(e.dataTransfer.files || []);
+        handler(files);
+      });
+    }
+
+    function updateUploadCounters() {
+      badgeFotos.textContent = fotoFiles.length ? fotoFiles.length : "";
+      badgeDocs.textContent = docFiles.length ? docFiles.length : "";
+    }
+
+    function simulateUploadProgress(type, count) {
+      const span = type === "fotos" ? progressFotos : progressDocs;
+      if (!span) return;
+      let pct = 0;
+      span.textContent = "Cargando 0%";
+
+      const interval = setInterval(() => {
+        pct += 18;
+        if (pct >= 100) {
+          pct = 100;
+          clearInterval(interval);
+          span.textContent = "";
+        } else {
+          span.textContent = `Cargando ${pct}%`;
+        }
+      }, 150);
+    }
+
+    function handleFotos(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f && f.type && f.type.startsWith("image/")) {
+          fotoFiles.push(f);
+          valid.push(f);
+        }
+      });
+      if (valid.length) {
+        simulateUploadProgress("fotos", valid.length);
+        updateUploadCounters();
+        addAccionHistorico(
+          `Se han añadido ${valid.length} foto(s) a la galería de la vivienda.`
+        );
+      }
+    }
+
+    function handleDocs(files) {
+      const valid = [];
+      files.forEach((f) => {
+        if (f) {
+          docFiles.push(f);
+          valid.push(f);
+        }
+      });
+      if (valid.length) {
+        simulateUploadProgress("docs", valid.length);
+        updateUploadCounters();
+        addAccionHistorico(
+          `Se han añadido ${valid.length} documento(s) a la documentación de la campaña.`
+        );
+      }
+    }
+
+    if (btnFotosSelect && inputFotos) {
+      btnFotosSelect.addEventListener("click", () => inputFotos.click());
+      inputFotos.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleFotos(files);
+        // importante para poder volver a seleccionar las mismas fotos
+        inputFotos.value = "";
+      });
+    }
+
+    if (btnDocsSelect && inputDocs) {
+      btnDocsSelect.addEventListener("click", () => inputDocs.click());
+      inputDocs.addEventListener("change", (e) => {
+        const files = Array.from(e.target.files || []);
+        handleDocs(files);
+        inputDocs.value = "";
+      });
+    }
+
+    if (dropFotos) addDropEvents(dropFotos, handleFotos);
+    if (dropDocs) addDropEvents(dropDocs, handleDocs);
+
+    function openModal(type) {
+      modalBackdrop.style.display = "flex";
       modalBody.innerHTML = "";
 
-      const list = tipo === "fotos" ? uploads.fotos : uploads.docs;
-      modalTitle.textContent =
-        tipo === "fotos" ? "Fotos subidas" : "Documentación subida";
-
+      const list = type === "fotos" ? fotoFiles : docFiles;
       if (!list.length) {
         const p = document.createElement("p");
-        p.className = "card-subtitle";
-        p.textContent = "No hay archivos subidos todavía.";
+        p.className = "modal-empty";
+        p.textContent =
+          "Todavía no has subido ningún archivo en esta sección.";
         modalBody.appendChild(p);
-        return;
       }
 
-      list.forEach((item, idx) => {
-        const card = document.createElement("div");
-        card.className = "modal-item";
+      modalTitle.textContent =
+        type === "fotos" ? "Fotos subidas" : "Documentación subida";
 
-        const openInNew = () => {
-          if (!item.dataUrl) return;
-          if (tipo === "fotos") {
-            openImageViewer(item.dataUrl, item.name);
-          } else {
-            window.open(item.dataUrl, "_blank");
-          }
-        };
+      list.forEach((file, idx) => {
+        const item = document.createElement("div");
+        item.className = "modal-item";
 
-        if (tipo === "fotos" && item.dataUrl) {
+        if (type === "fotos") {
           const img = document.createElement("img");
-          img.src = item.dataUrl;
-          img.alt = item.name || "Foto subida";
-          img.addEventListener("click", openInNew);
-          card.appendChild(img);
+          const url = URL.createObjectURL(file);
+          img.src = url;
+          img.alt = file.name || "Foto subida";
+          img.addEventListener("click", () => {
+            openViewer(url, file.name || "Foto subida");
+          });
+          item.appendChild(img);
         }
 
         const name = document.createElement("div");
         name.className = "modal-item-name";
-        name.textContent = item.name || `Archivo ${idx + 1}`;
-        card.appendChild(name);
+        name.textContent = file.name || `Archivo ${idx + 1}`;
+        item.appendChild(name);
 
-        const actions = document.createElement("div");
-        actions.className = "modal-actions-row";
-
-        const openBtn = document.createElement("button");
-        openBtn.className = "modal-open";
-        openBtn.textContent = "Abrir";
-        openBtn.addEventListener("click", openInNew);
-
-        const delBtn = document.createElement("button");
-        delBtn.className = "modal-delete";
-        delBtn.textContent = "Eliminar";
-        delBtn.addEventListener("click", (ev) => {
-          ev.stopPropagation();
+        const del = document.createElement("button");
+        del.className = "modal-delete";
+        del.textContent = "Eliminar";
+        del.addEventListener("click", () => {
           list.splice(idx, 1);
-          saveUploads(uploads);
-          openModalUploads(tipo);
+          updateUploadCounters();
+          openModal(type);
         });
+        item.appendChild(del);
 
-        actions.appendChild(openBtn);
-        actions.appendChild(delBtn);
-        card.appendChild(actions);
-
-        card.addEventListener("click", openInNew);
-
-        modalBody.appendChild(card);
+        modalBody.appendChild(item);
       });
     }
 
-    function closeModalUploads() {
-      if (!uploadsModal) return;
-      uploadsModal.style.display = "none";
+    function closeModal() {
+      modalBackdrop.style.display = "none";
     }
 
-    if (modalClose) {
-      modalClose.addEventListener("click", closeModalUploads);
-    }
-    if (uploadsModal) {
-      uploadsModal.addEventListener("click", (ev) => {
-        if (ev.target === uploadsModal) closeModalUploads();
+    if (btnVerFotos) btnVerFotos.addEventListener("click", () => openModal("fotos"));
+    if (btnVerDocs) btnVerDocs.addEventListener("click", () => openModal("docs"));
+    if (modalClose) modalClose.addEventListener("click", closeModal);
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener("click", (e) => {
+        if (e.target === modalBackdrop) closeModal();
       });
     }
 
-    // VISOR PRO -------------------------------------------------------------
-    const imageViewer = document.getElementById("imageViewer");
-    const imageViewerImg = document.getElementById("imageViewerImg");
-    const imageViewerClose = document.getElementById("imageViewerClose");
+    /* ----------------------------- BOTÓN VER SERVICIOS ------------------ */
 
-    function openImageViewer(url, name) {
-      if (!url || !imageViewer || !imageViewerImg) return;
-      imageViewerImg.src = url;
-      imageViewerImg.alt = name || "Foto subida";
-      imageViewer.style.display = "flex";
-    }
-
-    function closeImageViewer() {
-      if (!imageViewer || !imageViewerImg) return;
-      imageViewer.style.display = "none";
-      imageViewerImg.src = "";
-    }
-
-    if (imageViewerClose) {
-      imageViewerClose.addEventListener("click", closeImageViewer);
-    }
-    if (imageViewer) {
-      imageViewer.addEventListener("click", (ev) => {
-        if (ev.target === imageViewer) closeImageViewer();
-      });
-    }
-    document.addEventListener("keydown", (ev) => {
-      if (ev.key === "Escape") {
-        closeImageViewer();
-        closeModalUploads();
-      }
+    document.getElementById("btnVerServicios").addEventListener("click", () => {
+      window.location.href = "servicios.html";
     });
 
-    /* ============================
-       INICIALIZACIÓN & EVENTOS
-       ============================ */
+    /* ----------------------------- INICIALIZACIÓN ----------------------- */
 
-    document.addEventListener("DOMContentLoaded", () => {
-      // precio
-      recalcPrice();
-      const precioInput = document.getElementById("precioInput");
-      if (precioInput) {
-        precioInput.addEventListener("change", recalcPrice);
-        precioInput.addEventListener("blur", recalcPrice);
-      }
-      const btnSim = document.getElementById("btnSimulacion");
-      if (btnSim) btnSim.addEventListener("click", recalcPrice);
+    renderServiciosDashboard();
+    renderHistorico();
+    renderAgencias();
+    calcularTotales();
 
-      // servicios
-      serviciosEstado = loadServiciosEstado();
-      renderServiciosDashboard();
-
-      const btnVerServicios = document.getElementById("btnVerServicios");
-      if (btnVerServicios) {
-        btnVerServicios.addEventListener("click", () => {
-          window.location.href = "servicios.html";
-        });
-      }
-
-      // agencias
-      agenciesState = loadAgenciesState();
-      renderAgencies();
-
-      // uploads
-      uploads = loadUploads();
-      updateUploadMeta();
-
-      // handlers uploads
-      const dropFotos = document.getElementById("dropFotos");
-      const dropDocs = document.getElementById("dropDocs");
-      const fileFotos = document.getElementById("fileFotos");
-      const fileDocs = document.getElementById("fileDocs");
-
-      if (dropFotos && fileFotos) {
-        const openPickerFotos = () => fileFotos.click();
-        dropFotos.addEventListener("click", openPickerFotos);
-        document
-          .getElementById("btnSubirFotos")
-          .addEventListener("click", openPickerFotos);
-
-        ["dragenter", "dragover"].forEach((evName) =>
-          dropFotos.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropFotos.classList.add("dragover");
-          })
-        );
-        ["dragleave", "drop"].forEach((evName) =>
-          dropFotos.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropFotos.classList.remove("dragover");
-          })
-        );
-        dropFotos.addEventListener("drop", (ev) => {
-          const files = ev.dataTransfer.files;
-          handleFiles(files, "fotos");
-        });
-        fileFotos.addEventListener("change", (ev) => {
-          handleFiles(ev.target.files, "fotos");
-          fileFotos.value = "";
-        });
-      }
-
-      if (dropDocs && fileDocs) {
-        const openPickerDocs = () => fileDocs.click();
-        dropDocs.addEventListener("click", openPickerDocs);
-        document
-          .getElementById("btnSubirDocs")
-          .addEventListener("click", openPickerDocs);
-
-        ["dragenter", "dragover"].forEach((evName) =>
-          dropDocs.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropDocs.classList.add("dragover");
-          })
-        );
-        ["dragleave", "drop"].forEach((evName) =>
-          dropDocs.addEventListener(evName, (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            dropDocs.classList.remove("dragover");
-          })
-        );
-        dropDocs.addEventListener("drop", (ev) => {
-          const files = ev.dataTransfer.files;
-          handleFiles(files, "docs");
-        });
-        fileDocs.addEventListener("change", (ev) => {
-          handleFiles(ev.target.files, "docs");
-          fileDocs.value = "";
-        });
-      }
-
-      // botones ver fotos/docs
-      const btnVerFotos = document.getElementById("btnVerFotos");
-      if (btnVerFotos) {
-        btnVerFotos.addEventListener("click", () => openModalUploads("fotos"));
-      }
-      const btnVerDocs = document.getElementById("btnVerDocs");
-      if (btnVerDocs) {
-        btnVerDocs.addEventListener("click", () => openModalUploads("docs"));
-      }
-
-      // notificaciones
-      const btnNotif = document.getElementById("btnNotif");
-      if (btnNotif) {
-        btnNotif.addEventListener("click", () => {
-          // solo centra el scroll arriba del histórico
-          const recent = document.getElementById("recentList");
-          if (recent) recent.scrollTop = 0;
-        });
-      }
-
-      // render log inicial
-      renderLog();
-    });
+    if (!acciones.length) {
+      addAccionHistorico(
+        "Histórico listo para registrar todo lo que se active, suba o autorice en la campaña."
+      );
+    }
   </script>
 </body>
 </html>
