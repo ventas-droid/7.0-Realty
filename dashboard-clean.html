@@ -2105,6 +2105,29 @@
           fileDocs.value = "";
         });
       }
-       </script>
-     </body>
-    </html>
+      // botones ver fotos/docs
+      const btnVerFotos = document.getElementById("btnVerFotos");
+      if (btnVerFotos) {
+        btnVerFotos.addEventListener("click", () => openModalUploads("fotos"));
+      }
+      const btnVerDocs = document.getElementById("btnVerDocs");
+      if (btnVerDocs) {
+        btnVerDocs.addEventListener("click", () => openModalUploads("docs"));
+      }
+
+      // notificaciones
+      const btnNotif = document.getElementById("btnNotif");
+      if (btnNotif) {
+        btnNotif.addEventListener("click", () => {
+          // solo centra el scroll arriba del histórico
+          const recent = document.getElementById("recentList");
+          if (recent) recent.scrollTop = 0;
+        });
+      }
+
+      // render log inicial
+      renderLog();
+    });
+  </script>
+</body>
+</html>       
