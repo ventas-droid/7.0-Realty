@@ -259,7 +259,43 @@
       border: 1px solid var(--border-subtle);
       padding: 1.2rem 1.3rem;
       box-shadow: var(--shadow-soft);
+      position: relative;
     }
+
+    /* ESTILO ESPECÍFICO PARA LA CAJA DE PRECIOS */
+    #precioCard {
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2); 
+      border-color: rgba(56, 189, 248, 0.4); 
+      overflow: hidden; 
+    }
+
+    #precioCard::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0%,
+        rgba(56, 189, 248, 0.05) 5%,
+        transparent 15%,
+        transparent 100%
+      );
+      transform: rotate(45deg);
+      opacity: 0.5;
+      animation: gradientRotate 10s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    /* FIN ESTILO ESPECÍFICO PARA LA CAJA DE PRECIOS */
+
 
     .card-header {
       display: flex;
@@ -300,6 +336,8 @@
       gap: 0.4rem;
       font-size: 0.8rem;
       margin-bottom: 0.6rem;
+      position: relative; 
+      z-index: 1;
     }
 
     .price-input-row input {
@@ -310,40 +348,59 @@
       color: var(--text-main);
       font-size: 0.78rem;
       width: 120px;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     }
 
     .price-input-row input:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.45); 
     }
 
     .btn-mini {
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       padding: 0.22rem 0.7rem;
       font-size: 0.72rem;
       border: 1px solid rgba(56, 189, 248, 0.7);
-      background: rgba(15, 23, 42, 0.95);
+      background: var(--accent-soft);
       color: var(--accent);
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      position: relative;
+      z-index: 1;
     }
 
     .btn-mini:hover {
-      background: rgba(15, 23, 42, 1);
+      background: rgba(56, 189, 248, 0.25);
+      border-color: var(--accent);
+      transform: translateY(-1px);
     }
 
+    /* ESTILO MEJORADO PARA LAS LÍNEAS DE PRECIO */
     .price-lines {
       font-size: 0.76rem;
       color: var(--text-soft);
-      margin-top: 0.5rem;
-      line-height: 1.4;
+      margin-top: 0.8rem; 
+      line-height: 1.6; 
+      padding: 1rem 1.2rem; 
+      background: rgba(15, 23, 42, 0.6); 
+      border-radius: 12px; 
+      border: 1px solid rgba(56, 189, 248, 0.2); 
+      box-shadow: inset 0 0 8px rgba(56, 189, 248, 0.1); 
+      position: relative; 
+      z-index: 1;
     }
 
     .price-lines .total {
       color: #f97316;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 0.82rem; 
+      display: block; /* Asegura que ocupe toda la línea */
+      margin-top: 0.4rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed rgba(249, 115, 22, 0.3);
     }
 
     /* BLOQUE PROPIEDADES / VENTA PARTICULAR ------------------------------- */
@@ -845,20 +902,20 @@
       margin-bottom: 0.5rem;
     }
 
-    /* MODIFICACIÓN DE DISEÑO AQUÍ */
+    /* ESTILO PROFESIONAL PARA LA CAJA DE NOTIFICACIONES */
     .recent-list {
       margin-top: 0.4rem;
-      padding: 0.8rem 0.4rem; /* Padding interno */
-      background: rgba(15, 23, 42, 0.5); /* Fondo sutil */
-      border-radius: 12px; /* Esquinas redondeadas */
-      border: 1px solid rgba(17, 24, 39, 0.8); /* Borde suave */
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+      padding: 0.8rem 0.4rem; 
+      background: rgba(15, 23, 42, 0.5); 
+      border-radius: 12px; 
+      border: 1px solid rgba(17, 24, 39, 0.8); 
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
       font-size: 0.78rem;
       max-height: 230px;
       overflow-y: auto;
-      display: flex; /* Para contener los ítems */
+      display: flex; 
       flex-direction: column;
-      gap: 0.5rem; /* Espaciado entre ítems */
+      gap: 0.5rem; 
     }
 
     .recent-item {
@@ -870,16 +927,16 @@
           rgba(31, 41, 55, 0.8),
           rgba(31, 41, 55, 0.0)
         )
-        1; /* Borde inferior con degradado */
+        1; 
       display: flex;
-      gap: 0.7rem; /* Aumentado el espacio */
+      gap: 0.7rem; 
       transition: background 160ms ease-out;
     }
     
     .recent-item:last-child {
-        border-bottom: none; /* Quitar borde del último elemento */
+        border-bottom: none; 
     }
-    /* FIN MODIFICACIÓN DE DISEÑO */
+    /* FIN ESTILO CAJA DE NOTIFICACIONES */
 
     .recent-time {
       color: var(--text-soft);
@@ -1025,7 +1082,7 @@
       </header>
 
       <section class="grid">
-        <article class="card">
+        <article class="card" id="precioCard">
           <div class="card-header">
             <div class="card-header-main">
               <div class="card-title">Precio de la propiedad</div>
@@ -1565,7 +1622,7 @@
         );
       }
       renderServiciosDashboard();
-      recalcPrice(); // CORRECCIÓN: Recalcular precio al cambiar el estado del servicio
+      recalcPrice(); 
     }
 
     /* ============================
