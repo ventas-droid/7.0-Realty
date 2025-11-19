@@ -2,487 +2,673 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <title>Panamove 7.0 – Silicon Valley Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panamove 7.0 – Dashboard</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES (Tema Claro & Premium) --- */
+        /* --- VARIABLES & THEME (Silicon Valley Light) --- */
         :root {
-            --bg-body: #f3f4f6;       /* Gris fondo muy suave */
-            --bg-sidebar: #ffffff;    /* Blanco puro */
-            --bg-card: rgba(255, 255, 255, 0.85); /* Efecto vidrio */
+            --bg-body: #f5f8fa; 
+            --bg-sidebar: #ffffff; 
+            --bg-card: rgba(255, 255, 255, 0.9); 
+            --bg-hover: #edf2f7; 
             
-            --text-main: #111827;     /* Negro casi puro */
-            --text-muted: #6b7280;    /* Gris medio */
+            --border: #e0e6ed; 
+            --text-main: #2d3748; 
+            --text-muted: #718096; 
+            --text-light: #a0aec0; 
             
-            --primary: #3b82f6;       /* Azul corporativo elegante */
-            --primary-light: #eff6ff;
+            --primary: #4299e1;     
+            --primary-light: #bee3f8; 
+            --primary-dark: #2c5282; 
+            --gradient-primary: linear-gradient(135deg, #4299e1, #3182ce); 
+
+            --gold: #ecc94b;        
+            --gold-light: #fefcbf;  
+            --gradient-gold: linear-gradient(135deg, #ecc94b, #d69e2e); 
             
-            --gold: #f59e0b;          /* Dorado para premium */
-            --gold-light: #fffbeb;
+            --success: #48bb78;     
+            --danger: #fc8181;      
             
-            --success: #10b981;       /* Verde éxito */
-            --danger: #ef4444;        /* Rojo error */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
             
-            --border: #e5e7eb;        /* Borde muy sutil */
-            --radius: 16px;           /* Bordes redondeados modernos */
-            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05); /* Sombra suave */
-            
-            --font-main: 'Inter', sans-serif;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            --transition-ease: 0.2s ease-out;
         }
 
-        /* --- RESET BÁSICO --- */
+        /* --- Base & Resets --- */
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body { font-family: var(--font-main); background-color: var(--bg-body); color: var(--text-main); height: 100vh; overflow: hidden; display: flex; }
-        a { text-decoration: none; color: inherit; transition: 0.2s; }
-        button { border: none; background: none; cursor: pointer; font-family: inherit; }
-        input { font-family: inherit; }
 
-        /* --- LAYOUT (GRID MAESTRO) --- */
-        /* Sidebar fijo a la izquierda, Contenido a la derecha */
-        .app-container {
-            display: grid;
-            grid-template-columns: 260px 1fr; /* Sidebar 260px, resto flexible */
-            grid-template-rows: 100vh;
-            width: 100%;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition-ease); }
+        button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
+
+        input[type="number"], input[type="text"], textarea {
+            background-color: var(--bg-hover);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 10px 14px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            transition: border-color var(--transition-ease), box-shadow var(--transition-ease);
+            font-family: 'Inter', sans-serif;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+            background-color: #ffffff;
         }
 
         /* --- SIDEBAR --- */
         .sidebar {
-            background: var(--bg-sidebar);
+            width: 280px;
+            background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 1.5rem;
-            z-index: 10;
+            display: flex; flex-direction: column; padding: 2rem 1.5rem;
+            position: sticky; top: 0; height: 100vh; flex-shrink: 0;
+            box-shadow: var(--shadow-md); z-index: 10;
         }
 
-        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; }
+        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; padding-left: 0.5rem; }
         .brand-logo {
-            width: 40px; height: 40px; border-radius: 10px;
-            background: linear-gradient(135deg, var(--primary), #2563eb);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 800; font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+            width: 40px; height: 40px; border-radius: var(--radius-sm);
+            background: var(--gradient-primary);
+            display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-family: 'Roboto', sans-serif; font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
         }
-        .brand-name { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.5px; }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.8px; color: var(--text-main); }
+        .brand-text span { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
 
         .nav { display: flex; flex-direction: column; gap: 8px; flex: 1; }
         .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px;
-            border-radius: 10px; color: var(--text-muted); font-weight: 500; font-size: 0.95rem;
-            transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-md);
+            color: var(--text-muted); font-size: 1rem; font-weight: 500; transition: var(--transition-ease);
+            position: relative; overflow: hidden;
         }
-        .nav-item:hover { background: var(--bg-body); color: var(--text-main); }
-        .nav-item.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
-        .nav-item i { width: 20px; text-align: center; }
+        .nav-item::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+            background-color: transparent; border-radius: 0 4px 4px 0; transition: var(--transition-ease);
+        }
+        .nav-item:hover { background-color: var(--bg-hover); color: var(--primary-dark); }
+        .nav-item.active { background-color: var(--primary-dim); color: var(--primary-dark); font-weight: 600; }
+        .nav-item.active::before { background-color: var(--primary); }
+        .nav-item i { width: 20px; text-align: center; color: var(--text-light); }
+        .nav-item.active i { color: var(--primary); }
 
-        .sidebar-footer {
-            margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border);
-            font-size: 0.75rem; color: var(--text-muted); text-align: center;
-        }
+        .sidebar-footer { border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 2rem; }
 
         /* --- MAIN CONTENT --- */
-        .main-content {
-            padding: 2rem 3rem;
-            overflow-y: auto; /* Scroll solo aquí */
-            display: flex; flex-direction: column; gap: 2rem;
-        }
+        .main { flex: 1; padding: 2.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; }
 
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; }
-        .page-title h1 { font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.3rem; }
-        .page-title p { color: var(--text-muted); font-size: 0.95rem; }
+        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .header h2 { font-size: 2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.05em; }
+        .header p { color: var(--text-muted); font-size: 0.95rem; font-weight: 400; }
+        .badge {
+            background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(49, 130, 206, 0.2);
+            padding: 6px 14px; border-radius: 24px; font-size: 0.8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.8px; display: inline-flex; align-items: center; gap: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+        .badge .fas.fa-circle { font-size: 7px; vertical-align: middle; color: var(--success); }
+
+        /* --- GRID SYSTEM --- */
+        .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .grid-cols-2 { display: grid; grid-template-columns: 2fr 1.5fr; gap: 2rem; }
+
+        /* --- CARDS --- */
+        .card { 
+            background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); 
+            padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+            box-shadow: var(--shadow-md); transition: all var(--transition-ease); 
+            backdrop-filter: blur(8px);
+        }
+        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
+        .card-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+        .card-subtitle { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* KPIs */
+        .kpi-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.8rem; text-align: center; box-shadow: var(--shadow-sm); transition: all var(--transition-ease); backdrop-filter: blur(5px); }
+        .kpi-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+        .kpi-val { font-size: 2.8rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0; font-family: 'Roboto', sans-serif; letter-spacing: -0.05em; }
+        .kpi-lbl { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* Simulador Financiero */
+        .input-group { display: flex; align-items: center; gap: 12px; background: #f7fafc; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .input-group label { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; white-space: nowrap; }
+        .input-group input { flex-grow: 1; background: transparent; border: none; color: var(--text-main); font-size: 1rem; font-weight: 700; }
+        .btn-action {
+            background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-md); 
+            font-weight: 600; font-size: 0.95rem; box-shadow: var(--shadow-sm); transition: all var(--transition-ease);
+        }
+        .btn-action:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); opacity: 0.95; }
         
-        .status-badge {
-            background: white; padding: 6px 12px; border-radius: 20px;
-            font-size: 0.8rem; font-weight: 600; color: var(--success);
-            border: 1px solid var(--border); box-shadow: var(--shadow-sm);
-            display: flex; align-items: center; gap: 6px;
-        }
-        .status-dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; }
-
-        /* --- KPIS (Tarjetas Superiores) --- */
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
-        .kpi-card {
-            background: var(--bg-card); backdrop-filter: blur(10px);
-            border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 1.5rem; text-align: center; box-shadow: var(--shadow);
-        }
-        .kpi-value { font-size: 2rem; font-weight: 800; color: var(--text-main); margin: 0.5rem 0; }
-        .kpi-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-        .kpi-card.highlight { border-color: var(--gold); background: linear-gradient(to bottom right, #fff, var(--gold-light)); }
-        .kpi-card.highlight .kpi-value { color: #b45309; }
-
-        /* --- GRID PRINCIPAL DE CONTENIDO --- */
-        .content-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* Izquierda ancha, Derecha estrecha */
-            gap: 2rem;
-            align-items: start;
-        }
-
-        /* --- TARJETAS GENÉRICAS --- */
-        .card {
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 1.8rem; box-shadow: var(--shadow); backdrop-filter: blur(5px);
-            display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2rem; /* Separación vertical */
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
-        .card-action { color: var(--primary); font-size: 0.85rem; font-weight: 500; cursor: pointer; }
-
-        /* Simulador Precio */
-        .sim-input-group {
-            display: flex; align-items: center; gap: 1rem;
-            background: #f9fafb; padding: 10px 15px; border-radius: 10px; border: 1px solid var(--border);
-        }
-        .sim-input-group label { color: var(--text-muted); font-weight: 500; font-size: 0.9rem; }
-        .sim-input-group input { flex: 1; background: transparent; border: none; font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
-        .btn-calc {
-            background: var(--text-main); color: white; padding: 8px 16px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
-            transition: 0.2s;
-        }
-        .btn-calc:hover { opacity: 0.9; transform: translateY(-1px); }
-        
-        .sim-results { font-size: 0.9rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
-        .sim-row { display: flex; justify-content: space-between; }
-        .sim-total { border-top: 1px dashed var(--border); padding-top: 10px; font-weight: 700; color: var(--text-main); font-size: 1.1rem; margin-top: 5px; }
-        .sim-neto { text-align: right; font-size: 0.8rem; color: var(--success); font-weight: 600; }
+        .price-total { border-top:1px solid var(--border); margin-top:1rem; padding-top:1rem; font-weight:700; color:var(--primary); font-size:1.3rem; display: flex; justify-content: space-between; }
+        .price-neto { font-size:0.85rem; color:var(--text-light); text-align: right; }
+        .price-line-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem;}
 
         /* Panel Agencia */
-        .agency-profile { display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-        .agency-logo {
-            width: 50px; height: 50px; border-radius: 50%; background: #111; color: white;
-            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;
+        .agency-profile { display: flex; align-items: center; gap: 18px; border-bottom: 1px dashed var(--border); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+        .avatar { width: 56px; height: 56px; background: var(--gradient-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.4rem; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+        .agency-info h4 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text-main); font-weight: 600; }
+        .agency-info p { font-size: 0.9rem; color: var(--text-muted); }
+        
+        .active-services-container { min-height: 40px; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+        .service-chip {
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px;
+            font-size: 0.8rem; font-weight: 600; background: rgba(56, 161, 105, 0.1); color: var(--success); border: 1px solid rgba(56, 161, 105, 0.2);
+            box-shadow: var(--shadow-sm);
         }
-        .agency-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
-        .agency-info p { font-size: 0.85rem; color: var(--text-muted); }
+        .service-chip .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 1.5s infinite ease-out; }
+        @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.7; } }
 
-        .services-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1rem; }
-        .chip {
-            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600; background: var(--primary-light); color: var(--primary); border: 1px solid rgba(59, 130, 246, 0.2);
+        .btn-gold {
+            width: 100%; padding: 14px; border-radius: var(--radius-md); border: none;
+            background: var(--gradient-gold); color: #343a40; font-weight: 700; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4); transition: all var(--transition-ease); letter-spacing: 0.5px;
         }
-        .chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(236, 201, 75, 0.6); }
 
-        .btn-firmar {
-            width: 100%; padding: 12px; margin-top: 1.5rem; border-radius: 10px; border: none;
-            background: var(--text-main); color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer;
-            transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        /* --- CENTRO DE COMUNICACIÓN INTELIGENTE (Chat/Log Híbrido) --- */
+        .communication-card {
+            display: flex; flex-direction: column; height: 600px; /* Altura fija para scroll */
+            padding: 0; /* Reset padding para el diseño interno */
+            overflow: hidden;
         }
-        .btn-firmar:hover { background: #000; transform: translateY(-2px); }
+        
+        .comm-header {
+            padding: 1.5rem;
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .comm-status { font-size: 0.8rem; color: var(--success); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .comm-status .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
 
-        /* Log (Actividad) */
-        .log-list { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
-        .log-item { display: flex; gap: 12px; font-size: 0.85rem; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-        .log-time { color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 50px; }
-        .log-msg { color: var(--text-main); }
+        /* Área de Mensajes (Log + Chat) */
+        .comm-messages {
+            flex: 1;
+            background-color: #f8fafc; /* Fondo ligeramente diferente */
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex; flex-direction: column; gap: 1rem;
+        }
 
-        /* Subidas (Dropzones) */
-        .uploads-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        /* Burbujas de Mensaje */
+        .msg-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .msg-system {
+            align-self: center;
+            background-color: #e2e8f0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-radius: 20px;
+            padding: 6px 14px;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: none;
+            border: 1px solid var(--border);
+        }
+
+        .msg-in { /* Mensajes entrantes (Agencia/Sistema) */
+            align-self: flex-start;
+            background-color: #ffffff;
+            color: var(--text-main);
+            border-bottom-left-radius: 2px;
+            border: 1px solid var(--border);
+        }
+        .msg-in .msg-meta { 
+            display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;
+        }
+        .msg-in .msg-meta strong { color: var(--text-main); font-weight: 800; font-family: 'Roboto', sans-serif; } /* Fecha/Hora en Negrita */
+
+        .msg-out { /* Mensajes salientes (Usuario) */
+            align-self: flex-end;
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border-bottom-right-radius: 2px;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+        }
+        
+        /* Área de Input (Escribir) */
+        .comm-input-area {
+            padding: 1rem 1.5rem;
+            background: #ffffff;
+            border-top: 1px solid var(--border);
+            display: flex; gap: 10px; align-items: flex-end;
+        }
+        .comm-input {
+            flex: 1;
+            background: #f7fafc;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            resize: none;
+            height: 46px; /* Altura inicial */
+            max-height: 100px;
+            transition: all 0.2s;
+        }
+        .comm-input:focus { height: 80px; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-dim); }
+        
+        .btn-send {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-ease);
+        }
+        .btn-send:hover { transform: scale(1.05); box-shadow: var(--shadow-md); }
+
+
+        /* Subida de Documentación (Dropzones) */
         .dropzone {
-            border: 2px dashed var(--border); border-radius: 12px; padding: 1.5rem; text-align: center;
-            cursor: pointer; transition: 0.2s; background: #fafafa;
+            background: #f7fafc; border: 2px dashed var(--border); border-radius: var(--radius-md); padding: 2rem;
+            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: all var(--transition-ease); min-height: 160px;
         }
-        .dropzone:hover { border-color: var(--primary); background: var(--primary-light); }
-        .dropzone i { font-size: 2rem; color: var(--text-muted); margin-bottom: 0.5rem; display: block; }
-        .dropzone span { font-size: 0.85rem; font-weight: 500; color: var(--text-main); }
-        .upload-btn { margin-top: 1rem; padding: 8px 16px; background: white; border: 1px solid var(--border); border-radius: 6px; font-size: 0.85rem; font-weight: 500; color: var(--text-main); cursor: pointer; float: right; }
-        .upload-btn:hover { background: var(--bg-hover); }
+        .dropzone:hover { background-color: #ebf8ff; border-color: var(--primary); }
+        .dropzone i { font-size: 2.8rem; margin-bottom: 15px; }
+        .dropzone div { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
 
-        /* Catálogo de Servicios */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-        .svc-item {
-            background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
-            transition: 0.2s; position: relative;
+        .upload-actions { display: flex; gap: 1.5rem; margin-top: 2rem; justify-content: flex-end; }
+        .btn-upload {
+            background: var(--success); color: white; border: none; padding: 10px 22px; border-radius: var(--radius-md); 
+            font-weight: 600; font-size: 0.95rem; box-shadow: var(--shadow-sm); transition: all var(--transition-ease);
         }
-        .svc-item:hover { border-color: var(--text-muted); transform: translateY(-2px); box-shadow: var(--shadow); }
-        .svc-item.active { border-color: var(--gold); background: #fffbf2; box-shadow: 0 0 0 1px var(--gold); }
-        
-        .svc-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
-        .svc-name { font-weight: 600; font-size: 0.9rem; }
-        .svc-price { font-size: 0.8rem; color: var(--text-muted); }
-        .svc-desc { font-size: 0.75rem; color: #888; line-height: 1.3; margin-bottom: 10px; display: block; }
-        
-        .svc-toggle {
-            width: 100%; padding: 6px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer;
-            border: 1px solid var(--border); background: white; color: var(--text-muted); transition: 0.2s;
+        .btn-upload:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); background-color: #2f855a; }
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.5); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 22px; border-radius: var(--radius-md);
+            font-weight: 500; transition: all var(--transition-ease); box-shadow: var(--shadow-sm); backdrop-filter: blur(3px);
         }
-        .svc-item.active .svc-toggle { background: var(--danger); color: white; border-color: var(--danger); }
-        .svc-item.active .svc-toggle:hover { opacity: 0.9; }
-        .svc-toggle:hover { background: var(--bg-hover); color: var(--text-main); }
+        .btn-glass:hover { background: #e2e8f0; color: var(--primary-dark); border-color: var(--primary-light); box-shadow: var(--shadow-md); }
 
+        /* Servicios Disponibles Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+        .svc-card { 
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; 
+            transition: all var(--transition-ease); text-align: center; box-shadow: var(--shadow-sm); backdrop-filter: blur(5px);
+        }
+        .svc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+        .svc-card.active { border-color: var(--gold); background: rgba(254, 235, 200, 0.5); box-shadow: 0 0 0 1px var(--gold); }
+        .svc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .svc-name { font-weight: 600; font-size: 1rem; color: var(--text-main); }
+        .svc-price { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+        .svc-cat { font-size: 0.75rem; color: var(--text-light); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.8px;}
+        .svc-toggle { 
+            background: var(--bg-hover); color: var(--text-muted); border: 1px solid var(--border); 
+            padding: 8px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 10px; font-weight: 500; 
+            width: 100%; transition: all var(--transition-ease); 
+        }
+        .svc-toggle:hover { background-color: var(--primary-light); color: var(--primary-dark); border-color: var(--primary); }
+        .svc-card.active .svc-toggle { background: var(--danger); color: white; border-color: var(--danger); }
+        .svc-card.active .svc-toggle:hover { background: #c53030; }
 
-        /* RESPONSIVE */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .app-container { grid-template-columns: 80px 1fr; } /* Sidebar colapsado */
-            .sidebar { padding: 1.5rem 0.5rem; align-items: center; }
-            .brand-name, .nav-item span, .sidebar-footer { display: none; }
-            .nav-item { justify-content: center; padding: 15px; }
-            .content-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .main-content { padding: 1.5rem; }
-            .uploads-container { grid-template-columns: 1fr; }
+            .grid-cols-2 { grid-template-columns: 1fr; gap: 1.5rem; }
+            .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
+            .brand-text, .nav-item span, .sidebar-footer { display: none; }
+            .nav-item { justify-content: center; }
+            .main { padding: 1.5rem; }
+            .header h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-logo">7.0</div>
-            <span class="brand-name">Panamove</span>
-        </div>
-        <nav class="nav">
-            <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-            <a href="servicios.html" class="nav-item"><i class="fas fa-layer-group"></i> <span>Servicios</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-file-contract"></i> <span>Auditoría</span></a>
-        </nav>
-        <div class="sidebar-footer">
-            <p>© 2025 Panamove</p>
-        </div>
-    </aside>
+    <div class="page">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">7.0</div>
+                <div class="brand-text">
+                    <h1>Panamove</h1>
+                    <span>Sistema 7.0</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="dashboard-clean.html" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+                <a href="servicios.html" class="nav-item"><i class="fas fa-layer-group"></i> <span>Servicios</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-file-contract"></i> <span>Auditoría</span></a>
+            </nav>
+            <div class="sidebar-footer">© 2025 Panamove.</div>
+        </aside>
 
-    <main class="main-content">
-        
-        <div class="header">
-            <div class="page-title">
-                <h1>Panel de Control</h1>
-                <p>Visión general de tu campaña activa y métricas.</p>
+        <main class="main">
+            <div class="header">
+                <div class="header-title">
+                    <h2>Panel de Control General</h2>
+                    <p>Visión integral del rendimiento de campañas y gestión de servicios.</p>
+                </div>
+                <span class="badge">Estatus: Activo <i class="fas fa-circle"></i></span>
             </div>
-            <div class="status-badge">
-                <span class="status-dot"></span> En Vivo
-            </div>
-        </div>
 
-        <section class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-label">Vistas Totales</div>
-                <div class="kpi-value" id="kpiViews">0</div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-label">Leads Generados</div>
-                <div class="kpi-value" id="kpiLeads">0</div>
-            </div>
-            <div class="kpi-card highlight">
-                <div class="kpi-label">Inversión Activa</div>
-                <div class="kpi-value" id="kpiCost">0€</div>
-            </div>
-        </section>
+            <section class="grid-kpi">
+                <div class="kpi-box">
+                    <div class="kpi-lbl">Vistas Globales</div>
+                    <div class="kpi-val" id="kpiViews">0</div>
+                </div>
+                <div class="kpi-box">
+                    <div class="kpi-lbl">Leads Cualificados</div>
+                    <div class="kpi-val" id="kpiLeads">0</div>
+                </div>
+                <div class="kpi-box" style="border-color: var(--gold-light);">
+                    <div class="kpi-lbl">Inversión Actual</div>
+                    <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
+                </div>
+            </section>
 
-        <div class="content-grid">
-            
-            <div>
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Simulador Financiero</span>
-                    </div>
-                    <div class="sim-input-group">
-                        <label>Precio Venta:</label>
-                        <input type="number" id="precioInput" value="545000">
-                        <button class="btn-calc" id="btnCalc">Calcular</button>
-                    </div>
-                    <div class="sim-results" id="priceLines">
+            <section class="grid-cols-2">
+                
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    
+                    <article class="card" id="precioCard">
+                        <div class="card-header"><span class="card-title">Simulador Financiero</span></div>
+                        <div class="input-group">
+                            <label>Precio Venta:</label>
+                            <input type="number" id="precioInput" value="545000">
+                            <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i> Calcular</button>
                         </div>
-                </article>
+                        <div id="priceLines" style="margin-top: 1.5rem;"></div>
+                    </article>
 
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Catálogo de Servicios</span>
-                        <span class="card-action" onclick="window.location.href='servicios.html'">Ver Todos</span>
-                    </div>
-                    <div class="services-grid" id="servicesGrid">
+                    <article class="card">
+                        <div class="card-header">
+                            <span class="card-title">Panel de Agencia</span>
+                            <i class="fas fa-user-tie" style="color: var(--primary-dark); font-size: 1.5rem;"></i>
                         </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Documentación Requerida</span>
-                    </div>
-                    <div class="uploads-container">
-                        <div class="dropzone" id="dropFotos">
-                            <i class="fas fa-camera"></i>
-                            <span>Fotos Vivienda</span>
-                            <input type="file" id="fileFotos" hidden multiple>
-                        </div>
-                        <div class="dropzone" id="dropDocs">
-                            <i class="fas fa-file-contract"></i>
-                            <span>Escrituras / PDF</span>
-                            <input type="file" id="fileDocs" hidden multiple>
-                        </div>
-                    </div>
-                    <div>
-                        <button class="upload-btn"><i class="fas fa-cloud-upload-alt"></i> Subir Archivos</button>
-                    </div>
-                </article>
-            </div>
-
-            <div>
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Tu Agencia Asignada</span>
-                    </div>
-                    <div class="agency-profile">
-                        <div class="agency-logo">BR</div>
-                        <div class="agency-info">
-                            <h4>Bernabeu Realty</h4>
-                            <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p style="font-size:0.8rem; margin-top:2px;">654 34 32 32</p>
-                        </div>
-                    </div>
-                    <div>
-                        <span style="font-size:0.75rem; font-weight:600; color:#aaa; letter-spacing:0.5px; text-transform:uppercase;">Servicios Activos</span>
-                        <div class="services-chips" id="agencyActiveServices">
+                        <div class="agency-profile">
+                            <div class="avatar">BR</div>
+                            <div class="agency-info">
+                                <h4>Bernabeu Realty</h4>
+                                <p>Asesor: <strong>Víctor Pérez</strong></p>
+                                <p style="font-size:0.8rem; color:var(--text-light);">Contacto: 654 34 32 32</p>
                             </div>
-                    </div>
-                    <button class="btn-firmar">Campaña Firmada <i class="fas fa-check"></i></button>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Registro de Actividad</span>
-                    </div>
-                    <div class="log-list" id="recentList">
                         </div>
+                        <div>
+                            <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem; font-weight: 600;">Servicios de Apoyo Activos:</p>
+                            <div class="active-services-container" id="agencyActiveServices">
+                                </div>
+                        </div>
+                        <button class="btn-gold">
+                            <i class="fas fa-handshake"></i> Campaña Firmada
+                        </button>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <span class="card-title">Servicios Disponibles (Tarifas)</span>
+                            <a href="servicios.html" class="btn-glass" style="font-size: 0.8rem; padding: 6px 10px; border-color: var(--border); color: var(--text-muted);"><i class="fas fa-list"></i> Ver Catálogo</a>
+                        </div>
+                        <div class="services-grid" id="servicesGrid">
+                            </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header"><span class="card-title">Gestión de Documentación</span></div>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <label class="dropzone" id="dropFotos" onclick="triggerUpload('Fotos')">
+                                <i class="fas fa-camera" style="color: var(--primary);"></i>
+                                <div>Cargar Fotografías</div>
+                            </label>
+                            <label class="dropzone" id="dropDocs" onclick="triggerUpload('Documentación')">
+                                <i class="fas fa-file-pdf" style="color: var(--gold);"></i>
+                                <div>Subir Escrituras</div>
+                            </label>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="card communication-card" style="height: 100%; min-height: 800px; position: sticky; top: 2rem;">
+                    <div class="comm-header">
+                        <span class="card-title">Centro de Comunicación</span>
+                        <div class="comm-status"><span class="dot"></span> Online</div>
+                    </div>
+                    
+                    <div class="comm-messages" id="commMessages">
+                        <div class="msg-system">Hoy</div>
+                        <div class="msg-in">
+                            <span class="msg-meta"><strong>Sistema 7.0</strong> · 09:00</span>
+                            Bienvenido a tu panel de gestión. Aquí verás todas las actualizaciones.
+                        </div>
+                    </div>
+                    
+                    <div class="comm-input-area">
+                        <textarea id="msgInput" class="comm-input" placeholder="Escribe a tu asesor o adjunta archivos..."></textarea>
+                        <button class="btn-send" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
                 </article>
-            </div>
 
-        </div>
+            </section>
+        </main>
+    </div>
 
-    </main>
-</div>
+    <script>
+        // --- CONFIG Y ESTADO ---
+        const STORAGE_SERVICIOS = "panamoveServicios";
+        const STORAGE_LOG = "panamoveLog";
+        
+        // Simulación Servicios
+        const serviciosBase = [
+            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Reportaje profesional.", def: true },
+            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Tomas aéreas 4K.", def: true },
+            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", desc: "Decoración efímera.", def: true },
+            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Blog internacional.", def: false }
+        ];
+        
+        // --- UTILIDADES ---
+        function formatMoney(num) { return num.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+        function getTime() { const now = new Date(); return now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+        function getDate() { const now = new Date(); return now.toLocaleDateString(); }
 
-<script>
-    // --- CONFIG ---
-    const STORAGE_SERVICIOS = "panamoveServicios";
-    const STORAGE_LOG = "panamoveLog";
-    
-    const serviciosBase = [
-        { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Reportaje profesional.", def: true },
-        { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Tomas aéreas 4K.", def: true },
-        { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", desc: "Decoración efímera.", def: true },
-        { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Blog internacional.", def: false }
-    ];
+        // --- LOG SYSTEM (Chat Híbrido) ---
+        function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
+        
+        function addLog(text, type = 'system') { 
+            const list = getLog();
+            const now = new Date();
+            // type: 'system' (log automático), 'user' (mensaje usuario)
+            list.push({ 
+                time: getTime(), 
+                date: getDate(), 
+                text: text,
+                type: type 
+            });
+            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(-50))); // Guardar últimos 50
+            renderMessages();
+        }
 
-    // --- LOGIC ---
-    function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
-    function addLog(msg) {
-        const list = getLog();
-        const now = new Date();
-        list.unshift({ time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), msg: msg });
-        localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(0, 20)));
-        renderLog();
-    }
-    
-    function getServicios() {
-        try {
-            const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
-            if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
-            const map = new Map(stored.map(s => [s.id, s.activo]));
-            return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def, coste: s.coste}));
-        } catch { return serviciosBase.map(s => ({...s, activo: s.def})); }
-    }
+        function renderMessages() {
+            const list = getLog();
+            const container = document.getElementById('commMessages');
+            if(!container) return;
 
-    function toggleService(id) {
-        const current = getServicios();
-        const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
-        const changed = updated.find(s => s.id === id);
-        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-        addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: ${changed.nombre}`);
-        renderAll();
-    }
+            if(list.length === 0) {
+                container.innerHTML = '<div class="msg-system">Bienvenido al sistema 7.0</div>';
+                return;
+            }
 
-    function formatMoney(n) { return n.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+            // Renderizar últimos mensajes al final
+            container.innerHTML = list.map(item => {
+                if(item.type === 'user') {
+                    return `<div class="msg-bubble msg-out">${item.text}</div>`;
+                } else {
+                    return `
+                    <div class="msg-bubble msg-in">
+                        <span class="msg-meta"><strong>Sistema</strong> · ${item.time}</span>
+                        ${item.text}
+                    </div>`;
+                }
+            }).join('');
+            
+            // Scroll al final
+            container.scrollTop = container.scrollHeight;
+        }
 
-    // --- RENDER ---
-    function renderServices() {
-        const list = getServicios();
-        const grid = document.getElementById('servicesGrid');
-        if(grid) {
-            grid.innerHTML = list.map(s => `
-                <div class="svc-item ${s.activo ? 'active' : ''}">
-                    <div class="svc-head"><span class="svc-name">${s.nombre}</span><span class="svc-price">${s.precio}</span></div>
-                    <span class="svc-desc">${s.desc}</span>
-                    <button class="svc-toggle" onclick="toggleService('${s.id}')">${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}</button>
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            const text = input.value.trim();
+            if(text) {
+                addLog(text, 'user');
+                input.value = '';
+                // Simular respuesta
+                setTimeout(() => {
+                    addLog("Mensaje recibido. Tu asesor contactará contigo pronto.");
+                }, 1000);
+            }
+        }
+        
+        function triggerUpload(type) {
+            addLog(`Iniciando carga de ${type}...`);
+            setTimeout(() => {
+                addLog(`✅ ${type} subidos correctamente al sistema.`);
+            }, 1500);
+        }
+
+        // --- SERVICES STATE ---
+        function getServicios() {
+            try {
+                const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
+                if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
+                const map = new Map(stored.map(s => [s.id, s.activo]));
+                return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def, coste: s.coste}));
+            } catch { return serviciosBase.map(s => ({...s, activo: s.def})); }
+        }
+
+        function toggleService(id) {
+            const current = getServicios();
+            const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
+            const changed = updated.find(s => s.id === id);
+            
+            localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
+            
+            // Log especial con formato negrita
+            addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: <b>${changed.nombre}</b>`);
+            renderAll();
+        }
+
+        // --- CALCULATOR & RENDER ---
+        function calcPrice() {
+            const input = document.getElementById('precioInput');
+            const output = document.getElementById('priceLines');
+            if(!input || !output) return;
+
+            const val = parseFloat(input.value) || 0;
+            const activos = getServicios().filter(s => s.activo);
+            const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
+            
+            const comision = val * 0.03;
+            const comisionTotal = comision + fijos;
+            const iva = comisionTotal * 0.21;
+            const total = comisionTotal + iva;
+            const neto = val - total;
+
+            output.innerHTML = `
+                <div class="price-line-item"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
+                <div class="price-line-item"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
+                <div class="price-line-item"><span>IVA (21%):</span> <span>${formatMoney(iva)} €</span></div>
+                <div class="price-total"><span>Total Coste:</span> <span>${formatMoney(total)} €</span></div>
+                <div class="price-neto">Neto estimado: ${formatMoney(neto)} €</div>
+            `;
+            
+            const kpiCost = document.getElementById('kpiCost');
+            if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
+        }
+
+        function renderServicesGrid() {
+            const servicios = getServicios();
+            const grid = document.getElementById('servicesGrid');
+            if(!grid) return;
+
+            grid.innerHTML = servicios.map(s => `
+                <div class="svc-card ${s.activo ? 'active' : ''}">
+                    <div class="svc-head">
+                        <span class="svc-name">${s.nombre}</span>
+                        <span class="svc-price">${s.precio}</span>
+                    </div>
+                    <div class="svc-cat">${s.cat}</div>
+                    <button class="svc-toggle ${s.activo ? 'active' : ''}" onclick="toggleService('${s.id}')">
+                        ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
+                    </button>
                 </div>
             `).join('');
         }
-        
-        const agencyBox = document.getElementById('agencyActiveServices');
-        if(agencyBox) {
-            const activos = list.filter(s => s.activo);
-            agencyBox.innerHTML = activos.length ? 
-                activos.map(s => `<div class="chip"><span class="dot"></span> ${s.nombre}</div>`).join('') : 
-                '<span style="font-size:0.8rem; color:#999;">Sin servicios activos.</span>';
+
+        function renderAgencyActiveServices() {
+            const container = document.getElementById("agencyActiveServices");
+            const activos = getServicios().filter(svc => svc.activo);
+            if (!container) return;
+            
+            container.innerHTML = activos.length ? 
+                activos.map(s => `<div class="service-chip"><span class="dot"></span> ${s.nombre}</div>`).join('') :
+                '<span style="font-size:0.8rem; color:var(--text-muted)">Ninguno activo.</span>';
         }
-    }
-
-    function renderLog() {
-        const list = getLog();
-        const container = document.getElementById('recentList');
-        if(!container) return;
-        container.innerHTML = list.length ? list.map(i => `
-            <div class="log-item"><span class="log-time">${i.time}</span><span class="log-msg">${i.msg}</span></div>
-        `).join('') : '<div style="padding:10px; color:#aaa; text-align:center">Sin actividad reciente.</div>';
-    }
-
-    function calcPrice() {
-        const input = document.getElementById('precioInput');
-        const out = document.getElementById('priceLines');
-        if(!input || !out) return;
         
-        const val = parseFloat(input.value) || 0;
-        const activos = getServicios().filter(s => s.activo);
-        const fijos = activos.reduce((sum, s) => sum + s.coste, 0);
-        const comision = val * 0.03;
-        const total = comision + fijos + ((comision + fijos) * 0.21);
-        
-        out.innerHTML = `
-            <div class="sim-row"><span>Comisión (3%):</span><span>${formatMoney(comision)} €</span></div>
-            <div class="sim-row"><span>Servicios Activos:</span><span>${formatMoney(fijos)} €</span></div>
-            <div class="sim-total"><span>Total Estimado:</span><span>${formatMoney(total)} €</span></div>
-            <div class="sim-neto">Neto prop.: ${formatMoney(val - total)} €</div>
-        `;
-        
-        const kpi = document.getElementById('kpiCost');
-        if(kpi) { 
-             // Animación simple del KPI
-             kpi.textContent = `${formatMoney(total)}€`;
+        function renderAll() {
+            renderServicesGrid();
+            renderAgencyActiveServices();
+            renderMessages();
+            calcPrice();
         }
-    }
-    
-    function renderAll() { renderServices(); renderLog(); calcPrice(); }
 
-    // --- INIT ---
-    document.addEventListener('DOMContentLoaded', () => {
-        renderAll();
-        document.getElementById('precioInput').addEventListener('input', calcPrice);
-        document.getElementById('btnCalc').addEventListener('click', calcPrice);
-        
-        // Listeners Uploads (Simulación)
-        document.querySelectorAll('.dropzone, .upload-btn').forEach(el => {
-            el.addEventListener('click', () => {
-                addLog('Simulación: Archivos cargados al sistema.');
-                alert('Simulación: Archivos cargados correctamente.');
-            });
+        // --- ANIMACIONES KPI ---
+        function animateValue(id, end) {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let start = 0; let duration = 1500; let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.textContent = formatMoney(value);
+                if (progress < 1) window.requestAnimationFrame(step);
+                else if (id === 'kpiCost') obj.textContent = `${formatMoney(end)}€`;
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // INIT
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAll();
+            animateValue("kpiViews", 7840);
+            animateValue("kpiLeads", 42);
+            animateValue("kpiCost", 20550); 
+
+            document.getElementById('precioInput').addEventListener('input', calcPrice);
+            document.getElementById('btnCalc').addEventListener('click', calcPrice);
         });
-
-        // KPIs Animados (Simulados)
-        setTimeout(() => document.getElementById('kpiViews').innerText = "7.840", 500);
-        setTimeout(() => document.getElementById('kpiLeads').innerText = "42", 800);
-    });
-</script>
-
+    </script>
 </body>
 </html>
