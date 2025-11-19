@@ -1,921 +1,855 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Panamove 7.0 – Servicios de la campaña</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-        /* Variables y Reset Básico (basado en el Dashboard) */
-        :root {
-            --bg-main: #020617; /* Fondo principal */
-            --bg-sidebar: #0f172a; /* Fondo barra lateral */
-            --bg-card: #0f172a; /* Fondo de las tarjetas */
-            --text-main: #e2e8f0; /* Texto principal */
-            --text-soft: #94a3b8; /* Texto secundario/suave */
-            --border-subtle: #1e293b; /* Color de bordes */
-            --accent-primary: #38bdf8; /* Color azul primario */
-            --accent-secondary: #0ea5e9; /* Azul más oscuro para gradientes/hovers */
-            --accent-gold: #fbbf24; /* Dorado para elementos activos */
-            --accent-gold-soft: rgba(251, 191, 36, 0.15); /* Fondo suave dorado */
-            --success-color: #22c55e; /* Verde */
-            --danger-color: #ef4444; /* Rojo */
-            --radius-lg: 0.75rem; /* 12px */
-            --radius-full: 9999px;
-            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --transition-fast: 0.2s ease-out;
-        }
+  <meta charset="UTF-8" />
+  <title>Panamove 7.0 – Servicios de la campaña</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-card: #020817;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.2);
+      --accent-strong: #0ea5e9;
+      --gold: #fbbf24;
+      --gold-soft: rgba(250, 204, 21, 0.15);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: #111827;
+      --success: #22c55e;
+      --danger: #f97373;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+      --transition-fast: 160ms ease-out;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            min-height: 100vh;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, var(--bg-main), #000000 75%);
-            color: var(--text-main);
-            display: flex;
-            line-height: 1.6;
-        }
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #020617, #000000 55%);
+      color: var(--text-main);
+      display: flex;
+    }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        button {
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-family: inherit;
-            color: inherit;
-        }
+    /* LAYOUT -------------------------------------------------------------- */
 
-        /* Layout Principal */
-        .page {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
-        }
+    .page {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
 
-        /* Barra Lateral (Sidebar) */
-        .sidebar {
-            width: 250px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border-subtle);
-            padding: 1.5rem 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            flex-shrink: 0;
-        }
+    .sidebar {
+      width: 230px;
+      background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+      border-right: 1px solid #0f172a;
+      padding: 1.5rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
-        .brand-logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: conic-gradient(from 160deg, #22c55e, #22d3ee, #a855f7, #22c55e);
-            box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
-        }
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 160deg,
+        #22c55e,
+        #22d3ee,
+        #a855f7,
+        #22c55e
+      );
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.8);
+    }
 
-        .brand-title strong {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            color: var(--text-main);
-        }
+    .brand-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
 
-        .brand-sub {
-            font-size: 0.75rem;
-            color: var(--text-soft);
-            max-width: 160px;
-            margin-top: 0.1rem;
-        }
+    .brand-title strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+    }
 
-        .nav {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
+    .brand-sub {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      max-width: 160px;
+    }
 
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            padding: 0.7rem 0.9rem;
-            border-radius: var(--radius-lg);
-            font-size: 0.9rem;
-            color: var(--text-soft);
-            transition: background var(--transition-fast), color var(--transition-fast);
-        }
+    .nav {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
 
-        .nav-item span.icon {
-            width: 20px;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast);
+    }
 
-        .nav-item:hover {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent-primary);
-        }
+    .nav-item span.icon {
+      width: 18px;
+      display: inline-flex;
+      justify-content: center;
+      opacity: 0.8;
+    }
 
-        .nav-item-active {
-            background-color: var(--accent-primary);
-            color: white;
-            font-weight: 600;
-            box-shadow: var(--shadow-subtle);
-        }
-        .nav-item-active:hover {
-            background-color: var(--accent-primary);
-            color: white;
-        }
+    .nav-item-active {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      border-color: #0f172a;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.3);
+    }
 
-        .sidebar-footer {
-            margin-top: auto;
-            font-size: 0.7rem;
-            color: #6b7280;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-subtle);
-        }
+    .nav-item:hover {
+      background: rgba(15, 23, 42, 0.7);
+      color: #f9fafb;
+    }
 
-        /* Contenido Principal (Main) */
-        .main {
-            flex: 1;
-            padding: 2rem 2.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            background: linear-gradient(135deg, var(--bg-main) 0%, #000000 100%);
-        }
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-subtle);
-        }
+    .main {
+      flex: 1;
+      padding: 1.7rem 1.9rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
 
-        .top-left {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-        .top-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
+    .top-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
 
-        .top-subtitle {
-            font-size: 0.9rem;
-            color: var(--text-soft);
-        }
+    .top-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+    }
 
-        .top-right {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
+    .top-subtitle {
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
 
-        .badge-sistema {
-            border-radius: var(--radius-full);
-            padding: 0.2rem 0.8rem;
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--accent-primary);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            background: rgba(56, 189, 248, 0.1);
-            font-weight: 500;
-        }
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
 
-        .btn-ghost {
-            border-radius: var(--radius-full);
-            padding: 0.4rem 1rem;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-subtle);
-            background-color: transparent;
-            color: var(--text-soft);
-            transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-        }
+    .pill {
+      border-radius: var(--radius-full);
+      padding: 0.32rem 0.9rem;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #020617;
+      border: 1px solid rgba(51, 65, 85, 0.8);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
 
-        .btn-ghost:hover {
-            background-color: var(--bg-card);
-            color: var(--text-main);
-            border-color: var(--accent-primary);
-            transform: translateY(-1px);
-        }
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
 
-        /* Card general */
-        .card {
-            background-color: var(--bg-card);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-subtle);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+    .badge-sistema {
+      border-radius: var(--radius-full);
+      padding: 0.15rem 0.75rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      background: rgba(15, 23, 42, 0.92);
+    }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-            padding-bottom: 1rem;
-            border-bottom: 1px dashed var(--border-subtle);
-        }
+    .btn-ghost {
+      border-radius: var(--radius-full);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.78rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast);
+    }
 
-        .card-header h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+      border-color: rgba(209, 213, 219, 0.7);
+      transform: translateY(-1px);
+    }
 
-        .card-header p {
-            font-size: 0.85rem;
-            color: var(--text-soft);
-            margin-top: 0.3rem;
-        }
+    /* WRAPPERS ------------------------------------------------------------- */
 
-        /* Resumen de Estado */
-        .services-summary {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-top: -0.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px dashed var(--border-subtle);
-        }
+    .card {
+      background: radial-gradient(circle at top left, #020817, #020617 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.2rem 1.3rem;
+      box-shadow: var(--shadow-soft);
+    }
 
-        .summary-pill {
-            border-radius: var(--radius-full);
-            padding: 0.35rem 1rem;
-            font-size: 0.8rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            border: 1px solid var(--border-subtle);
-            background-color: var(--bg-main);
-            color: var(--text-soft);
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-subtle);
-        }
-        .summary-pill:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-        }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
 
-        .summary-pill .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--success-color);
-        }
+    .card-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
 
-        .summary-pill.active {
-            border-color: var(--accent-gold);
-            background-color: var(--accent-gold-soft);
-            color: var(--accent-gold);
-        }
-        .summary-pill.inactive { 
-            border-color: var(--danger-color);
-            background-color: rgba(239, 68, 68, 0.1);
-            color: var(--danger-color);
-        }
-        .summary-pill.inactive .dot {
-            background-color: var(--danger-color);
-        }
+    .card-header p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.2rem;
+    }
 
+    .card-header-main {
+      display: flex;
+      flex-direction: column;
+    }
 
-        /* Grid de Servicios */
-        .services-layout {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.2rem;
-            margin-top: -0.5rem;
-        }
+    /* RESUMEN DE ESTADO ---------------------------------------------------- */
 
-        .service-card {
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border-subtle);
-            background-color: var(--bg-main);
-            padding: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.7rem;
-            font-size: 0.85rem;
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-subtle);
-            position: relative;
-            overflow: hidden;
-        }
+    .services-summary {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.9rem;
+      font-size: 0.75rem;
+    }
 
-        .service-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent-primary);
-            box-shadow: var(--shadow-lg);
-        }
+    .summary-pill {
+      border-radius: var(--radius-full);
+      padding: 0.22rem 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-soft);
+    }
 
-        .service-card-active {
-            border-color: var(--accent-gold);
-            background-color: rgba(251, 191, 36, 0.08); 
-            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.4), var(--shadow-lg);
-        }
-        .service-card-active:hover {
-            border-color: var(--accent-gold);
-        }
+    .summary-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+    }
 
-        .service-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 0.8rem;
-        }
+    .summary-pill.inactive .dot {
+      background: #6b7280;
+    }
 
-        .service-name {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+    /* GRID DE SERVICIOS ---------------------------------------------------- */
 
-        .service-tag {
-            border-radius: var(--radius-full);
-            padding: 0.2rem 0.7rem;
-            font-size: 0.7rem;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-soft);
-            background-color: #1a202c;
-            white-space: nowrap;
-            font-weight: 500;
-        }
+    .services-layout {
+      margin-top: 1.1rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
 
-        .service-price {
-            font-size: 0.9rem;
-            color: var(--text-soft);
-            margin-top: 0.2rem;
-        }
+    @media (max-width: 1380px) {
+      .services-layout {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
 
-        .service-desc {
-            font-size: 0.8rem;
-            color: var(--text-soft);
-            margin-top: 0.4rem;
-            flex-grow: 1;
-        }
+    @media (max-width: 1120px) {
+      .services-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
 
-        .service-meta {
-            font-size: 0.75rem;
-            color: #778899;
-            margin-top: 0.2rem;
-            font-style: italic;
-        }
+    @media (max-width: 780px) {
+      .page {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 420px;
+      }
+      .main {
+        padding: 1rem 1.2rem 1.5rem;
+      }
+      .services-layout {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .service-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.8rem;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px dashed var(--border-subtle);
-            flex-wrap: wrap;
-        }
+    .service-card {
+      border-radius: 16px;
+      border: 1px solid #111827;
+      background: #020617;
+      padding: 0.9rem 0.95rem 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
+        transform var(--transition-fast), background var(--transition-fast);
+    }
 
-        .service-state-pill {
-            border-radius: var(--radius-full);
-            padding: 0.3rem 0.8rem;
-            font-size: 0.7rem;
-            background-color: rgba(251, 191, 36, 0.15);
-            border: 1px solid var(--accent-gold);
-            color: var(--accent-gold);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            white-space: nowrap;
-            font-weight: 500;
-        }
+    .service-card-active {
+      border-color: rgba(250, 204, 21, 0.7);
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.35),
+        0 18px 45px rgba(15, 23, 42, 0.9);
+      background: radial-gradient(circle at top left, #020617, #020617 55%);
+    }
 
-        .service-state-pill.inactive {
-            background-color: rgba(148, 163, 184, 0.1);
-            border-color: var(--border-subtle);
-            color: var(--text-soft);
-        }
+    .service-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+    }
 
-        .service-state-pill span.icon {
-            font-size: 0.8rem;
-        }
+    .service-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
 
-        .service-btn {
-            border-radius: var(--radius-full);
-            padding: 0.35rem 1rem;
-            font-size: 0.8rem;
-            border: 1px solid var(--border-subtle);
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            transition: all var(--transition-fast);
-            box-shadow: var(--shadow-subtle);
-            white-space: nowrap;
-            font-weight: 500;
-        }
+    .service-tag {
+      border-radius: var(--radius-full);
+      padding: 0.15rem 0.6rem;
+      font-size: 0.7rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-soft);
+    }
 
-        .service-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--accent-primary);
-        }
+    .service-price {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.15rem;
+    }
 
-        .service-btn-primary {
-            background-color: var(--accent-primary);
-            border-color: var(--accent-primary);
-            color: white;
-        }
+    .service-desc {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-top: 0.1rem;
+    }
 
-        .service-btn-primary:hover {
-            background-color: var(--accent-secondary);
-            border-color: var(--accent-secondary);
-            box-shadow: 0 4px 10px rgba(56, 189, 248, 0.3);
-        }
+    .service-meta {
+      font-size: 0.72rem;
+      color: #6b7280;
+      margin-top: 0.2rem;
+    }
 
-        .service-btn-danger {
-            background-color: rgba(239, 68, 68, 0.15);
-            border-color: var(--danger-color);
-            color: var(--danger-color);
-        }
+    .service-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      flex-wrap: wrap;
+    }
 
-        .service-btn-danger:hover {
-            background-color: rgba(239, 68, 68, 0.25);
-            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
-        }
+    .service-state-pill {
+      border-radius: var(--radius-full);
+      padding: 0.22rem 0.7rem;
+      font-size: 0.7rem;
+      background: var(--gold-soft);
+      border: 1px solid rgba(250, 204, 21, 0.7);
+      color: #facc15;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
-        .services-footer-hint {
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--text-soft);
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border-subtle);
-            text-align: center;
-        }
+    .service-state-pill.inactive {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(55, 65, 81, 0.9);
+      color: var(--text-soft);
+    }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .services-layout {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-        @media (max-width: 992px) {
-            .main {
-                padding: 1.5rem 2rem;
-            }
-            .sidebar {
-                width: 200px;
-                padding: 1.2rem 0.8rem;
-            }
-            .brand-title strong {
-                font-size: 1rem;
-            }
-            .top-title {
-                font-size: 1.6rem;
-            }
-            .services-summary {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-        @media (max-width: 768px) {
-            .page {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-                padding: 0.8rem 1rem;
-                border-bottom: 1px solid var(--border-subtle);
-                border-right: none;
-            }
-            .brand-sub, .sidebar-footer {
-                display: none;
-            }
-            .nav {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: flex-end; 
-                gap: 0.4rem 0.8rem;
-            }
-            .nav-item {
-                padding: 0.5rem 0.7rem;
-                font-size: 0.8rem;
-                gap: 0.5rem;
-            }
-            .nav-item span.icon {
-                font-size: 1rem;
-                width: auto;
-            }
-            .main {
-                padding: 1.2rem;
-            }
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .top-right {
-                width: 100%;
-                justify-content: flex-start;
-            }
-            .services-layout {
-                grid-template-columns: 1fr; /* Una columna en móviles */
-            }
-            .card-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+    .service-state-pill span.icon {
+      font-size: 0.78rem;
+    }
+
+    .service-btn {
+      border-radius: var(--radius-full);
+      padding: 0.25rem 0.85rem;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+      transition: background var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast),
+        color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .service-btn:hover {
+      background: rgba(31, 41, 55, 1);
+      border-color: rgba(209, 213, 219, 0.8);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.9);
+    }
+
+    .service-btn-primary {
+      background: var(--gold-soft);
+      border-color: rgba(250, 204, 21, 0.7);
+      color: #facc15;
+    }
+
+    .service-btn-primary:hover {
+      background: rgba(250, 204, 21, 0.2);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.95);
+    }
+
+    .service-btn-danger {
+      border-color: rgba(248, 113, 113, 0.8);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.65);
+    }
+
+    .service-btn-danger:hover {
+      background: rgba(185, 28, 28, 0.8);
+      box-shadow: 0 14px 32px rgba(127, 29, 29, 0.8);
+    }
+
+    .services-footer-hint {
+      margin-top: 0.9rem;
+      font-size: 0.76rem;
+      color: var(--text-soft);
+    }
+  </style>
 </head>
 <body>
-    <div class="page">
+  <div class="page">
         <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-logo"></div>
-                <div class="brand-title">
-                    <strong>Panamove 7.0</strong>
-                    <div class="brand-sub">
-                        Propietarios, agencias, difusores y auditores.
-                    </div>
-                </div>
-            </div>
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-title">
+          <strong>Panamove 7.0</strong>
+          <div class="brand-sub">
+            Propietarios, agencias, difusores y auditores.
+          </div>
+        </div>
+      </div>
 
-            <nav class="nav">
+      <nav class="nav">
                 <a href="dashboard-clean.html" class="nav-item">
-                    <span class="icon">📊</span>
-                    Dashboard
-                </a>
-                <a href="servicios.html" class="nav-item nav-item-active">
-                    <span class="icon">🧩</span>
-                    Servicios campaña
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="icon">🏠</span>
-                    Propiedades
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="icon">📣</span>
-                    Difusores
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="icon">🕵️</span>
-                    Auditoría
-                </a>
-            </nav>
+          <span class="icon">📊</span>
+          Dashboard
+        </a>
 
-            <div class="sidebar-footer">
-                Vista dedicada para gestionar todos los servicios activos y pendientes.
-            </div>
-        </aside>
+                <a href="servicios.html" class="nav-item nav-item-active">
+          <span class="icon">🧩</span>
+          Servicios campaña
+        </a>
+
+                <div class="nav-item">
+          <span class="icon">🏠</span>
+          Propiedades
+        </div>
+        <div class="nav-item">
+          <span class="icon">📣</span>
+          Difusores
+        </div>
+        <div class="nav-item">
+          <span class="icon">🕵️</span>
+          Auditoría
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        Vista dedicada para gestionar todos los servicios activos y pendientes.
+      </div>
+    </aside>
 
         <main class="main">
-            <header class="top-bar">
-                <div class="top-left">
-                    <div class="top-title">Gestión de Servicios</div>
-                    <div class="top-subtitle">
-                        Activa, desactiva y revisa el coste educativo 7.0 de tu operación.
-                    </div>
-                </div>
-                <div class="top-right">
-                    <span class="badge-sistema">Sistema 7.0</span>
-                    <a href="dashboard-clean.html" class="btn-ghost">← Volver al dashboard</a>
-                </div>
-            </header>
+      <header class="top-bar">
+        <div class="top-left">
+          <div class="top-title">Servicios de la campaña</div>
+          <div class="top-subtitle">
+            Activa, desactiva y revisa el coste educativo 7.0 de tu operación.
+          </div>
+        </div>
+        <div class="top-right">
+          <span class="badge-sistema">Sistema 7.0</span>
+          <a href="dashboard-clean.html" class="pill pill-ghost">← Volver al dashboard</a>
+        </div>
+      </header>
 
-            <section class="card">
-                <div class="card-header">
-                    <div class="card-header-main">
-                        <h2>Servicios disponibles para esta campaña</h2>
-                        <p>
-                            Esta vista muestra todos los servicios que puedes activar o
-                            desactivar. Los estados se guardan y se sincronizan con el
-                            dashboard.
-                        </p>
-                    </div>
-                </div>
+      <section class="card">
+        <div class="card-header">
+          <div class="card-header-main">
+            <h2>Servicios disponibles para esta campaña</h2>
+            <p>
+              Esta vista muestra todos los servicios que puedes activar o
+              desactivar. Los estados se guardan y se sincronizan con el
+              dashboard.
+            </p>
+          </div>
+        </div>
 
                 <div class="services-summary">
-                    <div class="summary-pill active" id="summary-activos">
-                        <span class="dot"></span>
-                        <span><strong>0</strong> servicios activos</span>
-                    </div>
-                    <div class="summary-pill inactive" id="summary-pendientes">
-                        <span class="dot"></span>
-                        <span><strong>0</strong> servicios pendientes</span>
-                    </div>
-                </div>
+          <div class="summary-pill" id="summary-activos">
+            <span class="dot"></span>
+            <span><strong>0</strong> servicios activos</span>
+          </div>
+          <div class="summary-pill inactive" id="summary-pendientes">
+            <span class="dot"></span>
+            <span><strong>0</strong> servicios pendientes</span>
+          </div>
+        </div>
 
                 <div class="services-layout" id="servicesGrid"></div>
 
-                <p class="services-footer-hint">
-                    El propietario ve esta página como un "catálogo táctico" del método
-                    7.0: aquí se decide hasta dónde se quiere llegar en marketing,
-                    difusión y narrativa educativa de la venta.
-                </p>
-            </section>
-        </main>
-    </div>
+        <p class="services-footer-hint">
+          El propietario ve esta página como un "catálogo táctico" del método
+          7.0: aquí se decide hasta dónde se quiere llegar en marketing,
+          difusión y narrativa educativa de la venta.
+        </p>
+      </section>
+    </main>
+  </div>
 
-    <script>
-        const STORAGE_KEY = "panamoveServicios";
-        const LOG_KEY = "panamoveLog";
+  <script>
+  const STORAGE_KEY = "panamoveServicios";
+  const LOG_KEY = "panamoveLog";
 
-        const serviciosBase = [
-            {
-                id: "fotos",
-                nombre: "Fotos PRO",
-                categoria: "Imagen",
-                precio: "450 € · pago a éxito",
-                descripcion: "Fotógrafo especializado inmobiliario para la mejor presentación.",
-                meta: "Sesión interior + exterior en alta resolución, retoque profesional.",
-                activoPorDefecto: true,
-            },
-            {
-                id: "video-dron",
-                nombre: "Vídeo & Dron",
-                categoria: "Vídeo",
-                precio: "450 € · pago a éxito",
-                descripcion: "Creación de vídeo profesional con tomas interiores y aéreas con dron.",
-                meta: "Recorrido interior fluido y vistas espectaculares desde el aire.",
-                activoPorDefecto: true,
-            },
-            {
-                id: "home-staging",
-                nombre: "Home Staging",
-                categoria: "Estética",
-                precio: "750–1200 € · pago a éxito",
-                descripcion: "Optimización estética de la propiedad para acelerar su venta.",
-                meta: "Mejora de la presentación visual sin necesidad de reformas costosas.",
-                activoPorDefecto: true,
-            },
-            {
-                id: "blogger-internacional",
-                nombre: "Blogger Internacional",
-                categoria: "Difusión",
-                precio: "3000 € · pago a éxito",
-                descripcion: "Narrativa auténtica de la vivienda para una audiencia global.",
-                meta: "Publicación en blogs de alto alcance, conectando con compradores extranjeros.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "tour-360",
-                nombre: "Tour Virtual 360º",
-                categoria: "Tecnología",
-                precio: "350 € · pago único",
-                descripcion: "Experiencia inmersiva que permite explorar la propiedad a distancia.",
-                meta: "Recorrido virtual interactivo ideal para compradores internacionales.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "copy-luxury",
-                nombre: "Copywriting de Lujo",
-                categoria: "Narrativa",
-                precio: "280 € · pago único",
-                descripcion: "Textos persuasivos y elegantes, dignos de una revista de alto standing.",
-                meta: "Redacción editorial para portales y dossieres, enfocado a públicos premium.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "plan-medios",
-                nombre: "Plan de Medios 7.0",
-                categoria: "Difusión",
-                precio: "900 € · pago a éxito",
-                descripcion: "Estrategia integral de difusión en diversos canales y plataformas.",
-                meta: "Coordinación en portales, redes sociales y base de datos de clientes.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "open-house",
-                nombre: "Open House Privado",
-                categoria: "Eventos",
-                precio: "600 € · pago a éxito",
-                descripcion: "Jornada exclusiva de puertas abiertas para compradores seleccionados.",
-                meta: "Evento organizado con guion, timings y feedback detallado de visitas.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "arquitecto",
-                nombre: "Informe Arquitecto 7.0",
-                categoria: "Técnico",
-                precio: "450 € · pago único",
-                descripcion: "Análisis técnico de la propiedad, su estado actual y potencial de mejora.",
-                meta: "Informe visual que genera confianza en compradores indecisos.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "notion-dossier",
-                nombre: "Dossier Interactivo",
-                categoria: "Documento",
-                precio: "220 € · pago único",
-                descripcion: "Dossier digital multimedia con información detallada de la propiedad.",
-                meta: "Incluye fotos, planos, cálculos y storytelling. Compartible por enlace privado.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "whatsapp-camp",
-                nombre: "Campaña WhatsApp PRO",
-                categoria: "Difusión",
-                precio: "350 € · pago a éxito",
-                descripcion: "Gestión profesional de campañas de comunicación directa por WhatsApp.",
-                meta: "Mensajes guiados y seguimiento con compradores de tu base de datos.",
-                activoPorDefecto: false,
-            },
-            {
-                id: "embudo-7",
-                nombre: "Embudo 7 Pasos",
-                categoria: "Sistema 7.0",
-                precio: "Incluido según pack",
-                descripcion: "Metodología estructurada para guiar al cliente desde el primer contacto.",
-                meta: "Seguimiento paso a paso desde lead frío hasta la oferta firme de compra.",
-                activoPorDefecto: true,
-            },
-        ];
+  const serviciosBase = [
+    {
+      id: "fotos",
+      nombre: "Fotos PRO",
+      categoria: "Imagen",
+      precio: "450 € · pago a éxito",
+      descripcion: "Fotógrafo especializado inmobiliario.",
+      meta: "Sesión interior + exterior en alta resolución.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "video-dron",
+      nombre: "Vídeo + dron",
+      categoria: "Vídeo",
+      precio: "450 € · pago a éxito",
+      descripcion: "Recorrido interior + vistas aéreas.",
+      meta: "Ideal para campañas potentes y redes sociales.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "home-staging",
+      nombre: "Home staging",
+      categoria: "Estética",
+      precio: "750–1200 € · pago a éxito",
+      descripcion: "Mejora estética sin reformas pesadas.",
+      meta: "Incluye propuesta de estilo y reordenación.",
+      activoPorDefecto: true,
+    },
+    {
+      id: "blogger-internacional",
+      nombre: "Blogger internacional",
+      categoria: "Difusión",
+      precio: "3000 € · pago a éxito",
+      descripcion: "Historia real de la vivienda en otro país.",
+      meta: "Enlace directo con público extranjero.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "tour-360",
+      nombre: "Tour virtual 360º",
+      categoria: "Tecnología",
+      precio: "350 € · pago único",
+      descripcion: "Recorrido virtual interactivo de la vivienda.",
+      meta: "Perfecto para compradores internacionales.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "copy-luxury",
+      nombre: "Copywriting de lujo",
+      categoria: "Narrativa",
+      precio: "280 € · pago único",
+      descripcion:
+        "Texto editorial estilo revista para portales y dossieres.",
+      meta: "Orientado a públicos premium e inversores.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "plan-medios",
+      nombre: "Plan de medios 7.0",
+      categoria: "Difusión",
+      precio: "900 € · pago a éxito",
+      descripcion:
+        "Estrategia coordinada en portales, redes y base de datos.",
+      meta: "Control centralizado de todos los impactos.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "open-house",
+      nombre: "Open House privado",
+      categoria: "Eventos",
+      precio: "600 € · pago a éxito",
+      descripcion:
+        "Jornada de puertas abiertas para compradores filtrados.",
+      meta: "Se prepara guion, timings y feedback de visitas.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "arquitecto",
+      nombre: "Informe arquitecto 7.0",
+      categoria: "Técnico",
+      precio: "450 € · pago único",
+      descripcion:
+        "Informe visual sobre estado, mejoras y potencial de la vivienda.",
+      meta: "Aporta confianza al comprador indeciso.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "notion-dossier",
+      nombre: "Dossier interactivo",
+      categoria: "Documento",
+      precio: "220 € · pago único",
+      descripcion:
+        "Dossier online con fotos, planos, cálculos y storytelling.",
+      meta: "Se comparte con compradores serios por enlace privado.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "whatsapp-camp",
+      nombre: "Campaña WhatsApp PRO",
+      categoria: "Difusión",
+      precio: "350 € · pago a éxito",
+      descripcion:
+        "Mensajes guiados y seguimiento con compradores de tu base.",
+      meta: "Controlamos aperturas, respuestas y tiempos.",
+      activoPorDefecto: false,
+    },
+    {
+      id: "embudo-7",
+      nombre: "Embudo 7 pasos",
+      categoria: "Sistema 7.0",
+      precio: "Incluido según pack",
+      descripcion:
+        "Seguimiento paso a paso desde lead frío hasta oferta firme.",
+      meta: "Visión completa para la parte educativa del método.",
+      activoPorDefecto: true,
+    },
+  ];
 
-        function loadServicios() {
-            let stored = [];
-            try {
-                const raw = localStorage.getItem(STORAGE_KEY);
-                if (raw) stored = JSON.parse(raw);
-            } catch (e) {}
-            const mapStored = new Map(stored.map((s) => [s.id, s]));
-            return serviciosBase.map((svc) => {
-                const saved = mapStored.get(svc.id);
-                return {
-                    ...svc,
-                    activo:
-                        saved && typeof saved.activo === "boolean"
-                            ? saved.activo
-                            : !!svc.activoPorDefecto,
-                };
-            });
-        }
+  function loadServicios() {
+    let stored = [];
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) stored = JSON.parse(raw);
+    } catch (e) {}
+    const mapStored = new Map(stored.map((s) => [s.id, s]));
+    return serviciosBase.map((svc) => {
+      const saved = mapStored.get(svc.id);
+      return {
+        ...svc,
+        activo:
+          saved && typeof saved.activo === "boolean"
+            ? saved.activo
+            : !!svc.activoPorDefecto,
+      };
+    });
+  }
 
-        let servicios = loadServicios();
+  let servicios = loadServicios();
 
-        function saveServicios() {
-            try {
-                const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(minimal));
-            } catch (e) {}
-        }
+  function saveServicios() {
+    try {
+      const minimal = servicios.map((s) => ({ id: s.id, activo: s.activo }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(minimal));
+    } catch (e) {}
+  }
 
-        function registrarNotificacionServicio(texto) {
-            try {
-                const now = new Date();
-                const dateStr = now.toISOString().slice(0, 10);
-                const timeStr = now.toTimeString().slice(0, 8);
-                
-                // Formato que espera el dashboard-clean.html
-                const entry = {
-                    time: timeStr,
-                    date: dateStr,
-                    text: texto
-                };
-                
-                let list = [];
-                const raw = localStorage.getItem(LOG_KEY);
-                if (raw) list = JSON.parse(raw);
-                
-                list.unshift(entry);
-                
-                if (list.length > 200) list = list.slice(0, 200);
-                localStorage.setItem(LOG_KEY, JSON.stringify(list));
-            } catch (e) {
-                console.error("Error al registrar notificación:", e);
-            }
-        }
+  function registrarNotificacionServicio(texto) {
+    try {
+      const now = new Date();
+      const dateStr = now.toISOString().slice(0, 10);
+      const timeStr = now.toTimeString().slice(0, 8);
+      
+      const entry = { 
+        time: timeStr,   
+        date: dateStr,   
+        text: texto      
+      };
+      
+      let list = [];
+      const raw = localStorage.getItem(LOG_KEY);
+      if (raw) list = JSON.parse(raw);
+      
+      list.unshift(entry); 
+      
+      if (list.length > 200) list = list.slice(0, 200);
+      localStorage.setItem(LOG_KEY, JSON.stringify(list));
+    } catch (e) {
+      console.error("Error al registrar notificación:", e);
+    }
+  }
 
-        const servicesGrid = document.getElementById("servicesGrid");
-        const summaryActivos = document.getElementById("summary-activos");
-        const summaryPendientes = document.getElementById("summary-pendientes");
+  const servicesGrid = document.getElementById("servicesGrid");
+  const summaryActivos = document.getElementById("summary-activos");
+  const summaryPendientes = document.getElementById("summary-pendientes");
 
-        function renderResumen() {
-            const activos = servicios.filter((s) => s.activo).length;
-            const pendientes = servicios.length - activos;
+  function renderResumen() {
+    const activos = servicios.filter((s) => s.activo).length;
+    const pendientes = servicios.length - activos;
 
-            if (summaryActivos) {
-                summaryActivos.querySelector("strong").textContent = activos;
-                // Activo se muestra en color dorado
-                if (activos > 0) {
-                    summaryActivos.classList.add('active');
-                    summaryActivos.classList.remove('inactive');
-                } else {
-                    summaryActivos.classList.remove('active');
-                    summaryActivos.classList.add('inactive');
-                }
-            }
-            
-            if (summaryPendientes) {
-                summaryPendientes.querySelector("strong").textContent = pendientes;
-                // Pendiente se muestra en color rojo
-                 if (pendientes > 0) {
-                    summaryPendientes.classList.add('inactive');
-                    summaryPendientes.classList.remove('active');
-                } else {
-                    summaryPendientes.classList.remove('inactive');
-                }
-            }
-        }
+    summaryActivos.querySelector("strong").textContent = activos;
+    summaryPendientes.querySelector("strong").textContent = pendientes;
 
-        function createServiceCard(svc) {
-            const card = document.createElement("article");
-            // Aplica la clase service-card-active para el borde dorado
-            card.className = "service-card" + (svc.activo ? " service-card-active" : "");
-            card.dataset.id = svc.id;
+    if (!activos) {
+      summaryActivos.classList.add("inactive");
+    } else {
+      summaryActivos.classList.remove("inactive");
+    }
+    if (!pendientes) {
+      summaryPendientes.classList.add("inactive");
+    } else {
+      summaryPendientes.classList.remove("inactive");
+    }
+  }
 
-            card.innerHTML = `
-                <div class="service-card-header">
-                    <div>
-                        <div class="service-name">${svc.nombre}</div>
-                        <div class="service-price">${svc.precio}</div>
-                    </div>
-                    <div class="service-tag">${svc.categoria}</div>
-                </div>
-                <p class="service-desc">${svc.descripcion}</p>
-                <p class="service-meta">${svc.meta}</p>
-                <div class="service-footer">
-                    <span class="service-state-pill ${svc.activo ? "" : "inactive"}">
-                        <span class="icon">★</span>
-                        <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
-                    </span>
-                    <div>
-                        <button class="service-btn ${
-                            svc.activo ? "service-btn-danger" : "service-btn-primary"
-                        } btn-toggle">
-                            ${svc.activo ? "Desactivar" : "Activar servicio"}
-                        </button>
-                    </div>
-                </div>
-            `;
+  function createServiceCard(svc) {
+    const card = document.createElement("article");
+    card.className = "service-card" + (svc.activo ? " service-card-active" : "");
+    card.dataset.id = svc.id;
 
-            const btnToggle = card.querySelector(".btn-toggle");
-            if (btnToggle) { 
-                btnToggle.addEventListener("click", () => {
-                    toggleServicio(svc.id);
-                });
-            }
+    card.innerHTML = `
+      <div class="service-card-header">
+        <div>
+          <div class="service-name">${svc.nombre}</div>
+          <div class="service-price">${svc.precio}</div>
+        </div>
+        <div class="service-tag">${svc.categoria}</div>
+        </div>
+      <p class="service-desc">${svc.descripcion}</p>
+      <p class="service-meta">${svc.meta}</p>
+      <div class="service-footer">
+        <span class="service-state-pill ${svc.activo ? "" : "inactive"}">
+          <span class="icon">★</span>
+          <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
+        </span>
+        <div>
+          <button class="service-btn ${
+            svc.activo ? "service-btn-danger" : "service-btn-primary"
+          } btn-toggle">
+            ${svc.activo ? "Desactivar" : "Activar servicio"}
+          </button>
+        </div>
+      </div>
+    `;
 
-            return card;
-        }
+    const btnToggle = card.querySelector(".btn-toggle");
+    btnToggle.addEventListener("click", () => {
+      toggleServicio(svc.id);
+    });
 
-        function renderServicios() {
-            if (servicesGrid) {
-                servicesGrid.innerHTML = "";
-                servicios.forEach((svc) => {
-                    const card = createServiceCard(svc);
-                    servicesGrid.appendChild(card);
-                });
-            }
-            renderResumen();
-        }
+    return card;
+  }
 
-        function toggleServicio(id) {
-            servicios = servicios.map((svc) =>
-                svc.id === id ? { ...svc, activo: !svc.activo } : svc
-            );
-            saveServicios();
+  function renderServicios() {
+    servicesGrid.innerHTML = "";
+    servicios.forEach((svc) => {
+      const card = createServiceCard(svc);
+      servicesGrid.appendChild(card);
+    });
+    renderResumen();
+  }
 
-            const svc = servicios.find((s) => s.id === id);
-            if (svc) {
-                registrarNotificacionServicio(
-                    `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
-                        svc.nombre
-                    }.`
-                );
-            }
+  function toggleServicio(id) {
+    servicios = servicios.map((svc) =>
+      svc.id === id ? { ...svc, activo: !svc.activo } : svc
+    );
+    saveServicios();
 
-            // Después de cambiar el estado, se renderiza de nuevo la lista para actualizar el diseño
-            renderServicios(); 
-        }
+    const svc = servicios.find((s) => s.id === id);
+    if (svc) {
+      registrarNotificacionServicio(
+        `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
+          svc.nombre
+        }.`
+      );
+    }
 
-        document.addEventListener("DOMContentLoaded", renderServicios);
-    </script>
+    renderServicios();
+  }
+
+  document.addEventListener("DOMContentLoaded", renderServicios);
+</script>
 </body>
 </html>
