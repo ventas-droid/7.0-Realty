@@ -952,7 +952,6 @@
 </head>
 <body>
   <div class="page">
-    <!-- SIDEBAR ------------------------------------------------------------>
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-logo"></div>
@@ -987,7 +986,6 @@
       </div>
     </aside>
 
-    <!-- MAIN --------------------------------------------------------------->
     <main class="main">
       <header class="top-bar">
         <div class="top-left">
@@ -1006,7 +1004,6 @@
         </div>
       </header>
 
-      <!-- FILA 1: Precio + Venta particular / contactos ---------------------->
       <section class="grid">
         <article class="card">
           <div class="card-header">
@@ -1034,8 +1031,7 @@
           </div>
 
           <div class="price-lines" id="priceLines">
-            <!-- se rellena por JS -->
-          </div>
+            </div>
         </article>
 
         <article class="card">
@@ -1063,7 +1059,6 @@
         </article>
       </section>
 
-      <!-- FILA 2: Última propiedad + Acciones recientes --------------------->
       <section class="grid">
         <article class="card">
           <div class="card-header">
@@ -1110,7 +1105,6 @@
         </article>
       </section>
 
-      <!-- FILA 3: Subir fotos / docs + Servicios disponibles ---------------->
       <section class="grid">
         <article class="card">
           <div class="card-header">
@@ -1123,7 +1117,6 @@
           </div>
 
           <div class="upload-grid">
-            <!-- FOTOS -->
             <div class="upload-card">
               <div class="upload-title">Subir fotos de la vivienda</div>
               <div
@@ -1164,7 +1157,6 @@
               <div class="upload-meta" id="metaFotos"></div>
             </div>
 
-            <!-- DOCUMENTOS -->
             <div class="upload-card">
               <div class="upload-title">Subir documentación</div>
               <div
@@ -1221,12 +1213,9 @@
             </button>
           </div>
 
-          <!-- Burbujas de servicios activos -->
           <div class="status-pills-row" id="statusPillsRow">
-            <!-- JS -->
-          </div>
+            </div>
 
-          <!-- Solo 4 servicios visibles -->
           <div class="services-grid" id="servicesGrid"></div>
 
           <p class="card-subtitle" style="margin-top: 0.7rem;">
@@ -1236,7 +1225,6 @@
         </article>
       </section>
 
-      <!-- FILA 4: Agencias interesadas ------------------------------------->
       <section class="grid-1">
         <article class="card">
           <div class="card-header">
@@ -1252,8 +1240,7 @@
           </div>
 
           <div class="agencies-list" id="agenciesList">
-            <!-- JS -->
-          </div>
+            </div>
 
           <div class="agency-caption">
             Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
@@ -1264,7 +1251,6 @@
     </main>
   </div>
 
-  <!-- MODAL LISTA DE ARCHIVOS ---------------------------------------------->
   <div class="modal-backdrop" id="uploadsModal">
     <div class="modal">
       <div class="modal-header">
@@ -1275,7 +1261,6 @@
     </div>
   </div>
 
-  <!-- VISOR PRO DE IMÁGENES ----------------------------------------------->
   <div class="image-viewer-backdrop" id="imageViewer">
     <div class="image-viewer-inner">
       <button class="image-viewer-close" id="imageViewerClose">✕</button>
@@ -1285,16 +1270,16 @@
 
   <script>
     /* ============================
-       CONSTANTES DE STORAGE
-       ============================ */
+    	CONSTANTES DE STORAGE
+    	============================ */
 
     const STORAGE_SERVICIOS = "panamoveServicios";
     const STORAGE_UPLOADS = "panamoveUploads";
     const STORAGE_LOG = "panamoveLog";
 
     /* ============================
-       UTILIDAD: LOG DE ACCIONES
-       ============================ */
+    	UTILIDAD: LOG DE ACCIONES
+    	============================ */
 
     function loadLog() {
       try {
@@ -1364,8 +1349,8 @@
     }
 
     /* ============================
-       PRECIO / SIMULACIÓN
-       ============================ */
+    	PRECIO / SIMULACIÓN
+    	============================ */
 
     function formatMoney(num) {
       return num.toLocaleString("es-ES", {
@@ -1374,37 +1359,58 @@
       });
     }
 
+    // <--- CORRECCIÓN PRINCIPAL EN LA LÓGICA DE PRECIOS --->
     function recalcPrice() {
       const input = document.getElementById("precioInput");
       const lines = document.getElementById("priceLines");
       if (!input || !lines) return;
 
       const base = Number(input.value || 0);
-      const comision = base * 0.03;
-      const ivaServicios = comision * 0.21;
-      const totalServicios = comision + ivaServicios;
-      const neto = base - comision;
+
+      // 1. Obtener la suma de costes fijos de servicios activos
+      const serviciosActivos = loadServiciosEstado().filter(svc => svc.activo);
+      const costeServiciosFijos = serviciosActivos.reduce((sum, svc) => sum + (svc.costeFijo || 0), 0);
+      
+      // 2. Comisión base de gestión (3% del precio de venta)
+      const comisionBase = base * 0.03;
+
+      // 3. La 'comision' final que aparece en el dashboard es la suma de:
+      //    Comisión 3% fija de gestión + Coste Servicios Fijos (lo que asumes tú).
+      const comisionTotal = comisionBase + costeServiciosFijos;
+      
+      // 4. Calcular IVA (21% sobre la comisión total)
+      const ivaServicios = comisionTotal * 0.21;
+      
+      // 5. Total a pagar
+      const totalServicios = comisionTotal + ivaServicios;
+      
+      // 6. Neto para el propietario
+      const neto = base - comisionTotal;
 
       lines.innerHTML = `
         IVA servicios 21 %: ${formatMoney(ivaServicios)} €<br />
-        Comisión 3 % gestión: ${formatMoney(comision)} €<br />
+        Comisión 3 % gestión + Coste servicios fijos: ${formatMoney(comisionTotal)} €<br />
         <span class="total">Total a pagar (servicios + comisión + IVA): ${formatMoney(
           totalServicios
         )} €</span><br /><br />
         Neto para ti (antes de plusvalía): ${formatMoney(neto)} €
       `;
     }
+    // <--- FIN CORRECCIÓN PRINCIPAL DE PRECIOS --->
+
 
     /* ============================
-       SERVICIOS (4 EN DASHBOARD)
-       ============================ */
+    	SERVICIOS (4 EN DASHBOARD)
+    	============================ */
 
+    // <--- CORRECCIÓN: Se añade 'costeFijo' a cada servicio para el cálculo de precios --->
     const serviciosDashboardBase = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
         categoria: "Imagen",
         precio: "450 € · pago a éxito",
+        costeFijo: 450, // <-- AÑADIDO
         descripcion: "Fotógrafo especializado inmobiliario.",
       },
       {
@@ -1412,6 +1418,7 @@
         nombre: "Vídeo + dron",
         categoria: "Vídeo",
         precio: "450 € · pago a éxito",
+        costeFijo: 450, // <-- AÑADIDO
         descripcion: "Recorrido interior + vistas aéreas.",
       },
       {
@@ -1419,6 +1426,7 @@
         nombre: "Home staging",
         categoria: "Estética",
         precio: "750–1200 € · pago a éxito",
+        costeFijo: 750, // <-- AÑADIDO (Usamos el menor para el cálculo)
         descripcion: "Mejora estética sin reformas pesadas.",
       },
       {
@@ -1426,15 +1434,18 @@
         nombre: "Blogger internacional",
         categoria: "Difusión",
         precio: "3000 € · pago a éxito",
+        costeFijo: 3000, // <-- AÑADIDO
         descripcion: "Historia real de la vivienda en otro país.",
       },
     ];
+    // <--- FIN CORRECCIÓN BASE DE DATOS SERVICIOS --->
 
     function loadServiciosEstado() {
       try {
         const raw = localStorage.getItem(STORAGE_SERVICIOS);
         const stored = raw ? JSON.parse(raw) : [];
         const map = new Map(stored.map((s) => [s.id, s.activo]));
+        // Aseguramos que 'costeFijo' se mantenga
         return serviciosDashboardBase.map((svc) => ({
           ...svc,
           activo: map.has(svc.id)
@@ -1474,16 +1485,15 @@
 
       serviciosEstado.forEach((svc) => {
         // pills
-        const pill = document.createElement("div");
-        pill.className = "status-pill";
-        pill.innerHTML = `
-          <span class="dot"></span>
-          <span>${svc.nombre} activado por el propietario</span>
-        `;
-        if (!svc.activo) {
-          pill.style.opacity = "0.35";
+        if (svc.activo) { // <--- CORRECCIÓN: Solo mostrar píldoras de activos
+            const pill = document.createElement("div");
+            pill.className = "status-pill";
+            pill.innerHTML = `
+              <span class="dot"></span>
+              <span>${svc.nombre} activado por el propietario</span>
+            `;
+            pillsRow.appendChild(pill);
         }
-        pillsRow.appendChild(pill);
 
         // cards
         const card = document.createElement("article");
@@ -1538,11 +1548,12 @@
         );
       }
       renderServiciosDashboard();
+      recalcPrice(); // <--- CORRECCIÓN: Recalcular precio al cambiar el estado del servicio
     }
 
     /* ============================
-       AGENCIAS
-       ============================ */
+    	AGENCIAS
+    	============================ */
 
     const agenciesData = [
       {
@@ -1645,8 +1656,8 @@
     }
 
     /* ============================
-       UPLOADS + MODAL
-       ============================ */
+    	UPLOADS + MODAL
+    	============================ */
 
     function loadUploads() {
       try {
@@ -1855,14 +1866,16 @@
     });
 
     /* ============================
-       INICIALIZACIÓN & EVENTOS
-       ============================ */
+    	INICIALIZACIÓN & EVENTOS
+    	============================ */
 
     document.addEventListener("DOMContentLoaded", () => {
       // precio
       recalcPrice();
       const precioInput = document.getElementById("precioInput");
       if (precioInput) {
+        // <--- CORRECCIÓN: Eventos para recalcular al cambiar o perder el foco del input --->
+        precioInput.addEventListener("input", recalcPrice); 
         precioInput.addEventListener("change", recalcPrice);
         precioInput.addEventListener("blur", recalcPrice);
       }
@@ -1896,10 +1909,10 @@
 
       if (dropFotos && fileFotos) {
         const openPickerFotos = () => fileFotos.click();
+        const btnSubirFotos = document.getElementById("btnSubirFotos");
+        if(btnSubirFotos) btnSubirFotos.addEventListener("click", openPickerFotos);
+        
         dropFotos.addEventListener("click", openPickerFotos);
-        document
-          .getElementById("btnSubirFotos")
-          .addEventListener("click", openPickerFotos);
 
         ["dragenter", "dragover"].forEach((evName) =>
           dropFotos.addEventListener(evName, (ev) => {
@@ -1927,10 +1940,10 @@
 
       if (dropDocs && fileDocs) {
         const openPickerDocs = () => fileDocs.click();
+        const btnSubirDocs = document.getElementById("btnSubirDocs");
+        if(btnSubirDocs) btnSubirDocs.addEventListener("click", openPickerDocs);
+
         dropDocs.addEventListener("click", openPickerDocs);
-        document
-          .getElementById("btnSubirDocs")
-          .addEventListener("click", openPickerDocs);
 
         ["dragenter", "dragover"].forEach((evName) =>
           dropDocs.addEventListener(evName, (ev) => {
