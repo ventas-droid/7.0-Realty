@@ -845,21 +845,41 @@
       margin-bottom: 0.5rem;
     }
 
+    /* MODIFICACIÓN DE DISEÑO AQUÍ */
     .recent-list {
       margin-top: 0.4rem;
-      border-top: 1px dashed rgba(31, 41, 55, 0.9);
-      padding-top: 0.3rem;
+      padding: 0.8rem 0.4rem; /* Padding interno */
+      background: rgba(15, 23, 42, 0.5); /* Fondo sutil */
+      border-radius: 12px; /* Esquinas redondeadas */
+      border: 1px solid rgba(17, 24, 39, 0.8); /* Borde suave */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
       font-size: 0.78rem;
       max-height: 230px;
       overflow-y: auto;
+      display: flex; /* Para contener los ítems */
+      flex-direction: column;
+      gap: 0.5rem; /* Espaciado entre ítems */
     }
 
     .recent-item {
-      padding: 0.25rem 0;
-      border-bottom: 1px dashed rgba(31, 41, 55, 0.9);
+      padding: 0.4rem 0.3rem;
+      border-bottom: 1px solid transparent;
+      border-image: linear-gradient(
+          to right,
+          rgba(31, 41, 55, 0.0),
+          rgba(31, 41, 55, 0.8),
+          rgba(31, 41, 55, 0.0)
+        )
+        1; /* Borde inferior con degradado */
       display: flex;
-      gap: 0.5rem;
+      gap: 0.7rem; /* Aumentado el espacio */
+      transition: background 160ms ease-out;
     }
+    
+    .recent-item:last-child {
+        border-bottom: none; /* Quitar borde del último elemento */
+    }
+    /* FIN MODIFICACIÓN DE DISEÑO */
 
     .recent-time {
       color: var(--text-soft);
@@ -1359,7 +1379,7 @@
       });
     }
 
-    // <--- CORRECCIÓN PRINCIPAL EN LA LÓGICA DE PRECIOS --->
+    // CORRECCIÓN: Lógica de precios actualizada para incluir costes de servicios.
     function recalcPrice() {
       const input = document.getElementById("precioInput");
       const lines = document.getElementById("priceLines");
@@ -1374,9 +1394,8 @@
       // 2. Comisión base de gestión (3% del precio de venta)
       const comisionBase = base * 0.03;
 
-      // 3. La 'comision' final que aparece en el dashboard es la suma de:
-      //    Comisión 3% fija de gestión + Coste Servicios Fijos (lo que asumes tú).
-      const comisionTotal = comisionBase + costeServiciosFijos;
+      // 3. Comisión total (comisión 3% fija de venta + Coste Servicios Fijos)
+      const comisionTotal = comisionBase + costeServiciosFijos; 
       
       // 4. Calcular IVA (21% sobre la comisión total)
       const ivaServicios = comisionTotal * 0.21;
@@ -1396,21 +1415,20 @@
         Neto para ti (antes de plusvalía): ${formatMoney(neto)} €
       `;
     }
-    // <--- FIN CORRECCIÓN PRINCIPAL DE PRECIOS --->
 
 
     /* ============================
     	SERVICIOS (4 EN DASHBOARD)
     	============================ */
 
-    // <--- CORRECCIÓN: Se añade 'costeFijo' a cada servicio para el cálculo de precios --->
+    // CORRECCIÓN: Se añade 'costeFijo' a cada servicio.
     const serviciosDashboardBase = [
       {
         id: "fotos",
         nombre: "Fotos PRO",
         categoria: "Imagen",
         precio: "450 € · pago a éxito",
-        costeFijo: 450, // <-- AÑADIDO
+        costeFijo: 450, 
         descripcion: "Fotógrafo especializado inmobiliario.",
       },
       {
@@ -1418,7 +1436,7 @@
         nombre: "Vídeo + dron",
         categoria: "Vídeo",
         precio: "450 € · pago a éxito",
-        costeFijo: 450, // <-- AÑADIDO
+        costeFijo: 450,
         descripcion: "Recorrido interior + vistas aéreas.",
       },
       {
@@ -1426,7 +1444,7 @@
         nombre: "Home staging",
         categoria: "Estética",
         precio: "750–1200 € · pago a éxito",
-        costeFijo: 750, // <-- AÑADIDO (Usamos el menor para el cálculo)
+        costeFijo: 750, 
         descripcion: "Mejora estética sin reformas pesadas.",
       },
       {
@@ -1434,18 +1452,17 @@
         nombre: "Blogger internacional",
         categoria: "Difusión",
         precio: "3000 € · pago a éxito",
-        costeFijo: 3000, // <-- AÑADIDO
+        costeFijo: 3000, 
         descripcion: "Historia real de la vivienda en otro país.",
       },
     ];
-    // <--- FIN CORRECCIÓN BASE DE DATOS SERVICIOS --->
 
     function loadServiciosEstado() {
       try {
         const raw = localStorage.getItem(STORAGE_SERVICIOS);
         const stored = raw ? JSON.parse(raw) : [];
         const map = new Map(stored.map((s) => [s.id, s.activo]));
-        // Aseguramos que 'costeFijo' se mantenga
+        // Mantiene costeFijo y estado activo
         return serviciosDashboardBase.map((svc) => ({
           ...svc,
           activo: map.has(svc.id)
@@ -1485,7 +1502,7 @@
 
       serviciosEstado.forEach((svc) => {
         // pills
-        if (svc.activo) { // <--- CORRECCIÓN: Solo mostrar píldoras de activos
+        if (svc.activo) { 
             const pill = document.createElement("div");
             pill.className = "status-pill";
             pill.innerHTML = `
@@ -1548,7 +1565,7 @@
         );
       }
       renderServiciosDashboard();
-      recalcPrice(); // <--- CORRECCIÓN: Recalcular precio al cambiar el estado del servicio
+      recalcPrice(); // CORRECCIÓN: Recalcular precio al cambiar el estado del servicio
     }
 
     /* ============================
@@ -1874,7 +1891,7 @@
       recalcPrice();
       const precioInput = document.getElementById("precioInput");
       if (precioInput) {
-        // <--- CORRECCIÓN: Eventos para recalcular al cambiar o perder el foco del input --->
+        // Eventos para recalcular al cambiar o perder el foco del input
         precioInput.addEventListener("input", recalcPrice); 
         precioInput.addEventListener("change", recalcPrice);
         precioInput.addEventListener("blur", recalcPrice);
