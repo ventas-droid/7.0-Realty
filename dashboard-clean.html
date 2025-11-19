@@ -1706,8 +1706,42 @@
         card.className = "modal-item";
 
         const openInNew = () => {
-          if (item.dataUrl) window.open(item.dataUrl, "_blank");
-        };
+  if (!item.dataUrl) return;
+
+  const win = window.open("", "_blank");
+  if (!win) return; // por si el navegador bloquea la pestaña
+
+  win.document.write(`
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8" />
+      <title>${item.name || "Foto subida"}</title>
+      <style>
+        body {
+          margin: 0;
+          background: #020617;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+        }
+        img {
+          max-width: 100vw;
+          max-height: 100vh;
+          object-fit: contain;
+          display: block;
+        }
+      </style>
+    </head>
+    <body>
+      <img src="${item.dataUrl}" alt="${item.name || "Foto subida"}" />
+    </body>
+    </html>
+   `);
+    win.document.close();
+    };
+
 
         if (type === "fotos" && item.dataUrl) {
           const img = document.createElement("img");
