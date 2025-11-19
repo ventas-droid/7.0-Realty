@@ -1137,32 +1137,40 @@
           <div class="price-lines" id="priceLines">
             </div>
         </article>
+<!-- =========================
+     BLOQUE 1: Venta particular
+   ========================= -->
+<section class="grid">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Venta particular y colaboración</div>
+        <div class="card-subtitle">
+          Espacio para propietarios que aún no han decidido agencia,
+          pero quieren activar servicios profesionales a éxito.
+        </div>
+      </div>
+    </div>
 
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Venta particular y colaboración</div>
-              <div class="card-subtitle">
-                No agencia, servicios profesionales a éxito.
-              </div>
-            </div>
-          </div>
+    <div class="property-list">
+      <div class="property-main-name">
+        Ático Blue Sunset – La Duquesa, Manilva.
+      </div>
+      <p>
+        Esta propiedad está en campaña dentro del método 7.0. Desde aquí
+        se coordinará la venta como particular y la colaboración con
+        profesionales de servicios activos (fotografía, vídeo, home
+        staging, blogger internacional, etc.).
+      </p>
+    </div>
+  </article>
+</section>
 
-          <div class="property-list">
-            <div class="property-main-name">
-              Ático Blue Sunset – La Duquesa, Manilva.
-            </div>
-            <p>
-              Esta propiedad está en campaña dentro del método 7.0. Desde aquí
-              se coordinará la venta como particular y la colaboración con
-              profesionales de servicios activos (fotografía, vídeo, home
-              staging, blogger internacional, etc.).
-            </p>
-          </div>
-        </article>
-      </section>
-
-     <section class="grid">
+<!-- =========================
+     BLOQUE 2: Panel de Agencia + Acciones recientes
+   ========================= -->
+<section class="grid">
+  <!-- PANEL DE AGENCIA -->
   <article class="card">
     <div class="card-header">
       <div class="card-header-main">
@@ -1173,53 +1181,77 @@
       </div>
     </div>
 
-    <div class="agency-panel-content">
-      <div class="agency-info">
-        <div class="agency-avatar">BR</div>
-        <div class="agency-details">
-          <div class="agency-name">Bernabeu Realty</div>
-          <div class="agency-contact">Teléfono: 654 34 32 32</div>
-          <div class="agency-assessor">
-            Nombre del asesor: <strong>Víctor Pérez</strong>
+    <div class="agency-panel-content" style="margin-top:0.6rem;">
+      <div class="agency-info" style="display:flex;align-items:center;gap:0.9rem;">
+        <div class="agency-avatar" style="
+          width:42px;height:42px;border-radius:999px;
+          background:#22c55e;color:#022c22;font-weight:700;
+          display:flex;align-items:center;justify-content:center;font-size:0.9rem;">
+          BR
+        </div>
+
+        <div class="agency-details" style="font-size:0.82rem;">
+          <div class="agency-name" style="font-size:0.9rem;font-weight:600;">
+            Bernabeu Realty
+          </div>
+          <div class="agency-contact" style="color:#9ca3af;">
+            Teléfono: 654 34 32 32
+          </div>
+          <div class="agency-assessor" style="color:#9ca3af;">
+            Asesor asignado: <strong style="color:#e5e7eb;">Víctor Pérez</strong>
           </div>
         </div>
       </div>
 
-      <div class="agency-services-wrapper">
-        <div class="card-subtitle" style="margin-top:-0.1rem;">
+      <div class="agency-services-wrapper" style="margin-top:1rem;">
+        <div class="card-subtitle" style="margin-bottom:0.5rem;">
           Servicios activos gestionados:
         </div>
-        <div class="agency-services-list" id="agencyActiveServices"></div>
+
+        <div id="agencyActiveServices"
+             style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+        </div>
       </div>
 
-      <button type="button" class="btn-campana-firmada">
+      <button type="button"
+        class="btn-campana-firmada"
+        style="
+          margin-top:1.2rem;
+          border-radius:999px;
+          padding:0.4rem 1rem;
+          font-size:0.8rem;
+          font-weight:600;
+          background:rgba(250,204,21,0.12);
+          border:1px solid rgba(250,204,21,0.7);
+          color:#facc15;
+          cursor:pointer;">
         Campaña firmada
       </button>
     </div>
   </article>
 
+  <!-- ACCIONES RECIENTES -->
+  <article class="card">
+    <div class="recent-header">
+      <div>
+        <div class="card-title">Acciones recientes</div>
+        <div class="card-subtitle">
+          Histórico de lo que se ha activado, subido y autorizado.
+        </div>
+      </div>
+      <button type="button" class="notification-pill" id="btnNotif">
+        <span class="dot"></span> Notificaciones
+      </button>
+    </div>
 
-        <article class="card">
-          <div class="recent-header">
-            <div>
-              <div class="card-title">Acciones recientes</div>
-              <div class="card-subtitle">
-                Histórico de lo que se ha activado, subido y autorizado.
-              </div>
-            </div>
-            <button type="button" class="notification-pill" id="btnNotif">
-              <span class="dot"></span> Notificaciones
-            </button>
-          </div>
+    <div class="recent-list" id="recentList"></div>
 
-          <div class="recent-list" id="recentList"></div>
+    <p class="card-subtitle" style="margin-top: 0.5rem;">
+     
+    </p>
+  </article>
+</section>
 
-          <p class="card-subtitle" style="margin-top: 0.5rem;">
-            Este histórico es el “cerebro” de la campaña: siempre podrás revisar
-            qué se hizo, quién lo activó y cuándo.
-          </p>
-        </article>
-      </section>
 
       <section class="grid">
         <article class="card">
