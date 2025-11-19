@@ -1,1 +1,1281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Panamove 7.0 – Dashboard campaña Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        /* Variables y Estilo Global (Ajustado para Coherencia Premium) */
+        :root {
+            --bg-main: #0a0a0a; /* Fondo principal más oscuro */
+            --bg-card: #14141c; /* Fondo tarjeta más definida */
+            --bg-card-alt: #0c0c14;
+            --accent: #38bdf8; /* Azul primario */
+            --accent-soft: rgba(56, 189, 248, 0.15);
+            --accent-strong: #0ea5e9;
+            --gold: #fbbf24; /* Dorado fuerte */
+            --text-main: #e2e8f0;
+            --text-soft: #94a3b8;
+            --border-subtle: #2d3748; /* Borde más visible */
+            --danger: #f97373;
+            --success: #22c55e;
+            --radius-lg: 1rem; /* 16px */
+            --radius-full: 9999px;
+            --shadow-subtle: 0 4px 10px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --transition-fast: 0.2s ease-out;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, var(--bg-main), #000000 85%);
+            color: var(--text-main);
+            display: flex;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        /* LAYOUT -------------------------------------------------------------- */
+
+        .page {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 230px;
+            background: linear-gradient(180deg, #181c26, #0d1119 85%);
+            border-right: 1px solid var(--border-subtle);
+            padding: 1.5rem 1.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent), var(--success));
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+        }
+
+        .nav-item-active {
+            background: linear-gradient(90deg, var(--accent-primary), rgba(56, 189, 248, 0.4));
+            color: white;
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
+
+        .main {
+            flex: 1;
+            padding: 2rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .top-bar {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .badge-sistema {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+        
+        /* WRAPPERS */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+        .grid-1 {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-subtle);
+            transition: transform var(--transition-fast);
+        }
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* ESTILO SIMULADOR DE PRECIOS */
+        #precioCard {
+            border-color: rgba(56, 189, 248, 0.5);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.2);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a202c 100%);
+        }
+        .price-lines {
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+        .price-lines .total {
+            color: var(--gold); 
+            border-top: 1px dashed var(--border-subtle);
+        }
+        
+        /* PANEL DE AGENCIA */
+        .agency-panel-content {
+            gap: 1rem;
+            padding-top: 0.5rem;
+        }
+        .agency-info {
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border-subtle);
+        }
+        .agency-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--success);
+            font-size: 1.2rem;
+        }
+        .agency-service-pill {
+            border: 1px solid var(--success);
+            background-color: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+        }
+        .agency-service-pill .dot {
+            background: var(--success);
+        }
+        .btn-campana-firmada {
+            font-size: 0.95rem;
+            font-weight: 700;
+            padding: 0.7rem 2rem;
+            background: linear-gradient(135deg, var(--gold), #ffc107);
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.6);
+        }
+
+        /* KPI Dinámicos */
+        .kpi-card {
+            text-align: center;
+            background: var(--bg-card-alt);
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+        }
+        .kpi-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 0.2rem;
+        }
+        .kpi-label {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .main {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo"></div>
+                <div class="brand-title">
+                    <strong>Panamove 7.0</strong>
+                    <div class="brand-sub">
+                        Propietarios, agencias, difusores y auditores.
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav">
+                <a href="dashboard-clean.html" class="nav-item nav-item-active">
+                    <span class="icon">📊</span>Dashboard
+                </a>
+                <a href="servicios.html" class="nav-item">
+                    <span class="icon">🧩</span>Servicios campaña
+                </a>
+                <div class="nav-item">
+                    <span class="icon">🏠</span>Propiedades
+                </div>
+                <div class="nav-item">
+                    <span class="icon">📣</span>Difusores
+                </div>
+                <div class="nav-item">
+                    <span class="icon">🕵️</span>Auditoría
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                Vista de ejemplo del sistema 7.0 para propietarios.
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="top-bar">
+                <div class="top-left">
+                    <div class="top-title">Dashboard campaña</div>
+                    <div class="top-subtitle">
+                        Resumen rápido de tu campaña real dentro del sistema 7.0.
+                    </div>
+                </div>
+                <div class="top-right">
+                    <span class="badge-sistema">
+                        <span class="pill-dot"></span> SISTEMA 7.0
+                    </span>
+                    <a href="servicios.html" class="btn-ghost">
+                        Ver catálogo completo de servicios
+                    </a>
+                </div>
+            </header>
+            
+            <section class="grid grid-3">
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-views">0</div>
+                    <div class="kpi-label">Vistas del Anuncio (7 Días)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-leads">0</div>
+                    <div class="kpi-label">Leads Recibidos (Total)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpi-cost">0€</div>
+                    <div class="kpi-label">Inversión Activa (Campaña)</div>
+                </div>
+            </section>
+
+            <section class="grid">
+                <article class="card" id="precioCard">
+                    <div class="card-header">
+                        <div class="card-header-main">
+                            <div class="card-title">Precio de la propiedad</div>
+                            <div class="card-subtitle">
+                                Simulación de costes con servicios activados e IVA.
+                            </div>
+                        </div>
+                        <button type="button" class="btn-mini" id="btnSimulacion">
+                            SIMULACIÓN RÁPIDA 7.0
+                        </button>
+                    </div>
+
+                    <div class="price-input-row">
+                        <span>Introduce el precio orientativo:</span>
+                        <input
+                            type="number"
+                            id="precioInput"
+                            value="545000"
+                            min="50000"
+                            step="1000"
+                        />
+                        <span>€</span>
+                    </div>
+
+                    <div class="price-lines" id="priceLines"></div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-header-main">
+                            <div class="card-title">Venta particular y colaboración</div>
+                            <div class="card-subtitle">
+                                Espacio para propietarios que aún no han decidido agencia,
+                                pero quieren activar servicios profesionales a éxito.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="property-list">
+                        <div class="property-main-name">
+                            Ático Blue Sunset – La Duquesa, Manilva.
+                        </div>
+                        <p>
+                            Esta propiedad está en campaña dentro del método 7.0. Desde aquí
+                            se coordinará la venta como particular y la colaboración con
+                            profesionales de servicios activos (fotografía, vídeo, home
+                            staging, blogger internacional, etc.).
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="grid">
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-header-main">
+                            <div class="card-title">Panel de Agencia</div>
+                        </div>
+                    </div>
+                    
+                    <div class="agency-panel-content">
+                        <div class="agency-info">
+                            <div class="agency-avatar">BR</div>
+                            <div class="agency-details">
+                                <div class="agency-name">Bernabeu Realty</div>
+                                <div class="agency-contact">Teléfono: 654 34 32 32</div>
+                                <div class="agency-assessor">Nombre del Asesor: <strong>Víctor Pérez</strong></div>
+                            </div>
+                        </div>
+
+                        <div class="agency-services-wrapper">
+                            <div class="card-subtitle" style="margin-top:-0.5rem; margin-bottom: 0.5rem;">Servicios activos gestionados:</div>
+                            <div class="agency-services-list" id="agencyActiveServices">
+                                </div>
+                        </div>
+
+                        <button type="button" class="btn-campana-firmada">
+                            Campaña Firmada
+                        </button>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="recent-header">
+                        <div>
+                            <div class="card-title">Acciones recientes</div>
+                            <div class="card-subtitle">
+                                Histórico de lo que se ha activado, subido y autorizado.
+                            </div>
+                        </div>
+                        <button type="button" class="notification-pill" id="btnNotif">
+                            <span class="dot"></span> Notificaciones
+                        </button>
+                    </div>
+
+                    <div class="recent-list" id="recentList"></div>
+
+                    <p class="card-subtitle" style="margin-top: 0.5rem;">
+                        Este histórico es el “cerebro” de la campaña: siempre podrás revisar
+                        qué se hizo, quién lo activó y cuándo.
+                    </p>
+                </article>
+            </section>
+
+            <section class="grid">
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-header-main">
+                            <div class="card-title">Subir fotos y documentación</div>
+                            <div class="card-subtitle">
+                                Gestiona todas las fotos HD, planos y escrituras desde aquí.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="upload-grid">
+                        <div class="upload-card">
+                            <div class="upload-title">Subir fotos de la vivienda</div>
+                            <div
+                                class="dropzone"
+                                id="dropFotos"
+                            >
+                                Arrastra las fotos aquí o haz clic para seleccionar.
+                            </div>
+                            <input
+                                type="file"
+                                id="fileFotos"
+                                accept="image/*"
+                                multiple
+                                style="display: none;"
+                            />
+                            <div class="upload-progress">
+                                <div
+                                    class="upload-progress-bar"
+                                    id="progressFotos"
+                                ></div>
+                            </div>
+                            <div class="upload-actions-row">
+                                <button
+                                    type="button"
+                                    class="btn-upload"
+                                    id="btnSubirFotos"
+                                >
+                                    Subir / arrastrar fotos
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn-upload secondary"
+                                    id="btnVerFotos"
+                                >
+                                    Ver fotos subidas
+                                </button>
+                            </div>
+                            <div class="upload-meta" id="metaFotos"></div>
+                        </div>
+
+                        <div class="upload-card">
+                            <div class="upload-title">Subir documentación</div>
+                            <div
+                                class="dropzone"
+                                id="dropDocs"
+                            >
+                                Arrastra documentación (PDF, escrituras…) o haz clic.
+                            </div>
+                            <input
+                                type="file"
+                                id="fileDocs"
+                                multiple
+                                style="display: none;"
+                            />
+                            <div class="upload-progress">
+                                <div
+                                    class="upload-progress-bar"
+                                    id="progressDocs"
+                                ></div>
+                            </div>
+                            <div class="upload-actions-row">
+                                <button
+                                    type="button"
+                                    class="btn-upload"
+                                    id="btnSubirDocs"
+                                >
+                                    Subir / arrastrar documentación
+                                </button>
+                                <button
+                                    type="button"
+                                    class="btn-upload secondary"
+                                    id="btnVerDocs"
+                                >
+                                    Ver documentación subida
+                                </button>
+                            </div>
+                            <div class="upload-meta" id="metaDocs"></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-header-main">
+                            <div class="card-title">
+                                Servicios disponibles (tarifas ejemplo)
+                            </div>
+                            <div class="card-subtitle">
+                                Activa solo lo que tenga sentido para tu campaña.
+                            </div>
+                        </div>
+                        <button type="button" class="services-link" id="btnVerServicios">
+                            Ver todos los servicios
+                        </button>
+                    </div>
+
+                    <div class="services-grid" id="servicesGrid"></div>
+
+                    <p class="card-subtitle" style="margin-top: 0.7rem;">
+                        El propietario ve esto como “panel de mando”: qué está activo, qué
+                        falta por activar y qué servicios ya han sido realizados.
+                    </p>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-backdrop" id="uploadsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle">Archivos subidos</div>
+                <button class="modal-close" id="modalClose">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="image-viewer-backdrop" id="imageViewer">
+        <div class="image-viewer-inner">
+            <button class="image-viewer-close" id="imageViewerClose">✕</button>
+            <img src="" alt="Vista previa" id="imageViewerImg" />
+        </div>
+    </div>
+
+    <script>
+        /* ============================
+            CONSTANTES DE STORAGE
+            ============================ */
+
+        const STORAGE_SERVICIOS = "panamoveServicios";
+        const STORAGE_UPLOADS = "panamoveUploads";
+        const STORAGE_LOG = "panamoveLog";
+        
+        const UPLOAD_DELAY = 10;
+
+        /* ============================
+            UTILIDAD: LOG DE ACCIONES
+            ============================ */
+
+        function loadLog() {
+            try {
+                const raw = localStorage.getItem(STORAGE_LOG);
+                return raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLog(list) {
+            try {
+                localStorage.setItem(STORAGE_LOG, JSON.stringify(list));
+            } catch (e) {}
+        }
+
+        function addLogEntry(text) {
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10);
+            const timeStr = now.toTimeString().slice(0, 8);
+
+            const list = loadLog();
+            list.unshift({
+                time: timeStr,
+                date: dateStr,
+                text,
+            });
+
+            if (list.length > 200) list.length = 200;
+            saveLog(list);
+            renderLog();
+        }
+
+        function renderLog() {
+            const list = loadLog();
+            const container = document.getElementById("recentList");
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            if (!list.length) {
+                const p = document.createElement("p");
+                p.className = "card-subtitle";
+                p.textContent =
+                    "Aquí aparecerán los servicios activados, documentos subidos y agencias autorizadas.";
+                container.appendChild(p);
+                return;
+            }
+
+            list.forEach((item) => {
+                const row = document.createElement("div");
+                row.className = "recent-item";
+
+                const time = document.createElement("div");
+                time.className = "recent-time";
+                time.textContent = `[${item.time} · ${item.date}]`;
+
+                const text = document.createElement("div");
+                text.className = "recent-text";
+                text.textContent = item.text;
+
+                row.appendChild(time);
+                row.appendChild(text);
+                container.appendChild(row);
+            });
+        }
+
+        /* ============================
+            PRECIO / SIMULACIÓN
+            ============================ */
+
+        function formatMoney(num) {
+            return num.toLocaleString("es-ES", {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+        }
+
+        function recalcPrice() {
+            const input = document.getElementById("precioInput");
+            const lines = document.getElementById("priceLines");
+            if (!input || !lines) return;
+
+            const base = Number(input.value || 0);
+
+            const serviciosActivos = loadServiciosEstado().filter(svc => svc.activo);
+            const costeServiciosFijos = serviciosActivos.reduce((sum, svc) => sum + (svc.costeFijo || 0), 0);
+            
+            const comisionBase = base * 0.03;
+            const comisionTotal = comisionBase + costeServiciosFijos;
+            
+            const ivaServicios = comisionTotal * 0.21;
+            const totalServicios = comisionTotal + ivaServicios;
+            const neto = base - comisionTotal;
+
+            lines.innerHTML = `
+                IVA servicios 21 %: ${formatMoney(ivaServicios)} €<br />
+                Comisión 3 % gestión + Coste servicios fijos: ${formatMoney(comisionTotal)} €<br />
+                <span class="total">Total a pagar (servicios + comisión + IVA): ${formatMoney(
+                    totalServicios
+                )} €</span><br /><br />
+                Neto para ti (antes de plusvalía): ${formatMoney(neto)} €
+            `;
+        }
+
+        /* ============================
+            SERVICIOS
+            ============================ */
+
+        const serviciosDashboardBase = [
+            { id: "fotos", nombre: "Fotos PRO", categoria: "Imagen", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Fotógrafo especializado inmobiliario.", activoPorDefecto: true },
+            { id: "video-dron", nombre: "Vídeo + dron", categoria: "Vídeo", precio: "450 € · pago a éxito", costeFijo: 450, descripcion: "Recorrido interior + vistas aéreas.", activoPorDefecto: true },
+            { id: "home-staging", nombre: "Home staging", categoria: "Estética", precio: "750–1200 € · pago a éxito", costeFijo: 750, descripcion: "Mejora estética sin reformas pesadas.", activoPorDefecto: true },
+            { id: "blogger-internacional", nombre: "Blogger internacional", categoria: "Difusión", precio: "3000 € · pago a éxito", costeFijo: 3000, descripcion: "Historia real de la vivienda en otro país.", activoPorDefecto: false },
+        ];
+
+        function loadServiciosEstado() {
+            try {
+                const raw = localStorage.getItem(STORAGE_SERVICIOS);
+                const stored = raw ? JSON.parse(raw) : [];
+                const map = new Map(stored.map((s) => [s.id, s.activo]));
+                return serviciosDashboardBase.map((svc) => ({
+                    ...svc,
+                    activo: map.has(svc.id)
+                        ? !!map.get(svc.id)
+                        : svc.id === "fotos" || svc.id === "home-staging"
+                }));
+            } catch (e) {
+                return serviciosDashboardBase.map((svc) => ({
+                    ...svc,
+                    activo: svc.id === "fotos" || svc.id === "home-staging",
+                }));
+            }
+        }
+
+        let serviciosEstado = loadServiciosEstado();
+
+        function saveServiciosEstado() {
+            try {
+                const raw = localStorage.getItem(STORAGE_SERVICIOS);
+                const stored = raw ? JSON.parse(raw) : [];
+                const map = new Map(stored.map((s) => [s.id, s]));
+                serviciosEstado.forEach((svc) => {
+                    map.set(svc.id, { id: svc.id, activo: !!svc.activo });
+                });
+                const arr = Array.from(map.values());
+                localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(arr));
+            } catch (e) {}
+        }
+
+        function toggleServicioDashboard(id) {
+            serviciosEstado = serviciosEstado.map((svc) =>
+                svc.id === id ? { ...svc, activo: !svc.activo } : svc
+            );
+            saveServiciosEstado();
+            const svc = serviciosEstado.find((s) => s.id === id);
+            if (svc) {
+                addLogEntry(
+                    `${svc.activo ? "Servicio activado" : "Servicio desactivado"}: ${
+                        svc.nombre
+                    }.`
+                );
+            }
+            renderServiciosDashboard();
+            renderAgencyActiveServices();
+            recalcPrice();
+        }
+        
+        function renderAgencyActiveServices() {
+            const container = document.getElementById("agencyActiveServices");
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            const activos = serviciosEstado.filter(svc => svc.activo);
+            
+            if (activos.length === 0) {
+                container.innerHTML = `<p class="card-subtitle" style="margin: 0; padding-top: 5px;">Ningún servicio de marketing activo en este momento.</p>`;
+                return;
+            }
+            
+            activos.forEach(svc => {
+                const pill = document.createElement('div');
+                pill.className = 'agency-service-pill';
+                pill.innerHTML = `<span class="dot"></span> ${svc.nombre} activado por el propietario`;
+                container.appendChild(pill);
+            });
+        }
+
+
+        function renderServiciosDashboard() {
+            const grid = document.getElementById("servicesGrid");
+            if (!grid) return;
+
+            grid.innerHTML = "";
+
+            serviciosEstado.forEach((svc) => {
+                const card = document.createElement("article");
+                card.className = "service-card" + (svc.activo ? " service-card-active" : "");
+                card.innerHTML = `
+                    <div class="service-card-header">
+                        <div>
+                            <div class="service-name">${svc.nombre}</div>
+                            <div class="service-price" style="color: ${svc.activo ? 'var(--gold)' : 'var(--text-soft)'}; margin-top:0;">${svc.precio}</div>
+                        </div>
+                        <div class="service-tag">${svc.categoria}</div>
+                    </div>
+                    <p class="service-desc">${svc.descripcion}</p>
+                    <div class="service-footer">
+                        <span class="service-state-pill ${svc.activo ? '' : 'inactive'}">
+                            <span class="icon">★</span> 
+                            <span>${svc.activo ? "Servicio activado" : "Pendiente de activar"}</span>
+                        </span>
+                        <button class="btn-ghost" data-id="${svc.id}" style="
+                            border-color: ${svc.activo ? 'var(--danger)' : 'var(--success)'}; 
+                            color: ${svc.activo ? 'var(--danger)' : 'var(--success)'}; 
+                            padding: 0.3rem 0.6rem; font-size: 0.75rem; 
+                            background: ${svc.activo ? 'rgba(239, 68, 68, 0.1)' : 'rgba(34, 197, 94, 0.1)'};
+                        ">
+                            ${svc.activo ? "Desactivar" : "Activar"}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            grid.querySelectorAll("button").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+                    toggleServicioDashboard(id);
+                });
+            });
+        }
+
+        /* ============================
+            AGENCIAS
+            ============================ */
+
+        const agenciesData = [
+            {
+                id: "bernabeu",
+                siglas: "BR",
+                nombre: "Bernabeu Realty",
+                telefono: "654 34 32 32",
+                texto: "Dispuesta a asumir los gastos clave para acelerar la venta.",
+            },
+            {
+                id: "roth",
+                siglas: "RT",
+                nombre: "RT Rothchild Inmo",
+                telefono: "654 34 32 32",
+                texto:
+                    "Dispuesta a asumir los gastos clave para acelerar la venta.",
+            },
+        ];
+
+        function loadAgenciesState() {
+            try {
+                const raw = localStorage.getItem("panamoveAgencias");
+                const stored = raw ? JSON.parse(raw) : {};
+                return agenciesData.map((a) => ({
+                    ...a,
+                    autorizado: !!stored[a.id],
+                }));
+            } catch (e) {
+                return agenciesData.map((a) => ({ ...a, autorizado: false }));
+            }
+        }
+
+        let agenciesState = loadAgenciesState();
+
+        function saveAgenciesState() {
+            try {
+                const map = {};
+                agenciesState.forEach((a) => {
+                    map[a.id] = !!a.autorizado;
+                });
+                localStorage.setItem("panamoveAgencias", JSON.stringify(map));
+            } catch (e) {}
+        }
+
+        function renderAgencies() {
+            const container = document.getElementById("agenciesList");
+            if (!container) return;
+            container.innerHTML = "";
+
+            agenciesState.forEach((ag) => {
+                const row = document.createElement("div");
+                row.className = "agency-row";
+
+                const main = document.createElement("div");
+                main.className = "agency-main";
+
+                const avatar = document.createElement("div");
+                avatar.className = "agency-avatar";
+                avatar.textContent = ag.siglas;
+
+                const text = document.createElement("div");
+                const name = document.createElement("div");
+                name.className = "agency-name";
+                name.textContent = ag.nombre;
+                const phone = document.createElement("div");
+                phone.className = "agency-phone";
+                phone.textContent = `Teléfono: ${ag.telefono}`;
+                const caption = document.createElement("div");
+                caption.className = "agency-phone";
+                caption.textContent = ag.texto;
+
+                text.appendChild(name);
+                text.appendChild(phone);
+                text.appendChild(caption);
+
+                main.appendChild(avatar);
+                main.appendChild(text);
+
+                const btn = document.createElement("button");
+                btn.className =
+                    "agency-btn" + (ag.autorizado ? " agency-btn-confirmed" : "");
+                btn.innerHTML = `${
+                    ag.autorizado ? "✅ Datos enviados" : "✅ Autorizar"
+                }`;
+                btn.addEventListener("click", () => {
+                    ag.autorizado = !ag.autorizado;
+                    saveAgenciesState();
+                    addLogEntry(
+                        ag.autorizado
+                            ? `Has autorizado a ${ag.nombre} para gestionar la campaña y recibir tus datos de contacto.`
+                            : `Has revocado la autorización a ${ag.nombre} en la campaña.`
+                    );
+                    renderAgencies();
+                });
+
+                row.appendChild(main);
+                row.appendChild(btn);
+                container.appendChild(row);
+            });
+        }
+
+        /* ============================
+            UPLOADS + MODAL
+            ============================ */
+
+        function loadUploads() {
+            try {
+                const raw = localStorage.getItem(STORAGE_UPLOADS);
+                const parsed = raw ? JSON.parse(raw) : {};
+                return {
+                    fotos: Array.isArray(parsed.fotos) ? parsed.fotos : [],
+                    docs: Array.isArray(parsed.docs) ? parsed.docs : [],
+                };
+            } catch (e) {
+                return { fotos: [], docs: [] };
+            }
+        }
+
+        function saveUploads(data) {
+            try {
+                localStorage.setItem(STORAGE_UPLOADS, JSON.stringify(data));
+            } catch (e) {}
+        }
+
+        let uploads = loadUploads();
+
+        function updateUploadMeta() {
+            const metaFotos = document.getElementById("metaFotos");
+            const metaDocs = document.getElementById("metaDocs");
+            
+            const fotosCount = uploads.fotos.length;
+            const docsCount = uploads.docs.length;
+
+            if (metaFotos) {
+                metaFotos.textContent =
+                    fotosCount === 0
+                        ? "No hay fotos subidas todavía."
+                        : `${fotosCount} foto(s) guardadas en el sistema.`;
+            }
+            if (metaDocs) {
+                metaDocs.textContent =
+                    docsCount === 0
+                        ? "No hay documentos subidos todavía."
+                        : `${docsCount} documento(s) guardados en el sistema.`;
+            }
+        }
+
+        function handleFiles(list, tipo) {
+            if (!list || !list.length) return;
+            
+            const progressBar =
+                tipo === "fotos"
+                    ? document.getElementById("progressFotos")
+                    : document.getElementById("progressDocs");
+            const metaElement = 
+                tipo === "fotos"
+                    ? document.getElementById("metaFotos")
+                    : document.getElementById("metaDocs");
+                    
+            if (progressBar) progressBar.style.width = "0%";
+            
+            const filesArray = Array.from(list);
+            let filesProcessed = 0;
+
+            const processFile = (file) => {
+                return new Promise(resolve => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = (ev) => {
+                        const dataUrl = ev.target.result;
+                        const item = {
+                            name: file.name,
+                            dataUrl,
+                            type: file.type
+                        };
+                        if (tipo === "fotos") uploads.fotos.push(item);
+                        else uploads.docs.push(item);
+                        
+                        filesProcessed++;
+                        
+                        const percent = Math.round((filesProcessed / filesArray.length) * 100);
+                        
+                        if (progressBar) {
+                            progressBar.style.width = percent + "%";
+                        }
+                        
+                        if (metaElement) {
+                            metaElement.textContent = `Subiendo: ${percent}% completado (${filesProcessed}/${filesArray.length} archivos)`;
+                        }
+
+                        setTimeout(() => resolve(), UPLOAD_DELAY); 
+                    };
+
+                    reader.readAsDataURL(file); 
+                });
+            };
+            
+            filesArray.reduce((p, file) => p.then(() => processFile(file)), Promise.resolve())
+                .then(() => {
+                    saveUploads(uploads);
+                    updateUploadMeta();
+                    
+                    if (metaElement) {
+                        metaElement.textContent = `${filesArray.length} archivo(s) subidos con éxito.`;
+                        setTimeout(() => { if (progressBar) progressBar.style.width = "0%"; }, 2000); 
+                    }
+                    
+                    addLogEntry(
+                        `Has subido ${filesArray.length} ${
+                            tipo === "fotos" ? "foto(s)" : "documento(s)"
+                        } al dashboard.`
+                    );
+                    
+                });
+        }
+
+        const uploadsModal = document.getElementById("uploadsModal");
+        const modalBody = document.getElementById("modalBody");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalClose = document.getElementById("modalClose");
+
+        function openModalUploads(tipo) {
+            if (!uploadsModal || !modalBody) return;
+            uploadsModal.style.display = "flex";
+            modalBody.innerHTML = "";
+
+            const list = tipo === "fotos" ? uploads.fotos : uploads.docs;
+            modalTitle.textContent =
+                tipo === "fotos" ? "Fotos subidas" : "Documentación subida";
+
+            if (!list.length) {
+                const p = document.createElement("p");
+                p.className = "card-subtitle";
+                p.textContent = "No hay archivos subidos todavía.";
+                modalBody.appendChild(p);
+                return;
+            }
+
+            list.forEach((item, idx) => {
+                const card = document.createElement("div");
+                card.className = "modal-item";
+
+                const openInNew = () => {
+                    if (!item.dataUrl) return;
+                    if (tipo === "fotos") {
+                        openImageViewer(item.dataUrl, item.name);
+                    } else {
+                        window.open(item.dataUrl, "_blank");
+                    }
+                };
+
+                if (tipo === "fotos" && item.dataUrl) {
+                    const img = document.createElement("img");
+                    img.src = item.dataUrl;
+                    img.alt = item.name || "Foto subida";
+                    img.addEventListener("click", openInNew);
+                    card.appendChild(img);
+                }
+
+                const name = document.createElement("div");
+                name.className = "modal-item-name";
+                name.textContent = item.name || `Archivo ${idx + 1}`;
+                card.appendChild(name);
+
+                const actions = document.createElement("div");
+                actions.className = "modal-actions-row";
+
+                const openBtn = document.createElement("button");
+                openBtn.className = "modal-open";
+                openBtn.textContent = "Abrir";
+                openBtn.addEventListener("click", openInNew);
+
+                const delBtn = document.createElement("button");
+                delBtn.className = "modal-delete";
+                delBtn.textContent = "Eliminar";
+                delBtn.addEventListener("click", (ev) => {
+                    ev.stopPropagation();
+                    list.splice(idx, 1);
+                    saveUploads(uploads);
+                    updateUploadMeta();
+                    openModalUploads(tipo);
+                });
+
+                actions.appendChild(openBtn);
+                actions.appendChild(delBtn);
+                card.appendChild(actions);
+
+                card.addEventListener("click", openInNew);
+
+                modalBody.appendChild(card);
+            });
+        }
+
+        function closeModalUploads() {
+            if (!uploadsModal) return;
+            uploadsModal.style.display = "none";
+        }
+
+        if (modalClose) {
+            modalClose.addEventListener("click", closeModalUploads);
+        }
+        if (uploadsModal) {
+            uploadsModal.addEventListener("click", (ev) => {
+                if (ev.target === uploadsModal) closeModalUploads();
+            });
+        }
+
+        /* VISOR PRO ----------------------------------------------------------- */
+        const imageViewer = document.getElementById("imageViewer");
+        const imageViewerImg = document.getElementById("imageViewerImg");
+        const imageViewerClose = document.getElementById("imageViewerClose");
+
+        function openImageViewer(url, name) {
+            if (!url || !imageViewer || !imageViewerImg) return;
+            imageViewerImg.src = url;
+            imageViewerImg.alt = name || "Foto subida";
+            imageViewer.style.display = "flex";
+        }
+
+        function closeImageViewer() {
+            if (!imageViewer || !imageViewerImg) return;
+            imageViewer.style.display = "none";
+            imageViewerImg.src = "";
+        }
+
+        if (imageViewerClose) {
+            imageViewerClose.addEventListener("click", closeImageViewer);
+        }
+        if (imageViewer) {
+            imageViewer.addEventListener("click", (ev) => {
+                if (ev.target === imageViewer) closeImageViewer();
+            });
+        }
+        document.addEventListener("keydown", (ev) => {
+            if (ev.key === "Escape") {
+                closeImageViewer();
+                closeModalUploads();
+            }
+        });
+        
+        // --- KPI Counters Logic ---
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.textContent = formatMoney(Math.floor(progress * (end - start) + start));
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.textContent = formatMoney(end);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        function startKPICounters() {
+            const kpiViews = document.getElementById('kpi-views');
+            const kpiLeads = document.getElementById('kpi-leads');
+            const kpiCost = document.getElementById('kpi-cost');
+
+            if (kpiViews) animateValue(kpiViews, 0, 7850, 2000);
+            if (kpiLeads) animateValue(kpiLeads, 0, 42, 2500);
+            if (kpiCost) {
+                // Remove € for animation
+                const currentCost = 20550; 
+                animateValue(kpiCost, 0, currentCost, 3000);
+                setTimeout(() => { kpiCost.textContent = `${formatMoney(currentCost)}€`; }, 3000);
+            }
+        }
+
+        /* ============================
+            INICIALIZACIÓN & EVENTOS
+            ============================ */
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Iniciar Contadores KPI
+            startKPICounters();
+            
+            // precio
+            recalcPrice();
+            const precioInput = document.getElementById("precioInput");
+            if (precioInput) {
+                precioInput.addEventListener("input", recalcPrice);
+                precioInput.addEventListener("change", recalcPrice);
+                precioInput.addEventListener("blur", recalcPrice);
+            }
+            const btnSim = document.getElementById("btnSimulacion");
+            if (btnSim) btnSim.addEventListener("click", recalcPrice);
+
+            // servicios
+            serviciosEstado = loadServiciosEstado();
+            renderServiciosDashboard();
+            renderAgencyActiveServices();
+
+            const btnVerServicios = document.getElementById("btnVerServicios");
+            if (btnVerServicios) {
+                btnVerServicios.addEventListener("click", () => {
+                    window.location.href = "servicios.html";
+                });
+            }
+
+            // agencias
+            agenciesState = loadAgenciesState();
+            renderAgencies();
+
+            // uploads
+            uploads = loadUploads();
+            updateUploadMeta();
+
+            const dropFotos = document.getElementById("dropFotos");
+            const dropDocs = document.getElementById("dropDocs");
+            const fileFotos = document.getElementById("fileFotos");
+            const fileDocs = document.getElementById("fileDocs");
+
+            if (dropFotos && fileFotos) {
+                const openPickerFotos = () => fileFotos.click();
+                const btnSubirFotos = document.getElementById("btnSubirFotos");
+                if (btnSubirFotos) btnSubirFotos.addEventListener("click", openPickerFotos);
+
+                dropFotos.addEventListener("click", openPickerFotos);
+
+                ["dragenter", "dragover"].forEach((evName) =>
+                    dropFotos.addEventListener(evName, (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        dropFotos.classList.add("dragover");
+                    })
+                );
+                ["dragleave", "drop"].forEach((evName) =>
+                    dropFotos.addEventListener(evName, (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        dropFotos.classList.remove("dragover");
+                    })
+                );
+                dropFotos.addEventListener("drop", (ev) => {
+                    const files = ev.dataTransfer.files;
+                    handleFiles(files, "fotos");
+                    dropFotos.classList.remove("dragover");
+                });
+                fileFotos.addEventListener("change", (ev) => {
+                    handleFiles(ev.target.files, "fotos");
+                    fileFotos.value = "";
+                });
+            }
+
+            if (dropDocs && fileDocs) {
+                const openPickerDocs = () => fileDocs.click();
+                const btnSubirDocs = document.getElementById("btnSubirDocs");
+                if (btnSubirDocs) btnSubirDocs.addEventListener("click", openPickerDocs);
+
+                dropDocs.addEventListener("click", openPickerDocs);
+
+                ["dragenter", "dragover"].forEach((evName) =>
+                    dropDocs.addEventListener(evName, (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        dropDocs.classList.add("dragover");
+                    })
+                );
+                ["dragleave", "drop"].forEach((evName) =>
+                    dropDocs.addEventListener(evName, (ev) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                        dropDocs.classList.remove("dragover");
+                    })
+                );
+                dropDocs.addEventListener("drop", (ev) => {
+                    const files = ev.dataTransfer.files;
+                    handleFiles(files, "docs");
+                    dropDocs.classList.remove("dragover");
+                });
+                fileDocs.addEventListener("change", (ev) => {
+                    handleFiles(ev.target.files, "docs");
+                    fileDocs.value = "";
+                });
+            }
+
+            const btnVerFotos = document.getElementById("btnVerFotos");
+            if (btnVerFotos) {
+                btnVerFotos.addEventListener("click", () => openModalUploads("fotos"));
+            }
+            const btnVerDocs = document.getElementById("btnVerDocs");
+            if (btnVerDocs) {
+                btnVerDocs.addEventListener("click", () => openModalUploads("docs"));
+            }
+
+            const btnNotif = document.getElementById("btnNotif");
+            if (btnNotif) {
+                btnNotif.addEventListener("click", () => {
+                    const recent = document.getElementById("recentList");
+                    if (recent) recent.scrollTop = 0;
+                });
+            }
+
+            renderLog();
+        });
+    </script>
+</body>
+</html>
