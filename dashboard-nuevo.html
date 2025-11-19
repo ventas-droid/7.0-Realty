@@ -2,510 +2,400 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Panamove 7.0 – Silicon Valley Dashboard</title>
+    <title>Panamove 7.0 – Premium Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES & THEME (Silicon Valley Light) --- */
+        /* --- VARIABLES (Premium Light Theme) --- */
         :root {
-            --bg-body: #f5f8fa; 
-            --bg-sidebar: #ffffff; 
-            --bg-card: rgba(255, 255, 255, 0.9); 
-            --bg-hover: #edf2f7; 
+            --bg-body: #f3f5f7;       /* Gris muy suave, casi blanco */
+            --bg-sidebar: #ffffff;    /* Blanco puro */
+            --bg-card: rgba(255, 255, 255, 0.85); /* Transparencia efecto vidrio */
+            --bg-hover: #f8fafc;
             
-            --border: #e0e6ed; 
-            --text-main: #2d3748; 
-            --text-muted: #718096; 
-            --text-light: #a0aec0; 
+            --border: #e2e8f0;        /* Borde sutil */
+            --text-main: #1e293b;     /* Gris oscuro elegante */
+            --text-muted: #64748b;    /* Gris medio */
             
-            --primary: #4299e1;     
-            --primary-light: #bee3f8; 
-            --primary-dark: #2c5282; 
-            --gradient-primary: linear-gradient(135deg, #4299e1, #3182ce); 
-
-            --gold: #ecc94b;        
-            --gold-light: #fefcbf;  
-            --gradient-gold: linear-gradient(135deg, #ecc94b, #d69e2e); 
+            --primary: #2563eb;       /* Azul profesional */
+            --primary-light: #eff6ff;
+            --gold: #d97706;          /* Dorado sobrio */
+            --success: #10b981;       /* Verde */
+            --danger: #ef4444;        /* Rojo */
             
-            --success: #48bb78;     
-            --danger: #fc8181;      
+            --radius: 16px;           /* Bordes redondeados premium */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.08); /* Sombra suave y difusa */
             
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
-            
-            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-
-            --transition-ease: 0.2s ease-out;
+            --font-ui: 'Inter', sans-serif;
         }
 
-        /* --- Base & Resets --- */
+        /* --- RESET --- */
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-
+        
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-ui);
             background-color: var(--bg-body);
             color: var(--text-main);
             display: flex;
-            min-height: 100vh;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            height: 100vh;
+            overflow: hidden; /* Evita scroll doble */
         }
 
-        a { text-decoration: none; color: inherit; transition: var(--transition-ease); }
-        button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
-
-        input[type="number"], input[type="text"], textarea {
-            background-color: var(--bg-hover);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 10px 14px;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            transition: border-color var(--transition-ease), box-shadow var(--transition-ease);
-            font-family: 'Inter', sans-serif;
-        }
-        input:focus, textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-light);
-            background-color: #ffffff;
-        }
-
-        /* --- SIDEBAR --- */
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        button { border: none; background: none; cursor: pointer; font-family: inherit; }
+        
+        /* --- SIDEBAR (Fijo, no se monta) --- */
         .sidebar {
-            width: 280px;
+            width: 270px;
             background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: 2rem 1.5rem;
-            position: sticky; top: 0; height: 100vh; flex-shrink: 0;
-            box-shadow: var(--shadow-md); z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            flex-shrink: 0; /* CLAVE: Impide que se aplaste */
+            z-index: 20;
+            overflow-y: auto;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
         }
 
-        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; padding-left: 0.5rem; }
+        .brand {
+            display: flex; align-items: center; gap: 12px; 
+            margin-bottom: 2.5rem; padding: 0 0.5rem;
+        }
         .brand-logo {
-            width: 40px; height: 40px; border-radius: var(--radius-sm);
-            background: var(--gradient-primary);
-            display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-family: 'Roboto', sans-serif; font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+            width: 36px; height: 36px; border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #1d4ed8);
+            color: white; font-weight: 700; font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
-        .brand-text h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.8px; color: var(--text-main); }
-        .brand-text span { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
+        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
+        .brand-text span { font-size: 0.75rem; color: var(--text-muted); }
 
-        .nav { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .nav { display: flex; flex-direction: column; gap: 4px; }
+        
         .nav-item {
-            display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: var(--radius-md);
-            color: var(--text-muted); font-size: 1rem; font-weight: 500; transition: var(--transition-ease);
-            position: relative; overflow: hidden;
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 14px; border-radius: 10px;
+            color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+            transition: all 0.2s; border: 1px solid transparent;
         }
-        .nav-item::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-            background-color: transparent; border-radius: 0 4px 4px 0; transition: var(--transition-ease);
+        .nav-item:hover { background-color: var(--bg-hover); color: var(--primary); }
+        .nav-item.active { 
+            background-color: var(--primary-light); 
+            color: var(--primary); 
+            border-color: #bfdbfe;
+            font-weight: 600;
         }
-        .nav-item:hover { background-color: var(--bg-hover); color: var(--primary-dark); }
-        .nav-item.active { background-color: var(--primary-dim); color: var(--primary-dark); font-weight: 600; }
-        .nav-item.active::before { background-color: var(--primary); }
-        .nav-item i { width: 20px; text-align: center; color: var(--text-light); }
-        .nav-item.active i { color: var(--primary); }
+        .nav-item i { 
+            width: 20px; text-align: center; font-size: 1rem; 
+            display: inline-block; /* Evita deformación */
+        }
 
-        .sidebar-footer { border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 2rem; }
+        .sidebar-footer {
+            margin-top: auto; padding-top: 1.5rem; 
+            border-top: 1px solid var(--border);
+            font-size: 0.7rem; color: #94a3b8; text-align: center;
+        }
 
-        /* --- MAIN CONTENT --- */
-        .main { flex: 1; padding: 2.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; }
+        /* --- MAIN CONTENT Area --- */
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
 
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .header h2 { font-size: 2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.05em; }
-        .header p { color: var(--text-muted); font-size: 0.95rem; font-weight: 400; }
-        .badge {
-            background: var(--primary-light); color: var(--primary-dark); border: 1px solid rgba(49, 130, 206, 0.2);
-            padding: 6px 14px; border-radius: 24px; font-size: 0.8rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.8px; display: inline-flex; align-items: center; gap: 8px;
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.5rem; }
+        .header h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #0f172a; }
+        .header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 4px; }
+        
+        .header-actions { display: flex; gap: 1rem; }
+        .badge-status {
+            background: white; border: 1px solid var(--border);
+            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+            color: var(--success); display: flex; align-items: center; gap: 6px;
             box-shadow: var(--shadow-sm);
         }
-        .badge .fas.fa-circle { font-size: 7px; vertical-align: middle; color: var(--success); }
+        .badge-status .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 2s infinite; }
 
         /* --- GRID SYSTEM --- */
-        .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-        .grid-cols-2 { display: grid; grid-template-columns: 2fr 1.5fr; gap: 2rem; }
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr; /* Columna principal ancha, lateral más estrecha */
+            gap: 2rem;
+            align-items: start; /* Alineación superior para que no se estiren */
+        }
 
-        /* --- CARDS --- */
-        .card { 
-            background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); 
-            padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
-            box-shadow: var(--shadow-md); transition: all var(--transition-ease); 
+        /* --- CARDS & CONTAINERS --- */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-md);
             backdrop-filter: blur(8px);
+            display: flex; flex-direction: column; gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
-        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
-        .card-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
-        .card-subtitle { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
-
-        /* KPIs */
-        .kpi-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.8rem; text-align: center; box-shadow: var(--shadow-sm); transition: all var(--transition-ease); backdrop-filter: blur(5px); }
-        .kpi-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
-        .kpi-val { font-size: 2.8rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0; font-family: 'Roboto', sans-serif; letter-spacing: -0.05em; }
-        .kpi-lbl { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-
-        /* Simulador Financiero */
-        .input-group { display: flex; align-items: center; gap: 12px; background: #f7fafc; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-        .input-group label { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; white-space: nowrap; }
-        .input-group input { flex-grow: 1; background: transparent; border: none; color: var(--text-main); font-size: 1rem; font-weight: 700; }
-        .btn-action {
-            background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-md); 
-            font-weight: 600; font-size: 0.95rem; box-shadow: var(--shadow-sm); transition: all var(--transition-ease);
-        }
-        .btn-action:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); opacity: 0.95; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
         
-        .price-total { border-top:1px solid var(--border); margin-top:1rem; padding-top:1rem; font-weight:700; color:var(--primary); font-size:1.3rem; display: flex; justify-content: space-between; }
-        .price-neto { font-size:0.85rem; color:var(--text-light); text-align: right; }
-        .price-line-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem;}
+        .card-header { display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 1.1rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        .card-title i { color: var(--text-muted); font-size: 1rem; }
+
+        /* Simulador Input */
+        .input-row {
+            display: flex; align-items: center; gap: 1rem;
+            background: #ffffff; border: 1px solid var(--border);
+            padding: 0.8rem 1.2rem; border-radius: 10px;
+        }
+        .input-row label { font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
+        .input-row input { 
+            border: none; font-size: 1.2rem; font-weight: 700; color: var(--text-main); flex: 1; 
+            background: transparent; outline: none;
+        }
+        
+        .price-summary { margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; }
+        .price-item { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); }
+        .price-total { 
+            border-top: 1px dashed var(--border); margin-top: 0.8rem; padding-top: 0.8rem; 
+            font-weight: 700; font-size: 1.2rem; color: var(--primary); display: flex; justify-content: space-between;
+        }
 
         /* Panel Agencia */
-        .agency-profile { display: flex; align-items: center; gap: 18px; border-bottom: 1px dashed var(--border); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
-        .avatar { width: 56px; height: 56px; background: var(--gradient-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.4rem; flex-shrink: 0; box-shadow: var(--shadow-sm); }
-        .agency-info h4 { font-size: 1.1rem; margin-bottom: 4px; color: var(--text-main); font-weight: 600; }
-        .agency-info p { font-size: 0.9rem; color: var(--text-muted); }
+        .agency-box { display: flex; align-items: center; gap: 15px; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .agency-img { 
+            width: 54px; height: 54px; border-radius: 12px; background: var(--text-main); color: white; 
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;
+        }
+        .agency-text h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
+        .agency-text p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .active-services-list { display: flex; flex-wrap: wrap; gap: 8px; min-height: 30px; margin-top: 0.5rem; }
+        .chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+            background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0;
+        }
+        .chip .dot { width: 6px; height: 6px; background: #16a34a; border-radius: 50%; }
+
+        .btn-premium {
+            width: 100%; padding: 12px; border-radius: 10px; border: none;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.4);
+            transition: 0.2s; display: flex; justify-content: center; gap: 8px; align-items: center;
+        }
+        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(251, 191, 36, 0.6); }
+
+        /* Centro de Comunicación (Chat/Log) */
+        .comm-card { padding: 0; overflow: hidden; height: 600px; }
+        .comm-header { padding: 1.2rem; background: #fff; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .comm-body { flex: 1; background: #f8fafc; padding: 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
         
-        .active-services-container { min-height: 40px; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
-        .service-chip {
-            display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px;
-            font-size: 0.8rem; font-weight: 600; background: rgba(56, 161, 105, 0.1); color: var(--success); border: 1px solid rgba(56, 161, 105, 0.2);
-            box-shadow: var(--shadow-sm);
-        }
-        .service-chip .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 1.5s infinite ease-out; }
-        @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.7; } }
-
-        .btn-gold {
-            width: 100%; padding: 14px; border-radius: var(--radius-md); border: none;
-            background: var(--gradient-gold); color: #343a40; font-weight: 700; font-size: 1rem; cursor: pointer;
-            box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4); transition: all var(--transition-ease); letter-spacing: 0.5px;
-        }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(236, 201, 75, 0.6); }
-
-        /* --- CENTRO DE COMUNICACIÓN INTELIGENTE (Chat/Log Híbrido) --- */
-        .communication-card {
-            display: flex; flex-direction: column; height: 600px; /* Altura fija para scroll */
-            padding: 0; /* Reset padding para el diseño interno */
-            overflow: hidden;
-        }
+        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .msg-system { align-self: center; background: #e2e8f0; color: #64748b; font-size: 0.75rem; border-radius: 20px; padding: 4px 12px; font-weight: 500; }
         
-        .comm-header {
-            padding: 1.5rem;
-            background: #ffffff;
-            border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .comm-status { font-size: 0.8rem; color: var(--success); font-weight: 600; display: flex; align-items: center; gap: 6px; }
-        .comm-status .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+        /* Mensaje RECIBIDO (Agencia/Sistema) */
+        .msg-in { align-self: flex-start; background: white; border: 1px solid var(--border); border-bottom-left-radius: 2px; }
+        .msg-in .meta { font-size: 0.7rem; color: #94a3b8; margin-bottom: 4px; display: block; font-weight: 700; font-family: 'Roboto Mono', monospace; color: #0f172a; } /* NEGRITA NEGRO */
 
-        /* Área de Mensajes (Log + Chat) */
-        .comm-messages {
-            flex: 1;
-            background-color: #f8fafc; /* Fondo ligeramente diferente */
-            padding: 1.5rem;
-            overflow-y: auto;
-            display: flex; flex-direction: column; gap: 1rem;
-        }
-
-        /* Burbujas de Mensaje */
-        .msg-bubble {
-            max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            animation: fadeIn 0.3s ease-out;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .msg-system {
-            align-self: center;
-            background-color: #e2e8f0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-radius: 20px;
-            padding: 6px 14px;
-            text-align: center;
-            font-weight: 500;
-            box-shadow: none;
-            border: 1px solid var(--border);
-        }
-
-        .msg-in { /* Mensajes entrantes (Agencia/Sistema) */
-            align-self: flex-start;
-            background-color: #ffffff;
-            color: var(--text-main);
-            border-bottom-left-radius: 2px;
-            border: 1px solid var(--border);
-        }
-        .msg-in .msg-meta { 
-            display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;
-        }
-        .msg-in .msg-meta strong { color: var(--text-main); font-weight: 800; font-family: 'Roboto', sans-serif; } /* Fecha/Hora en Negrita */
-
-        .msg-out { /* Mensajes salientes (Usuario) */
-            align-self: flex-end;
-            background-color: var(--primary-light);
-            color: var(--primary-dark);
-            border-bottom-right-radius: 2px;
-            border: 1px solid rgba(66, 153, 225, 0.2);
-        }
+        /* Mensaje ENVIADO (Usuario) */
+        .msg-out { align-self: flex-end; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-bottom-right-radius: 2px; }
         
-        /* Área de Input (Escribir) */
-        .comm-input-area {
-            padding: 1rem 1.5rem;
-            background: #ffffff;
-            border-top: 1px solid var(--border);
-            display: flex; gap: 10px; align-items: flex-end;
-        }
-        .comm-input {
-            flex: 1;
-            background: #f7fafc;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 12px 16px;
-            font-size: 0.95rem;
-            resize: none;
-            height: 46px; /* Altura inicial */
-            max-height: 100px;
-            transition: all 0.2s;
-        }
-        .comm-input:focus { height: 80px; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-dim); }
+        .comm-input { padding: 1rem; background: white; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-end; }
+        .chat-input { flex: 1; border: 1px solid var(--border); background: #f8fafc; border-radius: 20px; padding: 10px 15px; font-size: 0.9rem; resize: none; height: 42px; font-family: inherit; transition: 0.2s; }
+        .chat-input:focus { border-color: var(--primary); background: white; height: 70px; }
+        .chat-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3); transition: 0.2s; }
+        .chat-btn:hover { transform: scale(1.05); }
+
+        /* Servicios Grid */
+        .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+        .svc-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; transition: 0.2s; }
+        .svc-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .svc-item.active { border-color: var(--gold); background: #fffbeb; box-shadow: 0 0 0 1px var(--gold); }
         
-        .btn-send {
-            width: 46px; height: 46px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition-ease);
-        }
-        .btn-send:hover { transform: scale(1.05); box-shadow: var(--shadow-md); }
+        .svc-btn { width: 100%; padding: 6px; margin-top: 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--text-muted); transition: 0.2s; }
+        .svc-item.active .svc-btn { background: #fef2f2; color: #ef4444; border-color: #ef4444; }
+        .svc-item.active .svc-btn:hover { background: #fee2e2; }
+        .svc-btn:hover { background: #f1f5f9; color: var(--text-main); }
 
-
-        /* Subida de Documentación (Dropzones) */
-        .dropzone {
-            background: #f7fafc; border: 2px dashed var(--border); border-radius: var(--radius-md); padding: 2rem;
-            text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transition: all var(--transition-ease); min-height: 160px;
-        }
-        .dropzone:hover { background-color: #ebf8ff; border-color: var(--primary); }
-        .dropzone i { font-size: 2.8rem; margin-bottom: 15px; }
-        .dropzone div { font-size: 0.95rem; color: var(--text-muted); font-weight: 600; }
-
-        .upload-actions { display: flex; gap: 1.5rem; margin-top: 2rem; justify-content: flex-end; }
-        .btn-upload {
-            background: var(--success); color: white; border: none; padding: 10px 22px; border-radius: var(--radius-md); 
-            font-weight: 600; font-size: 0.95rem; box-shadow: var(--shadow-sm); transition: all var(--transition-ease);
-        }
-        .btn-upload:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); background-color: #2f855a; }
-        .btn-glass {
-            background: rgba(255, 255, 255, 0.5); color: var(--text-muted); border: 1px solid var(--border); padding: 10px 22px; border-radius: var(--radius-md);
-            font-weight: 500; transition: all var(--transition-ease); box-shadow: var(--shadow-sm); backdrop-filter: blur(3px);
-        }
-        .btn-glass:hover { background: #e2e8f0; color: var(--primary-dark); border-color: var(--primary-light); box-shadow: var(--shadow-md); }
-
-        /* Servicios Disponibles Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .svc-card { 
-            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.2rem; 
-            transition: all var(--transition-ease); text-align: center; box-shadow: var(--shadow-sm); backdrop-filter: blur(5px);
-        }
-        .svc-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
-        .svc-card.active { border-color: var(--gold); background: rgba(254, 235, 200, 0.5); box-shadow: 0 0 0 1px var(--gold); }
-        .svc-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
-        .svc-name { font-weight: 600; font-size: 1rem; color: var(--text-main); }
-        .svc-price { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
-        .svc-cat { font-size: 0.75rem; color: var(--text-light); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.8px;}
-        .svc-toggle { 
-            background: var(--bg-hover); color: var(--text-muted); border: 1px solid var(--border); 
-            padding: 8px 14px; border-radius: var(--radius-sm); font-size: 0.85rem; margin-top: 10px; font-weight: 500; 
-            width: 100%; transition: all var(--transition-ease); 
-        }
-        .svc-toggle:hover { background-color: var(--primary-light); color: var(--primary-dark); border-color: var(--primary); }
-        .svc-card.active .svc-toggle { background: var(--danger); color: white; border-color: var(--danger); }
-        .svc-card.active .svc-toggle:hover { background: #c53030; }
+        /* Subidas */
+        .drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .dropzone { border: 2px dashed var(--border); border-radius: 10px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; background: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px; }
+        .dropzone:hover { border-color: var(--primary); background: #eff6ff; }
+        .dropzone i { font-size: 2rem; margin-bottom: 10px; color: var(--text-muted); }
+        .dropzone p { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .grid-cols-2 { grid-template-columns: 1fr; gap: 1.5rem; }
+            .grid-dashboard { grid-template-columns: 1fr; }
             .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
             .brand-text, .nav-item span, .sidebar-footer { display: none; }
             .nav-item { justify-content: center; }
-            .main { padding: 1.5rem; }
-            .header h2 { font-size: 1.5rem; }
+            .main-content { padding: 1.5rem; }
         }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div class="page">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-logo">7.0</div>
-                <div class="brand-text">
-                    <h1>Panamove</h1>
-                    <span>Sistema 7.0</span>
-                </div>
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">7.0</div>
+            <div class="brand-text">
+                <h1 style="font-size: 1.1rem; font-weight: 700; color: #1e293b;">Panamove</h1>
+                <span style="font-size: 0.75rem; color: #64748b;">Gestión Integral</span>
             </div>
-            <nav class="nav">
-                <a href="dashboard-clean.html" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-                <a href="servicios.html" class="nav-item"><i class="fas fa-layer-group"></i> <span>Servicios</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-file-contract"></i> <span>Auditoría</span></a>
-            </nav>
-            <div class="sidebar-footer">© 2025 Panamove.</div>
-        </aside>
+        </div>
+        <nav class="nav">
+            <a href="dashboard-clean.html" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-building"></i> <span>Agencias</span></a> <a href="#" class="nav-item"><i class="fas fa-user-tie"></i> <span>Profesionales</span></a> <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Bloggers & Difusores</span></a> <a href="#" class="nav-item"><i class="fas fa-handshake"></i> <span>Acciones Off Line</span></a> <a href="#" class="nav-item"><i class="fas fa-file-contract"></i> <span>Auditoría</span></a>
+        </nav>
+        <div class="sidebar-footer">© 2025 Panamove</div>
+    </aside>
 
-        <main class="main">
-            <div class="header">
-                <div class="header-title">
-                    <h2>Panel de Control General</h2>
-                    <p>Visión integral del rendimiento de campañas y gestión de servicios.</p>
-                </div>
-                <span class="badge">Estatus: Activo <i class="fas fa-circle"></i></span>
+    <main class="main-content">
+        <div class="header">
+            <div>
+                <h1 style="font-size: 1.8rem; font-weight: 700; color: #1e293b; letter-spacing: -1px;">Dashboard de Campaña</h1>
+                <p style="color: #64748b;">Vista general de rendimiento y gestión de servicios.</p>
             </div>
+            <div class="badge-status">
+                <span class="dot"></span> En Vivo
+            </div>
+        </div>
 
-            <section class="grid-kpi">
-                <div class="kpi-box">
-                    <div class="kpi-lbl">Vistas Globales</div>
-                    <div class="kpi-val" id="kpiViews">0</div>
-                </div>
-                <div class="kpi-box">
-                    <div class="kpi-lbl">Leads Cualificados</div>
-                    <div class="kpi-val" id="kpiLeads">0</div>
-                </div>
-                <div class="kpi-box" style="border-color: var(--gold-light);">
-                    <div class="kpi-lbl">Inversión Actual</div>
-                    <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
-                </div>
-            </section>
-
-            <section class="grid-cols-2">
+        <div class="grid-dashboard">
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
                 
-                <div style="display: flex; flex-direction: column; gap: 2rem;">
-                    
-                    <article class="card" id="precioCard">
-                        <div class="card-header"><span class="card-title">Simulador Financiero</span></div>
-                        <div class="input-group">
-                            <label>Precio Venta:</label>
-                            <input type="number" id="precioInput" value="545000">
-                            <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i> Calcular</button>
-                        </div>
-                        <div id="priceLines" style="margin-top: 1.5rem;"></div>
-                    </article>
-
-                    <article class="card">
-                        <div class="card-header">
-                            <span class="card-title">Panel de Agencia</span>
-                            <i class="fas fa-user-tie" style="color: var(--primary-dark); font-size: 1.5rem;"></i>
-                        </div>
-                        <div class="agency-profile">
-                            <div class="avatar">BR</div>
-                            <div class="agency-info">
-                                <h4>Bernabeu Realty</h4>
-                                <p>Asesor: <strong>Víctor Pérez</strong></p>
-                                <p style="font-size:0.8rem; color:var(--text-light);">Contacto: 654 34 32 32</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem; font-weight: 600;">Servicios de Apoyo Activos:</p>
-                            <div class="active-services-container" id="agencyActiveServices">
-                                </div>
-                        </div>
-                        <button class="btn-gold">
-                            <i class="fas fa-handshake"></i> Campaña Firmada
-                        </button>
-                    </article>
-
-                    <article class="card">
-                        <div class="card-header">
-                            <span class="card-title">Servicios Disponibles (Tarifas)</span>
-                            <a href="servicios.html" class="btn-glass" style="font-size: 0.8rem; padding: 6px 10px; border-color: var(--border); color: var(--text-muted);"><i class="fas fa-list"></i> Ver Catálogo</a>
-                        </div>
-                        <div class="services-grid" id="servicesGrid">
-                            </div>
-                    </article>
-
-                    <article class="card">
-                        <div class="card-header"><span class="card-title">Gestión de Documentación</span></div>
-                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                            <label class="dropzone" id="dropFotos" onclick="triggerUpload('Fotos')">
-                                <i class="fas fa-camera" style="color: var(--primary);"></i>
-                                <div>Cargar Fotografías</div>
-                            </label>
-                            <label class="dropzone" id="dropDocs" onclick="triggerUpload('Documentación')">
-                                <i class="fas fa-file-pdf" style="color: var(--gold);"></i>
-                                <div>Subir Escrituras</div>
-                            </label>
-                        </div>
-                    </article>
-                </div>
-
-                <article class="card communication-card" style="height: 100%; min-height: 800px; position: sticky; top: 2rem;">
-                    <div class="comm-header">
-                        <span class="card-title">Centro de Comunicación</span>
-                        <div class="comm-status"><span class="dot"></span> Online</div>
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-calculator"></i> Simulador Financiero</div>
                     </div>
-                    
-                    <div class="comm-messages" id="commMessages">
-                        <div class="msg-system">Hoy</div>
-                        <div class="msg-in">
-                            <span class="msg-meta"><strong>Sistema 7.0</strong> · 09:00</span>
-                            Bienvenido a tu panel de gestión. Aquí verás todas las actualizaciones.
+                    <div class="input-row">
+                        <label>Precio Venta (€):</label>
+                        <input type="number" id="precioInput" value="545000">
+                    </div>
+                    <div class="price-summary" id="priceLines">
                         </div>
-                    </div>
-                    
-                    <div class="comm-input-area">
-                        <textarea id="msgInput" class="comm-input" placeholder="Escribe a tu asesor o adjunta archivos..."></textarea>
-                        <button class="btn-send" onclick="sendMessage()">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
+                    <button class="btn-premium" id="btnCalc" style="background: #1e293b; margin-top: 10px; box-shadow: none;">
+                        <i class="fas fa-sync"></i> Recalcular
+                    </button>
                 </article>
 
-            </section>
-        </main>
-    </div>
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-layer-group"></i> Catálogo de Servicios</div>
+                        <a href="servicios.html" style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">Ver Todo</a>
+                    </div>
+                    <div class="svc-grid" id="servicesGrid">
+                        </div>
+                </article>
+
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-cloud-upload-alt"></i> Documentación Requerida</div>
+                    </div>
+                    <div class="drop-grid">
+                        <div class="dropzone" id="dropFotos" onclick="triggerUpload('Fotos')">
+                            <i class="fas fa-camera" style="color: var(--primary);"></i>
+                            <p>Fotos Vivienda</p>
+                        </div>
+                        <div class="dropzone" id="dropDocs" onclick="triggerUpload('Escrituras')">
+                            <i class="fas fa-file-contract" style="color: var(--gold);"></i>
+                            <p>Escrituras / PDF</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                
+                <article class="card">
+                    <div class="card-header">
+                        <div class="card-title">Agencia Asignada</div>
+                        <span style="font-size: 0.75rem; color: var(--success); font-weight: 600;">● Conectado</span>
+                    </div>
+                    <div class="agency-box">
+                        <div class="agency-img">BR</div>
+                        <div class="agency-text">
+                            <h3>Bernabeu Realty</h3>
+                            <p>Asesor: <strong>Víctor Pérez</strong></p>
+                            <p style="font-size: 0.75rem; color: #94a3b8;">654 34 32 32</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px;">Servicios Activos (Inversión):</p>
+                        <div class="active-services-list" id="agencyActiveServices">
+                            </div>
+                    </div>
+                    <button class="btn-premium">
+                        <i class="fas fa-signature"></i> Campaña Firmada
+                    </button>
+                </article>
+
+                <article class="card comm-card">
+                    <div class="comm-header">
+                        <div class="card-title" style="font-size: 1rem;">Registro y Chat</div>
+                        <i class="fas fa-history" style="color: #cbd5e1;"></i>
+                    </div>
+                    <div class="comm-body" id="commMessages">
+                        </div>
+                    <div class="comm-input">
+                        <i class="fas fa-paperclip" style="font-size: 1.2rem; color: #94a3b8; cursor: pointer;" onclick="triggerUpload('Archivo Adjunto')"></i>
+                        <textarea id="msgInput" class="chat-input" placeholder="Escribe un mensaje..."></textarea>
+                        <button class="chat-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </article>
+                
+            </div>
+        </div>
+
+    </main>
 
     <script>
-        // --- CONFIG Y ESTADO ---
+        // --- CONFIG ---
         const STORAGE_SERVICIOS = "panamoveServicios";
         const STORAGE_LOG = "panamoveLog";
-        
-        // Simulación Servicios
+
         const serviciosBase = [
             { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Reportaje profesional.", def: true },
             { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Tomas aéreas 4K.", def: true },
             { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", desc: "Decoración efímera.", def: true },
             { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Blog internacional.", def: false }
         ];
-        
-        // --- UTILIDADES ---
-        function formatMoney(num) { return num.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
-        function getTime() { const now = new Date(); return now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
-        function getDate() { const now = new Date(); return now.toLocaleDateString(); }
 
-        // --- LOG SYSTEM (Chat Híbrido) ---
+        // --- LÓGICA LOG (MEJORADA) ---
         function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
         
-        function addLog(text, type = 'system') { 
+        function addLog(text, type = 'system') {
             const list = getLog();
             const now = new Date();
-            // type: 'system' (log automático), 'user' (mensaje usuario)
+            // Formato fecha y hora detallado
+            const dateStr = now.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+            
             list.push({ 
-                time: getTime(), 
-                date: getDate(), 
-                text: text,
+                date: dateStr,
+                time: timeStr,
+                text: text, 
                 type: type 
             });
+            
             localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(-50))); // Guardar últimos 50
             renderMessages();
         }
@@ -516,24 +406,23 @@
             if(!container) return;
 
             if(list.length === 0) {
-                container.innerHTML = '<div class="msg-system">Bienvenido al sistema 7.0</div>';
+                container.innerHTML = '<div class="msg-system">Bienvenido al Centro de Comunicación 7.0</div>';
                 return;
             }
 
-            // Renderizar últimos mensajes al final
             container.innerHTML = list.map(item => {
                 if(item.type === 'user') {
-                    return `<div class="msg-bubble msg-out">${item.text}</div>`;
+                    return `<div class="msg msg-out">${item.text}</div>`;
                 } else {
+                    // AQUÍ ESTÁ EL FORMATO QUE PEDISTE: FECHA Y HORA EN NEGRITA NEGRO
                     return `
-                    <div class="msg-bubble msg-in">
-                        <span class="msg-meta"><strong>Sistema</strong> · ${item.time}</span>
+                    <div class="msg msg-in">
+                        <span class="meta"><strong>${item.date} · ${item.time}</strong></span>
                         ${item.text}
                     </div>`;
                 }
             }).join('');
             
-            // Scroll al final
             container.scrollTop = container.scrollHeight;
         }
 
@@ -543,21 +432,23 @@
             if(text) {
                 addLog(text, 'user');
                 input.value = '';
-                // Simular respuesta
+                // Simulación de respuesta inteligente
                 setTimeout(() => {
-                    addLog("Mensaje recibido. Tu asesor contactará contigo pronto.");
-                }, 1000);
+                    addLog("Mensaje recibido. El equipo legal está revisando tu solicitud.", 'system');
+                }, 1500);
             }
         }
-        
+
         function triggerUpload(type) {
-            addLog(`Iniciando carga de ${type}...`);
+            addLog(`Usuario inició carga de: ${type}.`, 'system');
             setTimeout(() => {
-                addLog(`✅ ${type} subidos correctamente al sistema.`);
-            }, 1500);
+                addLog(`✅ ${type} procesado correctamente en el servidor seguro.`, 'system');
+            }, 1000);
         }
 
-        // --- SERVICES STATE ---
+        // --- LÓGICA SERVICIOS Y PRECIOS ---
+        function formatMoney(n) { return n.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+
         function getServicios() {
             try {
                 const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
@@ -571,15 +462,11 @@
             const current = getServicios();
             const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
             const changed = updated.find(s => s.id === id);
-            
             localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-            
-            // Log especial con formato negrita
-            addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: <b>${changed.nombre}</b>`);
+            addLog(`Estado del servicio actualizado: ${changed.nombre} ahora está ${changed.activo ? 'ACTIVO' : 'INACTIVO'}.`, 'system');
             renderAll();
         }
 
-        // --- CALCULATOR & RENDER ---
         function calcPrice() {
             const input = document.getElementById('precioInput');
             const output = document.getElementById('priceLines');
@@ -588,84 +475,49 @@
             const val = parseFloat(input.value) || 0;
             const activos = getServicios().filter(s => s.activo);
             const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
-            
             const comision = val * 0.03;
-            const comisionTotal = comision + fijos;
-            const iva = comisionTotal * 0.21;
-            const total = comisionTotal + iva;
+            const total = comision + fijos + ((comision + fijos) * 0.21);
             const neto = val - total;
 
             output.innerHTML = `
-                <div class="price-line-item"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
-                <div class="price-line-item"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
-                <div class="price-line-item"><span>IVA (21%):</span> <span>${formatMoney(iva)} €</span></div>
-                <div class="price-total"><span>Total Coste:</span> <span>${formatMoney(total)} €</span></div>
-                <div class="price-neto">Neto estimado: ${formatMoney(neto)} €</div>
+                <div class="price-item"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
+                <div class="price-item"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
+                <div class="price-total"><span>Total Inversión:</span> <span>${formatMoney(total)} €</span></div>
+                <div class="price-neto">Beneficio Neto Estimado: ${formatMoney(neto)} €</div>
             `;
-            
-            const kpiCost = document.getElementById('kpiCost');
-            if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
         }
 
         function renderServicesGrid() {
-            const servicios = getServicios();
+            const list = getServicios();
             const grid = document.getElementById('servicesGrid');
-            if(!grid) return;
-
-            grid.innerHTML = servicios.map(s => `
-                <div class="svc-card ${s.activo ? 'active' : ''}">
-                    <div class="svc-head">
-                        <span class="svc-name">${s.nombre}</span>
-                        <span class="svc-price">${s.precio}</span>
+            if(grid) {
+                grid.innerHTML = list.map(s => `
+                    <div class="svc-item ${s.activo ? 'active' : ''}">
+                        <div class="svc-name">${s.nombre}</div>
+                        <div class="svc-price">${s.precio}</div>
+                        <button class="svc-btn" onclick="toggleService('${s.id}')">${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}</button>
                     </div>
-                    <div class="svc-cat">${s.cat}</div>
-                    <button class="svc-toggle ${s.activo ? 'active' : ''}" onclick="toggleService('${s.id}')">
-                        ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
-                    </button>
-                </div>
-            `).join('');
+                `).join('');
+            }
+            
+            const agencyBox = document.getElementById('agencyActiveServices');
+            if(agencyBox) {
+                const activos = list.filter(s => s.activo);
+                agencyBox.innerHTML = activos.length ? 
+                    activos.map(s => `<div class="chip"><span class="dot"></span> ${s.nombre}</div>`).join('') : 
+                    '<span style="font-size:0.8rem; color:#94a3b8;">Sin servicios activos.</span>';
+            }
         }
 
-        function renderAgencyActiveServices() {
-            const container = document.getElementById("agencyActiveServices");
-            const activos = getServicios().filter(svc => svc.activo);
-            if (!container) return;
-            
-            container.innerHTML = activos.length ? 
-                activos.map(s => `<div class="service-chip"><span class="dot"></span> ${s.nombre}</div>`).join('') :
-                '<span style="font-size:0.8rem; color:var(--text-muted)">Ninguno activo.</span>';
-        }
-        
         function renderAll() {
             renderServicesGrid();
-            renderAgencyActiveServices();
             renderMessages();
             calcPrice();
         }
 
-        // --- ANIMACIONES KPI ---
-        function animateValue(id, end) {
-            const obj = document.getElementById(id);
-            if(!obj) return;
-            let start = 0; let duration = 1500; let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                obj.textContent = formatMoney(value);
-                if (progress < 1) window.requestAnimationFrame(step);
-                else if (id === 'kpiCost') obj.textContent = `${formatMoney(end)}€`;
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // INIT
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             renderAll();
-            animateValue("kpiViews", 7840);
-            animateValue("kpiLeads", 42);
-            animateValue("kpiCost", 20550); 
-
             document.getElementById('precioInput').addEventListener('input', calcPrice);
             document.getElementById('btnCalc').addEventListener('click', calcPrice);
         });
