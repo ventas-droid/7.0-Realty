@@ -1,481 +1,449 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panamove 7.0 – Premium Dashboard</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Plataforma 7.0 – Caso Ático Blue Sunset</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #020617;
+      color: #e5e7eb;
+    }
+    .app {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2.5rem;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 280px;
+      gap: 1.2rem;
+    }
+    @media (max-width: 980px) {
+      .app {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
 
-    <style>
-        /* --- VARIABLES & THEME --- */
-        :root {
-            --bg-body: #0b0e11;
-            --bg-sidebar: #15191e;
-            --bg-card: #1c2128; 
-            --bg-hover: #2a303b;
-            
-            --border: #30363d;
-            --text-main: #e8eaed;
-            --text-muted: #8b949e;
-            
-            --primary: #4285f4;     /* Azul Google principal */
-            --primary-dim: rgba(66, 133, 244, 0.15);
-            --gold: #fbc02d;        /* Dorado Premium */
-            --gold-dim: rgba(251, 192, 45, 0.15);
-            --success: #34a853;     /* Verde Éxito */
-            --danger: #ea4335;      /* Rojo Alerta */
-            
-            --radius: 12px;
-            --shadow: 0 4px 10px rgba(0,0,0,0.3);
-            --transition-fast: 0.2s ease-out;
-        }
+    /* Tarjetas */
+    .card {
+      background: #020617;
+      border-radius: 16px;
+      border: 1px solid #111827;
+      padding: 1rem;
+      box-shadow: 0 18px 35px rgba(15,23,42,0.7);
+    }
+    .card h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .card p {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+    /* Propietario / columna izquierda */
+    .owner-header {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.6rem;
+    }
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #020617;
+      font-size: 0.9rem;
+    }
+    .owner-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .owner-role {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .badge-owner {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.4rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,0.6);
+      font-size: 0.72rem;
+      color: #7dd3fc;
+    }
+    .badge-owner span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.8);
+    }
+    .owner-actions {
+      margin-top: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .owner-actions button {
+      width: 100%;
+      font-size: 0.78rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: #e5e7eb;
+      cursor: pointer;
+      text-align: left;
+    }
+    .owner-actions button.primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #020617;
+      border: none;
+      font-weight: 600;
+      text-align: center;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            min-height: 100vh;
-        }
+    /* Columna central – muro */
+    .feed-header {
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid #111827;
+      padding-bottom: 0.6rem;
+    }
+    .feed-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .feed-subtitle {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.15rem;
+    }
 
-        a { text-decoration: none; color: inherit; transition: 0.2s; }
-        button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
+    .new-post {
+      margin-bottom: 0.8rem;
+      border-radius: 14px;
+      background: #020617;
+      border: 1px solid #111827;
+      padding: 0.8rem 0.9rem;
+      display: flex;
+      gap: 0.6rem;
+      align-items: flex-start;
+    }
+    .new-post textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      resize: vertical;
+      min-height: 50px;
+    }
+    .new-post textarea:focus {
+      outline: none;
+    }
+    .new-post button {
+      font-size: 0.78rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: none;
+      background: #0ea5e9;
+      color: #020617;
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap;
+    }
 
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 260px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            flex-shrink: 0;
-        }
+    .post {
+      border-radius: 14px;
+      background: #020617;
+      border: 1px solid #111827;
+      padding: 0.85rem 0.9rem;
+      margin-bottom: 0.7rem;
+      display: flex;
+      gap: 0.7rem;
+    }
+    .post-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 999px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+    .post-body {
+      flex: 1;
+    }
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin-bottom: 0.2rem;
+    }
+    .post-author {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .post-role {
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+    .post-time {
+      font-size: 0.7rem;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+    .post-text {
+      font-size: 0.8rem;
+      color: #d1d5db;
+      margin-bottom: 0.35rem;
+    }
+    .post-meta {
+      display: flex;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+    .pill {
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      padding: 0.15rem 0.55rem;
+    }
+    .pill-success {
+      border-color: rgba(34,197,94,0.7);
+      color: #bbf7d0;
+    }
+    .pill-pending {
+      border-color: rgba(234,179,8,0.8);
+      color: #facc15;
+    }
 
-        .brand {
-            display: flex; align-items: center; gap: 10px; margin-bottom: 2.5rem; padding-left: 0.5rem;
-        }
-        .brand-logo {
-            width: 36px; height: 36px; border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), var(--success));
-            display: flex; align-items: center; justify-content: center; font-weight: 700; color: white;
-            box-shadow: 0 0 15px var(--primary-dim);
-        }
-        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
-        .brand-text span { font-size: 0.75rem; color: var(--text-muted); }
+    /* Columna derecha – colaboradores */
+    .list {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .user-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      align-items: center;
+      font-size: 0.78rem;
+    }
+    .user-main {
+      display: flex;
+      flex-direction: column;
+    }
+    .user-name {
+      font-weight: 500;
+    }
+    .user-role {
+      color: #9ca3af;
+      font-size: 0.74rem;
+    }
+    .user-status {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      white-space: nowrap;
+    }
+    .user-status.ok {
+      border-color: rgba(34,197,94,0.7);
+      color: #bbf7d0;
+    }
+    .user-status.wait {
+      border-color: rgba(234,179,8,0.8);
+      color: #facc15;
+    }
+    .user-status.block {
+      border-color: rgba(248,113,113,0.9);
+      color: #fecaca;
+    }
 
-        .nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-            border-radius: 8px; color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
-            transition: 0.2s;
-        }
-        .nav-item:hover { background-color: var(--bg-hover); color: var(--text-main); }
-        .nav-item.active { background-color: var(--primary-dim); color: var(--primary); font-weight: 600; }
-        .nav-item i { width: 20px; text-align: center; }
+    .small {
+      font-size: 0.76rem;
+      color: #9ca3af;
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
 
-        .sidebar-footer { border-top: 1px solid var(--border); padding-top: 1rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
-
-        /* --- MAIN CONTENT --- */
-        .main {
-            flex: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem;
-        }
-
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .header h2 { font-size: 1.8rem; font-weight: 700; }
-        .header p { color: var(--text-muted); font-size: 0.9rem; }
-        .badge { background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(66, 133, 244, 0.3); }
-
-        /* --- GRID SYSTEM --- */
-        .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .grid-cols-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
-        .grid-cols-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-
-        /* --- CARDS --- */
-        .card {
-            background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;
-            display: flex; flex-direction: column; gap: 1rem; box-shadow: var(--shadow); transition: transform 0.2s;
-        }
-        .card:hover { transform: translateY(-2px); border-color: var(--primary); }
-        .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
-        .card-subtitle { font-size: 0.8rem; color: var(--text-muted); }
-
-        /* KPI Box */
-        .kpi-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; }
-        .kpi-val { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 5px 0; }
-        .kpi-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
-
-        /* Panel Agencia */
-        .agency-profile { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 15px; }
-        .avatar { width: 50px; height: 50px; background: var(--success); color: #000; border-radius: 50%; font-weight: bold; font-size: 1.2rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-        .agency-info h4 { font-size: 1rem; margin-bottom: 4px; }
-        .agency-info p { font-size: 0.8rem; color: var(--text-muted); }
-
-        .active-services-container { min-height: 40px; display: flex; flex-wrap: wrap; gap: 8px; }
-        .service-chip {
-            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600; background: rgba(52, 168, 83, 0.15); color: var(--success); border: 1px solid rgba(52, 168, 83, 0.3);
-        }
-        .service-chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
-
-        .btn-gold {
-            width: 100%; padding: 12px; border-radius: 8px; border: none;
-            background: linear-gradient(135deg, #fbc02d, #d29922);
-            color: #000; font-weight: 700; font-size: 0.9rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(251, 192, 45, 0.3);
-            transition: 0.2s;
-        }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(251, 192, 45, 0.5); }
-
-        /* Timeline Log */
-        .log-container { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .log-item { display: flex; gap: 10px; font-size: 0.85rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .log-time { color: var(--primary); font-family: monospace; min-width: 60px; }
-        .log-text { color: var(--text-muted); }
-
-        /* Servicios Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-        .svc-card {
-            background: var(--bg-body); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; transition: 0.2s;
-        }
-        .svc-card:hover { border-color: var(--primary); }
-        .svc-card.active { border-color: var(--gold); background: var(--gold-dim); box-shadow: 0 0 0 1px var(--gold); }
-        .svc-toggle {
-            background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border);
-            padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; margin-top: 10px; font-weight: 500;
-        }
-        .svc-card.active .svc-toggle { background: var(--danger); color: white; border-color: var(--danger); }
-        .svc-card.active .svc-toggle:hover { background: #d63333; }
-    </style>
+    .section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.4rem;
+      color: #9ca3af;
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
 
-    <div class="page">
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-logo">7.0</div>
-                <div class="brand-text">
-                    <h1>Panamove</h1>
-                    <span>Sistema 7.0</span>
-                </div>
-            </div>
-            <nav class="nav">
-                <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-                <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
-                <a href="#" class="nav-item"><i class="fas fa-file-signature"></i> <span>Auditoría</span></a>
-            </nav>
-            <div class="sidebar-footer">© 2025 V.7.0</div>
-        </aside>
-
-        <main class="main">
-            <div class="header">
-                <div class="header-title">
-                    <h2>Dashboard de Campaña</h2>
-                    <p>Vista general de rendimiento y gestión de servicios.</p>
-                </div>
-                <button class="btn-glass" style="background: var(--primary); color: white; border: none;">
-                    <i class="fas fa-plus"></i> Nueva Acción
-                </button>
-            </div>
-
-            <section class="grid-kpi">
-                <div class="kpi-box">
-                    <div class="kpi-lbl">Vistas Totales</div>
-                    <div class="kpi-val" id="kpiViews">0</div>
-                </div>
-                <div class="kpi-box">
-                    <div class="kpi-lbl">Leads Cualificados</div>
-                    <div class="kpi-val" id="kpiLeads">0</div>
-                </div>
-                <div class="kpi-box" style="border-color: var(--gold);">
-                    <div class="kpi-lbl">Inversión Activa</div>
-                    <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
-                </div>
-            </section>
-
-            <section class="grid-cols-2">
-                
-                <article class="card" id="precioCard" style="border-color: var(--primary); background: linear-gradient(135deg, var(--bg-card) 0%, #232936 100%);">
-                    <div class="card-header"><span class="card-title">Simulador Financiero</span></div>
-                    <div class="input-group">
-                        <label style="color: var(--text-muted); font-size: 0.85rem;">Precio Venta:</label>
-                        <input type="number" id="precioInput" value="545000">
-                        <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i></button>
-                    </div>
-                    <div id="priceLines" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
-                        </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header"><span class="card-title">Venta particular y colaboración</span></div>
-                    <div class="card-subtitle">
-                        Espacio para propietarios que aún no han decidido agencia, pero quieren activar servicios profesionales a éxito.
-                    </div>
-                    <div class="agency-profile">
-                        <i class="fas fa-home" style="color: var(--primary); font-size: 1.5rem; flex-shrink: 0;"></i>
-                        <div class="agency-info">
-                            <h4>Ático Blue Sunset – La Duquesa, Manilva</h4>
-                            <p>Esta propiedad coordina la venta particular con servicios activos profesionales.</p>
-                        </div>
-                    </div>
-                </article>
-            </section>
-
-            <section class="grid-cols-2">
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Panel de Agencia</span>
-                        <i class="fas fa-user-tie" style="color: var(--primary); font-size: 1.2rem;"></i>
-                    </div>
-                    <div class="agency-profile">
-                        <div class="avatar">BR</div>
-                        <div class="agency-info">
-                            <h4>Bernabeu Realty</h4>
-                            <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p style="font-size:0.75rem;">654 34 32 32</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <p style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Servicios Activos:</p>
-                        <div class="active-services-container" id="agencyActiveServices">
-                            </div>
-                    </div>
-
-                    <button class="btn-gold">
-                        <i class="fas fa-signature"></i> Campaña Firmada
-                    </button>
-                </article>
-
-                <article class="card">
-                    <div class="card-header"><span class="card-title">Actividad Reciente</span></div>
-                    <div class="log-container" id="recentList">
-                        </div>
-                </article>
-            </section>
-
-            <section class="grid-cols-2">
-                <article class="card">
-                    <div class="card-header"><span class="card-title">Subida de Documentación</span></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="dropzone" id="dropFotos">
-                            <i class="fas fa-camera" style="margin-bottom:5px; color: var(--primary);"></i>
-                            <div style="font-size:0.8rem;">Fotos Vivienda</div>
-                            <input type="file" id="fileFotos" hidden multiple accept="image/*">
-                        </div>
-                        <div class="dropzone" id="dropDocs">
-                            <i class="fas fa-file-pdf" style="margin-bottom:5px; color: var(--gold);"></i>
-                            <div style="font-size:0.8rem;">Escrituras</div>
-                             <input type="file" id="fileDocs" hidden multiple>
-                        </div>
-                    </div>
-                    <div class="upload-actions">
-                        <button class="btn-action" style="background: var(--success);"><i class="fas fa-upload"></i> Subir</button>
-                        <button class="btn-glass" onclick="openModal('uploadsModal')"><i class="fas fa-eye"></i> Ver Archivos</button>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Servicios Disponibles (Tarifas)</span>
-                        <a href="servicios.html" class="btn-glass" style="font-size: 0.75rem;">Ver Catálogo</a>
-                    </div>
-                    <div class="services-grid" id="servicesGrid">
-                        </div>
-                </article>
-            </section>
-        </main>
-    </div>
-
-    <div class="modal-backdrop" id="uploadsModal" style="display:none;">
-      <div class="modal">
-        <div class="modal-header">
-          <div class="modal-title" id="modalTitle">Archivos subidos</div>
-          <button class="modal-close" id="modalClose">✕</button>
+    <!-- COLUMNA IZQUIERDA: PROPIETARIO -->
+    <aside class="card">
+      <div class="owner-header">
+        <div class="avatar">IB</div>
+        <div>
+          <div class="owner-name">Isidro Bernabeu</div>
+          <div class="owner-role">Propietario · Caso activo</div>
         </div>
-        <div class="modal-body" id="modalBody"></div>
       </div>
-    </div>
-    
-    <script>
-        // --- CONFIG Y ESTADO ---
-        const STORAGE_SERVICIOS = "panamoveServicios";
-        const STORAGE_LOG = "panamoveLog";
-        const UPLOAD_DELAY = 10;
-        
-        // Simulación de los servicios principales
-        const serviciosBase = [
-            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", descripcion: "Fotógrafo especializado.", def: true },
-            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", descripcion: "Recorrido aéreo y de interiores.", def: true },
-            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Estética", descripcion: "Mejora visual pre-venta.", def: true },
-            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", descripcion: "Historia en blogs extranjeros.", def: false }
-        ];
+      <div class="badge-owner">
+        <span class="dot"></span>
+        <span>Tú mandas en este caso</span>
+      </div>
 
-        // --- Funciones de Estado ---
-        function getServicios() {
-            try {
-                const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
-                if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
-                const map = new Map(stored.map(s => [s.id, s.activo]));
-                return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def, coste: s.coste}));
-            } catch { return serviciosBase.map(s => ({...s, activo: s.def})); }
-        }
+      <p class="small">
+        Esta es tu sala privada del ático Blue Sunset. Solo entra quien tú apruebas:
+        agentes de servicio, abogados, fotógrafos, bloggers y difusores.
+      </p>
 
-        function toggleService(id) {
-            const current = getServicios();
-            const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
-            const changed = updated.find(s => s.id === id);
-            
-            localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-            addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: ${changed.nombre}`);
-            renderAll();
-        }
+      <div class="owner-actions">
+        <button class="primary">Invitar profesional / agencia</button>
+        <button>Invitar blogger / difusor</button>
+        <button>Revisar solicitudes pendientes</button>
+        <button>Definir precio y condiciones</button>
+      </div>
+    </aside>
 
-        // --- RENDERIZADO ---
-        function formatMoney(num) { return num.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+    <!-- COLUMNA CENTRAL: MURO DE ACTIVIDAD -->
+    <main class="card">
+      <div class="feed-header">
+        <div class="feed-title">Muro del caso – Ático Blue Sunset</div>
+        <div class="feed-subtitle">
+          Aquí se ve todo lo que pasa con tu propiedad: servicios, acciones y difusión.
+        </div>
+      </div>
 
-        function renderAll() {
-            renderServicesGrid();
-            renderAgencyActiveServices();
-            renderLog();
-            calcPrice();
-            updateUploadMeta();
-        }
+      <!-- Caja nueva publicación (puede ser del propietario o de un profesional) -->
+      <div class="new-post">
+        <div class="avatar" style="width:32px;height:32px;font-size:0.8rem;">IB</div>
+        <textarea placeholder="Escribe una actualización para tu equipo (cambio de precio, decisiones, notas)…"></textarea>
+        <button>Publicar</button>
+      </div>
 
-        function renderServicesGrid() {
-            const servicios = getServicios();
-            const grid = document.getElementById('servicesGrid');
-            if(!grid) return;
+      <!-- EJEMPLO DE POST 1 – FOTÓGRAFO -->
+      <article class="post">
+        <div class="post-avatar">F</div>
+        <div class="post-body">
+          <div class="post-header">
+            <div>
+              <div class="post-author">Laura Gómez</div>
+              <div class="post-role">Fotógrafa · Profesional 7.0</div>
+            </div>
+            <div class="post-time">Hoy · 10:32</div>
+          </div>
+          <div class="post-text">
+            He realizado el reportaje fotográfico completo del ático Blue Sunset:
+            25 fotos seleccionadas + 2 vídeos cortos listos para redes.
+          </div>
+          <div class="post-meta">
+            <span class="pill pill-success">Servicio completado</span>
+            <span class="pill">Pago a éxito: 800 € al vender</span>
+          </div>
+        </div>
+      </article>
 
-            grid.innerHTML = servicios.map(s => `
-                <div class="svc-card ${s.activo ? 'active' : ''}">
-                    <div class="svc-head">
-                        <span class="svc-name">${s.nombre}</span>
-                        <span class="svc-price">${s.precio}</span>
-                    </div>
-                    <div style="font-size:0.75rem; color:var(--text-muted);">${s.cat}</div>
-                    <button class="svc-toggle" onclick="toggleService('${s.id}')">
-                        ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
-                    </button>
-                </div>
-            `).join('');
-        }
+      <!-- EJEMPLO DE POST 2 – BLOGGER -->
+      <article class="post">
+        <div class="post-avatar">B</div>
+        <div class="post-body">
+          <div class="post-header">
+            <div>
+              <div class="post-author">NordicHomes Blog</div>
+              <div class="post-role">Blogger internacional · Difusor 7.0</div>
+            </div>
+            <div class="post-time">Ayer · 19:05</div>
+          </div>
+          <div class="post-text">
+            He publicado una historia sobre tu ático en mi blog (Suecia) y la he
+            compartido con mi comunidad: 32.000 suscriptores + redes sociales.
+          </div>
+          <div class="post-meta">
+            <span class="pill pill-pending">Impacto estimado: 25.000 personas</span>
+            <span class="pill">Recompensa pactada: 2.000 € al vender</span>
+          </div>
+        </div>
+      </article>
 
-        function renderAgencyActiveServices() {
-            const container = document.getElementById("agencyActiveServices");
-            const activos = getServicios().filter(svc => svc.activo);
-            if (!container) return;
-            
-            if (activos.length === 0) {
-                container.innerHTML = '<span style="font-size:0.8rem; color:var(--text-muted)">Ninguno activo.</span>';
-                return;
-            }
-            
-            container.innerHTML = activos.map(svc => `
-                <div class="service-chip">
-                    <span class="dot"></span> ${svc.nombre}
-                </div>
-            `).join('');
-        }
-        
-        function calcPrice() {
-            const input = document.getElementById('precioInput');
-            const output = document.getElementById('priceLines');
-            if(!input || !output) return;
+      <!-- EJEMPLO DE POST 3 – PROPIETARIO -->
+      <article class="post">
+        <div class="post-avatar">IB</div>
+        <div class="post-body">
+          <div class="post-header">
+            <div>
+              <div class="post-author">Isidro Bernabeu</div>
+              <div class="post-role">Propietario</div>
+            </div>
+            <div class="post-time">Ayer · 09:12</div>
+          </div>
+          <div class="post-text">
+            Decisión: mantenemos el precio objetivo en 395.000 € y un mínimo
+            negociable de 380.000 €. Comisiones máximas para agencias: 3%.
+          </div>
+          <div class="post-meta">
+            <span class="pill">Decisión clave del propietario</span>
+          </div>
+        </div>
+      </article>
+    </main>
 
-            const val = parseFloat(input.value) || 0;
-            const activos = getServicios().filter(s => s.activo);
-            const costeFijos = activos.reduce((acc, s) => acc + s.coste, 0);
-            
-            const comisionBase = val * 0.03;
-            const comisionTotal = comisionBase + costeFijos;
-            const iva = comisionTotal * 0.21;
-            const total = comisionTotal + iva;
-            const neto = val - comisionTotal;
+    <!-- COLUMNA DERECHA: COLABORADORES -->
+    <aside class="card">
+      <div class="section-title">Colaboradores del caso</div>
+      <p class="small">
+        Solo los perfiles que tú apruebas pueden ver y trabajar este caso.
+        Si se vende, todos cobran según lo pactado. Sin venta, nadie cobra.
+      </p>
 
-            output.innerHTML = `
-                <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                    <span>Comisión (3%):</span> <span>${formatMoney(comisionBase)} €</span>
-                </div>
-                <div style="display:flex; justify-content:space-between;">
-                    <span>Servicios Activos:</span> <span>${formatMoney(costeFijos)} €</span>
-                </div>
-                 <div style="display:flex; justify-content:space-between; color: var(--text-muted);">
-                    <span>IVA (21%):</span> <span>${formatMoney(iva)} €</span>
-                </div>
-                <div style="border-top:1px solid var(--border); margin-top:8px; padding-top:8px; font-weight:bold; color:var(--gold); font-size:1.1rem;">
-                    Total: ${formatMoney(total)} €
-                </div>
-                <div style="margin-top:5px; font-size:0.8rem;">Neto estimado: ${formatMoney(neto)} €</div>
-            `;
-            
-            const kpiCost = document.getElementById('kpiCost');
-            if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
-        }
-
-        // --- LOG SYSTEM ---
-        function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
-        function addLog(text) {
-            const list = getLog();
-            const now = new Date();
-            list.unshift({ time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}), msg: text });
-            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(0, 20)));
-            renderLog();
-        }
-        function renderLog() {
-            const list = getLog();
-            const el = document.getElementById('recentList');
-            if(!el) return;
-            el.innerHTML = list.length ? list.map(i => `
-                <div class="log-item">
-                    <span class="log-time">${i.time}</span>
-                    <span class="log-text">${i.msg}</span>
-                </div>
-            `).join('') : '<div style="padding:10px; color:var(--text-muted);">Sin actividad.</div>';
-        }
-
-        // --- UPLOADS (Placeholder Logic) ---
-        function loadUploads() { return { fotos: [], docs: [] }; } // Simplificado
-        function updateUploadMeta() {
-            // Lógica para actualizar contadores de archivos, si se implementa el manejo de archivos real.
-        }
-        function handleFiles() {
-            alert('Funcionalidad de subida de archivos no implementada en esta demo.');
-        }
-
-        // --- INIT & EVENTS ---
-        function animateValue(id, end) {
-            const obj = document.getElementById(id);
-            if(!obj) return;
-            let start = 0; let duration = 1500; let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const value = Math.floor(progress * (end - start) + start);
-                obj.textContent = formatMoney(value);
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderAll();
-            
-            animateValue("kpiViews", 7840);
-            animateValue("kpiLeads", 42);
-
-            document.getElementById('precioInput').addEventListener('input', calcPrice);
-            document.getElementById('btnCalc').addEventListener('click', calcPrice);
-        });
-    </script>
+      <div class="list" style="margin-top:0.7rem;">
+        <div class="user-row">
+          <div class="user-main">
+            <span class="user-name">Laura Gómez</span>
+            <span class="user-role">Fotógrafa · Pago a éxito</span>
+          </div>
+          <span class="user-status ok">Activo</span>
+        </div>
+        <div class="user-row">
+          <div class="user-main">
+            <span class="user-name">NordicHomes Blog</span>
+            <span class="user-role">Blogger internacional</span>
+          </div>
+          <span class="user-status ok">Difusor 7.0</span>
+        </div>
+        <div class="user-row">
+          <div class="user-main">
+            <span class="user-name">Abogado Costa Legal</span>
+            <span class="user-role">Asesoría jurídica</span>
+          </div>
+          <span class="user-status wait">Pendiente aceptar</span>
+        </div>
+        <div class="user-row">
+          <div class="user-main">
+            <span class="user-name">Agencia XYZ</span>
+            <span class="user-role">Agencia tradicional</span>
+          </div>
+          <span class="user-status block">Limitado</span>
+        </div>
+      </div>
+    </aside>
+  </div>
 </body>
 </html>
