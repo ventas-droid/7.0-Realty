@@ -1134,272 +1134,252 @@
       </header>
 
       <!-- FILA 1: Precio + Panel de Agencia -->
-      <section class="grid">
-        <article class="card" id="precioCard">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Precio de la propiedad</div>
-              <div class="card-subtitle">
-                Simulación de costes con servicios activados e IVA.
-              </div>
-            </div>
-            <button type="button" class="btn-mini" id="btnSimulacion">
-              SIMULACIÓN RÁPIDA 7.0
-            </button>
+<section class="grid grid-2">
+  <article class="card" id="precioCard">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Precio de la propiedad</div>
+        <div class="card-subtitle">
+          Simulación de costes con servicios activados e IVA.
+        </div>
+      </div>
+      <button type="button" class="btn-mini" id="btnSimulacion">
+        SIMULACIÓN RÁPIDA 7.0
+      </button>
+    </div>
+
+    <div class="price-input-row">
+      <span>Introduce el precio orientativo:</span>
+      <input
+        type="number"
+        id="precioInput"
+        value="545000"
+        min="50000"
+        step="1000"
+      />
+      <span>€</span>
+    </div>
+
+    <div class="price-lines" id="priceLines"></div>
+  </article>
+
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Panel de Agencia</div>
+        <div class="card-subtitle">
+          Resumen de la agencia que gestiona activamente esta campaña.
+        </div>
+      </div>
+    </div>
+
+    <div class="agency-panel-content">
+      <div class="agency-info">
+        <div class="agency-avatar" style="width:42px;height:42px;font-size:0.9rem;">
+          BR
+        </div>
+
+        <div class="agency-details">
+          <div class="agency-name" style="font-size:0.9rem;font-weight:600;">
+            Bernabeu Realty
           </div>
-
-          <div class="price-input-row">
-            <span>Introduce el precio orientativo:</span>
-            <input
-              type="number"
-              id="precioInput"
-              value="545000"
-              min="50000"
-              step="1000"
-            />
-            <span>€</span>
+          <div class="agency-contact" style="color:#9ca3af;">
+            Teléfono: 654 34 32 32
           </div>
-
-          <div class="price-lines" id="priceLines"></div>
-        </article>
-
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Panel de Agencia</div>
-              <div class="card-subtitle">
-                Resumen de la agencia que gestiona activamente esta campaña.
-              </div>
-            </div>
+          <div class="agency-assessor" style="color:#9ca3af;">
+            Asesor asignado: <strong style="color:#e5e7eb;">Víctor Pérez</strong>
           </div>
+        </div>
+      </div>
 
-          <div class="agency-panel-content">
-            <div class="agency-info">
-              <div class="agency-avatar" style="width:42px;height:42px;font-size:0.9rem;">
-                BR
-              </div>
+      <div class="agency-services-wrapper">
+        <div class="card-subtitle" style="margin-bottom:0.5rem;">
+          Servicios activos gestionados:
+        </div>
 
-              <div class="agency-details">
-                <div class="agency-name" style="font-size:0.9rem;font-weight:600;">
-                  Bernabeu Realty
-                </div>
-                <div class="agency-contact" style="color:#9ca3af;">
-                  Teléfono: 654 34 32 32
-                </div>
-                <div class="agency-assessor" style="color:#9ca3af;">
-                  Asesor asignado: <strong style="color:#e5e7eb;">Víctor Pérez</strong>
-                </div>
-              </div>
-            </div>
+        <div id="agencyActiveServices"
+             style="display:flex;flex-wrap:wrap;gap:0.45rem;">
+        </div>
+      </div>
 
-            <div class="agency-services-wrapper">
-              <div class="card-subtitle" style="margin-bottom:0.5rem;">
-                Servicios activos gestionados:
-              </div>
+      <button type="button" class="btn-campana-firmada">
+        Campaña firmada
+      </button>
+    </div>
+  </article>
+</section>
 
-              <div id="agencyActiveServices"
-                   style="display:flex;flex-wrap:wrap;gap:0.45rem;">
-              </div>
-            </div>
+<!-- FILA 2: Venta particular + Acciones recientes -->
+<section class="grid grid-2">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Venta particular y colaboración</div>
+        <div class="card-subtitle">
+          Espacio para propietarios que aún no han decidido agencia,
+          pero quieren activar servicios profesionales a éxito.
+        </div>
+      </div>
+    </div>
 
-            <button type="button" class="btn-campana-firmada">
-              Campaña firmada
-            </button>
-          </div>
-        </article>
-      </section>
+    <div class="property-list">
+      <div class="property-main-name">
+        Ático Blue Sunset – La Duquesa, Manilva.
+      </div>
+      <p>
+        Esta propiedad está en campaña dentro del método 7.0. Desde aquí
+        se coordinará la venta como particular y la colaboración con
+        profesionales de servicios activos (fotografía, vídeo, home
+        staging, blogger internacional, etc.).
+      </p>
+    </div>
+  </article>
 
-      <!-- FILA 2: Venta particular + Acciones recientes -->
-      <section class="grid">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Venta particular y colaboración</div>
-              <div class="card-subtitle">
-                Espacio para propietarios que aún no han decidido agencia,
-                pero quieren activar servicios profesionales a éxito.
-              </div>
-            </div>
-          </div>
+  <article class="card">
+    <div class="recent-header">
+      <div>
+        <div class="card-title">Acciones recientes</div>
+        <div class="card-subtitle">
+          Histórico de lo que se ha activado, subido y autorizado.
+        </div>
+      </div>
+      <button type="button" class="notification-pill" id="btnNotif">
+        <span class="dot"></span> Notificaciones
+      </button>
+    </div>
 
-          <div class="property-list">
-            <div class="property-main-name">
-              Ático Blue Sunset – La Duquesa, Manilva.
-            </div>
-            <p>
-              Esta propiedad está en campaña dentro del método 7.0. Desde aquí
-              se coordinará la venta como particular y la colaboración con
-              profesionales de servicios activos (fotografía, vídeo, home
-              staging, blogger internacional, etc.).
-            </p>
-          </div>
-        </article>
+    <div class="recent-list" id="recentList"></div>
 
-        <article class="card">
-          <div class="recent-header">
-            <div>
-              <div class="card-title">Acciones recientes</div>
-              <div class="card-subtitle">
-                Histórico de lo que se ha activado, subido y autorizado.
-              </div>
-            </div>
-            <button type="button" class="notification-pill" id="btnNotif">
-              <span class="dot"></span> Notificaciones
-            </button>
-          </div>
+    <p class="card-subtitle" style="margin-top: 0.5rem;">
+      Este histórico es el “cerebro” de la campaña: siempre podrás revisar
+      qué se hizo, quién lo activó y cuándo.
+    </p>
+  </article>
+</section>
 
-          <div class="recent-list" id="recentList"></div>
+<!-- FILA 3: Uploads + Servicios disponibles -->
+<section class="grid grid-2">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Subir fotos y documentación</div>
+        <div class="card-subtitle">
+          Gestiona todas las fotos HD, planos y escrituras desde aquí.
+        </div>
+      </div>
+    </div>
 
-          <p class="card-subtitle" style="margin-top: 0.5rem;">
-            Este histórico es el “cerebro” de la campaña: siempre podrás revisar
-            qué se hizo, quién lo activó y cuándo.
-          </p>
-        </article>
-      </section>
+    <div class="upload-grid">
+      <div class="upload-card">
+        <div class="upload-title">Subir fotos de la vivienda</div>
+        <div class="dropzone" id="dropFotos">
+          Arrastra las fotos aquí o haz clic para seleccionar.
+        </div>
+        <input
+          type="file"
+          id="fileFotos"
+          accept="image/*"
+          multiple
+          style="display: none;"
+        />
+        <div class="upload-progress">
+          <div class="upload-progress-bar" id="progressFotos"></div>
+        </div>
+        <div class="upload-actions-row">
+          <button type="button" class="btn-upload" id="btnSubirFotos">
+            Subir / arrastrar fotos
+          </button>
+          <button
+            type="button"
+            class="btn-upload secondary"
+            id="btnVerFotos"
+          >
+            Ver fotos subidas
+          </button>
+        </div>
+        <div class="upload-meta" id="metaFotos"></div>
+      </div>
 
-      <!-- FILA 3: Uploads + Servicios disponibles -->
-      <section class="grid">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Subir fotos y documentación</div>
-              <div class="card-subtitle">
-                Gestiona todas las fotos HD, planos y escrituras desde aquí.
-              </div>
-            </div>
-          </div>
+      <div class="upload-card">
+        <div class="upload-title">Subir documentación</div>
+        <div class="dropzone" id="dropDocs">
+          Arrastra documentación (PDF, escrituras…) o haz clic.
+        </div>
+        <input
+          type="file"
+          id="fileDocs"
+          multiple
+          style="display: none;"
+        />
+        <div class="upload-progress">
+          <div class="upload-progress-bar" id="progressDocs"></div>
+        </div>
+        <div class="upload-actions-row">
+          <button type="button" class="btn-upload" id="btnSubirDocs">
+            Subir / arrastrar documentación
+          </button>
+          <button
+            type="button"
+            class="btn-upload secondary"
+            id="btnVerDocs"
+          >
+            Ver documentación subida
+          </button>
+        </div>
+        <div class="upload-meta" id="metaDocs"></div>
+      </div>
+    </div>
+  </article>
 
-          <div class="upload-grid">
-            <div class="upload-card">
-              <div class="upload-title">Subir fotos de la vivienda</div>
-              <div
-                class="dropzone"
-                id="dropFotos"
-              >
-                Arrastra las fotos aquí o haz clic para seleccionar.
-              </div>
-              <input
-                type="file"
-                id="fileFotos"
-                accept="image/*"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
-                <div
-                  class="upload-progress-bar"
-                  id="progressFotos"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirFotos"
-                >
-                  Subir / arrastrar fotos
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerFotos"
-                >
-                  Ver fotos subidas
-                </button>
-              </div>
-              <div class="upload-meta" id="metaFotos"></div>
-            </div>
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">
+          Servicios disponibles (tarifas ejemplo)
+        </div>
+        <div class="card-subtitle">
+          Activa solo lo que tenga sentido para tu campaña.
+        </div>
+      </div>
+      <button type="button" class="services-link" id="btnVerServicios">
+        Ver todos los servicios
+      </button>
+    </div>
 
-            <div class="upload-card">
-              <div class="upload-title">Subir documentación</div>
-              <div
-                class="dropzone"
-                id="dropDocs"
-              >
-                Arrastra documentación (PDF, escrituras…) o haz clic.
-              </div>
-              <input
-                type="file"
-                id="fileDocs"
-                multiple
-                style="display: none;"
-              />
-              <div class="upload-progress">
-                <div
-                  class="upload-progress-bar"
-                  id="progressDocs"
-                ></div>
-              </div>
-              <div class="upload-actions-row">
-                <button
-                  type="button"
-                  class="btn-upload"
-                  id="btnSubirDocs"
-                >
-                  Subir / arrastrar documentación
-                </button>
-                <button
-                  type="button"
-                  class="btn-upload secondary"
-                  id="btnVerDocs"
-                >
-                  Ver documentación subida
-                </button>
-              </div>
-              <div class="upload-meta" id="metaDocs"></div>
-            </div>
-          </div>
-        </article>
+    <div class="status-pills-row" id="statusPillsRow"></div>
 
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">
-                Servicios disponibles (tarifas ejemplo)
-              </div>
-              <div class="card-subtitle">
-                Activa solo lo que tenga sentido para tu campaña.
-              </div>
-            </div>
-            <button type="button" class="services-link" id="btnVerServicios">
-              Ver todos los servicios
-            </button>
-          </div>
+    <div class="services-grid" id="servicesGrid"></div>
 
-          <div class="status-pills-row" id="statusPillsRow"></div>
+    <p class="card-subtitle" style="margin-top: 0.7rem;">
+      El propietario ve esto como “panel de mando”: qué está activo, qué
+      falta por activar y qué servicios ya han sido realizados.
+    </p>
+  </article>
+</section>
 
-          <div class="services-grid" id="servicesGrid"></div>
+<!-- FILA 4: Agencias interesadas -->
+<section class="grid-1">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">
+          Agencias interesadas en gestión de campaña de venta
+        </div>
+        <div class="card-subtitle">
+          Cuando autorices, la agencia recibirá tus datos para contactarte.
+        </div>
+      </div>
+    </div>
 
-          <p class="card-subtitle" style="margin-top: 0.7rem;">
-            El propietario ve esto como “panel de mando”: qué está activo, qué
-            falta por activar y qué servicios ya han sido realizados.
-          </p>
-        </article>
-      </section>
+    <div class="agencies-list" id="agenciesList"></div>
 
-      <!-- FILA 4: Agencias interesadas -->
-      <section class="grid-1">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">
-                Agencias interesadas en gestión de campaña de venta
-              </div>
-              <div class="card-subtitle">
-                Cuando autorices, la agencia recibirá tus datos de contacto para
-                llamarte cuanto antes.
-              </div>
-            </div>
-          </div>
+    <div class="agency-caption">
+      Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
+      agencia autorizada.
+    </div>
+  </article>
+</section>
 
-          <div class="agencies-list" id="agenciesList"></div>
-
-          <div class="agency-caption">
-            Al confirmar, compartiremos tu teléfono, correo y WhatsApp con la
-            agencia autorizada para que te contacte lo antes posible.
-          </div>
-        </article>
-      </section>
     </main>
   </div>
 
@@ -1421,8 +1401,7 @@
       <img src="" alt="Vista previa" id="imageViewerImg" />
     </div>
   </div>
-
-  <script>
+<script>
     /* ============================
       CONSTANTES DE STORAGE
       ============================ */
