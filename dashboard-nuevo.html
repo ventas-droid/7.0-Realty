@@ -1,458 +1,1082 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panamove 7.0 – Premium Dashboard</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Panamove 7.0 – Premium Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-        /* --- THEME VARIABLES (Light Premium) --- */
-        :root {
-            --bg-body: #f0f2f5;
-            --bg-sidebar: #ffffff;
-            --bg-card: #ffffff;
-            
-            --text-main: #1a202c;
-            --text-muted: #718096;
-            
-            --primary: #3182ce;     
-            --primary-hover: #2c5282;
-            --gold: #d69e2e;        
-            --success: #38a169;     
-            --danger: #e53e3e;      
-            
-            --border: #e2e8f0;
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
+  <style>
+    /* ============= VARIABLES ============= */
+    :root {
+      --pm-bg-body: #f3f5f7;
+      --pm-bg-sidebar: #ffffff;
+      --pm-bg-card: rgba(255, 255, 255, 0.9);
+      --pm-bg-hover: #f8fafc;
 
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 260px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: 1.5rem;
-            flex-shrink: 0; height: 100vh; overflow-y: auto; z-index: 100;
-        }
-        .brand { margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
-        .brand h1 { font-size: 1.2rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        .nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 12px;
-            border-radius: 8px; text-decoration: none; color: var(--text-muted);
-            font-weight: 500; font-size: 0.9rem; transition: 0.2s;
-        }
-        .nav-item:hover { background-color: #edf2f7; color: var(--primary); }
-        .nav-item.active { background-color: #ebf8ff; color: var(--primary); font-weight: 600; }
-        .nav-item i { width: 20px; text-align: center; }
+      --pm-border: #e2e8f0;
+      --pm-text-main: #0f172a;
+      --pm-text-muted: #64748b;
 
-        /* --- MAIN CONTENT --- */
-        .main {
-            flex: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem;
-        }
+      --pm-primary: #2563eb;
+      --pm-primary-light: #eff6ff;
+      --pm-gold: #d97706;
+      --pm-success: #10b981;
 
-        /* HEADER & KPIs */
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; }
-        .header h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
-        .header p { color: var(--text-muted); font-size: 0.95rem; }
-        .badge { background: #c6f6d5; color: #22543d; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+      --pm-radius: 16px;
+      --pm-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --pm-shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
 
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .kpi-box { background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .kpi-val { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 10px 0; font-family: 'Roboto', sans-serif; }
-        .kpi-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+      --pm-font-ui: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
 
-        /* GRID PRINCIPAL */
-        .main-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start; }
+    /* ============= RESET SUAVE (sin tocar button, card, header globales) ============= */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* CARDS */
-        .card {
-            background-color: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow);
-            padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border);
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .card-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        
-        /* CALCULADORA ESTILIZADA */
-        .input-group { display: flex; align-items: center; gap: 10px; background: #f7fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-        .input-group input { 
-            flex: 1; border: none; background: transparent; font-size: 1.4rem; font-weight: 700; color: var(--text-main); 
-            text-align: right; font-family: 'Roboto', sans-serif;
-        }
-        .input-group span { font-size: 1.2rem; font-weight: 600; color: var(--text-muted); margin-left: 5px; }
-        
-        .calc-actions { display: flex; gap: 10px; margin-top: 10px; }
-        .btn-calc { 
-            flex: 1; background: var(--text-main); color: white; border: none; padding: 10px; border-radius: 6px; 
-            cursor: pointer; font-weight: 600; transition: 0.2s; 
-        }
-        .btn-calc:hover { background: #000; }
-        .btn-save { 
-            flex: 1; background: white; color: var(--text-main); border: 1px solid var(--border); padding: 10px; 
-            border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; 
-        }
-        .btn-save:hover { background: #f7fafc; border-color: var(--text-muted); }
+    body {
+      font-family: var(--pm-font-ui);
+      background-color: var(--pm-bg-body);
+      color: var(--pm-text-main);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        .price-summary { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 10px; }
-        .price-row { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); border-bottom: 1px dashed var(--border); padding-bottom: 5px;}
-        .price-row strong { color: var(--text-main); font-weight: 600; }
-        
-        .price-total-box { 
-            background: #ebf8ff; border-radius: 8px; padding: 15px; margin-top: 10px; border: 1px solid #bee3f8; 
-            text-align: center;
-        }
-        .price-total-label { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: 700; letter-spacing: 1px; }
-        .price-total-val { font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: 'Roboto', sans-serif; margin-top: 5px;}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .price-neto-box {
-            background: #f0fdf4; border-radius: 8px; padding: 10px; margin-top: 10px; border: 1px solid #bbf7d0;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .price-neto-val { font-weight: 800; color: var(--success); font-size: 1.1rem; font-family: 'Roboto', sans-serif; }
+    /* ============= SIDEBAR (prefijo pm-) ============= */
+    .pm-sidebar {
+      width: 270px;
+      background-color: var(--pm-bg-sidebar);
+      border-right: 1px solid var(--pm-border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      flex-shrink: 0;
+      z-index: 10;
+      overflow-y: auto;
+      box-shadow: 4px 0 24px rgba(15, 23, 42, 0.03);
+    }
 
+    .pm-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2.5rem;
+      padding: 0 0.5rem;
+    }
 
-        /* PANEL AGENCIA */
-        .agency-box { display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
-        .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; }
-        .agency-info h4 { margin: 0 0 4px; font-size: 1rem; }
-        .agency-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
-        
-        .active-services-container { display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; margin-bottom: 15px; }
-        .service-chip { 
-            background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; padding: 4px 10px; border-radius: 20px; 
-            font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 5px; 
-        }
-        .service-chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+    .pm-brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--pm-primary), #1d4ed8);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
 
-        .btn-gold { width: 100%; padding: 14px; background: #fbbf24; color: #744210; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(251, 191, 36, 0.3); transition: 0.2s; }
-        .btn-gold:hover { transform: translateY(-2px); }
+    .pm-brand-text-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+    }
 
-        /* CHAT / LOG */
-        .comm-container { display: flex; flex-direction: column; height: 500px; }
-        .comm-messages { flex: 1; overflow-y: auto; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; max-width: 90%; }
-        .msg-in { align-self: flex-start; background: white; border: 1px solid var(--border); color: var(--text-main); }
-        .msg-out { align-self: flex-end; background: var(--primary); color: white; }
-        .msg-meta { font-size: 0.7rem; display: block; margin-bottom: 4px; opacity: 0.7; font-weight: 600; font-family: 'Roboto Mono', monospace; }
-        
-        .comm-input { margin-top: 10px; display: flex; gap: 10px; }
-        .comm-input input { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
-        .comm-input button { background: var(--primary); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; }
+    .pm-brand-text-sub {
+      font-size: 0.75rem;
+      color: var(--pm-text-muted);
+    }
 
-        /* SERVICIOS GRID */
-        .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .svc-card { background: white; border: 1px solid var(--border); padding: 1.2rem; border-radius: 10px; text-align: center; transition: 0.2s; }
-        .svc-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
-        .svc-card.active { border-color: var(--gold); background: #fffbeb; }
-        .svc-name { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
-        .svc-price { font-size: 0.85rem; color: var(--text-muted); }
-        .svc-btn { width: 100%; padding: 8px; border: 1px solid var(--border); background: white; border-radius: 6px; margin-top: 10px; cursor: pointer; font-weight: 600; font-size: 0.8rem; color: var(--text-muted); }
-        .svc-card.active .svc-btn { background: #fff; color: var(--danger); border-color: var(--danger); }
+    .pm-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr; }
-            .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
-            .brand h1, .nav-item span { display: none; }
-            .nav-item { justify-content: center; }
-        }
-    </style>
+    .pm-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: var(--pm-text-muted);
+      border: 1px solid transparent;
+      transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .pm-nav-item i {
+      width: 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .pm-nav-item:hover {
+      background-color: var(--pm-bg-hover);
+      color: var(--pm-primary);
+    }
+
+    .pm-nav-item.pm-active {
+      background-color: var(--pm-primary-light);
+      color: var(--pm-primary);
+      border-color: #bfdbfe;
+      font-weight: 600;
+    }
+
+    .pm-sidebar-footer {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--pm-border);
+      font-size: 0.7rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    /* ============= MAIN CONTENT ============= */
+    .pm-main {
+      flex: 1;
+      padding: 2rem 3rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .pm-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .pm-header-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #020617;
+      margin-bottom: 4px;
+    }
+
+    .pm-header-sub {
+      font-size: 0.95rem;
+      color: var(--pm-text-muted);
+    }
+
+    .pm-badge-status {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--pm-border);
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--pm-success);
+      box-shadow: var(--pm-shadow-sm);
+    }
+
+    .pm-badge-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background-color: currentColor;
+      animation: pm-pulse 2s infinite;
+    }
+
+    @keyframes pm-pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ============= PANEL DE CONTROL (KPIs) ============= */
+    .pm-control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .pm-control-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .pm-control-sub {
+      font-size: 0.9rem;
+      color: var(--pm-text-muted);
+    }
+
+    .pm-kpi-row {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .pm-kpi-card {
+      background: #ffffff;
+      border: 1px solid var(--pm-border);
+      padding: 1.2rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.25rem;
+      text-align: center;
+      box-shadow: var(--pm-shadow-sm);
+    }
+
+    .pm-kpi-card:first-child {
+      border-top-left-radius: 999px;
+      border-bottom-left-radius: 999px;
+    }
+
+    .pm-kpi-card:last-child {
+      border-top-right-radius: 999px;
+      border-bottom-right-radius: 999px;
+      border-left-color: #fed7aa;
+      background: radial-gradient(circle at top, #fffbeb, #fff7ed);
+    }
+
+    .pm-kpi-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #111827;
+    }
+
+    .pm-kpi-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+    }
+
+    .pm-kpi-card.pm-highlight .pm-kpi-value {
+      color: #b45309;
+    }
+
+    /* ============= GRID PRINCIPAL (Simulador + Chat) ============= */
+    .pm-dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.25fr;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    /* ============= CARD GENÉRICA pm- ============= */
+    .pm-card {
+      background-color: var(--pm-bg-card);
+      border-radius: var(--pm-radius);
+      border: 1px solid var(--pm-border);
+      padding: 1.7rem;
+      box-shadow: var(--pm-shadow-md);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .pm-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pm-card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pm-text-main);
+    }
+
+    .pm-card-title i {
+      color: var(--pm-text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ============= SIMULADOR ============= */
+    .pm-input-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--pm-border);
+      background: #ffffff;
+      padding: 0.85rem 1.1rem;
+    }
+
+    .pm-input-row label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--pm-text-muted);
+      white-space: nowrap;
+    }
+
+    .pm-input-row input[type="number"] {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #020617;
+      flex: 1;
+      text-align: right;
+    }
+
+    .pm-price-summary {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .pm-price-item {
+      display: flex;
+      justify-content: space-between;
+      color: var(--pm-text-muted);
+    }
+
+    .pm-price-total {
+      margin-top: 0.6rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed var(--pm-border);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--pm-primary);
+    }
+
+    .pm-price-neto {
+      margin-top: 0.6rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 9px;
+      border: 1px dashed #bae6fd;
+      background: #ecfeff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .pm-btn {
+      margin-top: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      border: none;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pm-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 12px rgba(15, 23, 42, 0.4);
+    }
+
+    /* ============= CATÁLOGO SERVICIOS ============= */
+    .pm-svc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .pm-svc-item {
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px solid var(--pm-border);
+      padding: 0.95rem;
+      text-align: center;
+      transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .pm-svc-item:hover {
+      transform: translateY(-1px);
+      border-color: var(--pm-primary);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+    }
+
+    .pm-svc-item.pm-active {
+      border-color: var(--pm-gold);
+      background: #fffbeb;
+      box-shadow: 0 0 0 1px var(--pm-gold);
+    }
+
+    .pm-svc-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--pm-text-main);
+      margin-bottom: 0.15rem;
+    }
+
+    .pm-svc-price {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--pm-primary);
+      margin-bottom: 0.4rem;
+    }
+
+    .pm-svc-btn {
+      width: 100%;
+      padding: 0.45rem 0.7rem;
+      border-radius: 7px;
+      border: 1px solid var(--pm-border);
+      background: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--pm-text-muted);
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .pm-svc-btn:hover {
+      background: #f1f5f9;
+      color: var(--pm-text-main);
+    }
+
+    .pm-svc-item.pm-active .pm-svc-btn {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #ef4444;
+    }
+
+    /* ============= DROPs DOCUMENTACIÓN ============= */
+    .pm-drop-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .pm-dropzone {
+      min-height: 130px;
+      border-radius: 12px;
+      border: 2px dashed var(--pm-border);
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+      text-align: center;
+      padding: 1.2rem;
+    }
+
+    .pm-dropzone:hover {
+      border-color: var(--pm-primary);
+      background: #eff6ff;
+      transform: translateY(-1px);
+    }
+
+    .pm-dropzone i {
+      font-size: 1.8rem;
+      color: var(--pm-text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .pm-dropzone p {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--pm-text-main);
+    }
+
+    /* ============= AGENCIA ASIGNADA & CHIP SERVICIOS ============= */
+    .pm-agency-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--pm-border);
+    }
+
+    .pm-agency-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: #020617;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .pm-agency-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .pm-agency-meta {
+      font-size: 0.82rem;
+      color: var(--pm-text-muted);
+    }
+
+    .pm-chip-row {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 24px;
+    }
+
+    .pm-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .pm-chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .pm-btn-gold {
+      margin-top: 1.1rem;
+      width: 100%;
+      padding: 0.75rem 1.1rem;
+      border-radius: 11px;
+      border: none;
+      background: linear-gradient(135deg, #fbbf24, #b45309);
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(251, 191, 36, 0.45);
+    }
+
+    /* ============= CHAT / REGISTRO ============= */
+    .pm-comm-card {
+      padding: 0;
+      overflow: hidden;
+      max-height: 600px;
+    }
+
+    .pm-comm-header {
+      padding: 1rem 1.2rem;
+      background: #ffffff;
+      border-bottom: 1px solid var(--pm-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pm-comm-body {
+      background: #f8fafc;
+      padding: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      overflow-y: auto;
+      max-height: 420px;
+    }
+
+    .pm-msg {
+      max-width: 86%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      line-height: 1.4;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    }
+
+    .pm-msg-system {
+      align-self: center;
+      background: #e2e8f0;
+      color: #64748b;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    .pm-msg-in {
+      align-self: flex-start;
+      background: #ffffff;
+      border: 1px solid var(--pm-border);
+      border-bottom-left-radius: 3px;
+    }
+
+    .pm-msg-meta {
+      display: block;
+      font-family: "Roboto Mono", monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .pm-msg-out {
+      align-self: flex-end;
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      border-bottom-right-radius: 3px;
+    }
+
+    .pm-comm-input {
+      padding: 0.9rem 1rem;
+      background: #ffffff;
+      border-top: 1px solid var(--pm-border);
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .pm-chat-input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--pm-border);
+      background: #f8fafc;
+      padding: 9px 14px;
+      font-size: 0.9rem;
+      resize: none;
+      height: 40px;
+      font-family: inherit;
+      transition: border-color 0.15s ease, background 0.15s ease, height 0.15s ease;
+    }
+
+    .pm-chat-input:focus {
+      border-color: var(--pm-primary);
+      background: #ffffff;
+      height: 66px;
+      outline: none;
+    }
+
+    .pm-chat-send {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      border: none;
+      background: var(--pm-primary);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 7px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ============= RESPONSIVE ============= */
+    @media (max-width: 1024px) {
+      .pm-main {
+        padding: 1.5rem;
+      }
+      .pm-dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .pm-sidebar {
+        width: 72px;
+        padding: 1.5rem 0.4rem;
+      }
+      .pm-brand-text-title,
+      .pm-brand-text-sub,
+      .pm-nav-item span,
+      .pm-sidebar-footer {
+        display: none;
+      }
+      .pm-nav-item {
+        justify-content: center;
+      }
+      .pm-kpi-row {
+        grid-template-columns: 1fr;
+      }
+      .pm-kpi-card,
+      .pm-kpi-card:first-child,
+      .pm-kpi-card:last-child {
+        border-radius: 18px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <i class="fas fa-cube" style="font-size: 1.5rem; color: var(--primary);"></i>
-            <h1>Panamove</h1>
-        </div>
-        <nav class="nav">
-            <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-building"></i> <span>Agencias</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-users"></i> <span>Profesionales</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusores</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-handshake"></i> <span>Acciones Offline</span></a>
-        </nav>
-    </aside>
+  <!-- SIDEBAR -->
+  <aside class="pm-sidebar">
+    <div class="pm-brand">
+      <div class="pm-brand-logo">7.0</div>
+      <div>
+        <div class="pm-brand-text-title">Panamove</div>
+        <div class="pm-brand-text-sub">Gestión Integral</div>
+      </div>
+    </div>
 
-    <main class="main">
-        <div class="header">
+    <nav class="pm-nav">
+      <a href="dashboard-nuevo.html" class="pm-nav-item pm-active">
+        <i class="fas fa-chart-pie"></i><span>Dashboard</span>
+      </a>
+      <a href="servicios.html" class="pm-nav-item">
+        <i class="fas fa-cubes"></i><span>Servicios</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-home"></i><span>Propiedades</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-building"></i><span>Agencias</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-user-tie"></i><span>Profesionales</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-bullhorn"></i><span>Bloggers/Difusores</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-handshake"></i><span>Acciones Offline</span>
+      </a>
+      <a href="#" class="pm-nav-item">
+        <i class="fas fa-file-contract"></i><span>Auditoría</span>
+      </a>
+    </nav>
+
+    <div class="pm-sidebar-footer">© 2025 Panamove</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="pm-main">
+    <!-- Header -->
+    <section class="pm-header">
+      <div>
+        <h1 class="pm-header-title">Dashboard de Campaña</h1>
+        <p class="pm-header-sub">Gestión en tiempo real de tu campaña.</p>
+      </div>
+      <div class="pm-badge-status">
+        <span class="pm-badge-status-dot"></span> En Vivo
+      </div>
+    </section>
+
+    <!-- Panel de Control (KPIs) -->
+    <section class="pm-control-panel">
+      <div>
+        <div class="pm-control-title">Panel de Control</div>
+        <div class="pm-control-sub">Gestión en tiempo real de tu campaña.</div>
+      </div>
+
+      <div class="pm-kpi-row">
+        <div class="pm-kpi-card">
+          <div class="pm-kpi-value" id="pmKpiViews">7840</div>
+          <div class="pm-kpi-label">Vistas totales</div>
+        </div>
+        <div class="pm-kpi-card">
+          <div class="pm-kpi-value" id="pmKpiLeads">42</div>
+          <div class="pm-kpi-label">Leads cualificados</div>
+        </div>
+        <div class="pm-kpi-card pm-highlight">
+          <div class="pm-kpi-value" id="pmKpiInvest">25.410€</div>
+          <div class="pm-kpi-label">Inversión activa</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID principal -->
+    <section class="pm-dashboard-grid">
+      <!-- Columna izquierda -->
+      <div style="display:flex; flex-direction:column; gap:1.8rem;">
+        <!-- Simulador -->
+        <article class="pm-card">
+          <div class="pm-card-header">
+            <div class="pm-card-title">
+              <i class="fas fa-calculator"></i> Simulador Financiero
+            </div>
+          </div>
+          <div class="pm-input-row">
+            <label for="pmPrecio">Precio Venta (€):</label>
+            <input type="number" id="pmPrecio" value="545000">
+          </div>
+          <div class="pm-price-summary" id="pmPriceLines"></div>
+          <button class="pm-btn" id="pmBtnCalc">
+            <i class="fas fa-sync"></i> Recalcular
+          </button>
+        </article>
+
+        <!-- Catálogo de servicios -->
+        <article class="pm-card">
+          <div class="pm-card-header">
+            <div class="pm-card-title">
+              <i class="fas fa-layer-group"></i> Catálogo de Servicios
+            </div>
+            <a href="servicios.html" style="font-size:0.8rem; color:var(--pm-primary); font-weight:600;">Ver todo</a>
+          </div>
+          <div class="pm-svc-grid" id="pmServicesGrid"></div>
+        </article>
+
+        <!-- Documentación -->
+        <article class="pm-card">
+          <div class="pm-card-header">
+            <div class="pm-card-title">
+              <i class="fas fa-cloud-upload-alt"></i> Documentación requerida
+            </div>
+          </div>
+          <div class="pm-drop-grid">
+            <div class="pm-dropzone" onclick="pmTriggerUpload('Fotos Vivienda')">
+              <i class="fas fa-camera" style="color:var(--pm-primary);"></i>
+              <p>Fotos Vivienda</p>
+            </div>
+            <div class="pm-dropzone" onclick="pmTriggerUpload('Escrituras / PDF')">
+              <i class="fas fa-file-contract" style="color:var(--pm-gold);"></i>
+              <p>Escrituras / PDF</p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Columna derecha -->
+      <div style="display:flex; flex-direction:column; gap:1.8rem;">
+        <!-- Agencia -->
+        <article class="pm-card">
+          <div class="pm-card-header">
+            <div class="pm-card-title">Agencia asignada</div>
+            <span style="font-size:0.75rem; color:var(--pm-success); font-weight:600;">● Conectado</span>
+          </div>
+          <div class="pm-agency-box">
+            <div class="pm-agency-logo">BR</div>
             <div>
-                <h2>Panel de Control</h2>
-                <p>Gestión integral de tu campaña inmobiliaria.</p>
+              <div class="pm-agency-name">Bernabeu Realty</div>
+              <div class="pm-agency-meta">Asesor: <strong>Víctor Pérez</strong></div>
+              <div class="pm-agency-meta">654 34 32 32</div>
             </div>
-            <div class="badge">En Vivo</div>
-        </div>
-
-        <section class="kpi-grid">
-            <div class="kpi-box">
-                <div class="kpi-val" id="kpiViews">0</div>
-                <div class="kpi-label">Vistas Totales</div>
+          </div>
+          <div style="margin-top:0.8rem;">
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.12em; color:#94a3b8; font-weight:700;">
+              Servicios Activos (Inversión):
             </div>
-            <div class="kpi-box">
-                <div class="kpi-val" id="kpiLeads">0</div>
-                <div class="kpi-label">Leads</div>
-            </div>
-            <div class="kpi-box" style="border-color: var(--gold);">
-                <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
-                <div class="kpi-label">Inversión Activa</div>
-            </div>
-        </section>
+            <div class="pm-chip-row" id="pmAgencyActive"></div>
+          </div>
+          <button class="pm-btn-gold">
+            <i class="fas fa-signature"></i> Campaña Firmada
+          </button>
+        </article>
 
-        <div class="main-grid">
-            
-            <div class="col-left">
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-calculator" style="color:var(--primary)"></i> Simulador Financiero</div>
-                    </div>
-                    <div class="input-group">
-                        <label>Precio Venta:</label>
-                        <input type="number" id="precioInput" placeholder="Ej: 545000">
-                        <span>€</span>
-                    </div>
-                    <div class="calc-actions">
-                        <button class="btn-calc" id="btnCalc">Recalcular</button>
-                        <button class="btn-save" onclick="saveBudget()">Guardar Presupuesto</button>
-                    </div>
+        <!-- Registro y Chat -->
+        <article class="pm-card pm-comm-card">
+          <div class="pm-comm-header">
+            <div class="pm-card-title" style="font-size:1rem;">Centro de Comunicación</div>
+            <i class="fas fa-history" style="color:#cbd5e1;"></i>
+          </div>
+          <div class="pm-comm-body" id="pmCommMessages"></div>
+          <div class="pm-comm-input">
+            <i class="fas fa-paperclip" style="font-size:1.1rem; color:#94a3b8; cursor:pointer;" onclick="pmTriggerUpload('Archivo adjunto')"></i>
+            <textarea id="pmMsgInput" class="pm-chat-input" placeholder="Escribe un mensaje..."></textarea>
+            <button class="pm-chat-send" onclick="pmSendMessage()">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-                    <div id="priceLines" style="margin-top: 1.5rem;">
-                        </div>
-                </div>
+  <script>
+    // ===== CONFIG LOCALSTORAGE =====
+    const PM_STORAGE_SERVICIOS = "pmPanamoveServicios";
+    const PM_STORAGE_LOG = "pmPanamoveLog";
 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-layer-group" style="color:var(--primary)"></i> Servicios Disponibles</div>
-                        <a href="servicios.html" style="font-size:0.85rem; color:var(--primary); font-weight:600;">Ver Todo</a>
-                    </div>
-                    <div class="svc-grid" id="servicesGrid"></div>
-                </div>
-            </div>
+    const pmServiciosBase = [
+      { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, def: true },
+      { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, def: true },
+      { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, def: true },
+      { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, def: false }
+    ];
 
-            <div class="col-right">
-                
-                <div class="card">
-                    <div class="card-header"><div class="card-title">Agencia Asignada</div></div>
-                    <div class="agency-box">
-                        <div class="avatar">BR</div>
-                        <div class="agency-info">
-                            <h4>Bernabeu Realty</h4>
-                            <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p>654 34 32 32</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">Inversión (Servicios Activos):</p>
-                        <div id="agencyActiveServices" class="active-services-container"></div>
-                    </div>
-                    <button class="btn-gold">Campaña Firmada</button>
-                </div>
+    // ===== UTIL =====
+    function pmFormatMoney(n) {
+      return n.toLocaleString("es-ES", { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
 
-                <div class="card comm-container">
-                    <div class="card-header">
-                        <div class="card-title">Chat & Actividad</div>
-                        <i class="fas fa-history" style="color:var(--text-muted)"></i>
-                    </div>
-                    <div class="comm-messages" id="commMessages"></div>
-                    <div class="comm-input">
-                        <input type="text" id="msgInput" placeholder="Escribe un mensaje...">
-                        <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
+    // ===== LOG MENSAJES =====
+    function pmGetLog() {
+      try {
+        return JSON.parse(localStorage.getItem(PM_STORAGE_LOG)) || [];
+      } catch {
+        return [];
+      }
+    }
 
-            </div>
-        </div>
-    </main>
+    function pmAddLog(text, type = "system") {
+      const list = pmGetLog();
+      const now = new Date();
+      const dateStr = now.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
+      const timeStr = now.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+      list.push({ date: dateStr, time: timeStr, text, type });
+      localStorage.setItem(PM_STORAGE_LOG, JSON.stringify(list.slice(-50)));
+      pmRenderMessages();
+    }
 
-    <script>
-        const STORAGE_SERVICIOS = "panamoveServicios";
-        const STORAGE_LOG = "panamoveLog";
-        const STORAGE_PRICE = "panamovePrice"; // Nueva key para persistencia precio
+    function pmRenderMessages() {
+      const list = pmGetLog();
+      const container = document.getElementById("pmCommMessages");
+      if (!container) return;
 
-        const serviciosBase = [
-            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", def: true },
-            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", def: true },
-            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", def: true },
-            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", def: false }
-        ];
+      if (list.length === 0) {
+        container.innerHTML = '<div class="pm-msg-system">Bienvenido al Centro de Comunicación 7.0</div>';
+        return;
+      }
 
-        // --- UTILS ---
-        const formatMoney = (n) => n.toLocaleString("es-ES", {minimumFractionDigits: 0});
-        const getTime = () => new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
-        const getDate = () => new Date().toLocaleDateString('es-ES');
-
-        // --- LOG SYSTEM ---
-        function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
-        function addLog(text, type='system') {
-            const list = getLog();
-            list.push({ time: getTime(), date: getDate(), text, type });
-            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(-20)));
-            renderMessages();
+      container.innerHTML = list.map(item => {
+        if (item.type === "user") {
+          return `<div class="pm-msg pm-msg-out">${item.text}</div>`;
+        } else {
+          return `
+            <div class="pm-msg pm-msg-in">
+              <span class="pm-msg-meta">${item.date} · ${item.time}</span>
+              ${item.text}
+            </div>`;
         }
+      }).join("");
 
-        function renderMessages() {
-            const list = getLog();
-            const container = document.getElementById('commMessages');
-            if(!container) return;
-            
-            if(list.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; font-size:0.8rem; margin-top:20px;">Inicio de actividad</div>'; return; }
+      container.scrollTop = container.scrollHeight;
+    }
 
-            container.innerHTML = list.map(item => `
-                <div class="msg ${item.type === 'user' ? 'msg-out' : 'msg-in'}">
-                    <span class="msg-meta"><strong>${item.type === 'user' ? 'Tú' : 'Sistema'}</strong> · ${item.time}</span>
-                    ${item.text}
-                </div>
-            `).join('');
-            container.scrollTop = container.scrollHeight;
+    function pmSendMessage() {
+      const input = document.getElementById("pmMsgInput");
+      const text = input.value.trim();
+      if (!text) return;
+      pmAddLog(text, "user");
+      input.value = "";
+      setTimeout(() => {
+        pmAddLog("Mensaje recibido. El equipo legal está revisando tu solicitud.", "system");
+      }, 1200);
+    }
+
+    function pmTriggerUpload(tipo) {
+      pmAddLog(`Usuario inició carga de: ${tipo}.`, "system");
+      setTimeout(() => {
+        pmAddLog(`✅ ${tipo} procesado correctamente en el servidor seguro.`, "system");
+      }, 900);
+    }
+
+    // ===== SERVICIOS / PRECIOS =====
+    function pmGetServicios() {
+      try {
+        const stored = JSON.parse(localStorage.getItem(PM_STORAGE_SERVICIOS));
+        if (!stored) return pmServiciosBase.map(s => ({ ...s, activo: s.def }));
+        const map = new Map(stored.map(s => [s.id, s.activo]));
+        return pmServiciosBase.map(s => ({
+          ...s,
+          activo: map.has(s.id) ? map.get(s.id) : s.def
+        }));
+      } catch {
+        return pmServiciosBase.map(s => ({ ...s, activo: s.def }));
+      }
+    }
+
+    function pmToggleService(id) {
+      const current = pmGetServicios();
+      const updated = current.map(s => s.id === id ? { ...s, activo: !s.activo } : s);
+      const changed = updated.find(s => s.id === id);
+      localStorage.setItem(PM_STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({ id: s.id, activo: s.activo }))));
+
+      pmAddLog(`Estado del servicio actualizado: ${changed.nombre} ahora está ${changed.activo ? "ACTIVO" : "INACTIVO"}.`, "system");
+      pmRenderAll();
+    }
+
+    function pmCalcPrice() {
+      const input = document.getElementById("pmPrecio");
+      const output = document.getElementById("pmPriceLines");
+      if (!input || !output) return;
+
+      const val = parseFloat(input.value) || 0;
+      const activos = pmGetServicios().filter(s => s.activo);
+      const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
+      const comision = val * 0.03;
+      const base = comision + fijos;
+      const iva = base * 0.21;
+      const total = base + iva;
+      const neto = val - total;
+
+      output.innerHTML = `
+        <div class="pm-price-item"><span>Comisión (3%):</span><span>${pmFormatMoney(comision)} €</span></div>
+        <div class="pm-price-item"><span>Servicios Activos:</span><span>${pmFormatMoney(fijos)} €</span></div>
+        <div class="pm-price-item"><span>IVA (21%):</span><span>${pmFormatMoney(iva)} €</span></div>
+        <div class="pm-price-total"><span>Total Inversión:</span><span>${pmFormatMoney(total)} €</span></div>
+        <div class="pm-price-neto">Beneficio Neto Estimado: ${pmFormatMoney(neto)} €</div>
+      `;
+    }
+
+    function pmRenderServicesGrid() {
+      const list = pmGetServicios();
+      const grid = document.getElementById("pmServicesGrid");
+      const agency = document.getElementById("pmAgencyActive");
+
+      if (grid) {
+        grid.innerHTML = list.map(s => `
+          <div class="pm-svc-item ${s.activo ? "pm-active" : ""}">
+            <div class="pm-svc-name">${s.nombre}</div>
+            <div class="pm-svc-price">${s.precio}</div>
+            <button class="pm-svc-btn" onclick="pmToggleService('${s.id}')">
+              ${s.activo ? "DESACTIVAR" : "ACTIVAR"}
+            </button>
+          </div>
+        `).join("");
+      }
+
+      if (agency) {
+        const activos = list.filter(s => s.activo);
+        agency.innerHTML = activos.length
+          ? activos.map(s => `<div class="pm-chip"><span class="pm-chip-dot"></span>${s.nombre}</div>`).join("")
+          : '<span style="font-size:0.8rem; color:#94a3b8;">Sin servicios activos.</span>';
+      }
+    }
+
+    function pmRenderAll() {
+      pmRenderServicesGrid();
+      pmRenderMessages();
+      pmCalcPrice();
+    }
+
+    // INIT
+    document.addEventListener("DOMContentLoaded", () => {
+      pmRenderAll();
+
+      document.getElementById("pmBtnCalc").addEventListener("click", pmCalcPrice);
+      document.getElementById("pmPrecio").addEventListener("input", pmCalcPrice);
+
+      const msgInput = document.getElementById("pmMsgInput");
+      msgInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+          e.preventDefault();
+          pmSendMessage();
         }
-
-        function sendMessage() {
-            const input = document.getElementById('msgInput');
-            const text = input.value.trim();
-            if(text) {
-                addLog(text, 'user');
-                input.value = '';
-                setTimeout(() => addLog("Mensaje recibido. Tu asesor contestará pronto.", 'system'), 1000);
-            }
-        }
-
-        // --- SERVICES ---
-        function getServicios() {
-            try {
-                const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
-                if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
-                const map = new Map(stored.map(s => [s.id, s.activo]));
-                return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def, coste: s.coste}));
-            } catch { return serviciosBase.map(s => ({...s, activo: s.def})); }
-        }
-
-        function toggleService(id) {
-            const current = getServicios();
-            const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
-            const changed = updated.find(s => s.id === id);
-            localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-            addLog(`Servicio <strong>${changed.nombre}</strong> ${changed.activo ? 'ACTIVADO' : 'DESACTIVADO'}.`, 'system');
-            renderAll();
-        }
-
-        // --- CALCULATOR (PERSISTENTE) ---
-        function getSavedPrice() {
-            return localStorage.getItem(STORAGE_PRICE) || "545000";
-        }
-
-        function calcPrice() {
-            const input = document.getElementById('precioInput');
-            const output = document.getElementById('priceLines');
-            if(!input || !output) return;
-
-            // Guardar valor actual
-            localStorage.setItem(STORAGE_PRICE, input.value);
-
-            const val = parseFloat(input.value) || 0;
-            const activos = getServicios().filter(s => s.activo);
-            const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
-            const comision = val * 0.03;
-            const totalBase = comision + fijos;
-            const iva = totalBase * 0.21;
-            const total = totalBase + iva;
-            const neto = val - total;
-
-            output.innerHTML = `
-                <div class="price-row"><strong>Comisión (3%):</strong> <span>${formatMoney(comision)} €</span></div>
-                <div class="price-row"><strong>Servicios Activos:</strong> <span>${formatMoney(fijos)} €</span></div>
-                <div class="price-row"><strong>IVA (21%):</strong> <span>${formatMoney(iva)} €</span></div>
-                
-                <div class="price-total-box">
-                    <div class="price-total-label">Total Inversión</div>
-                    <div class="price-total-val">${formatMoney(total)} €</div>
-                </div>
-
-                <div class="price-neto-box">
-                    <span>Beneficio Neto Estimado:</span>
-                    <span class="price-neto-val">${formatMoney(neto)} €</span>
-                </div>
-            `;
-            
-            const kpiCost = document.getElementById('kpiCost');
-            if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
-        }
-
-        function saveBudget() {
-            alert("Presupuesto guardado correctamente en tu historial.");
-            addLog("Presupuesto guardado por el usuario.", "system");
-        }
-
-        // --- RENDER ALL ---
-        function renderServicesGrid() {
-            const list = getServicios();
-            const grid = document.getElementById('servicesGrid');
-            if(grid) {
-                grid.innerHTML = list.map(s => `
-                    <div class="svc-card ${s.activo ? 'active' : ''}">
-                        <span class="svc-name">${s.nombre}</span>
-                        <span class="svc-price">${s.precio}</span>
-                        <button class="svc-btn" onclick="toggleService('${s.id}')">${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}</button>
-                    </div>
-                `).join('');
-            }
-            
-            const agencyBox = document.getElementById('agencyActiveServices');
-            if(agencyBox) {
-                const activos = list.filter(s => s.activo);
-                agencyBox.innerHTML = activos.length ? 
-                    activos.map(s => `<span class="service-chip"><span class="dot"></span> ${s.nombre}</span>`).join('') : 
-                    '<span style="font-size:0.8rem; color:#94a3b8;">Sin servicios activos.</span>';
-            }
-        }
-
-        function renderAll() {
-            renderServicesGrid();
-            renderMessages();
-            calcPrice();
-        }
-
-        function animateValue(id, end) {
-            const obj = document.getElementById(id);
-            if(!obj) return;
-            let start = 0, duration = 1000, startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.textContent = formatMoney(Math.floor(progress * (end - start) + start));
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // --- INIT ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Cargar precio guardado
-            const pInput = document.getElementById('precioInput');
-            if(pInput) pInput.value = getSavedPrice();
-
-            renderAll();
-            animateValue("kpiViews", 7840);
-            animateValue("kpiLeads", 42);
-            
-            document.getElementById('precioInput').addEventListener('input', calcPrice);
-            document.getElementById('btnCalc').addEventListener('click', calcPrice);
-        });
-    </script>
+      });
+    });
+  </script>
 </body>
 </html>
