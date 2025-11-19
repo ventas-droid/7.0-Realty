@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panamove 7.0 – Dashboard campaña</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      /* --- TEMA ORIGINAL OSCURO --- */
+      --bg-main: #020617;
+      --bg-card: #0f172a;
+      --bg-card-alt: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --gold: #fbbf24;
+      --text-main: #e2e8f0;
+      --text-soft: #94a3b8;
+      --border-subtle: #1e293b;
+      --danger: #ef4444;
+      --success: #22c55e;
+      
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+      --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+      --transition-fast: 0.2s ease-out;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, var(--bg-main), #000000 75%);
+      color: var(--text-main);
+      display: flex;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
+
+    /* --- LAYOUT --- */
+    .page { display: flex; width: 100%; min-height: 100vh; }
+
+    .sidebar {
+      width: 240px;
+      background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-main) 100%);
+      border-right: 1px solid var(--border-subtle);
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+      flex-shrink: 0; /* EVITA QUE SE MONTE */
+    }
+
+    .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+    .brand-logo {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: conic-gradient(from 160deg, var(--success), var(--accent), #a855f7, var(--success));
+    }
+    .brand-title strong { font-size: 1rem; letter-spacing: 0.04em; }
+    .brand-sub { font-size: 0.7rem; color: var(--text-soft); }
+
+    .nav { display: flex; flex-direction: column; gap: 5px; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px;
+      border-radius: var(--radius-full); font-size: 0.85rem; color: var(--text-soft);
+      transition: 0.2s; border: 1px solid transparent;
+    }
+    .nav-item:hover { background: rgba(56, 189, 248, 0.1); color: white; }
+    .nav-item-active { background: rgba(56, 189, 248, 0.15); color: var(--accent); border-color: rgba(56, 189, 248, 0.3); }
+
+    .main { flex: 1; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; overflow-y: auto; }
+
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .top-title { font-size: 1.5rem; font-weight: 700; }
+    .top-subtitle { font-size: 0.9rem; color: var(--text-soft); }
+
+    .btn-ghost {
+      padding: 6px 12px; border: 1px solid var(--border-subtle); border-radius: var(--radius-full);
+      font-size: 0.8rem; color: var(--text-soft); transition: 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* --- GRID SYSTEM (ROBUSTO) --- */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+    .grid-1 { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+
+    /* --- CARDS --- */
+    .card {
+        background: var(--bg-card); border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-soft);
+        display: flex; flex-direction: column; gap: 1rem;
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
+    .card-subtitle { font-size: 0.8rem; color: var(--text-soft); margin-top: 4px; }
+
+    /* --- PRECIO --- */
+    #precioCard { border-color: var(--accent); box-shadow: 0 0 20px rgba(56, 189, 248, 0.1); }
+    .price-input-row { display: flex; align-items: center; gap: 10px; background: var(--bg-main); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-subtle); }
+    .price-input-row input { background: transparent; border: none; color: white; font-size: 1rem; width: 100%; font-weight: 700; }
+    .price-lines { font-size: 0.8rem; color: var(--text-soft); line-height: 1.6; margin-top: 10px; }
+    .price-lines .total { color: var(--gold); font-weight: 700; display: block; margin-top: 5px; padding-top: 5px; border-top: 1px dashed var(--border-subtle); }
+
+    /* --- PANEL AGENCIA --- */
+    .agency-info { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed var(--border-subtle); padding-bottom: 15px; margin-bottom: 10px; }
+    .agency-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--success); color: #000; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; }
+    .agency-name { font-weight: 700; font-size: 1rem; }
+    
+    .agency-services-list { display: flex; flex-wrap: wrap; gap: 8px; min-height: 30px; }
+    /* Pills verdes DENTRO de la agencia */
+    .agency-service-pill {
+        display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 12px;
+        font-size: 0.7rem; font-weight: 600; background: rgba(34, 197, 94, 0.15); color: var(--success); border: 1px solid var(--success);
+    }
+    .agency-service-pill .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+
+    .btn-campana-firmada {
+        width: 100%; padding: 10px; border-radius: 8px; background: linear-gradient(135deg, var(--gold), #d97706);
+        color: #000; font-weight: 700; font-size: 0.9rem; text-align: center; margin-top: 1rem;
+    }
+
+    /* --- LOG (CHAT) --- */
+    .log-container { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .log-item { font-size: 0.8rem; padding: 8px; background: var(--bg-main); border-radius: 6px; border: 1px solid var(--border-subtle); }
+    .log-time { color: var(--accent); font-family: monospace; margin-right: 8px; }
+
+    /* --- SERVICIOS INFERIORES (TARJETAS ORIGINALES) --- */
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .service-card {
+        background: var(--bg-main); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1rem;
+        display: flex; flex-direction: column; gap: 0.5rem; position: relative;
+    }
+    /* Estilo Activo (Dorado) */
+    .service-card.active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold), 0 0 15px rgba(251, 191, 36, 0.1); }
+    .service-name { font-weight: 600; font-size: 0.9rem; }
+    .service-price { font-size: 0.75rem; color: var(--text-soft); }
+    .service-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; }
+    
+    /* Botón Estado */
+    .state-pill { font-size: 0.65rem; padding: 3px 8px; border-radius: 10px; border: 1px solid var(--text-soft); color: var(--text-soft); }
+    .service-card.active .state-pill { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, 0.1); }
+    
+    /* Botón Acción */
+    .action-btn { padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .service-card.active .action-btn { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .service-card:not(.active) .action-btn { background: rgba(251, 191, 36, 0.1); color: var(--gold); border: 1px solid var(--gold); }
+
+    /* --- UPLOADS --- */
+    .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .dropzone {
+        background: var(--bg-main); border: 1px dashed var(--text-soft); border-radius: 10px;
+        height: 100px; display: flex; align-items: center; justify-content: center;
+        font-size: 0.8rem; color: var(--text-soft); cursor: pointer; transition: 0.2s;
+    }
+    .dropzone:hover { border-color: var(--accent); color: var(--accent); background: rgba(56, 189, 248, 0.05); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+        .sidebar { width: 70px; padding: 1rem 0.5rem; }
+        .brand-title, .nav-item span, .sidebar-footer { display: none; }
+        .nav-item { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo"></div>
+            <div class="brand-title">
+                <strong>Panamove 7.0</strong>
+            </div>
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-item nav-item-active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
+        </nav>
+        <div class="sidebar-footer">© 2025</div>
+    </aside>
+
+    <main class="main">
+        <header class="top-bar">
+            <div>
+                <div class="top-title">Dashboard Campaña</div>
+                <div class="top-subtitle">Sistema 7.0 - Gestión Integral</div>
+            </div>
+            <div>
+                <button class="btn-ghost">Ver Catálogo</button>
+            </div>
+        </header>
+
+        <section class="grid">
+            <article class="card" id="precioCard">
+                <div class="card-header">
+                    <div class="card-title">Precio de la propiedad</div>
+                    <button class="btn-ghost" onclick="recalcPrice()">Calcular</button>
+                </div>
+                <div class="price-input-row">
+                    <input type="number" id="precioInput" value="545000"> <span>€</span>
+                </div>
+                <div class="price-lines" id="priceLines">
+                    </div>
+            </article>
+
+            <article class="card">
+                <div class="card-header"><div class="card-title">Venta Particular</div></div>
+                <p class="card-subtitle">Ático Blue Sunset – La Duquesa, Manilva.</p>
+                <p style="font-size:0.8rem; color:var(--text-soft); margin-top:10px;">
+                    Gestión coordinada con servicios profesionales activos.
+                </p>
+            </article>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <div class="card-header"><div class="card-title">Panel de Agencia</div></div>
+                <div class="agency-info">
+                    <div class="agency-avatar">BR</div>
+                    <div>
+                        <div class="agency-name">Bernabeu Realty</div>
+                        <div style="font-size:0.8rem; color:var(--text-soft);">Asesor: Víctor Pérez</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 10px;">
+                    <div style="font-size:0.75rem; text-transform:uppercase; color:var(--text-soft); margin-bottom:5px;">Servicios Activos:</div>
+                    <div class="agency-services-list" id="agencyActiveServices">
+                        </div>
+                </div>
+                
+                <button class="btn-campana-firmada">Campaña Firmada</button>
+            </article>
+
+            <article class="card">
+                <div class="card-header"><div class="card-title">Registro de Actividad</div></div>
+                <div class="log-container" id="recentList">
+                    </div>
+            </article>
+        </section>
+
+        <section class="grid-1">
+            <article class="card">
+                <div class="card-header">
+                    <div class="card-title">Servicios Disponibles</div>
+                    <div class="card-subtitle">Activa lo que tenga sentido para tu campaña.</div>
+                </div>
+                <div class="services-grid" id="servicesGrid">
+                    </div>
+            </article>
+        </section>
+
+        <section class="grid">
+            <article class="card">
+                <div class="card-header"><div class="card-title">Documentación</div></div>
+                <div class="upload-grid">
+                    <div class="dropzone">
+                        <i class="fas fa-camera" style="margin-bottom:5px;"></i> Subir Fotos
+                    </div>
+                    <div class="dropzone">
+                        <i class="fas fa-file-pdf" style="margin-bottom:5px;"></i> Subir Docs
+                    </div>
+                </div>
+            </article>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // --- CONFIG ---
+    const STORAGE_SERVICIOS = "panamoveServicios";
+    const STORAGE_LOG = "panamoveLog";
+
+    const serviciosBase = [
+        { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Reportaje profesional.", def: true },
+        { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Tomas aéreas 4K.", def: true },
+        { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Estética", desc: "Mejora visual.", def: true },
+        { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Red internacional.", def: false }
+    ];
+
+    // --- LOGIC ---
+    function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
+    function addLog(text) {
+        const list = getLog();
+        const now = new Date();
+        list.unshift({ time: now.toLocaleTimeString(), date: now.toLocaleDateString(), text });
+        localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(0, 20)));
+        renderLog();
+    }
+    function renderLog() {
+        const list = getLog();
+        const el = document.getElementById('recentList');
+        if(!el) return;
+        el.innerHTML = list.length ? list.map(i => `
+            <div class="log-item">
+                <span class="log-time">[${i.time}]</span> ${i.text}
+            </div>
+        `).join('') : '<div style="padding:10px; color:#555;">Sin actividad.</div>';
+    }
+
+    function getServicios() {
+        try {
+            const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
+            if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
+            const map = new Map(stored.map(s => [s.id, s.activo]));
+            return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def, coste: s.coste}));
+        } catch { return serviciosBase.map(s => ({...s, activo: s.def})); }
+    }
+
+    function toggleService(id) {
+        const current = getServicios();
+        const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
+        const changed = updated.find(s => s.id === id);
+        localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
+        addLog(`Servicio ${changed.activo ? 'ACTIVADO' : 'DESACTIVADO'}: ${changed.nombre}`);
+        renderAll();
+    }
+
+    function formatMoney(n) { return n.toLocaleString("es-ES", {minimumFractionDigits: 0}); }
+
+    function calcPrice() {
+        const input = document.getElementById('precioInput');
+        const output = document.getElementById('priceLines');
+        if(!input || !output) return;
+
+        const val = parseFloat(input.value) || 0;
+        const activos = getServicios().filter(s => s.activo);
+        const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
+        const comision = val * 0.03;
+        const total = comision + fijos + ((comision + fijos) * 0.21);
+        const neto = val - total;
+
+        output.innerHTML = `
+            <div>Comisión (3%): ${formatMoney(comision)} €</div>
+            <div>Servicios Activos: ${formatMoney(fijos)} €</div>
+            <div class="total">Total a Pagar: ${formatMoney(total)} €</div>
+            <div style="margin-top:5px; color:#38bdf8;">Neto estimado: ${formatMoney(neto)} €</div>
+        `;
+    }
+
+    function renderServicesGrid() {
+        const list = getServicios();
+        const grid = document.getElementById('servicesGrid');
+        if(grid) {
+            grid.innerHTML = list.map(s => `
+                <div class="service-card ${s.activo ? 'active' : ''}">
+                    <div class="service-name">${s.nombre}</div>
+                    <div class="service-price">${s.precio}</div>
+                    <div class="service-footer">
+                        <span class="state-pill">${s.activo ? 'ACTIVADO' : 'PENDIENTE'}</span>
+                        <button class="action-btn" onclick="toggleService('${s.id}')">
+                            ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        const agencyBox = document.getElementById('agencyActiveServices');
+        if(agencyBox) {
+            const activos = list.filter(s => s.activo);
+            agencyBox.innerHTML = activos.length ? 
+                activos.map(s => `<div class="agency-service-pill"><span class="dot"></span> ${s.nombre}</div>`).join('') : 
+                '<span style="font-size:0.75rem; color:#64748b;">Ninguno.</span>';
+        }
+    }
+
+    function renderAll() {
+        renderServicesGrid();
+        renderLog();
+        calcPrice();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderAll();
+        document.getElementById('precioInput').addEventListener('input', calcPrice);
+    });
+</script>
+
+</body>
+</html>
