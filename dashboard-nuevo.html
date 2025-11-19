@@ -2,35 +2,41 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Panamove 7.0 – Premium Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panamove 7.0 – Premium Dashboard</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES (Premium Light Theme) --- */
+        /* --- THEME: Silicon Valley Light --- */
         :root {
-            --bg-body: #f3f5f7;       /* Gris muy suave, casi blanco */
-            --bg-sidebar: #ffffff;    /* Blanco puro */
-            --bg-card: rgba(255, 255, 255, 0.85); /* Transparencia efecto vidrio */
-            --bg-hover: #f8fafc;
+            --bg-body: #f8f9fc;       
+            --bg-sidebar: #ffffff;    
+            --bg-card: rgba(255, 255, 255, 0.85); /* Efecto vidrio sutil */
+            --bg-hover: #f1f5f9;
             
-            --border: #e2e8f0;        /* Borde sutil */
-            --text-main: #1e293b;     /* Gris oscuro elegante */
-            --text-muted: #64748b;    /* Gris medio */
+            --border: #e2e8f0;        
+            --text-main: #1e293b;     
+            --text-muted: #64748b;    
             
-            --primary: #2563eb;       /* Azul profesional */
+            --primary: #3b82f6;       /* Azul vibrante */
             --primary-light: #eff6ff;
-            --gold: #d97706;          /* Dorado sobrio */
-            --success: #10b981;       /* Verde */
-            --danger: #ef4444;        /* Rojo */
+            --primary-dark: #1d4ed8;
             
-            --radius: 16px;           /* Bordes redondeados premium */
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.08); /* Sombra suave y difusa */
+            --gold: #f59e0b;          
+            --gold-light: #fffbeb;
+            
+            --success: #10b981;       
+            --danger: #ef4444;        
+            
+            --radius: 16px;           
+            --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-float: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
             
             --font-ui: 'Inter', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
         }
 
         /* --- RESET --- */
@@ -42,361 +48,412 @@
             color: var(--text-main);
             display: flex;
             height: 100vh;
-            overflow: hidden; /* Evita scroll doble */
+            overflow: hidden; 
         }
 
         a { text-decoration: none; color: inherit; transition: 0.2s; }
         button { border: none; background: none; cursor: pointer; font-family: inherit; }
         
-        /* --- SIDEBAR (Fijo, no se monta) --- */
+        /* --- SIDEBAR --- */
         .sidebar {
-            width: 270px;
+            width: 260px;
             background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 1rem;
-            flex-shrink: 0; /* CLAVE: Impide que se aplaste */
-            z-index: 20;
-            overflow-y: auto;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.02);
+            display: flex; flex-direction: column; padding: 1.5rem 1rem;
+            flex-shrink: 0; z-index: 20; overflow-y: auto;
+            box-shadow: 4px 0 24px rgba(0,0,0,0.01);
         }
 
-        .brand {
-            display: flex; align-items: center; gap: 12px; 
-            margin-bottom: 2.5rem; padding: 0 0.5rem;
-        }
+        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 2.5rem; padding: 0 0.5rem; }
         .brand-logo {
-            width: 36px; height: 36px; border-radius: 8px;
-            background: linear-gradient(135deg, var(--primary), #1d4ed8);
-            color: white; font-weight: 700; font-size: 0.9rem;
+            width: 38px; height: 38px; border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary), #2563eb);
+            color: white; font-weight: 800; font-size: 1rem;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
         }
-        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
-        .brand-text span { font-size: 0.75rem; color: var(--text-muted); }
+        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; color: #0f172a; }
+        .brand-text span { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
-        .nav { display: flex; flex-direction: column; gap: 4px; }
-        
+        .nav { display: flex; flex-direction: column; gap: 6px; }
         .nav-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 14px; border-radius: 10px;
+            display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 10px;
             color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
             transition: all 0.2s; border: 1px solid transparent;
         }
         .nav-item:hover { background-color: var(--bg-hover); color: var(--primary); }
-        .nav-item.active { 
-            background-color: var(--primary-light); 
-            color: var(--primary); 
-            border-color: #bfdbfe;
-            font-weight: 600;
-        }
-        .nav-item i { 
-            width: 20px; text-align: center; font-size: 1rem; 
-            display: inline-block; /* Evita deformación */
-        }
+        .nav-item.active { background-color: var(--primary-light); color: var(--primary); border-color: #bfdbfe; font-weight: 600; }
+        .nav-item i { width: 20px; text-align: center; font-size: 1rem; }
 
-        .sidebar-footer {
-            margin-top: auto; padding-top: 1.5rem; 
-            border-top: 1px solid var(--border);
-            font-size: 0.7rem; color: #94a3b8; text-align: center;
-        }
+        .sidebar-footer { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.7rem; color: #94a3b8; text-align: center; }
 
-        /* --- MAIN CONTENT Area --- */
+        /* --- MAIN CONTENT --- */
         .main-content {
-            flex: 1;
-            padding: 2rem 3rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            position: relative;
+            flex: 1; padding: 2rem 3rem; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 2rem; position: relative;
         }
 
         /* Header */
         .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 0.5rem; }
-        .header h2 { font-size: 1.75rem; font-weight: 700; letter-spacing: -0.03em; color: #0f172a; }
+        .header h2 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em; color: #0f172a; }
         .header p { color: var(--text-muted); font-size: 0.95rem; margin-top: 4px; }
         
-        .header-actions { display: flex; gap: 1rem; }
         .badge-status {
-            background: white; border: 1px solid var(--border);
-            padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
-            color: var(--success); display: flex; align-items: center; gap: 6px;
-            box-shadow: var(--shadow-sm);
+            background: white; border: 1px solid var(--border); padding: 6px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600; color: var(--success); display: flex; align-items: center; gap: 6px;
+            box-shadow: var(--shadow-card);
         }
-        .badge-status .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 2s infinite; }
+        .dot-pulse { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 2s infinite; }
 
-        /* --- GRID SYSTEM --- */
-        .grid-dashboard {
-            display: grid;
-            grid-template-columns: 2fr 1.2fr; /* Columna principal ancha, lateral más estrecha */
-            gap: 2rem;
-            align-items: start; /* Alineación superior para que no se estiren */
+        /* KPIs */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .kpi-card {
+            background: var(--bg-sidebar); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: var(--shadow-card); transition: 0.2s;
         }
+        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-float); border-color: var(--primary-light); }
+        .kpi-value { font-size: 2rem; font-weight: 800; color: var(--text-main); margin: 5px 0; font-family: var(--font-ui); letter-spacing: -1px; }
+        .kpi-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        
+        /* Grid Principal */
+        .content-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start; }
 
-        /* --- CARDS & CONTAINERS --- */
+        /* Tarjetas Generales */
         .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.8rem;
-            box-shadow: var(--shadow-md);
-            backdrop-filter: blur(8px);
-            display: flex; flex-direction: column; gap: 1.2rem;
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 1.8rem; box-shadow: var(--shadow-card);
+            display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.5rem;
+            transition: box-shadow 0.2s ease;
         }
-        .card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+        .card:hover { box-shadow: var(--shadow-float); }
         
-        .card-header { display: flex; justify-content: space-between; align-items: center; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--border); padding-bottom: 1rem; margin-bottom: 0.5rem; }
         .card-title { font-size: 1.1rem; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
-        .card-title i { color: var(--text-muted); font-size: 1rem; }
+        .card-title i { color: var(--primary); opacity: 0.8; }
 
-        /* Simulador Input */
-        .input-row {
-            display: flex; align-items: center; gap: 1rem;
-            background: #ffffff; border: 1px solid var(--border);
-            padding: 0.8rem 1.2rem; border-radius: 10px;
+        /* Simulador Financiero */
+        .input-group {
+            display: flex; align-items: center; gap: 1rem; background: #ffffff;
+            border: 1px solid var(--border); padding: 0.8rem 1.2rem; border-radius: 12px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
         }
-        .input-row label { font-weight: 500; color: var(--text-muted); font-size: 0.9rem; }
-        .input-row input { 
-            border: none; font-size: 1.2rem; font-weight: 700; color: var(--text-main); flex: 1; 
-            background: transparent; outline: none;
-        }
+        .input-group label { font-weight: 600; color: var(--text-muted); font-size: 0.9rem; }
+        .input-group input { border: none; font-size: 1.2rem; font-weight: 700; color: var(--text-main); flex: 1; background: transparent; outline: none; text-align: right; }
         
-        .price-summary { margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; }
-        .price-item { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); }
+        .price-summary { display: flex; flex-direction: column; gap: 10px; }
+        .price-row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted); }
         .price-total { 
-            border-top: 1px dashed var(--border); margin-top: 0.8rem; padding-top: 0.8rem; 
-            font-weight: 700; font-size: 1.2rem; color: var(--primary); display: flex; justify-content: space-between;
+            border-top: 1px solid var(--border); margin-top: 0.5rem; padding-top: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .price-total span:first-child { font-weight: 600; font-size: 1rem; }
+        .price-total span:last-child { font-weight: 800; font-size: 1.4rem; color: var(--primary); }
+        .price-neto { text-align: right; font-size: 0.8rem; color: var(--success); font-weight: 600; background: #ecfdf5; padding: 4px 8px; border-radius: 6px; align-self: flex-end; }
+
+        .btn-calc {
+            width: 100%; padding: 10px; background: var(--text-main); color: white;
+            border-radius: 10px; font-weight: 600; font-size: 0.9rem; margin-top: 10px;
+            transition: 0.2s;
+        }
+        .btn-calc:hover { background: #000; transform: translateY(-1px); }
 
         /* Panel Agencia */
-        .agency-box { display: flex; align-items: center; gap: 15px; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-        .agency-img { 
-            width: 54px; height: 54px; border-radius: 12px; background: var(--text-main); color: white; 
-            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;
+        .agency-profile { display: flex; align-items: center; gap: 1rem; padding-bottom: 1rem; }
+        .avatar-agency { 
+            width: 54px; height: 54px; border-radius: 14px; background: linear-gradient(135deg, #10b981, #059669); 
+            color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
-        .agency-text h3 { font-size: 1rem; font-weight: 600; margin-bottom: 2px; }
-        .agency-text p { font-size: 0.85rem; color: var(--text-muted); }
+        .agency-text h4 { font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+        .agency-text p { font-size: 0.8rem; color: var(--text-muted); }
 
-        .active-services-list { display: flex; flex-wrap: wrap; gap: 8px; min-height: 30px; margin-top: 0.5rem; }
+        .active-chips { display: flex; flex-wrap: wrap; gap: 8px; min-height: 40px; align-content: flex-start; }
         .chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-            background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0;
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 600; background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
         }
-        .chip .dot { width: 6px; height: 6px; background: #16a34a; border-radius: 50%; }
+        .chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
 
-        .btn-premium {
-            width: 100%; padding: 12px; border-radius: 10px; border: none;
-            background: linear-gradient(135deg, #fbbf24, #d97706);
-            color: white; font-weight: 600; font-size: 0.95rem; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.4);
-            transition: 0.2s; display: flex; justify-content: center; gap: 8px; align-items: center;
+        .btn-gold {
+            width: 100%; padding: 14px; border-radius: 12px; border: none;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white; font-weight: 700; font-size: 1rem; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3); transition: 0.2s;
         }
-        .btn-premium:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(251, 191, 36, 0.6); }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4); }
 
-        /* Centro de Comunicación (Chat/Log) */
-        .comm-card { padding: 0; overflow: hidden; height: 600px; }
-        .comm-header { padding: 1.2rem; background: #fff; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .comm-body { flex: 1; background: #f8fafc; padding: 1.2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+        /* Centro de Comunicación (Chat/Log Inteligente) */
+        .comm-card { padding: 0; overflow: hidden; height: 650px; display: flex; flex-direction: column; }
+        .comm-header { 
+            padding: 1.2rem; background: white; border-bottom: 1px solid var(--border); 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .comm-body { 
+            flex: 1; background: #f8fafc; padding: 1.5rem; overflow-y: auto; 
+            display: flex; flex-direction: column; gap: 1rem; scroll-behavior: smooth;
+        }
         
-        .msg { max-width: 85%; padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; line-height: 1.4; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-        .msg-system { align-self: center; background: #e2e8f0; color: #64748b; font-size: 0.75rem; border-radius: 20px; padding: 4px 12px; font-weight: 500; }
-        
-        /* Mensaje RECIBIDO (Agencia/Sistema) */
-        .msg-in { align-self: flex-start; background: white; border: 1px solid var(--border); border-bottom-left-radius: 2px; }
-        .msg-in .meta { font-size: 0.7rem; color: #94a3b8; margin-bottom: 4px; display: block; font-weight: 700; font-family: 'Roboto Mono', monospace; color: #0f172a; } /* NEGRITA NEGRO */
+        /* Burbujas de Chat */
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 14px; font-size: 0.9rem; line-height: 1.5; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* Mensaje ENVIADO (Usuario) */
-        .msg-out { align-self: flex-end; background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; border-bottom-right-radius: 2px; }
+        .msg-system { 
+            align-self: center; background: #e2e8f0; color: #475569; font-size: 0.75rem; 
+            border-radius: 20px; padding: 4px 12px; font-weight: 600; margin: 10px 0;
+        }
         
-        .comm-input { padding: 1rem; background: white; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-end; }
-        .chat-input { flex: 1; border: 1px solid var(--border); background: #f8fafc; border-radius: 20px; padding: 10px 15px; font-size: 0.9rem; resize: none; height: 42px; font-family: inherit; transition: 0.2s; }
-        .chat-input:focus { border-color: var(--primary); background: white; height: 70px; }
-        .chat-btn { width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3); transition: 0.2s; }
-        .chat-btn:hover { transform: scale(1.05); }
+        /* Mensaje RECIBIDO */
+        .msg-in { align-self: flex-start; background: white; border: 1px solid var(--border); border-bottom-left-radius: 2px; color: var(--text-main); }
+        .msg-in .meta { display: block; font-size: 0.7rem; color: #94a3b8; margin-bottom: 4px; font-family: var(--font-mono); }
+        .msg-in .meta strong { color: #0f172a; font-weight: 700; } /* NEGRITA NEGRO */
 
-        /* Servicios Grid */
+        /* Mensaje ENVIADO */
+        .msg-out { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2); }
+        .msg-out .meta { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.8); margin-bottom: 4px; text-align: right; font-family: var(--font-mono); }
+
+        .comm-input-area { padding: 1rem; background: white; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-end; }
+        .chat-input { 
+            flex: 1; border: 1px solid var(--border); background: #f1f5f9; border-radius: 20px; 
+            padding: 12px 16px; font-size: 0.95rem; resize: none; height: 46px; font-family: inherit; transition: 0.2s;
+        }
+        .chat-input:focus { border-color: var(--primary); background: white; outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .chat-btn { 
+            width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: white; 
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3); 
+            transition: 0.2s; font-size: 1.1rem;
+        }
+        .chat-btn:hover { transform: scale(1.1); background: var(--primary-dark); }
+
+        /* Servicios Catalog Grid */
         .svc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-        .svc-item { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; transition: 0.2s; }
-        .svc-item:hover { border-color: var(--primary); transform: translateY(-2px); }
+        .svc-item { 
+            background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; 
+            transition: 0.2s; text-align: center; display: flex; flex-direction: column; justify-content: space-between; height: 100%;
+        }
+        .svc-item:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: var(--shadow-card); }
         .svc-item.active { border-color: var(--gold); background: #fffbeb; box-shadow: 0 0 0 1px var(--gold); }
         
-        .svc-btn { width: 100%; padding: 6px; margin-top: 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--text-muted); transition: 0.2s; }
-        .svc-item.active .svc-btn { background: #fef2f2; color: #ef4444; border-color: #ef4444; }
-        .svc-item.active .svc-btn:hover { background: #fee2e2; }
-        .svc-btn:hover { background: #f1f5f9; color: var(--text-main); }
+        .svc-top { margin-bottom: 1rem; }
+        .svc-name { font-weight: 700; font-size: 0.95rem; color: var(--text-main); display: block; margin-bottom: 4px; }
+        .svc-price { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+        
+        .svc-btn { 
+            width: 100%; padding: 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; 
+            border: 1px solid var(--border); background: white; color: var(--text-muted); transition: 0.2s;
+        }
+        .svc-item.active .svc-btn { background: white; color: var(--danger); border-color: var(--danger); }
+        .svc-item.active .svc-btn:hover { background: #fef2f2; }
+        .svc-btn:hover { background: #f8fafc; color: var(--primary); border-color: var(--primary); }
 
-        /* Subidas */
-        .drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .dropzone { border: 2px dashed var(--border); border-radius: 10px; padding: 1.5rem; text-align: center; cursor: pointer; transition: 0.2s; background: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px; }
+        /* Uploads */
+        .drop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .dropzone { 
+            background: #f8fafc; border: 2px dashed var(--border); border-radius: 12px; padding: 1.5rem; 
+            text-align: center; cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 140px;
+        }
         .dropzone:hover { border-color: var(--primary); background: #eff6ff; }
-        .dropzone i { font-size: 2rem; margin-bottom: 10px; color: var(--text-muted); }
-        .dropzone p { font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
+        .dropzone i { font-size: 2rem; margin-bottom: 10px; color: var(--text-muted); transition: 0.2s; }
+        .dropzone:hover i { color: var(--primary); transform: scale(1.1); }
+        
+        .upload-actions { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: flex-end; }
+        .btn-action { 
+            background: var(--text-main); color: white; border: none; padding: 10px 20px; border-radius: 8px; 
+            font-weight: 600; font-size: 0.85rem; box-shadow: var(--shadow-card); transition: 0.2s;
+        }
+        .btn-action:hover { background: black; transform: translateY(-2px); }
+        .btn-secondary { background: white; color: var(--text-main); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: #f1f5f9; }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .grid-dashboard { grid-template-columns: 1fr; }
-            .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
+            .grid-cols-2 { grid-template-columns: 1fr; }
+            .sidebar { width: 80px; padding: 1.5rem 0.5rem; }
             .brand-text, .nav-item span, .sidebar-footer { display: none; }
             .nav-item { justify-content: center; }
             .main-content { padding: 1.5rem; }
         }
+        @media (max-width: 768px) {
+            .drop-grid { grid-template-columns: 1fr; }
+            .svc-grid { grid-template-columns: 1fr; }
+        }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-logo">7.0</div>
-            <div class="brand-text">
-                <h1 style="font-size: 1.1rem; font-weight: 700; color: #1e293b;">Panamove</h1>
-                <span style="font-size: 0.75rem; color: #64748b;">Gestión Integral</span>
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo">7.0</div>
+                <div class="brand-text">
+                    <h1 style="font-size: 1.2rem; font-weight: 700; color: #1e293b;">Panamove</h1>
+                    <span style="font-size: 0.75rem; color: #64748b;">Gestión Integral</span>
+                </div>
             </div>
-        </div>
-        <nav class="nav">
-            <a href="dashboard-clean.html" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-building"></i> <span>Agencias</span></a> <a href="#" class="nav-item"><i class="fas fa-user-tie"></i> <span>Profesionales</span></a> <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Bloggers & Difusores</span></a> <a href="#" class="nav-item"><i class="fas fa-handshake"></i> <span>Acciones Off Line</span></a> <a href="#" class="nav-item"><i class="fas fa-file-contract"></i> <span>Auditoría</span></a>
-        </nav>
-        <div class="sidebar-footer">© 2025 Panamove</div>
-    </aside>
+            <nav class="nav">
+                <a href="dashboard-clean.html" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
+                <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-building"></i> <span>Agencias</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-user-tie"></i> <span>Profesionales</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Bloggers/Difusores</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-handshake"></i> <span>Acciones Offline</span></a>
+                <a href="#" class="nav-item"><i class="fas fa-file-signature"></i> <span>Auditoría</span></a>
+            </nav>
+            <div class="sidebar-footer">© 2025 Panamove</div>
+        </aside>
 
-    <main class="main-content">
-        <div class="header">
-            <div>
-                <h1 style="font-size: 1.8rem; font-weight: 700; color: #1e293b; letter-spacing: -1px;">Dashboard de Campaña</h1>
-                <p style="color: #64748b;">Vista general de rendimiento y gestión de servicios.</p>
+        <main class="main-content">
+            
+            <div class="header">
+                <div>
+                    <h1 style="font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;">Panel de Control</h1>
+                    <p style="color: var(--text-muted);">Gestión en tiempo real de tu campaña.</p>
+                </div>
+                <div class="badge-status">
+                    <span class="dot-pulse"></span> En Vivo
+                </div>
             </div>
-            <div class="badge-status">
-                <span class="dot"></span> En Vivo
-            </div>
-        </div>
 
-        <div class="grid-dashboard">
-            <div style="display: flex; flex-direction: column; gap: 2rem;">
+            <section class="grid-kpi">
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpiViews">0</div>
+                    <div class="kpi-label">Vistas Totales</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value" id="kpiLeads">0</div>
+                    <div class="kpi-label">Leads Cualificados</div>
+                </div>
+                <div class="kpi-card highlight" style="background: linear-gradient(135deg, #fff, #fffbeb); border-color: var(--gold);">
+                    <div class="kpi-value" style="color: #b45309;" id="kpiCost">0€</div>
+                    <div class="kpi-label">Inversión Activa</div>
+                </div>
+            </section>
+
+            <div class="content-grid">
                 
-                <article class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-calculator"></i> Simulador Financiero</div>
-                    </div>
-                    <div class="input-row">
-                        <label>Precio Venta (€):</label>
-                        <input type="number" id="precioInput" value="545000">
-                    </div>
-                    <div class="price-summary" id="priceLines">
+                <div style="display: flex; flex-direction: column; gap: 2rem;">
+                    
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fas fa-calculator" style="margin-right:8px; color:var(--primary);"></i> Simulador Financiero</div>
                         </div>
-                    <button class="btn-premium" id="btnCalc" style="background: #1e293b; margin-top: 10px; box-shadow: none;">
-                        <i class="fas fa-sync"></i> Recalcular
-                    </button>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-layer-group"></i> Catálogo de Servicios</div>
-                        <a href="servicios.html" style="font-size: 0.8rem; color: var(--primary); font-weight: 600;">Ver Todo</a>
-                    </div>
-                    <div class="svc-grid" id="servicesGrid">
+                        <div class="input-group">
+                            <label>Precio Venta (€):</label>
+                            <input type="number" id="precioInput" value="545000" step="1000">
+                            <button class="btn-calc" id="btnCalc" style="background:var(--text-main); color:white; padding:8px 12px; border-radius:8px;">Calcular</button>
                         </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-cloud-upload-alt"></i> Documentación Requerida</div>
-                    </div>
-                    <div class="drop-grid">
-                        <div class="dropzone" id="dropFotos" onclick="triggerUpload('Fotos')">
-                            <i class="fas fa-camera" style="color: var(--primary);"></i>
-                            <p>Fotos Vivienda</p>
-                        </div>
-                        <div class="dropzone" id="dropDocs" onclick="triggerUpload('Escrituras')">
-                            <i class="fas fa-file-contract" style="color: var(--gold);"></i>
-                            <p>Escrituras / PDF</p>
-                        </div>
-                    </div>
-                </article>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 2rem;">
-                
-                <article class="card">
-                    <div class="card-header">
-                        <div class="card-title">Agencia Asignada</div>
-                        <span style="font-size: 0.75rem; color: var(--success); font-weight: 600;">● Conectado</span>
-                    </div>
-                    <div class="agency-box">
-                        <div class="agency-img">BR</div>
-                        <div class="agency-text">
-                            <h3>Bernabeu Realty</h3>
-                            <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p style="font-size: 0.75rem; color: #94a3b8;">654 34 32 32</p>
-                        </div>
-                    </div>
-                    <div>
-                        <p style="font-size: 0.7rem; text-transform: uppercase; color: #94a3b8; font-weight: 700; letter-spacing: 0.5px;">Servicios Activos (Inversión):</p>
-                        <div class="active-services-list" id="agencyActiveServices">
+                        <div class="price-summary" id="priceLines">
                             </div>
-                    </div>
-                    <button class="btn-premium">
-                        <i class="fas fa-signature"></i> Campaña Firmada
-                    </button>
-                </article>
+                    </article>
 
-                <article class="card comm-card">
-                    <div class="comm-header">
-                        <div class="card-title" style="font-size: 1rem;">Registro y Chat</div>
-                        <i class="fas fa-history" style="color: #cbd5e1;"></i>
-                    </div>
-                    <div class="comm-body" id="commMessages">
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fas fa-handshake" style="margin-right:8px; color:var(--primary);"></i> Agencia Colaboradora</div>
+                            <span style="font-size:0.75rem; color:var(--success); font-weight:700;">● Conectado</span>
                         </div>
-                    <div class="comm-input">
-                        <i class="fas fa-paperclip" style="font-size: 1.2rem; color: #94a3b8; cursor: pointer;" onclick="triggerUpload('Archivo Adjunto')"></i>
+                        <div class="agency-profile">
+                            <div class="avatar-agency">BR</div>
+                            <div class="agency-text">
+                                <h4>Bernabeu Realty</h4>
+                                <p>Asesor: <strong>Víctor Pérez</strong></p>
+                                <p style="font-size:0.8rem;">654 34 32 32</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p style="font-size:0.75rem; text-transform:uppercase; color:var(--text-muted); font-weight:700; margin-bottom:8px;">Oferta de Inversión (Servicios Activos):</p>
+                            <div class="active-chips" id="agencyActiveServices">
+                                </div>
+                        </div>
+                        <button class="btn-gold">
+                            <i class="fas fa-check-circle" style="margin-right:6px;"></i> Aceptar Colaboración
+                        </button>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fas fa-cubes" style="margin-right:8px; color:var(--primary);"></i> Catálogo de Servicios</div>
+                            <a href="servicios.html" style="font-size:0.85rem; color:var(--primary); font-weight:600;">Ver Todo</a>
+                        </div>
+                        <div class="svc-grid" id="servicesGrid">
+                            </div>
+                    </article>
+
+                    <article class="card">
+                         <div class="card-header">
+                            <div class="card-title"><i class="fas fa-folder-open" style="margin-right:8px; color:var(--primary);"></i> Documentación</div>
+                        </div>
+                        <div class="drop-grid">
+                            <div class="dropzone" id="dropFotos" onclick="triggerUpload('Fotos')">
+                                <i class="fas fa-camera"></i>
+                                <p>Cargar Fotos</p>
+                            </div>
+                            <div class="dropzone" id="dropDocs" onclick="triggerUpload('Escrituras')">
+                                <i class="fas fa-file-contract"></i>
+                                <p>Subir Docs</p>
+                            </div>
+                        </div>
+                        <div class="upload-actions">
+                            <button class="btn-action btn-secondary"><i class="fas fa-eye"></i> Ver Archivos</button>
+                            <button class="btn-action"><i class="fas fa-cloud-upload-alt"></i> Iniciar Subida</button>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="card comm-card" style="position: sticky; top: 2rem; height: calc(100vh - 4rem);">
+                    <div class="comm-header">
+                        <div class="card-title" style="font-size:1rem;">Centro de Comunicación</div>
+                        <i class="fas fa-history" style="color:#cbd5e1; cursor:pointer;" title="Ver historial completo"></i>
+                    </div>
+                    
+                    <div class="comm-body" id="commMessages">
+                        <div class="msg-system">Hoy</div>
+                        <div class="msg-in">
+                            <span class="meta"><strong>Sistema 7.0</strong> · 09:00</span>
+                            Bienvenido. Aquí recibirás notificaciones en tiempo real y podrás comunicarte con tu asesor.
+                        </div>
+                    </div>
+
+                    <div class="comm-input-area">
+                        <i class="fas fa-paperclip" style="font-size:1.2rem; color:var(--text-muted); cursor:pointer;" onclick="triggerUpload('Adjunto Chat')"></i>
                         <textarea id="msgInput" class="chat-input" placeholder="Escribe un mensaje..."></textarea>
                         <button class="chat-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
                     </div>
-                </article>
-                
-            </div>
-        </div>
+                </div>
 
-    </main>
+            </div>
+        </main>
+    </div>
 
     <script>
         // --- CONFIG ---
         const STORAGE_SERVICIOS = "panamoveServicios";
         const STORAGE_LOG = "panamoveLog";
-
+        
         const serviciosBase = [
-            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Reportaje profesional.", def: true },
-            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Tomas aéreas 4K.", def: true },
-            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", desc: "Decoración efímera.", def: true },
-            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Blog internacional.", def: false }
+            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", desc: "Fotografía profesional.", def: true },
+            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", desc: "Video aéreo 4K.", def: true },
+            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Deco", desc: "Decoración para venta.", def: true },
+            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", desc: "Red internacional.", def: false }
         ];
 
-        // --- LÓGICA LOG (MEJORADA) ---
+        // --- UTILS ---
+        const formatMoney = (n) => n.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        const getTime = () => new Date().toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit'});
+        const getDate = () => new Date().toLocaleDateString('es-ES');
+
+        // --- LOGIC ---
         function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
         
         function addLog(text, type = 'system') {
             const list = getLog();
-            const now = new Date();
-            // Formato fecha y hora detallado
-            const dateStr = now.toLocaleDateString('es-ES', { year: 'numeric', month: '2-digit', day: '2-digit' });
-            const timeStr = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-            
-            list.push({ 
-                date: dateStr,
-                time: timeStr,
-                text: text, 
-                type: type 
-            });
-            
-            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(-50))); // Guardar últimos 50
+            list.push({ time: getTime(), date: getDate(), text, type });
+            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(-50)));
             renderMessages();
         }
 
@@ -404,20 +461,26 @@
             const list = getLog();
             const container = document.getElementById('commMessages');
             if(!container) return;
-
+            
             if(list.length === 0) {
-                container.innerHTML = '<div class="msg-system">Bienvenido al Centro de Comunicación 7.0</div>';
-                return;
+                 container.innerHTML = '<div class="msg-system">Inicio de actividad</div>';
+                 return;
             }
 
             container.innerHTML = list.map(item => {
                 if(item.type === 'user') {
-                    return `<div class="msg msg-out">${item.text}</div>`;
+                    return `
+                    <div class="msg msg-out">
+                        <span class="meta">${item.time}</span>
+                        ${item.text}
+                    </div>`;
                 } else {
-                    // AQUÍ ESTÁ EL FORMATO QUE PEDISTE: FECHA Y HORA EN NEGRITA NEGRO
+                    // CORRECCIÓN UNDEFINED: Asegurar que date/time existen
+                    const displayTime = item.time || getTime();
+                    const displayDate = item.date || getDate();
                     return `
                     <div class="msg msg-in">
-                        <span class="meta"><strong>${item.date} · ${item.time}</strong></span>
+                        <span class="meta"><strong>Sistema</strong> · ${displayDate} · ${displayTime}</span>
                         ${item.text}
                     </div>`;
                 }
@@ -432,23 +495,11 @@
             if(text) {
                 addLog(text, 'user');
                 input.value = '';
-                // Simulación de respuesta inteligente
-                setTimeout(() => {
-                    addLog("Mensaje recibido. El equipo legal está revisando tu solicitud.", 'system');
-                }, 1500);
+                setTimeout(() => addLog("Mensaje recibido. Tu asesor contactará contigo.", 'system'), 1000);
             }
         }
 
-        function triggerUpload(type) {
-            addLog(`Usuario inició carga de: ${type}.`, 'system');
-            setTimeout(() => {
-                addLog(`✅ ${type} procesado correctamente en el servidor seguro.`, 'system');
-            }, 1000);
-        }
-
-        // --- LÓGICA SERVICIOS Y PRECIOS ---
-        function formatMoney(n) { return n.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
-
+        // --- SERVICES ---
         function getServicios() {
             try {
                 const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
@@ -462,11 +513,13 @@
             const current = getServicios();
             const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
             const changed = updated.find(s => s.id === id);
+            
             localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-            addLog(`Estado del servicio actualizado: ${changed.nombre} ahora está ${changed.activo ? 'ACTIVO' : 'INACTIVO'}.`, 'system');
+            addLog(`Servicio <strong>${changed.nombre}</strong> ${changed.activo ? 'ACTIVADO' : 'DESACTIVADO'} por el propietario.`, 'system');
             renderAll();
         }
 
+        // --- RENDER ---
         function calcPrice() {
             const input = document.getElementById('precioInput');
             const output = document.getElementById('priceLines');
@@ -480,21 +533,25 @@
             const neto = val - total;
 
             output.innerHTML = `
-                <div class="price-item"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
-                <div class="price-item"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
+                <div class="price-row"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
+                <div class="price-row"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
                 <div class="price-total"><span>Total Inversión:</span> <span>${formatMoney(total)} €</span></div>
-                <div class="price-neto">Beneficio Neto Estimado: ${formatMoney(neto)} €</div>
+                <div class="price-neto">Beneficio Neto: ${formatMoney(neto)} €</div>
             `;
+            
+            const kpi = document.getElementById('kpiCost');
+            if(kpi) kpi.textContent = `${formatMoney(total)}€`;
         }
 
         function renderServicesGrid() {
-            const list = getServicios();
             const grid = document.getElementById('servicesGrid');
             if(grid) {
-                grid.innerHTML = list.map(s => `
+                grid.innerHTML = getServicios().map(s => `
                     <div class="svc-item ${s.activo ? 'active' : ''}">
-                        <div class="svc-name">${s.nombre}</div>
-                        <div class="svc-price">${s.precio}</div>
+                        <div class="svc-top">
+                            <span class="svc-name">${s.nombre}</span>
+                            <span class="svc-price">${s.precio}</span>
+                        </div>
                         <button class="svc-btn" onclick="toggleService('${s.id}')">${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}</button>
                     </div>
                 `).join('');
@@ -502,7 +559,7 @@
             
             const agencyBox = document.getElementById('agencyActiveServices');
             if(agencyBox) {
-                const activos = list.filter(s => s.activo);
+                const activos = getServicios().filter(s => s.activo);
                 agencyBox.innerHTML = activos.length ? 
                     activos.map(s => `<div class="chip"><span class="dot"></span> ${s.nombre}</div>`).join('') : 
                     '<span style="font-size:0.8rem; color:#94a3b8;">Sin servicios activos.</span>';
@@ -515,9 +572,33 @@
             calcPrice();
         }
 
-        // --- INIT ---
+        function triggerUpload(name) {
+            addLog(`Iniciando carga segura de: ${name}...`, 'system');
+            setTimeout(() => addLog(`✅ ${name} subido correctamente.`, 'system'), 1500);
+        }
+
+        // --- ANIMATION ---
+        function animateValue(id, end) {
+            const obj = document.getElementById(id);
+            if(!obj) return;
+            let start = 0; let duration = 2000; let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                obj.textContent = formatMoney(value);
+                if (progress < 1) window.requestAnimationFrame(step);
+                else if(id==='kpiCost') obj.textContent = formatMoney(end) + '€';
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // INIT
         document.addEventListener('DOMContentLoaded', () => {
             renderAll();
+            animateValue("kpiViews", 7840);
+            animateValue("kpiLeads", 42);
+            
             document.getElementById('precioInput').addEventListener('input', calcPrice);
             document.getElementById('btnCalc').addEventListener('click', calcPrice);
         });
