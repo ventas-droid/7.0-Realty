@@ -818,7 +818,80 @@
       align-items: center;
       gap: 0.35rem;
     }
+/* PANEL DE AGENCIA ------------------------------------------------------ */
 
+.agency-panel-content {
+  margin-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.agency-info {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.agency-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.agency-contact {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.agency-assessor {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
+
+.agency-services-wrapper {
+  margin-top: 0.1rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed rgba(55, 65, 81, 0.8);
+}
+
+.agency-services-list {
+  margin-top: 0.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.agency-service-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.5);
+  color: var(--accent);
+}
+
+.btn-campana-firmada {
+  margin-top: 0.45rem;
+  align-self: flex-start;
+  border-radius: 999px;
+  border: none;
+  padding: 0.28rem 0.95rem;
+  font-size: 0.76rem;
+  cursor: pointer;
+  background: linear-gradient(120deg, #4ade80, #22c55e);
+  color: #022c22;
+  box-shadow: 0 8px 22px rgba(22, 163, 74, 0.45);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+
+}
     /* AGENCIAS ------------------------------------------------------------- */
 
     .agencies-list {
@@ -1136,8 +1209,7 @@
             <div class="card-header-main">
               <div class="card-title">Venta particular y colaboración</div>
               <div class="card-subtitle">
-                Espacio para propietarios que aún no han decidido agencia,
-                pero quieren activar servicios profesionales a éxito.
+                No agencia, servicios profesionales a éxito.
               </div>
             </div>
           </div>
@@ -1156,29 +1228,42 @@
         </article>
       </section>
 
-      <section class="grid">
-        <article class="card">
-          <div class="card-header">
-            <div class="card-header-main">
-              <div class="card-title">Última propiedad en campaña</div>
-              <div class="card-subtitle">
-                Pieza clave dentro del método 7.0.
-              </div>
-            </div>
-          </div>
+     <section class="grid">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-main">
+        <div class="card-title">Panel de Agencia</div>
+        <div class="card-subtitle">
+          Resumen de la agencia que gestiona activamente esta campaña.
+        </div>
+      </div>
+    </div>
 
-          <div class="property-list">
-            <div class="property-main-name">
-              Atico Blue Sunset – La Duquesa, Manilva.
-            </div>
-            <p>
-              Operación en tiempo real para cerrar al mejor precio posible con
-              plusvalía educativa. Esta es la pieza clave del método 7.0. Desde
-              aquí ves solo el resumen; el resto se controla desde el panel
-              detallado y la auditoría de acciones.
-            </p>
+    <div class="agency-panel-content">
+      <div class="agency-info">
+        <div class="agency-avatar">BR</div>
+        <div class="agency-details">
+          <div class="agency-name">Bernabeu Realty</div>
+          <div class="agency-contact">Teléfono: 654 34 32 32</div>
+          <div class="agency-assessor">
+            Nombre del asesor: <strong>Víctor Pérez</strong>
           </div>
-        </article>
+        </div>
+      </div>
+
+      <div class="agency-services-wrapper">
+        <div class="card-subtitle" style="margin-top:-0.1rem;">
+          Servicios activos gestionados:
+        </div>
+        <div class="agency-services-list" id="agencyActiveServices"></div>
+      </div>
+
+      <button type="button" class="btn-campana-firmada">
+        Campaña firmada
+      </button>
+    </div>
+  </article>
+
 
         <article class="card">
           <div class="recent-header">
