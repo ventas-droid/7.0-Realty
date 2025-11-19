@@ -2,32 +2,33 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
-    <title>Panamove 7.0 – Premium Dashboard</title>
+    <title>Panamove 7.0 – Centro de Comunicación</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES & THEME (Light) --- */
+        /* --- VARIABLES & THEME (Light & Smart) --- */
         :root {
-            --bg-body: #f5f8fa; 
-            --bg-sidebar: #ffffff; 
-            --bg-card: #ffffff; 
-            --bg-hover: #e9ecef; 
+            --bg-body: #f5f8fa;
+            --bg-sidebar: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.95); 
+            --bg-hover: #e9ecef;
             
-            --border: #e0e6ed; 
-            --text-main: #2d3748; 
-            --text-muted: #4a5568; 
+            --border: #e0e6ed;
+            --text-main: #2d3748;
+            --text-muted: #4a5568;
             
             --primary: #3182ce;     
             --primary-light: #ebf8ff; 
-            --gold: #d69e2e;        
+            --gold: #d69e2e;       
             --success: #38a169;     
             --danger: #e53e3e;      
             
-            --radius: 12px;
-            --shadow: 0 4px 10px rgba(0,0,0,0.08);
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra elegante */
             --transition-ease: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -44,42 +45,25 @@
 
         a { text-decoration: none; color: inherit; transition: var(--transition-ease); }
         button { border: none; background: none; cursor: pointer; font-family: inherit; color: inherit; }
-
         input[type="number"] {
-            background-color: #f7fafc; 
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            padding: 10px 14px;
-            color: var(--text-main);
-            font-size: 1rem;
-            font-weight: 500;
-            transition: border-color var(--transition-ease), box-shadow var(--transition-ease);
+            background-color: #f7fafc; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; color: var(--text-main); font-size: 1rem; transition: border-color var(--transition-ease); font-weight: 500;
         }
-        input[type="number"]:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+        input[type="number"]:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); background-color: #ffffff; }
 
-        /* --- LAYOUT & STRUCTURE --- */
-        .page { display: flex; width: 100%; min-height: 100vh; }
-
-        /* SIDEBAR */
+        /* --- SIDEBAR --- */
         .sidebar {
-            width: 260px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: 2rem 1.5rem;
-            position: sticky; top: 0; height: 100vh;
-            flex-shrink: 0; /* Asegura que la barra lateral mantenga su ancho */
-            box-shadow: var(--shadow-md);
-            z-index: 10;
+            width: 260px; background-color: var(--bg-sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; padding: 2rem 1.5rem;
+            position: sticky; top: 0; height: 100vh; flex-shrink: 0; box-shadow: var(--shadow-sm); z-index: 10;
         }
 
-        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; }
+        .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 3rem; padding-left: 0.5rem; }
         .brand-logo {
             width: 40px; height: 40px; border-radius: var(--radius-sm);
-            background: linear-gradient(135deg, var(--primary), var(--success)); 
-            display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(49, 130, 206, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-family: 'Roboto', sans-serif; font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(49, 130, 206, 0.3);
         }
-        .brand-text h1 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); }
+        .brand-text h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.8px; color: var(--text-main); }
         .brand-text span { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
 
         .nav { display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -89,73 +73,104 @@
         }
         .nav-item:hover { background-color: var(--bg-hover); color: var(--primary); }
         .nav-item.active { background-color: var(--primary-light); color: var(--primary); font-weight: 600; border: 1px solid var(--primary-light); }
+        .nav-item i { width: 20px; text-align: center; }
 
         .sidebar-footer { border-top: 1px solid var(--border); padding-top: 1.5rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; margin-top: 2rem; }
 
-        /* MAIN CONTENT */
+        /* --- MAIN CONTENT --- */
         .main { flex: 1; padding: 2.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem; }
 
         .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
         .header h2 { font-size: 2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.05em; }
         .header p { color: var(--text-muted); font-size: 0.95rem; }
-        .badge { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(49, 130, 206, 0.3); }
+        .badge { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(49, 130, 206, 0.3); padding: 6px 14px; border-radius: 24px; font-size: 0.8rem; font-weight: 600; }
 
-        /* GRID SYSTEM */
+        /* --- GRID SYSTEM --- */
         .grid-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
-        .grid-cols-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-        @media (max-width: 1024px) {
-             .grid-cols-2 { grid-template-columns: 1fr; }
-        }
+        .grid-cols-2 { display: grid; grid-template-columns: 2fr 1.5fr; gap: 2rem; } /* Más espacio para la columna de comunicación */
 
-        /* CARDS */
-        .card { 
-            background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); 
-            padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
-            box-shadow: var(--shadow-sm); transition: all var(--transition-ease); 
-            backdrop-filter: blur(5px);
-        }
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+        /* --- CARDS --- */
+        .card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem; box-shadow: var(--shadow-md); transition: all var(--transition-ease); backdrop-filter: blur(5px); }
+        .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary-light); }
         .card-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
-        .card-subtitle { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+        .card-subtitle { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
         /* KPIs */
         .kpi-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.8rem; text-align: center; box-shadow: var(--shadow-sm); }
         .kpi-val { font-size: 2.8rem; font-weight: 900; color: var(--primary); margin: 0.5rem 0; font-family: 'Roboto', sans-serif; letter-spacing: -0.05em; }
         .kpi-lbl { font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
-        /* Panel Agencia */
-        .agency-profile { display: flex; align-items: center; gap: 18px; border-bottom: 1px dashed var(--border); padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
-        .avatar { width: 56px; height: 56px; background: var(--success); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.4rem; flex-shrink: 0; box-shadow: var(--shadow-sm); }
+        /* Botones y Estilos de Interacción */
+        .input-group { display: flex; align-items: center; gap: 10px; background: #f7fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 0.95rem; box-shadow: var(--shadow-sm); transition: all 0.15s ease-out; }
+        .btn-action:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(49, 130, 206, 0.4); }
+
+        .service-chip { background: rgba(56, 161, 105, 0.15); color: var(--success); border: 1px solid rgba(56, 161, 105, 0.3); padding: 8px 16px; border-radius: 24px; font-size: 0.8rem; font-weight: 600; }
+
+        .btn-gold { width: 100%; padding: 14px; border-radius: var(--radius-md); border: none; background: linear-gradient(135deg, var(--gold), #e0a800); color: #343a40; font-weight: 700; font-size: 1rem; box-shadow: 0 6px 20px rgba(255, 193, 7, 0.2); }
+        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4); }
+
+        /* CENTRO DE COMUNICACIÓN (Nueva Caja Grande) */
+        .communication-center-card {
+            grid-column: 2 / 3; /* Ocupa la columna derecha */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0; /* Quitamos padding aquí, lo ponemos dentro de las secciones */
+        }
+        .comm-section { padding: 1.5rem; }
+
+        /* Sección de Notificaciones y Log */
+        .comm-notifications { 
+            flex-shrink: 0; 
+            max-height: 400px;
+            overflow-y: auto;
+            border-bottom: 1px solid var(--border);
+        }
+        .log-item { border-bottom: 1px solid var(--border); padding: 10px 0; }
+        .log-container { padding: 0 1.5rem 1.5rem; }
+
+        /* Sección de Interacción (Muro Social) */
+        .comm-interaction { 
+            flex-grow: 1; 
+            display: flex; 
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        .interaction-area { 
+            background: var(--bg-hover); 
+            border-radius: var(--radius-sm); 
+            padding: 1rem; 
+            flex-grow: 1; 
+            display: flex; flex-direction: column;
+            gap: 1rem;
+        }
+        .post-input { 
+            background: white; 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius-sm); 
+            padding: 10px; 
+            resize: none; 
+            font-size: 0.95rem; 
+            color: var(--text-main); 
+            min-height: 80px; 
+        }
+        .btn-send { background: var(--success); color: white; padding: 8px 15px; border-radius: 6px; font-weight: 600; align-self: flex-end; }
         
-        .active-services-container { min-height: 40px; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
-        .service-chip {
-            display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 24px;
-            font-size: 0.8rem; font-weight: 600; background: rgba(56, 161, 105, 0.15); color: var(--success); border: 1px solid rgba(56, 161, 105, 0.3);
-            box-shadow: var(--shadow-sm);
+        /* Dropzone para Comunicación */
+        .comm-dropzone { 
+            background: white; 
+            border: 1px dashed var(--primary); 
+            color: var(--primary); 
+            padding: 1rem; 
+            border-radius: var(--radius-sm); 
+            text-align: center; 
+            cursor: pointer;
         }
-        .service-chip .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; animation: pulse 1.5s infinite ease-out; }
-        @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.8); opacity: 0.7; } }
 
-        .btn-gold {
-            width: 100%; padding: 14px; border-radius: var(--radius-md); border: none;
-            background: var(--gradient-gold);
-            color: var(--text-main); font-weight: 700; font-size: 1rem; cursor: pointer;
-            box-shadow: 0 6px 20px rgba(236, 201, 75, 0.4);
-            transition: all var(--transition-ease);
-            letter-spacing: 0.5px;
-        }
-        .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(236, 201, 75, 0.6); }
 
-        /* Servicios Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
-        .svc-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; transition: 0.2s; text-align: center; box-shadow: var(--shadow-sm); }
-        .svc-card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
-        .svc-card.active { border-color: var(--gold); background: var(--gold-dim); box-shadow: 0 0 0 1px var(--gold); }
-        .svc-toggle { background: var(--bg-hover); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 14px; border-radius: 6px; font-size: 0.8rem; margin-top: 10px; font-weight: 500; width: 100%; }
-        .svc-card.active .svc-toggle { background: var(--danger); color: white; border-color: var(--danger); }
-        .svc-card.active .svc-toggle:hover { background: #c53030; }
-
-        /* Media Queries para ajustar el layout en móviles y pantallas pequeñas */
+        /* Responsive */
         @media (max-width: 1024px) {
             .grid-cols-2 { grid-template-columns: 1fr; gap: 1.5rem; }
             .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
@@ -163,7 +178,6 @@
             .nav-item { justify-content: center; }
             .main { padding: 1.5rem; }
             .header h2 { font-size: 1.5rem; }
-            .header p { display: none; }
         }
     </style>
 </head>
@@ -214,73 +228,88 @@
 
             <section class="grid-cols-2">
                 
-                <article class="card" id="precioCard" style="border-color: var(--primary-light);">
-                    <div class="card-header"><span class="card-title">Simulador Financiero</span></div>
-                    <div class="input-group">
-                        <label>Precio de Venta:</label>
-                        <input type="number" id="precioInput" value="545000">
-                        <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i> Calcular</button>
-                    </div>
-                    <div id="priceLines" style="margin-top: 1.5rem;">
-                        <div class="price-line-item"><span>Comisión de Servicio (3%):</span> <span>0 €</span></div>
-                        <div class="price-line-item"><span>Coste Servicios Activos:</span> <span>0 €</span></div>
-                        <div class="price-line-item"><span>IVA (21% sobre Total):</span> <span>0 €</span></div>
-                        <div class="price-total"><span>Total Coste Operacional:</span> <span style="color:var(--primary);">0 €</span></div>
-                        <div class="price-neto">Estimación Neta para Propietario: 0 €</div>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    
+                    <article class="card" id="precioCard" style="border-color: var(--primary-light);">
+                        <div class="card-header"><span class="card-title">Simulador Financiero</span></div>
+                        <div class="input-group">
+                            <label>Precio de Venta:</label>
+                            <input type="number" id="precioInput" value="545000">
+                            <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i> Calcular</button>
+                        </div>
+                        <div id="priceLines" style="margin-top: 1.5rem;">
+                            </div>
+                    </article>
+
+                    <article class="card">
+                        <div class="card-header"><span class="card-title">Propiedad en Gestión Colaborativa</span></div>
+                        <div class="card-subtitle">
+                            Muestra de propietarios que optan por coordinar su venta particular con el soporte de servicios profesionales.
+                        </div>
+                        <div class="agency-profile" style="border-bottom: none; padding-bottom: 0; margin-top: 1.5rem;">
+                            <i class="fas fa-building" style="color: var(--primary); font-size: 2rem; flex-shrink: 0;"></i>
+                            <div class="agency-info">
+                                <h4>Ático Blue Sunset – La Duquesa, Manilva</h4>
+                                <p>Esta propiedad coordina la venta particular con servicios activos profesionales.</p>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
-                <article class="card">
-                    <div class="card-header"><span class="card-title">Propiedad en Gestión Colaborativa</span></div>
-                    <div class="card-subtitle">
-                        Muestra de propietarios que optan por coordinar su venta particular con el soporte de servicios profesionales.
+                <article class="card communication-center-card" style="grid-row: 1 / 3;">
+                    <div class="comm-section comm-notifications">
+                        <div class="card-header">
+                            <span class="card-title" style="font-size: 1.1rem;">Registro de Actividad (Log)</span>
+                            <i class="fas fa-history" style="color: var(--text-muted);"></i>
+                        </div>
+                        <div class="log-container" id="recentList">
+                            </div>
                     </div>
-                    <div class="agency-profile" style="border-bottom: none; padding-bottom: 0; margin-top: 1.5rem;">
-                        <i class="fas fa-building" style="color: var(--primary); font-size: 2rem; flex-shrink: 0;"></i>
-                        <div class="agency-info">
-                            <h4>Ático Blue Sunset – La Duquesa, Manilva</h4>
-                            <p>Esta propiedad coordina la venta particular con servicios activos profesionales.</p>
+                    
+                    <div class="comm-section comm-interaction" style="border-top: 1px solid var(--border);">
+                        <div class="card-title" style="margin-bottom: 0;">Comunicación & Archivos</div>
+                        <div class="interaction-area">
+                            <textarea class="post-input" placeholder="Enviar mensaje a la Agencia / Asesor..."></textarea>
+                            <div class="comm-dropzone">
+                                <i class="fas fa-paperclip" style="font-size: 1.2rem; margin-bottom: 5px;"></i>
+                                <div style="font-weight: 500;">Arrastrar archivos o fotos aquí</div>
+                            </div>
+                            <button class="btn-send">
+                                <i class="fas fa-paper-plane"></i> Enviar
+                            </button>
                         </div>
                     </div>
                 </article>
             </section>
 
-            <section class="grid-cols-2">
-                <article class="card">
+            <section class="grid-cols-3">
+                 <article class="card">
                     <div class="card-header">
                         <span class="card-title">Panel de Agencia</span>
-                        <i class="fas fa-user-tie" style="color: var(--primary); font-size: 1.5rem;"></i>
+                        <i class="fas fa-user-tie" style="color: var(--primary-dark); font-size: 1.5rem;"></i>
                     </div>
                     <div class="agency-profile">
                         <div class="avatar">BR</div>
                         <div class="agency-info">
                             <h4>Bernabeu Realty</h4>
                             <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p style="font-size:0.8rem; color:var(--text-light);">Contacto: 654 34 32 32</p>
+                            <p style="font-size:0.75rem; color:var(--text-light);">Contacto: 654 34 32 32</p>
                         </div>
                     </div>
                     
                     <div>
-                        <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 1rem; font-weight: 600;">Servicios de Apoyo Activos:</p>
+                        <p style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; font-weight: 600;">Servicios de Apoyo Activos:</p>
                         <div class="active-services-container" id="agencyActiveServices">
                             </div>
                     </div>
 
                     <button class="btn-gold">
-                        <i class="fas fa-handshake"></i> Campaña Firmada
+                        <i class="fas fa-signature"></i> Campaña Firmada
                     </button>
                 </article>
-
-                <article class="card" style="flex: 1;">
-                    <div class="card-header"><span class="card-title">Registro de Actividad Reciente</span></div>
-                    <div class="log-container" id="recentList">
-                        </div>
-                </article>
-            </section>
-
-            <section class="grid-cols-2">
+                
                 <article class="card">
-                    <div class="card-header"><span class="card-title">Gestión de Documentación</span></div>
+                    <div class="card-header"><span class="card-title">Subida de Documentación</span></div>
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                         <label for="fileFotos" class="dropzone" id="dropFotos">
                             <i class="fas fa-camera" style="color: var(--primary);"></i>
@@ -294,15 +323,15 @@
                         </label>
                     </div>
                     <div class="upload-actions">
-                        <button class="btn-upload"><i class="fas fa-upload"></i> Subir Documentos</button>
-                        <button class="btn-glass"><i class="fas fa-eye"></i> Ver Archivos</button>
+                        <button class="btn-upload"><i class="fas fa-upload"></i> Subir Docs</button>
+                        <button class="btn-glass" style="border-color: var(--border); color: var(--text-muted);"><i class="fas fa-eye"></i> Ver Archivos</button>
                     </div>
                 </article>
 
                 <article class="card">
                     <div class="card-header">
                         <span class="card-title">Servicios Disponibles (Tarifas)</span>
-                        <a href="servicios.html" class="btn-glass" style="font-size: 0.8rem; padding: 6px 10px;"><i class="fas fa-list"></i> Ver Catálogo</a>
+                        <a href="servicios.html" class="btn-glass" style="font-size: 0.8rem; padding: 6px 10px; border-color: var(--border); color: var(--text-muted);"><i class="fas fa-list"></i> Ver Catálogo</a>
                     </div>
                     <div class="services-grid" id="servicesGrid">
                         </div>
@@ -327,7 +356,7 @@
         const STORAGE_LOG = "panamoveLog";
         const UPLOAD_DELAY = 10;
         
-        // Simulación de los servicios principales
+        // Simulación de los servicios principales (Debe coincidir con servicios.html)
         const serviciosBase = [
             { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", descripcion: "Fotógrafo especializado.", def: true },
             { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", descripcion: "Recorrido aéreo y de interiores.", def: true },
@@ -336,12 +365,7 @@
         ];
         
         // --- UTILIDADES ---
-        function formatMoney(num) { 
-            return num.toLocaleString("es-ES", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0
-            }); 
-        }
+        function formatMoney(num) { return num.toLocaleString("es-ES", {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
 
         // --- LOG SYSTEM ---
         function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
@@ -364,7 +388,7 @@
                     <span class="log-time">${i.time}</span>
                     <span class="log-text">${i.msg}</span>
                 </div>
-            `).join('') : '<div style="padding:10px; color:var(--text-muted);">Sin actividad.</div>';
+            `).join('') : '<div style="padding:15px; color:var(--text-muted); text-align:center;">Sin actividad.</div>';
         }
 
         // --- SERVICES STATE ---
@@ -413,7 +437,6 @@
                 <div class="price-neto">Estimación Neta para Propietario: ${formatMoney(neto)} €</div>
             `;
             
-            // Actualizar KPI Coste
             const kpiCost = document.getElementById('kpiCost');
             if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
         }
@@ -481,6 +504,10 @@
 
             document.getElementById('precioInput').addEventListener('input', calcPrice);
             document.getElementById('btnCalc').addEventListener('click', calcPrice);
+
+             // Simulación de carga de archivos (para que los botones no den error)
+            document.querySelector('.upload-actions .btn-upload').addEventListener('click', () => addLog('Carga simulada: Fotos subidas.'));
+            document.querySelector('.upload-actions .btn-glass').addEventListener('click', () => alert('Abriendo visor de archivos (Simulación)'));
         });
     </script>
 </body>
