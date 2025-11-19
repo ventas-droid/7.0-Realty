@@ -378,7 +378,6 @@
       transform: translateY(-1px);
     }
 
-    /* ESTILO MEJORADO PARA LAS LÍNEAS DE PRECIO */
     .price-lines {
       font-size: 0.76rem;
       color: var(--text-soft);
@@ -397,7 +396,7 @@
       color: #f97316;
       font-weight: 700;
       font-size: 0.82rem; 
-      display: block; /* Asegura que ocupe toda la línea */
+      display: block; 
       margin-top: 0.4rem;
       padding-top: 0.4rem;
       border-top: 1px dashed rgba(249, 115, 22, 0.3);
@@ -420,22 +419,18 @@
 
     /* UPLOADS -------------------------------------------------------------- */
 
-    .upload-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.7rem;
-      margin-top: 0.8rem;
-    }
-
+    /* ESTILO PROFESIONAL PARA LA CAJA DE UPLOADS */
     .upload-card {
       border-radius: 16px;
-      border: 1px dashed rgba(55, 65, 81, 0.9);
+      border: 1px solid var(--border-subtle); 
       background: rgba(15, 23, 42, 0.85);
       padding: 0.9rem 0.9rem 0.9rem;
       display: flex;
       flex-direction: column;
       gap: 0.45rem;
       position: relative;
+      /* Borde de neón sutil */
+      box-shadow: 0 0 4px rgba(56, 189, 248, 0.2), inset 0 0 4px rgba(56, 189, 248, 0.1);
     }
 
     .upload-title {
@@ -453,13 +448,14 @@
       text-align: center;
       cursor: pointer;
       background: rgba(15, 23, 42, 0.9);
-      transition: border-color var(--transition-fast),
-        background var(--transition-fast), transform var(--transition-fast);
+      transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+      /* Estilo hover/dragover mejorado */
     }
 
     .dropzone.dragover {
-      border-color: var(--accent);
-      background: rgba(15, 23, 42, 1);
+      border-color: var(--accent); /* Borde azul vibrante */
+      background: rgba(56, 189, 248, 0.05); /* Fondo sutil azulado */
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
       transform: translateY(-1px);
     }
 
@@ -470,27 +466,42 @@
       flex-wrap: wrap;
     }
 
+    /* Botones mejorados */
     .btn-upload {
-      border-radius: 999px;
+      border-radius: var(--radius-full);
       padding: 0.24rem 0.85rem;
       font-size: 0.74rem;
-      border: 1px solid rgba(56, 189, 248, 0.9);
-      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--accent);
+      background: rgba(56, 189, 248, 0.1);
       color: var(--accent);
       cursor: pointer;
+      transition: all 160ms ease-out;
+    }
+
+    .btn-upload:hover {
+      background: rgba(56, 189, 248, 0.2);
+      transform: translateY(-1px);
     }
 
     .btn-upload.secondary {
-      border-color: rgba(156, 163, 175, 0.8);
+      border-color: rgba(148, 163, 184, 0.6);
       color: var(--text-soft);
+      background: transparent;
     }
+
+    .btn-upload.secondary:hover {
+      background: rgba(148, 163, 184, 0.1);
+      border-color: var(--text-main);
+    }
+    /* Fin Botones mejorados */
 
     .upload-progress {
       margin-top: 0.4rem;
-      height: 4px;
+      height: 6px; /* Barra más gruesa */
       border-radius: 999px;
-      background: rgba(31, 41, 55, 0.9);
+      background: #1f2937; /* Fondo oscuro sólido */
       overflow: hidden;
+      border: 1px solid rgba(75, 85, 99, 0.5); /* Borde sutil */
     }
 
     .upload-progress-bar {
@@ -498,16 +509,25 @@
       width: 0;
       border-radius: inherit;
       background: linear-gradient(90deg, #22c55e, #0ea5e9);
-      transition: width 140ms ease-out;
+      transition: width 300ms ease-out; /* Animación más suave */
     }
 
     .upload-meta {
       margin-top: 0.35rem;
       font-size: 0.72rem;
       color: var(--text-soft);
+      min-height: 0.8rem; /* Para evitar saltos de diseño */
     }
+    /* FIN ESTILO PROFESIONAL PARA LA CAJA DE UPLOADS */
 
     /* MODAL LISTA DE ARCHIVOS --------------------------------------------- */
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
 
     .modal-backdrop {
       position: fixed;
@@ -1353,6 +1373,9 @@
     const STORAGE_SERVICIOS = "panamoveServicios";
     const STORAGE_UPLOADS = "panamoveUploads";
     const STORAGE_LOG = "panamoveLog";
+    
+    // Simulación de carga: tiempo base para la subida
+    const UPLOAD_DELAY = 10; 
 
     /* ============================
     	UTILIDAD: LOG DE ACCIONES
@@ -1436,7 +1459,7 @@
       });
     }
 
-    // CORRECCIÓN: Lógica de precios actualizada para incluir costes de servicios.
+    // Lógica de precios actualizada para incluir costes de servicios.
     function recalcPrice() {
       const input = document.getElementById("precioInput");
       const lines = document.getElementById("priceLines");
@@ -1757,62 +1780,98 @@
     function updateUploadMeta() {
       const metaFotos = document.getElementById("metaFotos");
       const metaDocs = document.getElementById("metaDocs");
+      
+      const fotosCount = uploads.fotos.length;
+      const docsCount = uploads.docs.length;
+
       if (metaFotos) {
         metaFotos.textContent =
-          uploads.fotos.length === 0
+          fotosCount === 0
             ? "No hay fotos subidas todavía."
-            : `${uploads.fotos.length} foto(s) guardadas en el sistema.`;
+            : `${fotosCount} foto(s) guardadas en el sistema.`;
       }
       if (metaDocs) {
         metaDocs.textContent =
-          uploads.docs.length === 0
+          docsCount === 0
             ? "No hay documentos subidos todavía."
-            : `${uploads.docs.length} documento(s) guardados en el sistema.`;
+            : `${docsCount} documento(s) guardados en el sistema.`;
       }
     }
 
+    // Nueva función para simular y manejar la subida de archivos
     function handleFiles(list, tipo) {
       if (!list || !list.length) return;
+      
       const progressBar =
         tipo === "fotos"
           ? document.getElementById("progressFotos")
           : document.getElementById("progressDocs");
+      const metaElement = 
+        tipo === "fotos"
+          ? document.getElementById("metaFotos")
+          : document.getElementById("metaDocs");
+          
       if (progressBar) progressBar.style.width = "0%";
+      
+      const filesArray = Array.from(list);
+      let filesProcessed = 0;
 
-      Array.from(list).forEach((file, index) => {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const dataUrl = ev.target.result;
-          const item = {
-            name: file.name,
-            dataUrl,
-          };
-          if (tipo === "fotos") uploads.fotos.push(item);
-          else uploads.docs.push(item);
+      // Usamos una función anidada para manejar el progreso y la lectura
+      const processFile = (file) => {
+          return new Promise(resolve => {
+              const reader = new FileReader();
+              
+              reader.onload = (ev) => {
+                  const dataUrl = ev.target.result;
+                  const item = {
+                      name: file.name,
+                      dataUrl,
+                      type: file.type // Guardar el tipo MIME para el futuro
+                  };
+                  if (tipo === "fotos") uploads.fotos.push(item);
+                  else uploads.docs.push(item);
+                  
+                  filesProcessed++;
+                  
+                  const percent = Math.round((filesProcessed / filesArray.length) * 100);
+                  
+                  if (progressBar) {
+                      progressBar.style.width = percent + "%";
+                  }
+                  
+                  if (metaElement) {
+                      metaElement.textContent = `Subiendo: ${percent}% completado (${filesProcessed}/${filesArray.length} archivos)`;
+                  }
 
-          const percent = Math.round(
-            ((index + 1) / list.length) * 100
-          );
-          if (progressBar) {
-            progressBar.style.width = percent + "%";
-          }
-          saveUploads(uploads);
-          updateUploadMeta();
-          if (index === list.length - 1) {
-            addLogEntry(
-              `Has subido ${list.length} ${
-                tipo === "fotos" ? "foto(s)" : "documento(s)"
-              } al dashboard.`
-            );
-          }
-        };
-        if (tipo === "fotos") {
-          reader.readAsDataURL(file);
-        } else {
-          // para documentos guardamos solo como dataURL también
-          reader.readAsDataURL(file);
-        }
-      });
+                  // Simular tiempo de subida
+                  setTimeout(() => resolve(), UPLOAD_DELAY); 
+              };
+
+              // Empezar la lectura del archivo
+              reader.readAsDataURL(file); 
+          });
+      };
+      
+      // Encadenar las promesas para subirlos uno por uno (simulación secuencial)
+      filesArray.reduce((p, file) => p.then(() => processFile(file)), Promise.resolve())
+          .then(() => {
+              // Una vez que todos los archivos han sido procesados
+              saveUploads(uploads);
+              updateUploadMeta();
+              
+              if (metaElement) {
+                  metaElement.textContent = `${filesArray.length} archivo(s) subidos con éxito.`;
+                  // Opcional: limpiar la barra de progreso después de un pequeño retraso
+                  setTimeout(() => { if (progressBar) progressBar.style.width = "0%"; }, 2000); 
+              }
+              
+              addLogEntry(
+                  `Has subido ${filesArray.length} ${
+                      tipo === "fotos" ? "foto(s)" : "documento(s)"
+                  } al dashboard.`
+              );
+              
+          });
     }
 
     // --- modal de lista (fotos / docs) ---
@@ -1879,6 +1938,8 @@
           ev.stopPropagation();
           list.splice(idx, 1);
           saveUploads(uploads);
+          // Actualizar el estado del dashboard después de eliminar
+          updateUploadMeta(); 
           openModalUploads(tipo);
         });
 
@@ -2005,6 +2066,7 @@
         dropFotos.addEventListener("drop", (ev) => {
           const files = ev.dataTransfer.files;
           handleFiles(files, "fotos");
+          dropFotos.classList.remove("dragover");
         });
         fileFotos.addEventListener("change", (ev) => {
           handleFiles(ev.target.files, "fotos");
@@ -2036,6 +2098,7 @@
         dropDocs.addEventListener("drop", (ev) => {
           const files = ev.dataTransfer.files;
           handleFiles(files, "docs");
+          dropDocs.classList.remove("dragover");
         });
         fileDocs.addEventListener("change", (ev) => {
           handleFiles(ev.target.files, "docs");
