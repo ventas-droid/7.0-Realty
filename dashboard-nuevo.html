@@ -1,536 +1,840 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panamove 7.0 – Premium Dashboard</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <title>Panamove 7.0 – Dashboard campaña</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-main: #020617;
+      --bg-card: #020817;
+      --bg-card-alt: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --accent-strong: #0ea5e9;
+      --gold: #fbbf24;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: #111827;
+      --danger: #f97373;
+      --success: #22c55e;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
 
-    <style>
-        /* --- VARIABLES & THEME --- */
-        :root {
-            --bg-body: #0b0e11;
-            --bg-sidebar: #15191e;
-            --bg-card: #1c2128;
-            --bg-hover: #2d333b;
-            
-            --border: #30363d;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
-            
-            --primary: #58a6ff;     /* Azul estilo GitHub/Google */
-            --primary-dim: rgba(56, 139, 253, 0.15);
-            --gold: #d29922;        /* Dorado Premium */
-            --gold-dim: rgba(187, 128, 9, 0.15);
-            --success: #3fb950;     /* Verde Éxito */
-            --danger: #f85149;      /* Rojo Alerta */
-            
-            --radius: 12px;
-            --shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #0b1220 0, #020617 50%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            min-height: 100vh;
-        }
+    /* CONTENEDOR PRINCIPAL */
+    .shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2.5rem;
+    }
 
-        /* --- SIDEBAR --- */
-        .sidebar {
-            width: 260px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            flex-shrink: 0;
-        }
+    @media (min-width: 768px) {
+      .shell {
+        padding: 2.2rem 1.5rem 3rem;
+      }
+    }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 2.5rem;
-            padding-left: 0.5rem;
-        }
-        .brand-logo {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, var(--primary), var(--success));
-            border-radius: 8px;
-        }
-        .brand-text h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.5px; }
-        .brand-text span { font-size: 0.75rem; color: var(--text-muted); }
+    /* CABECERA SUPERIOR */
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.8rem;
+    }
 
-        .nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 10px 12px;
-            border-radius: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        .nav-item:hover { background-color: var(--bg-hover); color: var(--text-main); }
-        .nav-item.active { background-color: var(--primary-dim); color: var(--primary); }
-        .nav-item i { width: 20px; text-align: center; }
+    @media (min-width: 720px) {
+      header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
 
-        .sidebar-footer {
-            border-top: 1px solid var(--border);
-            padding-top: 1rem;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-align: center;
-        }
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
 
-        /* --- MAIN CONTENT --- */
-        .main {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-        }
-        .header h2 { font-size: 1.8rem; font-weight: 700; }
-        .header p { color: var(--text-muted); font-size: 0.9rem; }
-        .badge {
-            padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(88, 166, 255, 0.3);
-        }
+    .brand-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
 
-        /* --- GRID SYSTEM --- */
-        .grid-kpi {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-        .grid-cols-2 {
-            display: grid;
-            grid-template-columns: 2fr 1fr; /* 66% - 33% */
-            gap: 1.5rem;
-        }
-        .grid-cols-3 {
-             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+    .campaign-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: var(--radius-full);
+      background: linear-gradient(90deg, var(--accent-soft), rgba(15,23,42,0.9));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: var(--text-main);
+    }
 
-        /* --- CARDS --- */
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            box-shadow: var(--shadow);
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
-        .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
-        .card-subtitle { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+    .campaign-tag span.dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 999px;
+      background: var(--success);
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
 
-        /* KPIs */
-        .kpi-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .kpi-box::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--primary);
-        }
-        .kpi-val { font-size: 1.8rem; font-weight: 700; margin: 5px 0; }
-        .kpi-lbl { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+    /* BOTONES CABECERA */
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: flex-start;
+    }
 
-        /* Inputs */
-        .input-group { display: flex; align-items: center; gap: 10px; background: var(--bg-body); padding: 8px; border-radius: 8px; border: 1px solid var(--border); }
-        .input-group input { background: transparent; border: none; color: white; font-size: 1rem; width: 100%; }
-        .btn-action {
-            background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; transition: 0.2s;
-        }
-        .btn-action:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (min-width: 720px) {
+      .header-actions {
+        justify-content: flex-end;
+      }
+    }
 
-        /* Panel Agencia */
-        .agency-profile { display: flex; align-items: center; gap: 15px; border-bottom: 1px dashed var(--border); padding-bottom: 15px; }
-        .avatar { width: 50px; height: 50px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; font-size: 1.2rem; }
-        .agency-info h4 { font-size: 1rem; margin-bottom: 4px; }
-        .agency-info p { font-size: 0.8rem; color: var(--text-muted); }
+    .btn {
+      font-size: 0.78rem;
+      border-radius: var(--radius-full);
+      padding: 0.4rem 0.95rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15,23,42,0.85);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.18s ease-out;
+      text-decoration: none;
+    }
 
-        .active-services-container {
-            min-height: 40px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-        .service-chip {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 4px 10px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 600;
-            background: rgba(63, 185, 80, 0.15); color: #3fb950; border: 1px solid rgba(63, 185, 80, 0.3);
-        }
-        .service-chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-strong), #22c1c3);
+      border: none;
+      color: #0b1120;
+      font-weight: 600;
+    }
 
-        .btn-gold {
-            width: 100%; padding: 12px; border-radius: 8px; border: none;
-            background: linear-gradient(135deg, #d29922, #fbbf24);
-            color: #000; font-weight: 700; font-size: 0.9rem; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(210, 153, 34, 0.3);
-            transition: 0.2s;
-        }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(210, 153, 34, 0.5); }
+    .btn-outline-gold {
+      border-color: rgba(251,191,36,0.6);
+      color: var(--gold);
+      background: rgba(17,24,39,0.8);
+    }
 
-        /* Timeline Log */
-        .log-container { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
-        .log-item { display: flex; gap: 10px; font-size: 0.85rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
-        .log-time { color: var(--primary); font-family: monospace; min-width: 60px; }
-        .log-text { color: var(--text-muted); }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.7);
+      border-color: var(--accent);
+    }
 
-        /* Servicios Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
-        .svc-card {
-            background: var(--bg-body); border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
-            transition: 0.2s; position: relative;
-        }
-        .svc-card:hover { border-color: var(--text-muted); }
-        .svc-card.active { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
-        .svc-head { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-        .svc-name { font-weight: 600; font-size: 0.9rem; }
-        .svc-price { font-size: 0.8rem; color: var(--text-muted); }
-        .svc-toggle {
-            width: 100%; padding: 6px; border-radius: 6px; border: 1px solid var(--border);
-            background: var(--bg-card); color: var(--text-muted); font-size: 0.75rem; margin-top: 10px; cursor: pointer;
-        }
-        .svc-card.active .svc-toggle {
-            background: rgba(248, 81, 73, 0.15); color: var(--danger); border-color: var(--danger);
-        }
+    .btn-primary:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 16px 35px rgba(56,189,248,0.35);
+    }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .grid-cols-2 { grid-template-columns: 1fr; }
-            .sidebar { width: 70px; padding: 1rem 0.5rem; }
-            .brand-text, .nav-item span, .sidebar-footer { display: none; }
-            .nav-item { justify-content: center; }
-            .main { padding: 1rem; }
-        }
-    </style>
+    /* SECCIÓN PRINCIPAL: GRID */
+    .main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+      gap: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 920px) {
+      .main-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* TARJETAS GENÉRICAS */
+    .card {
+      background: radial-gradient(circle at top left, #0b1120 0, #020617 60%, #000 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(15,23,42,0.9);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1.1rem 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.12) 0, transparent 50%);
+      opacity: 0.7;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+      align-items: flex-start;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e5f3ff;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.1rem;
+    }
+
+    .card-tag {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: rgba(15,23,42,0.85);
+      white-space: nowrap;
+    }
+
+    /* KPIs */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 720px) {
+      .kpis {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .kpis {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .kpi {
+      border-radius: 16px;
+      padding: 0.7rem 0.8rem;
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.7));
+      border: 1px solid rgba(30,64,175,0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .kpi-label {
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+    }
+
+    .kpi-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .kpi-note {
+      font-size: 0.73rem;
+      color: #6ee7b7;
+    }
+
+    /* BLOQUE PROPIEDAD PRINCIPAL */
+    .property-block {
+      border-radius: 16px;
+      padding: 0.9rem 0.8rem 0.85rem;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(31,41,55,0.9);
+      margin-bottom: 1rem;
+    }
+
+    .property-main-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f9fafb;
+      margin-bottom: 0.3rem;
+    }
+
+    .property-meta {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .property-meta strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .property-description {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .property-description strong {
+      color: #e5f3ff;
+      font-weight: 500;
+    }
+
+    /* SERVICIOS / RENDERS */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 720px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .services-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .service-card {
+      border-radius: 15px;
+      padding: 0.7rem 0.75rem;
+      background: radial-gradient(circle at top, #020617 0, #020617 60%, #000 100%);
+      border: 1px solid rgba(30,64,175,0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .service-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .service-name {
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: #e5f3ff;
+    }
+
+    .service-status {
+      font-size: 0.73rem;
+      color: #6ee7b7;
+    }
+
+    .service-status.pending {
+      color: #fde68a;
+    }
+
+    /* PANEL AGENCIA + ACCIONES */
+    .agency-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .agency-summary {
+      border-radius: 16px;
+      padding: 0.9rem 0.9rem 0.85rem;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .agency-list {
+      margin-top: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .agency-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .agency-item span.name {
+      font-weight: 500;
+      color: #e5f3ff;
+    }
+
+    .agency-item span.note {
+      font-size: 0.72rem;
+      color: #a5b4fc;
+    }
+
+    .agency-item span.status-pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      white-space: nowrap;
+    }
+
+    .status-ok {
+      color: #bbf7d0;
+      border-color: rgba(34,197,94,0.6);
+      background: rgba(22,101,52,0.35);
+    }
+
+    .status-wait {
+      color: #facc15;
+      border-color: rgba(234,179,8,0.5);
+      background: rgba(120,53,15,0.5);
+    }
+
+    .status-blocked {
+      color: #fecaca;
+      border-color: rgba(239,68,68,0.6);
+      background: rgba(127,29,29,0.7);
+    }
+
+    /* ACCIONES RECIENTES / TAREAS */
+    .activity-card {
+      border-radius: 16px;
+      padding: 0.9rem 0.9rem 0.8rem;
+      background: rgba(15,23,42,0.98);
+      border: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .activity-list {
+      margin-top: 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .activity-item {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px dashed rgba(30,64,175,0.4);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .activity-top-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .activity-label {
+      font-weight: 500;
+      color: #e5f3ff;
+    }
+
+    .activity-time {
+      font-size: 0.72rem;
+      color: #9ca3af;
+      white-space: nowrap;
+    }
+
+    .activity-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a5b4fc;
+    }
+
+    /* BLOQUE SUBIDA DOCUMENTOS */
+    .upload-section {
+      margin-top: 1.1rem;
+      border-radius: 16px;
+      padding: 0.85rem 0.8rem 0.8rem;
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(15,23,42,0.8));
+      border: 1px dashed rgba(56,189,248,0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .upload-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #e0f2fe;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .upload-hint {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    .upload-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    /* BLOQUE INFERIOR: TRES COLUMNAS PEQUEÑAS */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 1.1rem;
+      margin-top: 1.4rem;
+    }
+
+    @media (max-width: 960px) {
+      .bottom-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .bottom-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .mini-card {
+      border-radius: 16px;
+      padding: 0.85rem 0.9rem 0.8rem;
+      background: radial-gradient(circle at top, #020617 0, #020617 60%, #000 100%);
+      border: 1px solid rgba(31,41,55,0.95);
+      box-shadow: 0 14px 35px rgba(15,23,42,0.75);
+    }
+
+    .mini-title {
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #e5f3ff;
+      margin-bottom: 0.4rem;
+    }
+
+    .mini-content {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .mini-list {
+      margin-top: 0.35rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+    }
+
+    .mini-list li {
+      list-style: none;
+      position: relative;
+      padding-left: 0.8rem;
+    }
+
+    .mini-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 1.8rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(15,23,42,0.85);
+      font-size: 0.72rem;
+      color: var(--text-soft);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.6rem;
+    }
+
+    footer span {
+      opacity: 0.85;
+    }
+  </style>
 </head>
 <body>
-
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-logo"></div>
-            <div class="brand-text">
-                <h1>Panamove</h1>
-                <span>Sistema 7.0</span>
-            </div>
+  <div class="shell">
+    <!-- CABECERA -->
+    <header>
+      <div class="brand-block">
+        <div class="brand-title">Panamove 7.0</div>
+        <div class="brand-subtitle">
+          Dashboard de campaña – Coordinación rápida de acciones, servicios y agencias.
         </div>
-        <nav class="nav">
-            <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
-            <a href="servicios.html" class="nav-item"><i class="fas fa-cubes"></i> <span>Servicios</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-home"></i> <span>Propiedades</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusión</span></a>
-            <a href="#" class="nav-item"><i class="fas fa-file-signature"></i> <span>Auditoría</span></a>
-        </nav>
-        <div class="sidebar-footer">© 2025 V.7.0</div>
-    </aside>
+        <div class="campaign-tag">
+          <span class="dot"></span>
+          <span>Campaña activa – Ático Blue Sunset</span>
+        </div>
+      </div>
 
-    <main class="main">
-        <div class="header">
+      <div class="header-actions">
+        <button class="btn btn-outline-gold">Ver ficha pública</button>
+        <button class="btn">Compartir enlace campaña</button>
+        <button class="btn btn-primary">Añadir nueva acción</button>
+      </div>
+    </header>
+
+    <!-- GRID PRINCIPAL -->
+    <section class="main-grid">
+      <!-- COLUMNA IZQUIERDA: PROPIEDAD + KPIs + SERVICIOS -->
+      <article class="card">
+        <div class="card-inner">
+          <div class="card-header">
             <div>
-                <h2>Dashboard de Campaña</h2>
-                <p>Vista general de rendimiento y gestión de servicios.</p>
+              <h2 class="card-title">Campaña – Ático Blue Sunset, La Duquesa</h2>
+              <p class="card-subtitle">
+                Propiedad en campaña dentro del método 7.0. Desde aquí se coordina la venta,
+                la documentación y los servicios creativos.
+              </p>
             </div>
-            <span class="badge">En Vivo <i class="fas fa-circle" style="font-size:6px; vertical-align:middle; margin-left:4px;"></i></span>
+            <div class="card-tag">Propietario directo</div>
+          </div>
+
+          <!-- KPIs -->
+          <div class="kpis">
+            <div class="kpi">
+              <div class="kpi-label">Estado campaña</div>
+              <div class="kpi-value">En marcha</div>
+              <div class="kpi-note">Todos los servicios activados</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Contactos totales</div>
+              <div class="kpi-value">0 / 30</div>
+              <div class="kpi-note">Objetivo primeros 7 días</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Agencias conectadas</div>
+              <div class="kpi-value">0 / 7</div>
+              <div class="kpi-note">Pendiente seleccionar red</div>
+            </div>
+          </div>
+
+          <!-- Bloque propiedad -->
+          <div class="property-block">
+            <div class="property-main-name">Ático Blue Sunset – La Duquesa, Manilva</div>
+            <div class="property-meta">
+              <strong>134 m²</strong> útiles · 2 dormitorios · 2 baños · 4 balcones panorámicos Velux ·
+              Vistas frontales al Mediterráneo.
+            </div>
+            <p class="property-description">
+              Esta propiedad está en campaña dentro del <strong>Método 7.0</strong>. Desde este panel
+              se coordina la venta como particular, la colaboración con profesionales activos
+              (fotografía, vídeo, home staging, blogger internacional, etc.) y el control de
+              acciones diarias para acelerar el proceso.
+            </p>
+          </div>
+
+          <!-- Servicios / renders -->
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-label">Servicio</div>
+              <div class="service-name">Reportaje fotográfico + vídeo</div>
+              <div class="service-status">Confirmado · Fecha a coordinar</div>
+            </div>
+            <div class="service-card">
+              <div class="service-label">Servicio</div>
+              <div class="service-name">Render / Mejora visual Blue Sunset</div>
+              <div class="service-status">En producción</div>
+            </div>
+            <div class="service-card">
+              <div class="service-label">Servicio</div>
+              <div class="service-name">Copy internacional + dossier PDF</div>
+              <div class="service-status pending">Pendiente textos finales</div>
+            </div>
+          </div>
+
+          <!-- Subida de documentación -->
+          <div class="upload-section">
+            <div class="upload-title">Subir fotos y documentación</div>
+            <div class="upload-hint">
+              Aquí subirás: escrituras, nota simple, planos, licencia turística, facturas de reforma
+              y toda la documentación que necesite la campaña 7.0.
+            </div>
+            <div class="upload-actions">
+              <button class="btn btn-primary">Subir documentos</button>
+              <button class="btn">Ver carpeta actual</button>
+            </div>
+          </div>
         </div>
+      </article>
 
-        <section class="grid-kpi">
-            <div class="kpi-box">
-                <div class="kpi-lbl">Vistas Totales</div>
-                <div class="kpi-val" id="kpiViews">0</div>
-            </div>
-            <div class="kpi-box">
-                <div class="kpi-lbl">Leads Cualificados</div>
-                <div class="kpi-val" id="kpiLeads">0</div>
-            </div>
-            <div class="kpi-box" style="border-color: var(--gold);">
-                <div class="kpi-lbl">Inversión Activa</div>
-                <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
-            </div>
-        </section>
-
-        <section class="grid-cols-2">
-            
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Simulador Financiero</span>
-                    </div>
-                    <div class="input-group">
-                        <label style="color: var(--text-muted); font-size: 0.85rem;">Precio Venta:</label>
-                        <input type="number" id="precioInput" value="545000">
-                        <button class="btn-action" id="btnCalc"><i class="fas fa-calculator"></i></button>
-                    </div>
-                    <div id="priceLines" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
-                        </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Catálogo de Servicios (Acceso Rápido)</span>
-                        <a href="servicios.html" style="font-size:0.8rem; color:var(--primary);">Ver Todo</a>
-                    </div>
-                    <div class="services-grid" id="servicesGrid">
-                        </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-header"><span class="card-title">Documentación</span></div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div style="background: #15191e; padding: 1rem; border-radius: 8px; text-align: center; border: 1px dashed var(--border);">
-                            <i class="fas fa-camera" style="margin-bottom:5px; color: var(--primary);"></i>
-                            <div style="font-size:0.8rem;">Fotos Vivienda</div>
-                        </div>
-                        <div style="background: #15191e; padding: 1rem; border-radius: 8px; text-align: center; border: 1px dashed var(--border);">
-                            <i class="fas fa-file-pdf" style="margin-bottom:5px; color: var(--gold);"></i>
-                            <div style="font-size:0.8rem;">Escrituras</div>
-                        </div>
-                    </div>
-                </article>
-
+      <!-- COLUMNA DERECHA: AGENCIA + ACCIONES -->
+      <aside class="card">
+        <div class="card-inner agency-block">
+          <!-- Panel de agencia -->
+          <div class="agency-summary">
+            <div class="card-header" style="margin-bottom: 0.5rem;">
+              <div>
+                <h2 class="card-title">Panel de agencia</h2>
+                <p class="card-subtitle">
+                  Resumen rápido de las agencias que pueden entrar en la campaña y su estado.
+                </p>
+              </div>
+              <div class="card-tag">Red 7.0</div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-                
-                <article class="card">
-                    <div class="card-header">
-                        <span class="card-title">Panel de Agencia</span>
-                        <i class="fas fa-building" style="color: var(--text-muted);"></i>
-                    </div>
-                    <div class="agency-profile">
-                        <div class="avatar">BR</div>
-                        <div class="agency-info">
-                            <h4>Bernabeu Realty</h4>
-                            <p>Asesor: <strong>Víctor Pérez</strong></p>
-                            <p style="font-size:0.75rem;">654 34 32 32</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <p style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Servicios Activos:</p>
-                        <div class="active-services-container" id="agencyActiveServices">
-                            </div>
-                    </div>
-
-                    <button class="btn-gold">
-                        <i class="fas fa-signature"></i> Campaña Firmada
-                    </button>
-                </article>
-
-                <article class="card" style="flex: 1;">
-                    <div class="card-header">
-                        <span class="card-title">Actividad Reciente</span>
-                    </div>
-                    <div class="log-container" id="recentList">
-                        </div>
-                </article>
-
+            <div class="agency-list">
+              <div class="agency-item">
+                <div>
+                  <span class="name">Agencia 1 – Costa del Sol</span><br />
+                  <span class="note">Pendiente primer contacto. Sin exclusivas ni MLS.</span>
+                </div>
+                <span class="status-pill status-wait">Pendiente</span>
+              </div>
+              <div class="agency-item">
+                <div>
+                  <span class="name">Agencia internacional</span><br />
+                  <span class="note">Orientada a comprador extranjero (EN/NL/FR).</span>
+                </div>
+                <span class="status-pill status-wait">Seleccionar</span>
+              </div>
+              <div class="agency-item">
+                <div>
+                  <span class="name">Plataformas clásicas</span><br />
+                  <span class="note">Idealista / Fotocasa / Portales saturados.</span>
+                </div>
+                <span class="status-pill status-blocked">En observación</span>
+              </div>
             </div>
-        </section>
-    </main>
+          </div>
 
-    <script>
-        // --- CONFIG Y ESTADO ---
-        const STORAGE_SERVICIOS = "panamoveServicios";
-        const STORAGE_LOG = "panamoveLog";
+          <!-- Acciones recientes -->
+          <div class="activity-card">
+            <div class="card-header" style="margin-bottom: 0.4rem;">
+              <div>
+                <h2 class="card-title">Acciones recientes</h2>
+                <p class="card-subtitle">
+                  Línea de tiempo rápida de todo lo que se está haciendo con la propiedad.
+                </p>
+              </div>
+            </div>
 
-        const serviciosBase = [
-            { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", def: true },
-            { id: "video", nombre: "Vídeo Drone", precio: "450 €", coste: 450, cat: "Vídeo", def: true },
-            { id: "staging", nombre: "Home Staging", precio: "750 €", coste: 750, cat: "Estética", def: true },
-            { id: "blog", nombre: "Blog Int.", precio: "3000 €", coste: 3000, cat: "Difusión", def: false }
-        ];
-
-        // --- FUNCIONES LÓGICAS ---
-        
-        // 1. Log
-        function getLog() { return JSON.parse(localStorage.getItem(STORAGE_LOG)) || []; }
-        function addLog(msg) {
-            const list = getLog();
-            const now = new Date();
-            list.unshift({
-                time: now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-                msg: msg
-            });
-            localStorage.setItem(STORAGE_LOG, JSON.stringify(list.slice(0, 20)));
-            renderLog();
-        }
-        function renderLog() {
-            const list = getLog();
-            const el = document.getElementById('recentList');
-            if(!el) return;
-            el.innerHTML = list.length ? list.map(i => `
-                <div class="log-item">
-                    <span class="log-time">${i.time}</span>
-                    <span class="log-text">${i.msg}</span>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-top-line">
+                  <span class="activity-label">Creación de dashboard Panamove 7.0</span>
+                  <span class="activity-time">Hoy · 14:00</span>
                 </div>
-            `).join('') : '<div style="padding:10px; color:var(--text-muted);">Sin actividad.</div>';
-        }
-
-        // 2. Servicios
-        function getServicios() {
-            try {
-                const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
-                // Si no hay storage, usa los default
-                if(!stored) return serviciosBase.map(s => ({...s, activo: s.def}));
-                
-                // Mezclar base con estado guardado
-                const map = new Map(stored.map(s => [s.id, s.activo]));
-                return serviciosBase.map(s => ({...s, activo: map.has(s.id) ? map.get(s.id) : s.def}));
-            } catch { return serviciosBase; }
-        }
-
-        function toggleService(id) {
-            const current = getServicios();
-            const updated = current.map(s => s.id === id ? {...s, activo: !s.activo} : s);
-            const changed = updated.find(s => s.id === id);
-            
-            // Guardar solo ID y estado
-            localStorage.setItem(STORAGE_SERVICIOS, JSON.stringify(updated.map(s => ({id: s.id, activo: s.activo}))));
-            
-            addLog(`Servicio ${changed.activo ? 'activado' : 'desactivado'}: ${changed.nombre}`);
-            renderAll();
-        }
-
-        // 3. Calculadora
-        function calcPrice() {
-            const input = document.getElementById('precioInput');
-            const output = document.getElementById('priceLines');
-            if(!input || !output) return;
-
-            const val = parseFloat(input.value) || 0;
-            // Sumar costes fijos de servicios activos
-            const activos = getServicios().filter(s => s.activo);
-            const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
-            
-            const comision = val * 0.03;
-            const totalSinIva = comision + fijos;
-            const iva = totalSinIva * 0.21;
-            const total = totalSinIva + iva;
-            const neto = val - totalSinIva; // Aprox
-
-            output.innerHTML = `
-                <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                    <span>Comisión (3%):</span> <span>${comision.toLocaleString()} €</span>
+                <span class="activity-tag">Setup inicial</span>
+                <span>Se ha configurado el panel base para coordinar venta, agencias y servicios.</span>
+              </div>
+              <div class="activity-item">
+                <div class="activity-top-line">
+                  <span class="activity-label">Definición de servicios activos</span>
+                  <span class="activity-time">Hoy · 14:10</span>
                 </div>
-                <div style="display:flex; justify-content:space-between;">
-                    <span>Servicios Activos:</span> <span>${fijos.toLocaleString()} €</span>
+                <span class="activity-tag">Servicios</span>
+                <span>Fotografía, vídeo, renders y copy internacional añadidos a la campaña.</span>
+              </div>
+              <div class="activity-item">
+                <div class="activity-top-line">
+                  <span class="activity-label">Pendiente subir documentación</span>
+                  <span class="activity-time">Hoy · 14:15</span>
                 </div>
-                 <div style="display:flex; justify-content:space-between; color: var(--text-muted);">
-                    <span>IVA (21%):</span> <span>${iva.toLocaleString('es-ES', {maximumFractionDigits:0})} €</span>
-                </div>
-                <div style="border-top:1px solid var(--border); margin-top:8px; padding-top:8px; font-weight:bold; color:var(--gold); font-size:1.1rem;">
-                    Total: ${total.toLocaleString('es-ES', {maximumFractionDigits:0})} €
-                </div>
-                <div style="margin-top:5px; font-size:0.8rem;">Neto estimado: ${neto.toLocaleString()} €</div>
-            `;
+                <span class="activity-tag">Documentación</span>
+                <span>Faltan escrituras, nota simple actualizada y planos de la reforma.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-            // Actualizar KPI Coste
-            const kpiCost = document.getElementById('kpiCost');
-            if(kpiCost) kpiCost.textContent = `${total.toLocaleString('es-ES', {maximumFractionDigits:0})} €`;
-        }
+    <!-- BLOQUE INFERIOR: TRES MINI-CARTAS -->
+    <section class="bottom-grid">
+      <article class="mini-card">
+        <h3 class="mini-title">Visión 7.0 – Qué estás haciendo aquí</h3>
+        <p class="mini-content">
+          Este dashboard no es una agencia clásica. Es un panel de control
+          para vender más rápido, con más control, usando solo los servicios
+          y contactos que realmente aportan algo al ático Blue Sunset.
+        </p>
+        <ul class="mini-list">
+          <li>Controlas tú la información y quién entra.</li>
+          <li>Se documentan todas las acciones en un solo sitio.</li>
+          <li>Se evitan exclusivas vacías y promesas sin sentido.</li>
+        </ul>
+      </article>
 
-        // 4. Render Principal
-        function renderAll() {
-            const servicios = getServicios();
+      <article class="mini-card">
+        <h3 class="mini-title">Próximos 7 días – Plan básico</h3>
+        <ul class="mini-list">
+          <li>Subir toda la documentación esencial de la propiedad.</li>
+          <li>Confirmar fecha de reportaje fotográfico y vídeo.</li>
+          <li>Definir texto corto para campaña internacional (EN).</li>
+          <li>Seleccionar 3 agencias máximas para colaboración.</li>
+          <li>Activar primer envío de la ficha a contactos reales.</li>
+        </ul>
+      </article>
 
-            // Render Grid
-            const grid = document.getElementById('servicesGrid');
-            if(grid) {
-                grid.innerHTML = servicios.map(s => `
-                    <div class="svc-card ${s.activo ? 'active' : ''}">
-                        <div class="svc-head">
-                            <span class="svc-name">${s.nombre}</span>
-                            <span class="svc-price">${s.precio}</span>
-                        </div>
-                        <div style="font-size:0.75rem; color:var(--text-muted);">${s.cat}</div>
-                        <button class="svc-toggle" onclick="toggleService('${s.id}')">
-                            ${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}
-                        </button>
-                    </div>
-                `).join('');
-            }
+      <article class="mini-card">
+        <h3 class="mini-title">Notas rápidas del propietario</h3>
+        <p class="mini-content">
+          Aquí puedes anotar decisiones clave: precio mínimo real,
+          condiciones de colaboración con agencias, comisiones máximas
+          aceptadas y todo lo que marque la negociación.
+        </p>
+        <ul class="mini-list">
+          <li>Precio objetivo venta: …</li>
+          <li>Precio mínimo negociable: …</li>
+          <li>Comisión máxima agencias: …</li>
+        </ul>
+      </article>
+    </section>
 
-            // Render Agency Chips
-            const agencyBox = document.getElementById('agencyActiveServices');
-            if(agencyBox) {
-                const activos = servicios.filter(s => s.activo);
-                agencyBox.innerHTML = activos.length ? 
-                    activos.map(s => `<div class="service-chip"><span class="dot"></span> ${s.nombre}</div>`).join('') :
-                    '<span style="font-size:0.8rem; color:var(--text-muted)">Ninguno.</span>';
-            }
-
-            calcPrice();
-        }
-
-        // --- ANIMACIONES KPI ---
-        function animateValue(id, end) {
-            const obj = document.getElementById(id);
-            if(!obj) return;
-            let start = 0;
-            let duration = 1500;
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // INIT
-        document.addEventListener('DOMContentLoaded', () => {
-            renderAll();
-            renderLog();
-            
-            // Listeners Precio
-            const pInput = document.getElementById('precioInput');
-            if(pInput) {
-                pInput.addEventListener('input', calcPrice);
-                document.getElementById('btnSimulacion')?.addEventListener('click', calcPrice);
-            }
-
-            // KPIs Animados
-            animateValue("kpiViews", 7840);
-            animateValue("kpiLeads", 42);
-        });
-    </script>
+    <!-- FOOTER -->
+    <footer>
+      <span>Panamove 7.0 · Panel interno de campaña · Versión piloto</span>
+      <span>Este panel no es un portal inmobiliario, es un sistema de acción rápida.</span>
+    </footer>
+  </div>
 </body>
 </html>
