@@ -2,139 +2,670 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Registro – Plataforma 7.0</title>
+  <title>Stratosfere 7.0 – Registro & Novedades</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Stratosfere 7.0: nueva plataforma inmobiliaria con panel 7.0 para propietarios, agencias y creadores. Regístrate para acceder antes que nadie."
+  />
+
   <style>
+    :root {
+      --bg-main: #f5f5f7;
+      --bg-card: rgba(255, 255, 255, 0.86);
+      --bg-card-soft: rgba(255, 255, 255, 0.6);
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --text-main: #0f172a;
+      --text-soft: #64748b;
+      --accent-blue: #2563eb;
+      --accent-blue-soft: rgba(37, 99, 235, 0.12);
+      --accent-lime: #a3e635;
+      --danger: #ef4444;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      background:#0f172a;
-      color:#e5e7eb;
-      font-family:system-ui, -apple-system, BlinkMacSystemFont,"Segoe UI",sans-serif;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
-      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Inter", sans-serif;
+      background: radial-gradient(circle at 0% 0%, #e5f0ff, #f5f5f7 50%, #e2e8f0);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
     }
-    .card {
-      background:#020617;
-      border:1px solid #1f2937;
-      border-radius:1rem;
-      padding:1.5rem 1.8rem;
-      max-width:360px;
-      width:100%;
-      box-shadow:0 25px 50px -30px rgba(15,23,42,.9);
+
+    .page {
+      max-width: 1120px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      background: linear-gradient(
+          135deg,
+          rgba(15, 23, 42, 0.04),
+          rgba(148, 163, 184, 0.03)
+        ),
+        rgba(255, 255, 255, 0.75);
+      border-radius: 26px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 2.2rem 2.4rem;
+      backdrop-filter: blur(20px);
     }
-    h1{font-size:1.3rem;margin-bottom:.2rem;color:#38bdf8;}
-    p{font-size:.85rem;color:#9ca3af;margin-bottom:1rem;}
-    label{display:block;font-size:.8rem;margin-bottom:.2rem;}
-    input,select{
-      width:100%;
-      padding:.45rem .55rem;
-      border-radius:.5rem;
-      border:1px solid #1f2937;
-      background:#020617;
-      color:#e5e7eb;
-      margin-bottom:.7rem;
-      font-size:.9rem;
+
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+        padding: 1.6rem;
+      }
     }
-    button{
-      width:100%;
-      padding:.6rem;
-      border-radius:.6rem;
-      border:none;
-      cursor:pointer;
-      font-weight:600;
-      background:linear-gradient(135deg,#22c55e,#38bdf8);
-      color:#0f172a;
-      margin-top:.3rem;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      border-right: 1px solid var(--border-soft);
+      padding-right: 2rem;
     }
-    .msg{
-      font-size:.8rem;
-      margin-top:.5rem;
-      min-height:1.2rem;
+
+    @media (max-width: 860px) {
+      .left {
+        border-right: none;
+        border-bottom: 1px solid var(--border-soft);
+        padding-right: 0;
+        padding-bottom: 1.7rem;
+      }
     }
-    .msg.error{color:#fca5a5;}
-    .msg.ok{color:#4ade80;}
-    .links{
-      margin-top:1rem;
-      font-size:.8rem;
-      display:flex;
-      justify-content:space-between;
-      gap:.5rem;
-      flex-wrap:wrap;
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
-    a{color:#a5b4fc;text-decoration:none;font-size:.8rem;}
+
+    /* Logo/texto */
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 20% 0, #60a5fa, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+    }
+
+    .logo-text-main {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+    }
+
+    .logo-text-sub {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .pill-beta {
+      padding: 0.18rem 0.6rem;
+      border-radius: var(--radius-full);
+      background: rgba(163, 230, 53, 0.18);
+      border: 1px solid rgba(163, 230, 53, 0.7);
+      color: #3f6212;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    /* Hero text */
+    .hero-title {
+      font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-highlight {
+      color: var(--accent-blue);
+    }
+
+    .hero-subtitle {
+      font-size: 0.96rem;
+      color: var(--text-soft);
+      max-width: 480px;
+    }
+
+    .hero-subtitle span {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+
+    .tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .tag {
+      padding: 0.16rem 0.6rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.72);
+      color: #475569;
+    }
+
+    .tag strong {
+      font-weight: 600;
+      color: var(--accent-blue);
+    }
+
+    /* Bullet panel */
+    .panel {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 0.8rem 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-title {
+      grid-column: 1 / -1;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      letter-spacing: 0.16em;
+      margin-bottom: 0.2rem;
+    }
+
+    .panel-bullet {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .panel-bullet-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      color: var(--accent-blue);
+      background: var(--bg-card-soft);
+      box-shadow: 0 8px 18px rgba(148, 163, 184, 0.35);
+    }
+
+    .panel-bullet strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .bottom-note {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .bottom-note span {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+
+    /* FORM */
+    .form-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 1.4rem 1.3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(
+        circle at 0 0,
+        rgba(59, 130, 246, 0.12),
+        transparent 55%
+      );
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .form-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .form-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .form-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-soft);
+    }
+
+    .form-subtitle span {
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+
+    form {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 0.8rem;
+    }
+
+    .field-group {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    @media (max-width: 480px) {
+      .field-group {
+        flex-direction: column;
+      }
+    }
+
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.18rem;
+    }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #475569;
+    }
+
+    .input,
+    select {
+      border-radius: 11px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.82rem;
+      outline: none;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-main);
+    }
+
+    .input:focus,
+    select:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.25);
+    }
+
+    .input::placeholder {
+      color: #9ca3af;
+    }
+
+    select {
+      appearance: none;
+      background-image: linear-gradient(
+          45deg,
+          transparent 50%,
+          #94a3b8 50%
+        ),
+        linear-gradient(135deg, #94a3b8 50%, transparent 50%);
+      background-position: calc(100% - 14px) calc(50% - 3px),
+        calc(100% - 9px) calc(50% - 3px);
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      margin-top: 0.1rem;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      margin-top: 2px;
+      width: 14px;
+      height: 14px;
+    }
+
+    .checkbox-row span {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .checkbox-row a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .checkbox-row a:hover {
+      text-decoration: underline;
+    }
+
+    .btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    @media (max-width: 480px) {
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    .btn-primary {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: white;
+      background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-primary span.icon {
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.04);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      padding: 0.52rem 1.1rem;
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: #475569;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-secondary strong {
+      color: var(--accent-blue);
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      margin-top: 0.4rem;
+    }
+
+    .helper-text span {
+      color: var(--accent-lime);
+      font-weight: 600;
+    }
+
+    .helper-text a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .helper-text a:hover {
+      text-decoration: underline;
+    }
+
+    .badge-small {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: var(--accent-blue-soft);
+      color: #1e3a8a;
+      border: 1px solid rgba(37, 99, 235, 0.35);
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Crear cuenta 7.0</h1>
-    <p>Regístrate como propietario, agencia o difusor.</p>
+  <main class="page">
+    <!-- Columna izquierda: mensaje / promesa -->
+    <section class="left">
+      <header class="logo-row">
+        <div class="logo-mark">7.0</div>
+        <div>
+          <div class="logo-text-main">Stratosfere 7.0 Realty</div>
+          <div class="logo-text-sub">Panel inmobiliario de nueva generación</div>
+        </div>
+        <div class="pill-beta">Early Access</div>
+      </header>
 
-    <form id="registerForm">
-      <label for="name">Nombre</label>
-      <input id="name" required />
+      <div>
+        <h1 class="hero-title">
+          Una sola plataforma para coordinar
+          <span class="hero-highlight">ventas, agencias y creadores</span>.
+        </h1>
+      </div>
 
-      <label for="email">Email</label>
-      <input id="email" type="email" required />
+      <p class="hero-subtitle">
+        Estamos construyendo el sistema <span>7.0</span> para que propietarios,
+        agencias e inversores puedan seguir una misma venta en tiempo real,
+        sin papeles ni llamadas infinitas.
+      </p>
 
-      <label for="password">Contraseña</label>
-      <input id="password" type="password" required />
+      <div class="tags-row">
+        <div class="tag"><strong>Propietarios</strong> que quieren vender sin perder el control</div>
+        <div class="tag"><strong>Agencias</strong> abiertas a un nuevo modelo</div>
+        <div class="tag"><strong>Creadores</strong> y difusores que aportan alcance real</div>
+      </div>
 
-      <label for="role">Soy...</label>
-      <select id="role" required>
-        <option value="owner">Propietario</option>
-        <option value="agency">Agencia / Profesional</option>
-        <option value="difusor">Creador / Difusor</option>
-      </select>
+      <div class="panel">
+        <div class="panel-title">Qué estamos probando en la fase privada</div>
 
-      <button type="submit">Crear cuenta</button>
-      <div id="message" class="msg"></div>
-    </form>
+        <div class="panel-bullet">
+          <div class="panel-bullet-icon">①</div>
+          <div>
+            <strong>Panel 7.0 para un ático real</strong><br />
+            Seguimiento completo de una venta real en la Costa del Sol, con
+            acciones diarias trazadas.
+          </div>
+        </div>
 
-    <div class="links">
-      <a href="/login.html">Ya tengo cuenta · Iniciar sesión</a>
-      <a href="/index.html">← Volver a la página principal</a>
-    </div>
-  </div>
+        <div class="panel-bullet">
+          <div class="panel-bullet-icon">②</div>
+          <div>
+            <strong>Colaboración transparente</strong><br />
+            Propietario, agencia e incluso otros profesionales pueden ver el mismo
+            mapa de acciones, sin “truco”.
+          </div>
+        </div>
 
-  <!-- aquí usamos /auth.js, NO /js/auth.js -->
-  <script src="/auth.js"></script>
-  <script>
-    const form = document.getElementById('registerForm');
-    const msg = document.getElementById('message');
+        <div class="panel-bullet">
+          <div class="panel-bullet-icon">③</div>
+          <div>
+            <strong>Modelo para escalar</strong><br />
+            Lo que funcione aquí será el esqueleto del método 7.0 para otras
+            propiedades y ciudades.
+          </div>
+        </div>
+      </div>
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      msg.textContent = '';
-      msg.className = 'msg';
+      <p class="bottom-note">
+        Si quieres participar desde el principio, deja tu registro.  
+        Daremos prioridad a quienes aporten <span>visión, propiedades o red
+        profesional</span>.
+      </p>
+    </section>
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const role = document.getElementById('role').value;
+    <!-- Columna derecha: formulario -->
+    <section class="right">
+      <div class="form-card">
+        <div class="form-header">
+          <div class="badge-small">Lista de acceso anticipado</div>
+          <h2 class="form-title">Regístrate para el acceso temprano</h2>
+          <p class="form-subtitle">
+            Te avisaremos cuando abramos los primeros paneles de pruebas y
+            cuando haya <span>novedades reales</span>, no spam.
+          </p>
+        </div>
 
-      if (!name || !email || !password) {
-        msg.textContent = 'Completa todos los campos.';
-        msg.classList.add('error');
-        return;
-      }
+        <!-- Puedes conectar este form luego con un servicio de mailing (Brevo, MailerLite, etc.) -->
+        <form>
+          <div class="field-group">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input
+                id="nombre"
+                class="input"
+                type="text"
+                name="nombre"
+                autocomplete="name"
+                placeholder="Tu nombre"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="apellido">Apellido</label>
+              <input
+                id="apellido"
+                class="input"
+                type="text"
+                name="apellido"
+                autocomplete="family-name"
+                placeholder="Tu apellido"
+              />
+            </div>
+          </div>
 
-      const result = registerUser({ name, email, password, role });
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              class="input"
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="tucorreo@ejemplo.com"
+              required
+            />
+          </div>
 
-      if (!result.ok) {
-        msg.textContent = result.message;
-        msg.classList.add('error');
-        return;
-      }
+          <div class="field-group">
+            <div class="field">
+              <label for="perfil">Soy…</label>
+              <select id="perfil" name="perfil" required>
+                <option value="">Selecciona una opción</option>
+                <option value="propietario">Propietario/a</option>
+                <option value="agencia">Agencia inmobiliaria</option>
+                <option value="inversor">Inversor/a</option>
+                <option value="creador">Creador/a de contenido</option>
+                <option value="otro">Otro perfil</option>
+              </select>
+            </div>
 
-      msg.textContent = 'Cuenta creada. Redirigiendo al panel...';
-      msg.classList.add('ok');
+            <div class="field">
+              <label for="zona">Zona de interés</label>
+              <input
+                id="zona"
+                class="input"
+                type="text"
+                name="zona"
+                placeholder="Ej: Manilva, Estepona, Marbella…"
+              />
+            </div>
+          </div>
 
-      setTimeout(() => {
-        window.location.href = '/dashboard.html?role=' + role;
-      }, 900);
-    });
-  </script>
+          <div class="field">
+            <label for="mensaje">Cuéntanos en una frase qué buscas</label>
+            <input
+              id="mensaje"
+              class="input"
+              type="text"
+              name="mensaje"
+              placeholder="Ej: vender mi ático, colaborar como agencia, invertir…"
+            />
+          </div>
+
+          <div class="checkbox-row">
+            <input type="checkbox" id="condiciones" required />
+            <span>
+              Acepto recibir comunicaciones sobre el proyecto Stratosfere 7.0 y
+              entiendo que el objetivo es una fase de prueba privada. He leído y
+              acepto las
+              <a href="#">condiciones básicas de privacidad</a>.
+            </span>
+          </div>
+
+          <div class="btn-row">
+            <button type="submit" class="btn-primary">
+              <span class="icon">✉️</span>
+              <span>Quiero estar en la lista</span>
+            </button>
+
+            <button type="button" class="btn-secondary">
+              Veré el panel cuando esté <strong>100% listo</strong>
+            </button>
+          </div>
+
+          <p class="helper-text">
+            No vamos a hacer spam.  
+            En los próximos días iremos compartiendo solo hitos:
+            <span>primer panel real, primeras ventas coordinadas, primeras
+            agencias invitadas</span>. Si luego quieres darte de baja, un clic.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
