@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Panamove 7.0 – Dashboard Premium</title>
+    <title>Panamove 7.0 – Premium Dashboard</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- THEME VARIABLES --- */
+        /* --- THEME VARIABLES (Light Premium) --- */
         :root {
             --bg-body: #f0f2f5;
             --bg-sidebar: #ffffff;
@@ -18,11 +18,11 @@
             --text-main: #1a202c;
             --text-muted: #718096;
             
-            --primary: #3182ce;     /* Azul principal */
+            --primary: #3182ce;     
             --primary-hover: #2c5282;
-            --gold: #d69e2e;        /* Dorado */
-            --success: #38a169;     /* Verde */
-            --danger: #e53e3e;      /* Rojo */
+            --gold: #d69e2e;        
+            --success: #38a169;     
+            --danger: #e53e3e;      
             
             --border: #e2e8f0;
             --radius: 12px;
@@ -40,23 +40,16 @@
             overflow: hidden;
         }
 
-        /* --- SIDEBAR FIJA --- */
+        /* --- SIDEBAR --- */
         .sidebar {
             width: 260px;
             background-color: var(--bg-sidebar);
             border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            flex-shrink: 0; /* No encoger */
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 100;
+            display: flex; flex-direction: column; padding: 1.5rem;
+            flex-shrink: 0; height: 100vh; overflow-y: auto; z-index: 100;
         }
-
         .brand { margin-bottom: 2rem; display: flex; align-items: center; gap: 10px; }
         .brand h1 { font-size: 1.2rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
-        
         .nav { display: flex; flex-direction: column; gap: 5px; flex: 1; }
         .nav-item {
             display: flex; align-items: center; gap: 12px; padding: 12px;
@@ -67,101 +60,115 @@
         .nav-item.active { background-color: #ebf8ff; color: var(--primary); font-weight: 600; }
         .nav-item i { width: 20px; text-align: center; }
 
-        /* --- MAIN CONTENT (Scrollable) --- */
+        /* --- MAIN CONTENT --- */
         .main {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto; /* Scroll independiente */
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            flex: 1; padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 2rem;
         }
 
-        /* HEADER */
+        /* HEADER & KPIs */
         .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1rem; }
         .header h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
         .header p { color: var(--text-muted); font-size: 0.95rem; }
-        .badge { background: #c6f6d5; color: #22543d; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge { background: #c6f6d5; color: #22543d; padding: 5px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
 
-        /* --- GRID SYSTEM --- */
-        /* KPIs */
         .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        
-        /* Columnas Principales */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 2fr 1.2fr; /* Proporción 60% - 40% */
-            gap: 2rem;
-            align-items: start;
-        }
-
-        /* CARDS */
-        .card {
-            background-color: var(--bg-card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid var(--border);
-        }
-        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .card-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-        
-        /* KPI Styles */
         .kpi-box { background: white; padding: 1.5rem; border-radius: var(--radius); text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow); }
         .kpi-val { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 10px 0; font-family: 'Roboto', sans-serif; }
         .kpi-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
 
-        /* Forms & Inputs */
-        .input-group { display: flex; align-items: center; gap: 10px; background: #f7fafc; padding: 10px; border-radius: 8px; border: 1px solid var(--border); }
-        .input-group input { flex: 1; border: none; background: transparent; font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
-        .btn-calc { background: var(--text-main); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
-        .price-summary { margin-top: 1rem; font-size: 0.9rem; display: flex; flex-direction: column; gap: 8px; }
-        .price-row { display: flex; justify-content: space-between; color: var(--text-muted); }
-        .price-total { border-top: 1px dashed var(--border); padding-top: 10px; margin-top: 5px; font-weight: 700; font-size: 1.2rem; color: var(--primary); display: flex; justify-content: space-between; }
+        /* GRID PRINCIPAL */
+        .main-grid { display: grid; grid-template-columns: 2fr 1.2fr; gap: 2rem; align-items: start; }
 
-        /* Panel Agencia */
+        /* CARDS */
+        .card {
+            background-color: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow);
+            padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--border);
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .card-title { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+        
+        /* CALCULADORA ESTILIZADA */
+        .input-group { display: flex; align-items: center; gap: 10px; background: #f7fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .input-group input { 
+            flex: 1; border: none; background: transparent; font-size: 1.4rem; font-weight: 700; color: var(--text-main); 
+            text-align: right; font-family: 'Roboto', sans-serif;
+        }
+        .input-group span { font-size: 1.2rem; font-weight: 600; color: var(--text-muted); margin-left: 5px; }
+        
+        .calc-actions { display: flex; gap: 10px; margin-top: 10px; }
+        .btn-calc { 
+            flex: 1; background: var(--text-main); color: white; border: none; padding: 10px; border-radius: 6px; 
+            cursor: pointer; font-weight: 600; transition: 0.2s; 
+        }
+        .btn-calc:hover { background: #000; }
+        .btn-save { 
+            flex: 1; background: white; color: var(--text-main); border: 1px solid var(--border); padding: 10px; 
+            border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.2s; 
+        }
+        .btn-save:hover { background: #f7fafc; border-color: var(--text-muted); }
+
+        .price-summary { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 10px; }
+        .price-row { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); border-bottom: 1px dashed var(--border); padding-bottom: 5px;}
+        .price-row strong { color: var(--text-main); font-weight: 600; }
+        
+        .price-total-box { 
+            background: #ebf8ff; border-radius: 8px; padding: 15px; margin-top: 10px; border: 1px solid #bee3f8; 
+            text-align: center;
+        }
+        .price-total-label { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); font-weight: 700; letter-spacing: 1px; }
+        .price-total-val { font-size: 1.8rem; font-weight: 800; color: var(--primary); font-family: 'Roboto', sans-serif; margin-top: 5px;}
+
+        .price-neto-box {
+            background: #f0fdf4; border-radius: 8px; padding: 10px; margin-top: 10px; border: 1px solid #bbf7d0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .price-neto-val { font-weight: 800; color: var(--success); font-size: 1.1rem; font-family: 'Roboto', sans-serif; }
+
+
+        /* PANEL AGENCIA */
         .agency-box { display: flex; align-items: center; gap: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border); margin-bottom: 15px; }
         .avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; flex-shrink: 0; }
         .agency-info h4 { margin: 0 0 4px; font-size: 1rem; }
         .agency-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
         
-        .btn-gold { width: 100%; padding: 14px; background: #fbbf24; color: #744210; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(251, 191, 36, 0.3); margin-top: 1rem; transition: 0.2s; }
+        .active-services-container { display: flex; flex-wrap: wrap; gap: 6px; min-height: 30px; margin-bottom: 15px; }
+        .service-chip { 
+            background: #f0fdf4; border: 1px solid #bbf7d0; color: #15803d; padding: 4px 10px; border-radius: 20px; 
+            font-size: 0.75rem; font-weight: 600; display: flex; align-items: center; gap: 5px; 
+        }
+        .service-chip .dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+
+        .btn-gold { width: 100%; padding: 14px; background: #fbbf24; color: #744210; font-weight: 700; border: none; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px rgba(251, 191, 36, 0.3); transition: 0.2s; }
         .btn-gold:hover { transform: translateY(-2px); }
 
-        /* Chat / Log */
+        /* CHAT / LOG */
         .comm-container { display: flex; flex-direction: column; height: 500px; }
         .comm-messages { flex: 1; overflow-y: auto; padding: 1rem; background: #f8fafc; border-radius: 8px; border: 1px solid var(--border); display: flex; flex-direction: column; gap: 10px; }
         .msg { padding: 10px 14px; border-radius: 12px; font-size: 0.9rem; max-width: 90%; }
         .msg-in { align-self: flex-start; background: white; border: 1px solid var(--border); color: var(--text-main); }
         .msg-out { align-self: flex-end; background: var(--primary); color: white; }
-        .msg-meta { font-size: 0.7rem; display: block; margin-bottom: 4px; opacity: 0.7; font-weight: 600; }
+        .msg-meta { font-size: 0.7rem; display: block; margin-bottom: 4px; opacity: 0.7; font-weight: 600; font-family: 'Roboto Mono', monospace; }
         
         .comm-input { margin-top: 10px; display: flex; gap: 10px; }
         .comm-input input { flex: 1; padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
         .comm-input button { background: var(--primary); color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; }
 
-        /* Servicios Grid */
+        /* SERVICIOS GRID */
         .svc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
         .svc-card { background: white; border: 1px solid var(--border); padding: 1.2rem; border-radius: 10px; text-align: center; transition: 0.2s; }
         .svc-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
         .svc-card.active { border-color: var(--gold); background: #fffbeb; }
+        .svc-name { display: block; font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
+        .svc-price { font-size: 0.85rem; color: var(--text-muted); }
         .svc-btn { width: 100%; padding: 8px; border: 1px solid var(--border); background: white; border-radius: 6px; margin-top: 10px; cursor: pointer; font-weight: 600; font-size: 0.8rem; color: var(--text-muted); }
         .svc-card.active .svc-btn { background: #fff; color: var(--danger); border-color: var(--danger); }
 
-        /* Uploads */
-        .upload-row { display: flex; gap: 1rem; margin-top: 1rem; }
-        .upload-box { flex: 1; border: 2px dashed var(--border); padding: 1.5rem; text-align: center; border-radius: 8px; cursor: pointer; background: #fafafa; }
-        .upload-box:hover { border-color: var(--primary); background: #ebf8ff; }
-        .upload-box i { font-size: 2rem; color: var(--text-muted); margin-bottom: 5px; }
-
-        /* Responsive */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .main-grid { grid-template-columns: 1fr; }
-            .sidebar { width: 70px; padding: 1rem 0.5rem; }
-            .brand h1, .brand-sub, .nav-item span, .sidebar-footer { display: none; }
+            .sidebar { width: 70px; padding: 1.5rem 0.5rem; }
+            .brand h1, .nav-item span { display: none; }
             .nav-item { justify-content: center; }
-            .upload-row { flex-direction: column; }
         }
     </style>
 </head>
@@ -170,10 +177,7 @@
     <aside class="sidebar">
         <div class="brand">
             <i class="fas fa-cube" style="font-size: 1.5rem; color: var(--primary);"></i>
-            <div>
-                <h1>Panamove</h1>
-                <span class="brand-sub" style="font-size:0.75rem; color:var(--text-muted);">Sistema 7.0</span>
-            </div>
+            <h1>Panamove</h1>
         </div>
         <nav class="nav">
             <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a>
@@ -184,7 +188,6 @@
             <a href="#" class="nav-item"><i class="fas fa-bullhorn"></i> <span>Difusores</span></a>
             <a href="#" class="nav-item"><i class="fas fa-handshake"></i> <span>Acciones Offline</span></a>
         </nav>
-        <div class="sidebar-footer">© 2025 Panamove</div>
     </aside>
 
     <main class="main">
@@ -198,55 +201,47 @@
 
         <section class="kpi-grid">
             <div class="kpi-box">
-                <div class="kpi-lbl">Vistas Totales</div>
                 <div class="kpi-val" id="kpiViews">0</div>
+                <div class="kpi-label">Vistas Totales</div>
             </div>
             <div class="kpi-box">
-                <div class="kpi-lbl">Leads</div>
                 <div class="kpi-val" id="kpiLeads">0</div>
+                <div class="kpi-label">Leads</div>
             </div>
             <div class="kpi-box" style="border-color: var(--gold);">
-                <div class="kpi-lbl">Inversión Activa</div>
                 <div class="kpi-val" style="color: var(--gold);" id="kpiCost">0€</div>
+                <div class="kpi-label">Inversión Activa</div>
             </div>
         </section>
 
         <div class="main-grid">
             
             <div class="col-left">
+                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title"><i class="fas fa-calculator" style="color:var(--primary)"></i> Simulador Financiero</div>
                     </div>
                     <div class="input-group">
-                        <label>Precio Venta (€):</label>
-                        <input type="number" id="precioInput" value="545000">
-                        <button class="btn-calc" id="btnCalc">Calcular</button>
+                        <label>Precio Venta:</label>
+                        <input type="number" id="precioInput" placeholder="Ej: 545000">
+                        <span>€</span>
                     </div>
-                    <div class="price-summary" id="priceLines">
+                    <div class="calc-actions">
+                        <button class="btn-calc" id="btnCalc">Recalcular</button>
+                        <button class="btn-save" onclick="saveBudget()">Guardar Presupuesto</button>
+                    </div>
+
+                    <div id="priceLines" style="margin-top: 1.5rem;">
                         </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"><i class="fas fa-layer-group" style="color:var(--primary)"></i> Catálogo de Servicios</div>
+                        <div class="card-title"><i class="fas fa-layer-group" style="color:var(--primary)"></i> Servicios Disponibles</div>
                         <a href="servicios.html" style="font-size:0.85rem; color:var(--primary); font-weight:600;">Ver Todo</a>
                     </div>
                     <div class="svc-grid" id="servicesGrid"></div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"><div class="card-title"><i class="fas fa-cloud-upload-alt" style="color:var(--primary)"></i> Documentación</div></div>
-                    <div class="upload-row">
-                        <div class="upload-box" id="dropFotos" onclick="triggerUpload('Fotos')">
-                            <i class="fas fa-camera"></i>
-                            <div>Subir Fotos</div>
-                        </div>
-                        <div class="upload-box" id="dropDocs" onclick="triggerUpload('Escrituras')">
-                            <i class="fas fa-file-contract"></i>
-                            <div>Subir Docs</div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -262,9 +257,9 @@
                             <p>654 34 32 32</p>
                         </div>
                     </div>
-                    <div style="margin-top:10px;">
-                        <p style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:5px;">Servicios Activos:</p>
-                        <div id="agencyActiveServices" style="display:flex; flex-wrap:wrap; gap:5px; min-height:20px;"></div>
+                    <div>
+                        <p style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:8px;">Inversión (Servicios Activos):</p>
+                        <div id="agencyActiveServices" class="active-services-container"></div>
                     </div>
                     <button class="btn-gold">Campaña Firmada</button>
                 </div>
@@ -288,6 +283,7 @@
     <script>
         const STORAGE_SERVICIOS = "panamoveServicios";
         const STORAGE_LOG = "panamoveLog";
+        const STORAGE_PRICE = "panamovePrice"; // Nueva key para persistencia precio
 
         const serviciosBase = [
             { id: "fotos", nombre: "Fotos PRO", precio: "450 €", coste: 450, cat: "Imagen", def: true },
@@ -315,7 +311,7 @@
             const container = document.getElementById('commMessages');
             if(!container) return;
             
-            if(list.length === 0) { container.innerHTML = '<div class="msg-system" style="text-align:center; color:#aaa; font-size:0.8rem;">Inicio de actividad</div>'; return; }
+            if(list.length === 0) { container.innerHTML = '<div style="text-align:center; color:#aaa; font-size:0.8rem; margin-top:20px;">Inicio de actividad</div>'; return; }
 
             container.innerHTML = list.map(item => `
                 <div class="msg ${item.type === 'user' ? 'msg-out' : 'msg-in'}">
@@ -336,7 +332,7 @@
             }
         }
 
-        // --- SERVICES & PRICE ---
+        // --- SERVICES ---
         function getServicios() {
             try {
                 const stored = JSON.parse(localStorage.getItem(STORAGE_SERVICIOS));
@@ -355,60 +351,82 @@
             renderAll();
         }
 
+        // --- CALCULATOR (PERSISTENTE) ---
+        function getSavedPrice() {
+            return localStorage.getItem(STORAGE_PRICE) || "545000";
+        }
+
         function calcPrice() {
             const input = document.getElementById('precioInput');
-            const out = document.getElementById('priceLines');
-            if(!input || !out) return;
+            const output = document.getElementById('priceLines');
+            if(!input || !output) return;
+
+            // Guardar valor actual
+            localStorage.setItem(STORAGE_PRICE, input.value);
 
             const val = parseFloat(input.value) || 0;
             const activos = getServicios().filter(s => s.activo);
             const fijos = activos.reduce((acc, s) => acc + s.coste, 0);
             const comision = val * 0.03;
-            const total = comision + fijos + ((comision + fijos) * 0.21);
+            const totalBase = comision + fijos;
+            const iva = totalBase * 0.21;
+            const total = totalBase + iva;
             const neto = val - total;
 
-            out.innerHTML = `
-                <div class="price-row"><span>Comisión (3%):</span> <span>${formatMoney(comision)} €</span></div>
-                <div class="price-row"><span>Servicios Activos:</span> <span>${formatMoney(fijos)} €</span></div>
-                <div class="price-total"><span>Total Inversión:</span> <span>${formatMoney(total)} €</span></div>
-                <div style="text-align:right; font-size:0.8rem; color:#10b981; font-weight:600; margin-top:5px;">Neto estimado: ${formatMoney(neto)} €</div>
+            output.innerHTML = `
+                <div class="price-row"><strong>Comisión (3%):</strong> <span>${formatMoney(comision)} €</span></div>
+                <div class="price-row"><strong>Servicios Activos:</strong> <span>${formatMoney(fijos)} €</span></div>
+                <div class="price-row"><strong>IVA (21%):</strong> <span>${formatMoney(iva)} €</span></div>
+                
+                <div class="price-total-box">
+                    <div class="price-total-label">Total Inversión</div>
+                    <div class="price-total-val">${formatMoney(total)} €</div>
+                </div>
+
+                <div class="price-neto-box">
+                    <span>Beneficio Neto Estimado:</span>
+                    <span class="price-neto-val">${formatMoney(neto)} €</span>
+                </div>
             `;
-            document.getElementById('kpiCost').textContent = `${formatMoney(total)}€`;
+            
+            const kpiCost = document.getElementById('kpiCost');
+            if(kpiCost) kpiCost.textContent = `${formatMoney(total)}€`;
         }
 
-        function renderAll() {
-            const servicios = getServicios();
+        function saveBudget() {
+            alert("Presupuesto guardado correctamente en tu historial.");
+            addLog("Presupuesto guardado por el usuario.", "system");
+        }
+
+        // --- RENDER ALL ---
+        function renderServicesGrid() {
+            const list = getServicios();
             const grid = document.getElementById('servicesGrid');
-            const agencyBox = document.getElementById('agencyActiveServices');
-            
-            // Grid Servicios
             if(grid) {
-                grid.innerHTML = servicios.map(s => `
+                grid.innerHTML = list.map(s => `
                     <div class="svc-card ${s.activo ? 'active' : ''}">
-                        <div style="font-weight:700; font-size:0.9rem;">${s.nombre}</div>
-                        <div style="color:#64748b; font-size:0.8rem;">${s.precio}</div>
+                        <span class="svc-name">${s.nombre}</span>
+                        <span class="svc-price">${s.precio}</span>
                         <button class="svc-btn" onclick="toggleService('${s.id}')">${s.activo ? 'DESACTIVAR' : 'ACTIVAR'}</button>
                     </div>
                 `).join('');
             }
             
-            // Agency Pills
+            const agencyBox = document.getElementById('agencyActiveServices');
             if(agencyBox) {
-                const activos = servicios.filter(s => s.activo);
+                const activos = list.filter(s => s.activo);
                 agencyBox.innerHTML = activos.length ? 
-                    activos.map(s => `<span style="display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:12px; background:#dcfce7; color:#166534; font-size:0.7rem; font-weight:600; border:1px solid #bbf7d0;"><span style="width:6px; height:6px; background:currentColor; border-radius:50%;"></span>${s.nombre}</span>`).join('') : 
-                    '<span style="font-size:0.75rem; color:#9ca3af;">Ninguno.</span>';
+                    activos.map(s => `<span class="service-chip"><span class="dot"></span> ${s.nombre}</span>`).join('') : 
+                    '<span style="font-size:0.8rem; color:#94a3b8;">Sin servicios activos.</span>';
             }
-            
+        }
+
+        function renderAll() {
+            renderServicesGrid();
+            renderMessages();
             calcPrice();
         }
 
-        function triggerUpload(name) {
-            addLog(`Iniciando subida de: ${name}...`, 'system');
-            setTimeout(() => addLog(`✅ ${name} cargado correctamente.`, 'system'), 1000);
-        }
-
-        // --- ANIMATION ---
         function animateValue(id, end) {
             const obj = document.getElementById(id);
             if(!obj) return;
@@ -416,15 +434,19 @@
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                obj.innerHTML = formatMoney(Math.floor(progress * (end - start) + start));
+                obj.textContent = formatMoney(Math.floor(progress * (end - start) + start));
                 if (progress < 1) window.requestAnimationFrame(step);
             };
             window.requestAnimationFrame(step);
         }
 
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
+            // Cargar precio guardado
+            const pInput = document.getElementById('precioInput');
+            if(pInput) pInput.value = getSavedPrice();
+
             renderAll();
-            renderMessages();
             animateValue("kpiViews", 7840);
             animateValue("kpiLeads", 42);
             
