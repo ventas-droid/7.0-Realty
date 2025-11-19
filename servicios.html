@@ -739,7 +739,7 @@
   function registrarNotificacionServicio(texto) {
     try {
       const now = new Date();
-      // CORRECCIÓN: Guardar time y date en el formato que espera dashboard-clean.html
+      // Guardar time y date en el formato que espera dashboard-clean.html
       const dateStr = now.toISOString().slice(0, 10); // YYYY-MM-DD
       const timeStr = now.toTimeString().slice(0, 8); // HH:MM:SS
       
